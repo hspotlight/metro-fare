@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { FareService } from "../services/fare.service";
+import { METRO_STATION, MRT_BLUE_LINE } from "../common/constants";
 
 function Calculator() {
-  const [source, setSource] = useState<string>("");
-  const [destination, setDestination] = useState<string>("");
-  const [fare, setFare] = useState<number | null>(null);
+  const [source, setSource] = useState<string>();
+  const [destination, setDestination] = useState<string>();
+  const [fare, setFare] = useState<number | undefined>(undefined);
 
   const calculateRoute = () => {
-    console.log(source, destination);
-    const fare = FareService.calculate(source, destination);
+    const fare = FareService.calculate(source as METRO_STATION, destination as METRO_STATION);
     setFare(fare);
   };
 
+
   const resetForm = () => {
-    setSource("");
-    setDestination("");
-    setFare(null);
+    setSource(undefined);
+    setDestination(undefined);
+    setFare(undefined);
   };
 
   return (
@@ -28,24 +29,34 @@ function Calculator() {
       }}
     >
       <h1>Metro Fare</h1>
-      Source{" "}
-      <input
-        type="text"
-        value={source}
-        onChange={(e) => setSource(e.target.value)}
-      />
+      <SelectComponent title="Source" onChange={setSource}/>
       <br />
-      Destination
-      <input
-        type="text"
-        value={destination}
-        onChange={(e) => setDestination(e.target.value)}
-      />{" "}
+      <SelectComponent title="Destination" onChange={setDestination}/>
       <br />
       <button onClick={resetForm}>Reset</button>
       <button onClick={calculateRoute}>Search</button>
       {fare && fare}
     </div>
+  );
+}
+
+const SelectComponent = ({ title, onChange}: {title: string, onChange: Function}) => {
+  const getLabel = (key: string): string => {
+    return key.replace("_", " ");
+  }
+  return (
+    <>
+      <span>{title}</span>
+      <select onChange={(e) => onChange(e.target.value)}>
+        {Object.keys(MRT_BLUE_LINE).map((stationKey) => {
+          return (
+            <option key={stationKey} value={stationKey}>
+              {getLabel(stationKey)}
+            </option>
+          );
+        })}
+      </select>
+    </>
   );
 }
 

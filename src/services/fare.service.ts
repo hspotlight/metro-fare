@@ -1,5 +1,7 @@
+import { METRO_STATION } from "../common/constants";
+
 export const FareService = {
-    calculate(source: string, destination: string): number {
+    calculate(source: METRO_STATION, destination: METRO_STATION): number {
         // TODO: implements
         return 0;
     }
