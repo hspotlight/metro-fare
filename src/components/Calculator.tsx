@@ -1,11 +1,21 @@
 import React, { useState } from "react";
+import { FareService } from "../services/fare.service";
 
 function Calculator() {
   const [source, setSource] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
+  const [fare, setFare] = useState<number | null>(null);
 
   const calculateRoute = () => {
     console.log(source, destination);
+    const fare = FareService.calculate(source, destination);
+    setFare(fare);
+  };
+
+  const resetForm = () => {
+    setSource("");
+    setDestination("");
+    setFare(null);
   };
 
   return (
@@ -32,7 +42,9 @@ function Calculator() {
         onChange={(e) => setDestination(e.target.value)}
       />{" "}
       <br />
+      <button onClick={resetForm}>Reset</button>
       <button onClick={calculateRoute}>Search</button>
+      {fare && fare}
     </div>
   );
 }
