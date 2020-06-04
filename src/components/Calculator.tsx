@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { FareService } from "../services/fare.service";
-import { METRO_STATION, MRT_BLUE_LINE } from "../common/constants";
+import { METRO_STATION, MRT_BLUE_LINE } from "../types/MetroStation";
 
 function Calculator() {
-  const [source, setSource] = useState<string>();
-  const [destination, setDestination] = useState<string>();
+  const [source, setSource] = useState<string>('');
+  const [destination, setDestination] = useState<string>('');
   const [fare, setFare] = useState<number | undefined>(undefined);
 
   const calculateRoute = () => {
@@ -14,8 +14,8 @@ function Calculator() {
 
 
   const resetForm = () => {
-    setSource(undefined);
-    setDestination(undefined);
+    setSource('');
+    setDestination('');
     setFare(undefined);
   };
 
