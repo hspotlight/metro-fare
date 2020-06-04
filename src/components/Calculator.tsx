@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FareService } from "../services/fare.service";
 import { METRO_STATION, MRT_BLUE_LINE } from "../types/MetroStation";
 import { Button, Select, InputLabel, FormControl, FormHelperText } from "@material-ui/core";
+import '../styles/Calculator.scss';
 
 function Calculator() {
   const [source, setSource] = useState<string>('');
@@ -13,7 +14,6 @@ function Calculator() {
     setFare(fare);
   };
 
-
   const resetForm = () => {
     setSource('');
     setDestination('');
@@ -21,16 +21,7 @@ function Calculator() {
   };
 
   return (
-    <div
-      style={{
-        width: 500,
-        height: 400,
-        border: "black 1px solid",
-        padding: "10px",
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
+    <section className="calculator-container">
       <h1>Metro Fare</h1>
       <SelectComponent title="Source" value={source} onChange={setSource} />
       <SelectComponent
@@ -38,7 +29,7 @@ function Calculator() {
         value={destination}
         onChange={setDestination}
       />
-      <section style={{display: 'flex', width: '100%', justifyContent: 'center'}}>
+      <section className="form-button-group">
         <Button variant="contained" color="secondary" onClick={resetForm}>
           Reset
         </Button>
@@ -46,7 +37,7 @@ function Calculator() {
           Search
         </Button>
       </section>
-    </div>
+    </section>
   );
 }
 
