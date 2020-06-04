@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FareService } from "../services/fare.service";
 import { METRO_STATION, MRT_BLUE_LINE } from "../types/MetroStation";
 import { Button, Select, InputLabel, FormControl, FormHelperText } from "@material-ui/core";
@@ -8,6 +8,7 @@ function Calculator() {
   const [source, setSource] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
   const [fare, setFare] = useState<number | undefined>(undefined);
+  const [isFormValid, setFormValid] = useState<boolean>(false);
 
   const calculateRoute = () => {
     const fare = FareService.calculate(source as METRO_STATION, destination as METRO_STATION);
@@ -19,6 +20,10 @@ function Calculator() {
     setDestination('');
     setFare(undefined);
   };
+
+  useEffect(() => {
+    setFormValid(source.length === 0 || destination.length === 0);
+  }, [source, destination]);
 
   return (
     <section className="calculator-container">
@@ -33,7 +38,7 @@ function Calculator() {
         <Button variant="contained" color="secondary" onClick={resetForm}>
           Reset
         </Button>
-        <Button variant="contained" color="primary" onClick={calculateRoute} style={{marginLeft: '20px'}}>
+        <Button variant="contained" color="primary" onClick={calculateRoute} style={{marginLeft: '20px'}} disabled={isFormValid}>
           Search
         </Button>
       </section>
