@@ -4,7 +4,7 @@ import { METRO_STATION, MRT_BLUE_LINE } from "../types/MetroStation";
 import { Button, Select, InputLabel, FormControl, FormHelperText } from "@material-ui/core";
 import '../styles/Calculator.scss';
 
-function Calculator() {
+const Calculator = () => {
   const [source, setSource] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
   const [fare, setFare] = useState<number | undefined>(undefined);
@@ -38,10 +38,17 @@ function Calculator() {
         <Button variant="contained" color="secondary" onClick={resetForm}>
           Reset
         </Button>
-        <Button variant="contained" color="primary" onClick={calculateRoute} style={{marginLeft: '20px'}} disabled={isFormValid}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={calculateRoute}
+          style={{ marginLeft: "20px" }}
+          disabled={isFormValid}
+        >
           Search
         </Button>
       </section>
+      {fare !== undefined && CalculationResult(fare)}
     </section>
   );
 }
@@ -79,4 +86,9 @@ const SelectComponent = ({ title, value, onChange}: {title: string, value: strin
   );
 }
 
+function CalculationResult(fare: number | undefined): React.ReactNode {
+  return <div>Fare: {fare}</div>;
+}
+
 export default Calculator;
+
