@@ -57,7 +57,7 @@ const SelectComponent = ({ title, value, onChange}: {title: string, value: strin
 
   const selectElementId = title + "-native-required";
   const getLabel = (key: string): string => {
-    return key.replace("_", " ");
+    return key.replace(/_/g, " ");
   }
 
   return (
@@ -74,9 +74,10 @@ const SelectComponent = ({ title, value, onChange}: {title: string, value: strin
       >
         <option value="" disabled></option>
         {Object.keys(MRT_BLUE_STATION).map((stationKey) => {
+          const label = getLabel(stationKey);
           return (
-            <option key={stationKey} value={stationKey}>
-              {getLabel(stationKey)}
+            <option key={stationKey} value={label}>
+              {label}
             </option>
           );
         })}
