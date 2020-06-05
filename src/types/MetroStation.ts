@@ -1,4 +1,4 @@
-export enum MRT_BLUE_LINE {
+export enum MRT_BLUE_STATION {
     CHARAN_13 = "CHARAN 13",
     FAI_CHAI = "FAI CHAI",
     BANG_KHUN_NON = "BANG KHUN NON",
@@ -38,4 +38,4 @@ export enum MRT_BLUE_LINE {
     LAK_SONG = "LAK SONG"
 }
 
-export type METRO_STATION = MRT_BLUE_LINE;
+export type METRO_STATION = MRT_BLUE_STATION;

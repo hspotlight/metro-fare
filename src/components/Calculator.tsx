@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FareService } from "../services/fare.service";
-import { METRO_STATION, MRT_BLUE_LINE } from "../types/MetroStation";
+import { METRO_STATION, MRT_BLUE_STATION } from "../types/MetroStation";
 import { Button, Select, InputLabel, FormControl, FormHelperText } from "@material-ui/core";
 import '../styles/Calculator.scss';
 
@@ -73,7 +73,7 @@ const SelectComponent = ({ title, value, onChange}: {title: string, value: strin
         }}
       >
         <option value="" disabled></option>
-        {Object.keys(MRT_BLUE_LINE).map((stationKey) => {
+        {Object.keys(MRT_BLUE_STATION).map((stationKey) => {
           return (
             <option key={stationKey} value={stationKey}>
               {getLabel(stationKey)}
