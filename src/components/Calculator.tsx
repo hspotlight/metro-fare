@@ -76,7 +76,7 @@ const SelectComponent = ({ title, value, onChange}: {title: string, value: strin
         {Object.keys(MRT_BLUE_STATION).map((stationKey) => {
           const label = getLabel(stationKey);
           return (
-            <option key={stationKey} value={label}>
+            <option key={stationKey} value={stationKey}>
               {label}
             </option>
           );
