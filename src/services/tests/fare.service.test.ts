@@ -1,8 +1,6 @@
 import { FareService } from '../fare.service';
 import { MRT_BLUE_STATION } from '../../types/MetroStation';
 
-
-
 describe('FareService', () => {
     it('should return 16 when source and destination are the same station', () => {
         const source = MRT_BLUE_STATION.LAT_PHRAO;
