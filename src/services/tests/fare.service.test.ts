@@ -43,13 +43,13 @@ describe('FareService', () => {
 
         expect(fare).toBe(23);
     });
-    it('should return 26 when distance from source-distance is 5 hops', () => {
+    it('should return 25 when distance from source-distance is 5 hops', () => {
         const source = MRT_BLUE_STATION.LAT_PHRAO;
         const destination = MRT_BLUE_STATION.PHRA_RAM_9;
 
         const fare = FareService.calculate(source, destination);
 
-        expect(fare).toBe(26);
+        expect(fare).toBe(25);
     });
     it('should return 42 when distance from source-distance is 13 hops', () => {
         const source = MRT_BLUE_STATION.LAT_PHRAO;
