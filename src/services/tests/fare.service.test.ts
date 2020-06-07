@@ -18,6 +18,14 @@ describe('FareService', () => {
 
         expect(fare).toBe(16);
     });
+    it('should return 16 when distance from source-distance is 1 hop', () => {
+        const source = MRT_BLUE_STATION.CHARAN_13;
+        const destination = MRT_BLUE_STATION.THAPHRA;
+
+        const fare = FareService.calculate(source, destination);
+
+        expect(fare).toBe(16);
+    });
     it('should return 19 when distance from source-distance is 2 hops', () => {
         const source = MRT_BLUE_STATION.LAT_PHRAO;
         const destination = MRT_BLUE_STATION.SUTTHISAN;

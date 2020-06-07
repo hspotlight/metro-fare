@@ -16,6 +16,12 @@ export const graphService = {
                 metroGraph[station].push(nextStation);
             }
         });
+        metroLine.intersections?.forEach(intersection => {
+            const firstStation = intersection[0];
+            const secondStation = intersection[1];
+            metroGraph[firstStation].push(secondStation);
+            metroGraph[secondStation].push(firstStation);
+        });
         return metroGraph;
     },
     findRoute(source: METRO_STATION, destination: METRO_STATION, graph: any) {

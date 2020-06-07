@@ -41,5 +41,8 @@ export const MRT_BLUE_LINE: Line = {
         MRT_BLUE_STATION.PHASI_CHAROEN,
         MRT_BLUE_STATION.BANG_KHAE,
         MRT_BLUE_STATION.LAK_SONG,
+    ],
+    intersections: [
+        [MRT_BLUE_STATION.THAPHRA, MRT_BLUE_STATION.CHARAN_13],
     ]
 };
