@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FareService } from "../services/fare.service";
+import { FareService, TravelRoute } from "../services/fare.service";
 import { METRO_STATION, MRT_BLUE_STATION } from "../types/MetroStation";
 import { Button, Select, InputLabel, FormControl, FormHelperText } from "@material-ui/core";
 import '../styles/Calculator.scss';
@@ -7,18 +7,18 @@ import '../styles/Calculator.scss';
 const Calculator = () => {
   const [source, setSource] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
-  const [fare, setFare] = useState<number | undefined>(undefined);
+  const [travelRoute, setTravelRoute] = useState<TravelRoute | undefined>(undefined);
   const [isFormValid, setFormValid] = useState<boolean>(false);
 
   const calculateRoute = () => {
-    const fare = FareService.calculate(source as METRO_STATION, destination as METRO_STATION);
-    setFare(fare);
+    const travelRoute = FareService.calculate(source as METRO_STATION, destination as METRO_STATION);
+    setTravelRoute(travelRoute);
   };
 
   const resetForm = () => {
     setSource('');
     setDestination('');
-    setFare(undefined);
+    setTravelRoute(undefined);
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ const Calculator = () => {
           Search
         </Button>
       </section>
-      {fare !== undefined && CalculationResult(fare)}
+      {travelRoute !== undefined && CalculationResult(travelRoute)}
     </section>
   );
 }
@@ -87,8 +87,8 @@ const SelectComponent = ({ title, value, onChange}: {title: string, value: strin
   );
 }
 
-function CalculationResult(fare: number | undefined): React.ReactNode {
-  return <div>Fare: {fare}</div>;
+function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
+  return <div>Fare: {travelRoute.fare}</div>;
 }
 
 export default Calculator;
