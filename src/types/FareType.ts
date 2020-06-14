@@ -1,4 +1,4 @@
-export enum LineType {
+export enum FareType {
     BRT = 'BRT',
     ARL = 'ARL',
     BTS = 'BTS',
