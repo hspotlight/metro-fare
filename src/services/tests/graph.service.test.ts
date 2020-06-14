@@ -1,10 +1,10 @@
 import { graphService } from "../graph.service";
 import { Line } from "../../types/Line";
 import { MRT_BLUE_STATION } from "../../types/MetroStation";
+import { Graph } from "../../types/Graph";
 
 describe('GraphService', () => {
-    describe('Create', () => {
-
+    describe('CreateGraph', () => {
         it('should create the graph of MRT line', () => {
             const expectedResult = {
                 'LAT_PHRAO': [MRT_BLUE_STATION.RATCHADAPHISEK],
@@ -20,10 +20,13 @@ describe('GraphService', () => {
                     MRT_BLUE_STATION.HUAI_KHWANG,
                 ]
             }
+            const metroGraph: Graph = {
+                lines: [metroLine]
+            }
 
-            const metroGraph = graphService.create(metroLine);
+            const graph = graphService.createGraph(metroGraph);
 
-            expect(metroGraph).toMatchObject(expectedResult);
+            expect(graph).toMatchObject(expectedResult);
         });
     });
 
@@ -34,11 +37,14 @@ describe('GraphService', () => {
                     MRT_BLUE_STATION.LAT_PHRAO,
                 ]
             }
-            const metroGraph = graphService.create(metroLine);
+            const metroGraph: Graph = {
+                lines: [metroLine]
+            }
             const source = MRT_BLUE_STATION.LAT_PHRAO;
             const destination = MRT_BLUE_STATION.LAT_PHRAO;
-
-            const route = graphService.findRoute(source, destination, metroGraph);
+            
+            const graph = graphService.createGraph(metroGraph);
+            const route = graphService.findRoute(source, destination, graph);
 
             expect(route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO]);
         });
@@ -49,11 +55,14 @@ describe('GraphService', () => {
                     MRT_BLUE_STATION.RATCHADAPHISEK,
                 ]
             }
-            const metroGraph = graphService.create(metroLine);
+            const metroGraph: Graph = {
+                lines: [metroLine]
+            }
             const source = MRT_BLUE_STATION.LAT_PHRAO;
             const destination = MRT_BLUE_STATION.RATCHADAPHISEK;
-
-            const route = graphService.findRoute(source, destination, metroGraph);
+            
+            const graph = graphService.createGraph(metroGraph);
+            const route = graphService.findRoute(source, destination, graph);
 
             expect(route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK]);
         });
@@ -65,11 +74,14 @@ describe('GraphService', () => {
                     MRT_BLUE_STATION.RATCHADAPHISEK,
                 ]
             }
-            const metroGraph = graphService.create(metroLine);
+            const metroGraph: Graph = {
+                lines: [metroLine]
+            }
             const source = MRT_BLUE_STATION.LAT_PHRAO;
             const destination = MRT_BLUE_STATION.PHAHON_YOTHIN;
-
-            const route = graphService.findRoute(source, destination, metroGraph);
+            
+            const graph = graphService.createGraph(metroGraph);
+            const route = graphService.findRoute(source, destination, graph);
 
             expect(route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.PHAHON_YOTHIN]);
         });
@@ -81,11 +93,14 @@ describe('GraphService', () => {
                     MRT_BLUE_STATION.RATCHADAPHISEK,
                 ]
             }
-            const metroGraph = graphService.create(metroLine);
+            const metroGraph: Graph = {
+                lines: [metroLine]
+            }            
             const source = MRT_BLUE_STATION.PHAHON_YOTHIN;
             const destination = MRT_BLUE_STATION.RATCHADAPHISEK;
-
-            const route = graphService.findRoute(source, destination, metroGraph);
+            
+            const graph = graphService.createGraph(metroGraph);
+            const route = graphService.findRoute(source, destination, graph);
 
             const expectedResult = [MRT_BLUE_STATION.PHAHON_YOTHIN, MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK];
             expect(route).toMatchObject(expectedResult);
@@ -99,11 +114,14 @@ describe('GraphService', () => {
                     MRT_BLUE_STATION.SUTTHISAN
                 ]
             }
-            const metroGraph = graphService.create(metroLine);
+            const metroGraph: Graph = {
+                lines: [metroLine]
+            }
             const source = MRT_BLUE_STATION.PHAHON_YOTHIN;
             const destination = MRT_BLUE_STATION.SUTTHISAN;
-
-            const route = graphService.findRoute(source, destination, metroGraph);
+            
+            const graph = graphService.createGraph(metroGraph);
+            const route = graphService.findRoute(source, destination, graph);
 
             const expectedResult = [MRT_BLUE_STATION.PHAHON_YOTHIN, MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK, MRT_BLUE_STATION.SUTTHISAN];
             expect(route).toMatchObject(expectedResult);
@@ -120,11 +138,14 @@ describe('GraphService', () => {
                     [MRT_BLUE_STATION.PHAHON_YOTHIN, MRT_BLUE_STATION.SUTTHISAN]
                 ]
             }
-            const metroGraph = graphService.create(metroLine);
+            const metroGraph: Graph = {
+                lines: [metroLine]
+            }
             const source = MRT_BLUE_STATION.PHAHON_YOTHIN;
             const destination = MRT_BLUE_STATION.SUTTHISAN;
-
-            const route = graphService.findRoute(source, destination, metroGraph);
+            
+            const graph = graphService.createGraph(metroGraph);
+            const route = graphService.findRoute(source, destination, graph);
 
             const expectedResult = [MRT_BLUE_STATION.PHAHON_YOTHIN, MRT_BLUE_STATION.SUTTHISAN];
             expect(route).toMatchObject(expectedResult);
