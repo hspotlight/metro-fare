@@ -24,7 +24,7 @@ export const graphService = {
         });
         return metroGraph;
     },
-    findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any) {
+    findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any): METRO_STATION[] {
         if (source === destination) return [source];
 
         const stationsToBeVisited = [{station: source, path: [source]}];
