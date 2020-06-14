@@ -1,5 +1,5 @@
 import { METRO_STATION } from "../types/MetroStation";
-import { MRT_BLUE_FARE } from "../common/constants";
+import { METRO_FARE } from "../common/fare";
 import { graphService, metroGraph } from "./graph.service";
 
 export type TravelRoute = {
@@ -18,8 +18,8 @@ export const FareService = {
     calculateTotalFareFromRoute(route: METRO_STATION[]): number {
         const hops = route.length - 1;
         if (hops > 13) {
-            return MRT_BLUE_FARE[13];
+            return METRO_FARE.MRT_BLUE[13];
         }
-        return MRT_BLUE_FARE[hops];
+        return METRO_FARE.MRT_BLUE[hops];
     }
 }
