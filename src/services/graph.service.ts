@@ -1,6 +1,6 @@
 import { Line } from "../types/Line";
-import { METRO_STATION } from "../types/MetroStation";
 import { MRT_BLUE_LINE } from "../data/MrtBlueLine";
+import { METRO_STATION } from "../types/MetroStation";
 
 export const graphService = {
     create(metroLine: Line) {
@@ -16,7 +16,7 @@ export const graphService = {
                 metroGraph[station].push(nextStation);
             }
         });
-        metroLine.intersections?.forEach(intersection => {
+        metroLine.intersections?.forEach((intersection: METRO_STATION[]) => {
             const firstStation = intersection[0];
             const secondStation = intersection[1];
             metroGraph[firstStation].push(secondStation);
@@ -24,34 +24,28 @@ export const graphService = {
         });
         return metroGraph;
     },
-    findRoute(source: METRO_STATION, destination: METRO_STATION, graph: any) {
+    findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any) {
         if (source === destination) return [source];
 
-        const prevStation = Object.create(null);
-        prevStation[source] = null;
+        const stationsToBeVisited = [{station: source, path: [source]}];
+        const visitedStations = Object.create({});
+        visitedStations[source] = true;
 
-        const stationToBeVisited = [source];
-        while(stationToBeVisited.length > 0) {
-            const currentStation = stationToBeVisited.shift() as string;
+        while (stationsToBeVisited.length > 0) {
+            const currentStation = stationsToBeVisited[0];
+            stationsToBeVisited.shift();
+            const nextStations = graph[currentStation.station];
+            for (let i = 0; i < nextStations.length; i++) {
+                const nextStation = nextStations[i];
+                if (nextStation === destination) return [...currentStation.path, destination];
 
-            if (currentStation === destination) break;
-
-            graph[currentStation].forEach((nextStation: any) => {
-                if (Object.keys(prevStation).indexOf(nextStation) === -1) {
-                    stationToBeVisited.push(nextStation);
-                    prevStation[nextStation] = currentStation;
+                if (Object.keys(visitedStations).indexOf(nextStation) === -1) {
+                    stationsToBeVisited.push({station: nextStation, path: [...currentStation.path, nextStation]});
+                    visitedStations[nextStation] = true;
                 }
-            });
+            }
         }
-
-        const route = [destination];
-        let prev = prevStation[destination];
-        while(prev !== null) {
-            route.push(prev);
-            prev = prevStation[prev];
-        }
-
-        return route.reverse();
+        return [];
     }
 }
 
