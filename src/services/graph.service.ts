@@ -1,28 +1,42 @@
-import { Line } from "../types/Line";
+import { Line, Intersection } from "../types/Line";
 import { MRT_BLUE_LINE } from "../data/MrtBlueLine";
 import { METRO_STATION } from "../types/MetroStation";
+import { Graph } from "../types/Graph";
 
 export const graphService = {
-    create(metroLine: Line) {
-        const metroGraph = Object.create(null);
+    createGraph(metroGraph: Graph, graph = Object.create(null)) {
+        metroGraph.lines.forEach((line: Line) => {
+            this.addLineToGraph(line, graph);
+        })
+        if (metroGraph.intersections) {
+            this.addIntersectionsToGraph(metroGraph.intersections, graph);
+        }
+        return graph;
+    },
+    addLineToGraph(metroLine: Line, graph = Object.create(null)) {
         metroLine.line.forEach((station, index) => {
-            metroGraph[station] = [];
+            graph[station] = [];
             if (index > 0) {
                 const prevStation = metroLine.line[index - 1];
-                metroGraph[station].push(prevStation);
+                graph[station].push(prevStation);
             }
             if (index + 1 < metroLine.line.length) {
                 const nextStation = metroLine.line[index + 1];
-                metroGraph[station].push(nextStation);
+                graph[station].push(nextStation);
             }
         });
-        metroLine.intersections?.forEach((intersection: METRO_STATION[]) => {
+        if (metroLine.intersections) {
+            this.addIntersectionsToGraph(metroLine.intersections, graph);
+        }
+        return graph;
+    },
+    addIntersectionsToGraph(intersections: Intersection[], graph: any) {
+        intersections.forEach((intersection: METRO_STATION[]) => {
             const firstStation = intersection[0];
             const secondStation = intersection[1];
-            metroGraph[firstStation].push(secondStation);
-            metroGraph[secondStation].push(firstStation);
+            graph[firstStation].push(secondStation);
+            graph[secondStation].push(firstStation);
         });
-        return metroGraph;
     },
     findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any): METRO_STATION[] {
         if (source === destination) return [source];
@@ -49,4 +63,4 @@ export const graphService = {
     }
 }
 
-export const metroGraph = graphService.create(MRT_BLUE_LINE);
+export const metroGraph = graphService.addLineToGraph(MRT_BLUE_LINE);
