@@ -1,4 +1,5 @@
-import { Line, Intersection } from "../types/Line";
+import { Line } from "../types/Line";
+import { Intersection } from "../types/Intersection";
 import { MRT_BLUE_LINE } from "../data/MrtBlueLine";
 import { METRO_STATION } from "../types/MetroStation";
 import { Graph } from "../types/Graph";
