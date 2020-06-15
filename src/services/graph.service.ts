@@ -1,7 +1,7 @@
 import { Line } from "../types/Line";
 import { Intersection } from "../types/Intersection";
 import { MRT_BLUE_LINE } from "../data/MrtBlueLine";
-import { METRO_STATION } from "../types/MetroStation";
+import { METRO_STATION, BTS_SILOM_STATION } from "../types/MetroStation";
 import { Graph } from "../types/Graph";
 import { RouteSegment } from "../types/RouteSegment";
 import { FareType } from "../types/FareType";
@@ -74,6 +74,7 @@ export const graphService = {
 }
 
 const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
+    if (Object.keys(BTS_SILOM_STATION).includes(station)) return FareType.BTS
     return FareType.MRT_BLUE
 }
 

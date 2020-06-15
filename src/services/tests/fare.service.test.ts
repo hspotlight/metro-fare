@@ -1,189 +1,257 @@
 import { FareService } from '../fare.service';
-import { MRT_BLUE_STATION } from '../../types/MetroStation';
+import { MRT_BLUE_STATION, BTS_SILOM_STATION } from '../../types/MetroStation';
 import { graphService } from '../graph.service';
 import { RouteSegment } from '../../types/RouteSegment';
 import { FareType } from '../../types/FareType';
 
 describe('FareService', () => {
-    it('should return 16 when source and destination are the same station', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [MRT_BLUE_STATION.LAT_PHRAO],
-            fareType: FareType.MRT_BLUE,
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.LAT_PHRAO;
-        const destination = MRT_BLUE_STATION.LAT_PHRAO;
+    describe('MRT Blue line', () => {
+        it('should return 16 when source and destination are the same station', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [MRT_BLUE_STATION.LAT_PHRAO],
+                fareType: FareType.MRT_BLUE,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.LAT_PHRAO;
+            const destination = MRT_BLUE_STATION.LAT_PHRAO;
 
-        const travelRoute = FareService.calculate(source, destination);
+            const travelRoute = FareService.calculate(source, destination);
 
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(16);
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(16);
+        });
+        it('should return 16 when distance from source-distance is 1 hop', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK],
+                fareType: FareType.MRT_BLUE,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.LAT_PHRAO;
+            const destination = MRT_BLUE_STATION.RATCHADAPHISEK;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(16);
+        });
+        it('should return 16 when distance from source-distance is 1 hop', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [MRT_BLUE_STATION.CHARAN_13, MRT_BLUE_STATION.THAPHRA],
+                fareType: FareType.MRT_BLUE,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.CHARAN_13;
+            const destination = MRT_BLUE_STATION.THAPHRA;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(16);
+        });
+        it('should return 19 when distance from source-distance is 2 hops', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                ],
+                fareType: FareType.MRT_BLUE
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.LAT_PHRAO;
+            const destination = MRT_BLUE_STATION.SUTTHISAN;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(19);
+        });
+
+        it('should return 21 when distance from source-distance is 3 hops', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                ],
+                fareType: FareType.MRT_BLUE
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.LAT_PHRAO;
+            const destination = MRT_BLUE_STATION.HUAI_KHWANG;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(21);
+        });
+        it('should return 23 when distance from source-distance is 4 hops', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                    MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
+                ],
+                fareType: FareType.MRT_BLUE
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.LAT_PHRAO;
+            const destination = MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(23);
+        });
+        it('should return 25 when distance from source-distance is 5 hops', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                    MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
+                    MRT_BLUE_STATION.PHRA_RAM_9,
+                ],
+                fareType: FareType.MRT_BLUE
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.LAT_PHRAO;
+            const destination = MRT_BLUE_STATION.PHRA_RAM_9;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(25);
+        });
+        it('should return 42 when distance from source-distance is 13 hops', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                    MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
+                    MRT_BLUE_STATION.PHRA_RAM_9,
+                    MRT_BLUE_STATION.PHETCHABURI,
+                    MRT_BLUE_STATION.SUKHUMVIT,
+                    MRT_BLUE_STATION.QUEEN_SIRIKIT_NATIONAL_CONVENTION_CENTRE,
+                    MRT_BLUE_STATION.KHLONG_TOEI,
+                    MRT_BLUE_STATION.LUMPHINI,
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.HUA_LAMPHONG,
+                ],
+                fareType: FareType.MRT_BLUE
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.LAT_PHRAO;
+            const destination = MRT_BLUE_STATION.HUA_LAMPHONG;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(42);
+        });
+        it('should return 42 when distance from source-distance more than 13 hops', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                    MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
+                    MRT_BLUE_STATION.PHRA_RAM_9,
+                    MRT_BLUE_STATION.PHETCHABURI,
+                    MRT_BLUE_STATION.SUKHUMVIT,
+                    MRT_BLUE_STATION.QUEEN_SIRIKIT_NATIONAL_CONVENTION_CENTRE,
+                    MRT_BLUE_STATION.KHLONG_TOEI,
+                    MRT_BLUE_STATION.LUMPHINI,
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.HUA_LAMPHONG,
+                    MRT_BLUE_STATION.WAT_MANGKON,
+                    MRT_BLUE_STATION.SANAM_CHAI
+                ],
+                fareType: FareType.MRT_BLUE
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = MRT_BLUE_STATION.LAT_PHRAO;
+            const destination = MRT_BLUE_STATION.SANAM_CHAI;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(42);
+        });
     });
-    it('should return 16 when distance from source-distance is 1 hop', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK],
-            fareType: FareType.MRT_BLUE,
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.LAT_PHRAO;
-        const destination = MRT_BLUE_STATION.RATCHADAPHISEK;
+    describe('BTS line', () => {
+        it('should return 16 when source and destination are the same station', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.CHONG_NONSI],
+                fareType: FareType.BTS,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = BTS_SILOM_STATION.CHONG_NONSI;
 
-        const travelRoute = FareService.calculate(source, destination);
+            const travelRoute = FareService.calculate(source, destination);
 
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(16);
-    });
-    it('should return 16 when distance from source-distance is 1 hop', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [MRT_BLUE_STATION.CHARAN_13, MRT_BLUE_STATION.THAPHRA],
-            fareType: FareType.MRT_BLUE,
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.CHARAN_13;
-        const destination = MRT_BLUE_STATION.THAPHRA;
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(16);
+        });
+        it('should return 16 when distance from source-distance is 1 hop', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG],
+                fareType: FareType.BTS,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = BTS_SILOM_STATION.SALA_DAENG;
 
-        const travelRoute = FareService.calculate(source, destination);
+            const travelRoute = FareService.calculate(source, destination);
 
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(16);
-    });
-    it('should return 19 when distance from source-distance is 2 hops', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [
-                MRT_BLUE_STATION.LAT_PHRAO,
-                MRT_BLUE_STATION.RATCHADAPHISEK,
-                MRT_BLUE_STATION.SUTTHISAN,
-            ],
-            fareType: FareType.MRT_BLUE
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.LAT_PHRAO;
-        const destination = MRT_BLUE_STATION.SUTTHISAN;
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(16);
+        });
+        it('should return 23 when distance from source-distance is 2 hop', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG, BTS_SILOM_STATION.RATCHADAMRI],
+                fareType: FareType.BTS,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = BTS_SILOM_STATION.RATCHADAMRI;
 
-        const travelRoute = FareService.calculate(source, destination);
+            const travelRoute = FareService.calculate(source, destination);
 
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(19);
-    });
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(23);
+        });
+        it('should return 37 when distance from source-distance is 6 hop', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.CHONG_NONSI,
+                    BTS_SILOM_STATION.SURASAK,
+                    BTS_SILOM_STATION.SAPHAN_TAKSIN,
+                    BTS_SILOM_STATION.KRUNG_THON_BURI,
+                    BTS_SILOM_STATION.WONGWIAN_YAI,
+                    BTS_SILOM_STATION.PHO_NIMIT,
+                    BTS_SILOM_STATION.TALAT_PHLU
+                ],
+                fareType: FareType.BTS,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = BTS_SILOM_STATION.TALAT_PHLU;
 
-    it('should return 21 when distance from source-distance is 3 hops', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [
-                MRT_BLUE_STATION.LAT_PHRAO,
-                MRT_BLUE_STATION.RATCHADAPHISEK,
-                MRT_BLUE_STATION.SUTTHISAN,
-                MRT_BLUE_STATION.HUAI_KHWANG,
-            ],
-            fareType: FareType.MRT_BLUE
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.LAT_PHRAO;
-        const destination = MRT_BLUE_STATION.HUAI_KHWANG;
+            const travelRoute = FareService.calculate(source, destination);
 
-        const travelRoute = FareService.calculate(source, destination);
-
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(21);
-    });
-    it('should return 23 when distance from source-distance is 4 hops', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [
-                MRT_BLUE_STATION.LAT_PHRAO,
-                MRT_BLUE_STATION.RATCHADAPHISEK,
-                MRT_BLUE_STATION.SUTTHISAN,
-                MRT_BLUE_STATION.HUAI_KHWANG,
-                MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
-            ],
-            fareType: FareType.MRT_BLUE
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.LAT_PHRAO;
-        const destination = MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE;
-
-        const travelRoute = FareService.calculate(source, destination);
-
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(23);
-    });
-    it('should return 25 when distance from source-distance is 5 hops', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [
-                MRT_BLUE_STATION.LAT_PHRAO,
-                MRT_BLUE_STATION.RATCHADAPHISEK,
-                MRT_BLUE_STATION.SUTTHISAN,
-                MRT_BLUE_STATION.HUAI_KHWANG,
-                MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
-                MRT_BLUE_STATION.PHRA_RAM_9,
-            ],
-            fareType: FareType.MRT_BLUE
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.LAT_PHRAO;
-        const destination = MRT_BLUE_STATION.PHRA_RAM_9;
-
-        const travelRoute = FareService.calculate(source, destination);
-
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(25);
-    });
-    it('should return 42 when distance from source-distance is 13 hops', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [
-                MRT_BLUE_STATION.LAT_PHRAO,
-                MRT_BLUE_STATION.RATCHADAPHISEK,
-                MRT_BLUE_STATION.SUTTHISAN,
-                MRT_BLUE_STATION.HUAI_KHWANG,
-                MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
-                MRT_BLUE_STATION.PHRA_RAM_9,
-                MRT_BLUE_STATION.PHETCHABURI,
-                MRT_BLUE_STATION.SUKHUMVIT,
-                MRT_BLUE_STATION.QUEEN_SIRIKIT_NATIONAL_CONVENTION_CENTRE,
-                MRT_BLUE_STATION.KHLONG_TOEI,
-                MRT_BLUE_STATION.LUMPHINI,
-                MRT_BLUE_STATION.SILOM,
-                MRT_BLUE_STATION.SAM_YAN,
-                MRT_BLUE_STATION.HUA_LAMPHONG,
-            ],
-            fareType: FareType.MRT_BLUE
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.LAT_PHRAO;
-        const destination = MRT_BLUE_STATION.HUA_LAMPHONG;
-
-        const travelRoute = FareService.calculate(source, destination);
-
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(42);
-    });
-    it('should return 42 when distance from source-distance more than 13 hops', () => {
-        const expectedResult: RouteSegment[] = [{
-            route: [
-                MRT_BLUE_STATION.LAT_PHRAO,
-                MRT_BLUE_STATION.RATCHADAPHISEK,
-                MRT_BLUE_STATION.SUTTHISAN,
-                MRT_BLUE_STATION.HUAI_KHWANG,
-                MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
-                MRT_BLUE_STATION.PHRA_RAM_9,
-                MRT_BLUE_STATION.PHETCHABURI,
-                MRT_BLUE_STATION.SUKHUMVIT,
-                MRT_BLUE_STATION.QUEEN_SIRIKIT_NATIONAL_CONVENTION_CENTRE,
-                MRT_BLUE_STATION.KHLONG_TOEI,
-                MRT_BLUE_STATION.LUMPHINI,
-                MRT_BLUE_STATION.SILOM,
-                MRT_BLUE_STATION.SAM_YAN,
-                MRT_BLUE_STATION.HUA_LAMPHONG,
-                MRT_BLUE_STATION.WAT_MANGKON,
-                MRT_BLUE_STATION.SANAM_CHAI
-            ],
-            fareType: FareType.MRT_BLUE
-        }];
-        graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
-        const source = MRT_BLUE_STATION.LAT_PHRAO;
-        const destination = MRT_BLUE_STATION.SANAM_CHAI;
-
-        const travelRoute = FareService.calculate(source, destination);
-
-        expect(travelRoute.route).toBe(expectedResult[0].route);
-        expect(travelRoute.fare).toBe(42);
+            expect(travelRoute.route).toBe(expectedResult[0].route);
+            expect(travelRoute.fare).toBe(37);
+        });
     });
 });
