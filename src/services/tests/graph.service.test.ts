@@ -1,7 +1,9 @@
 import { graphService } from "../graph.service";
 import { Line } from "../../types/Line";
-import { MRT_BLUE_STATION } from "../../types/MetroStation";
+import { MRT_BLUE_STATION, BTS_SILOM_STATION } from "../../types/MetroStation";
 import { Graph } from "../../types/Graph";
+import { RouteSegment } from "../../types/RouteSegment";
+import { FareType } from "../../types/FareType";
 
 describe('GraphService', () => {
     describe('CreateGraph', () => {
@@ -42,7 +44,7 @@ describe('GraphService', () => {
             }
             const source = MRT_BLUE_STATION.LAT_PHRAO;
             const destination = MRT_BLUE_STATION.LAT_PHRAO;
-            
+
             const graph = graphService.createGraph(metroGraph);
             const routeSegment = graphService.findRoute(source, destination, graph);
 
@@ -60,7 +62,7 @@ describe('GraphService', () => {
             }
             const source = MRT_BLUE_STATION.LAT_PHRAO;
             const destination = MRT_BLUE_STATION.RATCHADAPHISEK;
-            
+
             const graph = graphService.createGraph(metroGraph);
             const routeSegment = graphService.findRoute(source, destination, graph);
 
@@ -79,7 +81,7 @@ describe('GraphService', () => {
             }
             const source = MRT_BLUE_STATION.LAT_PHRAO;
             const destination = MRT_BLUE_STATION.PHAHON_YOTHIN;
-            
+
             const graph = graphService.createGraph(metroGraph);
             const routeSegment = graphService.findRoute(source, destination, graph);
 
@@ -95,10 +97,10 @@ describe('GraphService', () => {
             }
             const metroGraph: Graph = {
                 lines: [metroLine]
-            }            
+            }
             const source = MRT_BLUE_STATION.PHAHON_YOTHIN;
             const destination = MRT_BLUE_STATION.RATCHADAPHISEK;
-            
+
             const graph = graphService.createGraph(metroGraph);
             const routeSegment = graphService.findRoute(source, destination, graph);
 
@@ -119,7 +121,7 @@ describe('GraphService', () => {
             }
             const source = MRT_BLUE_STATION.PHAHON_YOTHIN;
             const destination = MRT_BLUE_STATION.SUTTHISAN;
-            
+
             const graph = graphService.createGraph(metroGraph);
             const routeSegment = graphService.findRoute(source, destination, graph);
 
@@ -143,12 +145,47 @@ describe('GraphService', () => {
             }
             const source = MRT_BLUE_STATION.PHAHON_YOTHIN;
             const destination = MRT_BLUE_STATION.SUTTHISAN;
-            
+
             const graph = graphService.createGraph(metroGraph);
             const routeSegment = graphService.findRoute(source, destination, graph);
 
             const expectedResult = [MRT_BLUE_STATION.PHAHON_YOTHIN, MRT_BLUE_STATION.SUTTHISAN];
             expect(routeSegment[0].route).toMatchObject(expectedResult);
+        });
+    });
+
+    describe('FindRoute BTS-MRT', () => {
+        it('should return [] ', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.CHONG_NONSI,
+                        BTS_SILOM_STATION.SALA_DAENG,
+                    ],
+                }, {
+                    line: [
+                        MRT_BLUE_STATION.SILOM,
+                        MRT_BLUE_STATION.LUMPHINI,
+                    ],
+                }],
+                intersections: [
+                    [BTS_SILOM_STATION.SALA_DAENG, MRT_BLUE_STATION.SILOM]
+                ]
+            }
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = MRT_BLUE_STATION.LUMPHINI;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG,],
+                fareType: FareType.BTS
+            }, {
+                route: [MRT_BLUE_STATION.SILOM, MRT_BLUE_STATION.LUMPHINI],
+                fareType: FareType.MRT_BLUE
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
         });
     });
 });
