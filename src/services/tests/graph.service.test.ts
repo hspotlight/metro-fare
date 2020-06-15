@@ -44,9 +44,9 @@ describe('GraphService', () => {
             const destination = MRT_BLUE_STATION.LAT_PHRAO;
             
             const graph = graphService.createGraph(metroGraph);
-            const route = graphService.findRoute(source, destination, graph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
 
-            expect(route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO]);
+            expect(routeSegment[0].route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO]);
         });
         it('should return array of 2 station when distance between source and destination is 1 hop', () => {
             const metroLine: Line = {
@@ -62,9 +62,9 @@ describe('GraphService', () => {
             const destination = MRT_BLUE_STATION.RATCHADAPHISEK;
             
             const graph = graphService.createGraph(metroGraph);
-            const route = graphService.findRoute(source, destination, graph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
 
-            expect(route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK]);
+            expect(routeSegment[0].route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK]);
         });
         it('should return array of 2 station when distance between source and destination is 1 hop', () => {
             const metroLine: Line = {
@@ -81,9 +81,9 @@ describe('GraphService', () => {
             const destination = MRT_BLUE_STATION.PHAHON_YOTHIN;
             
             const graph = graphService.createGraph(metroGraph);
-            const route = graphService.findRoute(source, destination, graph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
 
-            expect(route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.PHAHON_YOTHIN]);
+            expect(routeSegment[0].route).toMatchObject([MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.PHAHON_YOTHIN]);
         });
         it('should return array of 3 station when distance between source and destination is 2 hop', () => {
             const metroLine: Line = {
@@ -100,10 +100,10 @@ describe('GraphService', () => {
             const destination = MRT_BLUE_STATION.RATCHADAPHISEK;
             
             const graph = graphService.createGraph(metroGraph);
-            const route = graphService.findRoute(source, destination, graph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
 
             const expectedResult = [MRT_BLUE_STATION.PHAHON_YOTHIN, MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK];
-            expect(route).toMatchObject(expectedResult);
+            expect(routeSegment[0].route).toMatchObject(expectedResult);
         });
         it('should return array of 4 station when distance between source and destination is 3 hop', () => {
             const metroLine: Line = {
@@ -121,10 +121,10 @@ describe('GraphService', () => {
             const destination = MRT_BLUE_STATION.SUTTHISAN;
             
             const graph = graphService.createGraph(metroGraph);
-            const route = graphService.findRoute(source, destination, graph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
 
             const expectedResult = [MRT_BLUE_STATION.PHAHON_YOTHIN, MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK, MRT_BLUE_STATION.SUTTHISAN];
-            expect(route).toMatchObject(expectedResult);
+            expect(routeSegment[0].route).toMatchObject(expectedResult);
         });
         it('should return array of 2 station when distance between source and destination is 1 hop (cyclic graph)', () => {
             const metroLine: Line = {
@@ -145,10 +145,10 @@ describe('GraphService', () => {
             const destination = MRT_BLUE_STATION.SUTTHISAN;
             
             const graph = graphService.createGraph(metroGraph);
-            const route = graphService.findRoute(source, destination, graph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
 
             const expectedResult = [MRT_BLUE_STATION.PHAHON_YOTHIN, MRT_BLUE_STATION.SUTTHISAN];
-            expect(route).toMatchObject(expectedResult);
+            expect(routeSegment[0].route).toMatchObject(expectedResult);
         });
     });
 });
