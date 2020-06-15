@@ -74,7 +74,7 @@ export const graphService = {
 }
 
 const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
-    if (Object.keys(BTS_SILOM_STATION).includes(station)) return FareType.BTS
+    if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION)) return FareType.BTS
     return FareType.MRT_BLUE
 }
 
