@@ -256,6 +256,24 @@ describe('FareService', () => {
     });
 
     describe('MRT-BTS', () => {
+        it('should return 0 when no hops for BTS and MRT (just walking)', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.BANG_WA],
+                fareType: FareType.BTS
+            }, {
+                route: [MRT_BLUE_STATION.BANG_WA],
+                fareType: FareType.MRT_BLUE
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = MRT_BLUE_STATION.LUMPHINI;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[1].route).toBe(expectedResult[1].route);
+            expect(travelRoute.fare).toBe(0);
+        });
         it('should return 16 when 1 hops for BTS and stop at MRT without traverse', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [

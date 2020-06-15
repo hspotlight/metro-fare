@@ -155,6 +155,36 @@ describe('GraphService', () => {
     });
 
     describe('FindRoute BTS-MRT', () => {
+        it('should return route of BTS 1 station and MRT 1 station (interchange stations)', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.BANG_WA,
+                    ],
+                }, {
+                    line: [
+                        MRT_BLUE_STATION.BANG_WA,
+                    ],
+                }],
+                intersections: [
+                    [BTS_SILOM_STATION.BANG_WA, MRT_BLUE_STATION.BANG_WA]
+                ]
+            }
+            const source = BTS_SILOM_STATION.BANG_WA;
+            const destination = MRT_BLUE_STATION.BANG_WA;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.BANG_WA],
+                fareType: FareType.BTS
+            }, {
+                route: [MRT_BLUE_STATION.BANG_WA],
+                fareType: FareType.MRT_BLUE
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
         it('should return route of BTS 2 hops and MRT 2 hops', () => {
             const metroGraph: Graph = {
                 lines: [{
