@@ -42,14 +42,15 @@ export const graphService = {
         });
     },
     findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any): RouteSegment[] {
-        const routeSegment: RouteSegment = { route: [source], fareType: FareType.MRT_BLUE };
+        const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
         const stationsToBeVisited = [new StationHop(source, [routeSegment])];
+
         const visitedStations = Object.create({});
         visitedStations[source] = true;
 
         while (stationsToBeVisited.length > 0) {
             const currentStation = stationsToBeVisited.shift() as StationHop;
-            
+
             if (currentStation.station === destination) {
                 return currentStation.paths;
             }
@@ -58,16 +59,38 @@ export const graphService = {
             for (let i = 0; i < nextStations.length; i++) {
                 const nextStation = nextStations[i];
 
-                if (Object.keys(visitedStations).indexOf(nextStation) === -1) {
-                    const segment: RouteSegment = { route: [...currentStation.paths[0].route, nextStation], fareType: FareType.MRT_BLUE};
-                    const nextStationHop = new StationHop(nextStation, [segment]);
-                    stationsToBeVisited.push(nextStationHop);
+                if (!Object.keys(visitedStations).includes(nextStation)) {
                     visitedStations[nextStation] = true;
+
+                    const routeSegments: RouteSegment[] = getNextStationRouteSegments(currentStation, nextStation);
+
+                    const nextStationHop = new StationHop(nextStation, routeSegments);
+                    stationsToBeVisited.push(nextStationHop);
                 }
             }
         }
         return [];
     }
+}
+
+const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
+    return FareType.MRT_BLUE
+}
+
+const getNextStationRouteSegments = (currentStation: StationHop, nextStation: METRO_STATION) => {
+    const fareType = getFareTypeFromStationId(nextStation);
+    const routeSegments: RouteSegment[] = currentStation.paths.map((routeSegment: RouteSegment): RouteSegment => {
+        return {
+            route: [...routeSegment.route],
+            fareType: routeSegment.fareType
+        };
+    });
+
+    if (routeSegments[routeSegments.length - 1].fareType === fareType) {
+        routeSegments[routeSegments.length - 1].route.push(nextStation);
+    }
+
+    return routeSegments;
 }
 
 export class StationHop {
