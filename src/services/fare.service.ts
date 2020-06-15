@@ -2,10 +2,12 @@ import { METRO_STATION } from "../types/MetroStation";
 import { METRO_FARE } from "../common/fare";
 import { graphService, metroGraph } from "./graph.service";
 import { RouteSegment } from "../types/RouteSegment";
+import { FareType } from "../types/FareType";
 
 export type TravelRoute = {
     route: {
         route: METRO_STATION[],
+        fareType: FareType,
         fare: number
     }[],
     fare: number,
@@ -21,6 +23,7 @@ export const FareService = {
             totalFare += fare;
             return {
                 route: routeSegment.route,
+                fareType: routeSegment.fareType,
                 fare
             }
         });

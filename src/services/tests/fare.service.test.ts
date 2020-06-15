@@ -18,6 +18,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
         it('should return 16 when distance from source-distance is 1 hop', () => {
@@ -32,6 +33,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
         it('should return 16 when distance from source-distance is 1 hop', () => {
@@ -46,6 +48,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
         it('should return 19 when distance from source-distance is 2 hops', () => {
@@ -64,6 +67,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(19);
         });
 
@@ -84,6 +88,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(21);
         });
         it('should return 23 when distance from source-distance is 4 hops', () => {
@@ -104,6 +109,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(23);
         });
         it('should return 25 when distance from source-distance is 5 hops', () => {
@@ -125,6 +131,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(25);
         });
         it('should return 42 when distance from source-distance is 13 hops', () => {
@@ -154,6 +161,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(42);
         });
         it('should return 42 when distance from source-distance more than 13 hops', () => {
@@ -185,6 +193,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(42);
         });
     });
@@ -201,6 +210,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
         it('should return 16 when distance from source-distance is 1 hop', () => {
@@ -215,6 +225,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
         it('should return 23 when distance from source-distance is 2 hop', () => {
@@ -229,6 +240,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(23);
         });
         it('should return 37 when distance from source-distance is 6 hop', () => {
@@ -251,6 +263,7 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(37);
         });
     });
@@ -271,7 +284,9 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.route[1].route).toBe(expectedResult[1].route);
+            expect(travelRoute.route[1].fareType).toBe(expectedResult[1].fareType);
             expect(travelRoute.fare).toBe(0);
         });
         it('should return 16 when 1 hops for BTS and stop at MRT without traverse', () => {
@@ -294,7 +309,9 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.route[1].route).toBe(expectedResult[1].route);
+            expect(travelRoute.route[1].fareType).toBe(expectedResult[1].fareType);
             expect(travelRoute.fare).toBe(16);
         });
         it('should return 32 when 1 hops for BTS and 1 hops for MRT', () => {
@@ -318,6 +335,9 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
+            expect(travelRoute.route[1].route).toBe(expectedResult[1].route);
+            expect(travelRoute.route[1].fareType).toBe(expectedResult[1].fareType);
             expect(travelRoute.fare).toBe(32);
         });
         it('should return 56 when 6 hops for BTS and 2 hops for MRT', () => {
@@ -347,7 +367,9 @@ describe('FareService', () => {
             const travelRoute = FareService.calculate(source, destination);
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].fareType).toBe(expectedResult[0].fareType);
             expect(travelRoute.route[1].route).toBe(expectedResult[1].route);
+            expect(travelRoute.route[1].fareType).toBe(expectedResult[1].fareType);
             expect(travelRoute.fare).toBe(56);
         });
     });
