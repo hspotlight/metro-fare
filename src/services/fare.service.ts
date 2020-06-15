@@ -1,6 +1,7 @@
 import { METRO_STATION } from "../types/MetroStation";
 import { METRO_FARE } from "../common/fare";
 import { graphService, metroGraph } from "./graph.service";
+import { RouteSegment } from "../types/RouteSegment";
 
 export type TravelRoute = {
     route: METRO_STATION[],
@@ -9,17 +10,20 @@ export type TravelRoute = {
 
 export const FareService = {
     calculate(source: METRO_STATION, destination: METRO_STATION): TravelRoute {
-        const route = graphService.findRoute(source, destination, metroGraph);
+        const routeSegments = graphService.findRoute(source, destination, metroGraph);
         return {
-            route,
-            fare: this.calculateTotalFareFromRoute(route)
+            route: routeSegments[0].route,
+            fare: this.calculateTotalFareFromRoute(routeSegments[0])
         };
     },
-    calculateTotalFareFromRoute(route: METRO_STATION[]): number {
-        const hops = route.length - 1;
-        if (hops > 13) {
-            return METRO_FARE.MRT_BLUE[13];
+    calculateTotalFareFromRoute(routeSegment: RouteSegment): number {
+        const fareTable: number[] = METRO_FARE[routeSegment.fareType];
+
+        const hops = routeSegment.route.length - 1;
+        if (hops > fareTable.length) {
+            return fareTable[fareTable.length - 1];
         }
-        return METRO_FARE.MRT_BLUE[hops];
+
+        return fareTable[hops];
     }
 }

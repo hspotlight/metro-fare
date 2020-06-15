@@ -3,6 +3,8 @@ import { Intersection } from "../types/Intersection";
 import { MRT_BLUE_LINE } from "../data/MrtBlueLine";
 import { METRO_STATION } from "../types/MetroStation";
 import { Graph } from "../types/Graph";
+import { RouteSegment } from "../types/RouteSegment";
+import { FareType } from "../types/FareType";
 
 export const graphService = {
     createGraph(metroGraph: Graph, graph = Object.create(null)) {
@@ -39,28 +41,44 @@ export const graphService = {
             graph[secondStation].push(firstStation);
         });
     },
-    findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any): METRO_STATION[] {
-        if (source === destination) return [source];
+    findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any): RouteSegment[] {
+        if (source === destination) return [{route: [source], fareType: FareType.MRT_BLUE}];
 
-        const stationsToBeVisited = [{station: source, path: [source]}];
+        const routeSegment: RouteSegment = { route: [source], fareType: FareType.MRT_BLUE };
+        const stationsToBeVisited = [new StationHop(source, [routeSegment])];
         const visitedStations = Object.create({});
         visitedStations[source] = true;
 
         while (stationsToBeVisited.length > 0) {
-            const currentStation = stationsToBeVisited[0];
-            stationsToBeVisited.shift();
+            const currentStation = stationsToBeVisited.shift() as StationHop;
+
             const nextStations = graph[currentStation.station];
             for (let i = 0; i < nextStations.length; i++) {
                 const nextStation = nextStations[i];
-                if (nextStation === destination) return [...currentStation.path, destination];
+                if (nextStation === destination) {
+                    const segment: RouteSegment = { route: [...currentStation.paths[0].route, destination], fareType: FareType.MRT_BLUE};
+                    return [segment];
+                }
 
                 if (Object.keys(visitedStations).indexOf(nextStation) === -1) {
-                    stationsToBeVisited.push({station: nextStation, path: [...currentStation.path, nextStation]});
+                    const segment: RouteSegment = { route: [...currentStation.paths[0].route, nextStation], fareType: FareType.MRT_BLUE};
+                    const nextStationHop = new StationHop(nextStation, [segment]);
+                    stationsToBeVisited.push(nextStationHop);
                     visitedStations[nextStation] = true;
                 }
             }
         }
         return [];
+    }
+}
+
+export class StationHop {
+    station: METRO_STATION;
+    paths: RouteSegment[];
+
+    constructor(station: METRO_STATION, paths: RouteSegment[]) {
+        this.station = station;
+        this.paths = paths;
     }
 }
 
