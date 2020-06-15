@@ -89,6 +89,12 @@ const getNextStationRouteSegments = (currentStation: StationHop, nextStation: ME
 
     if (routeSegments[routeSegments.length - 1].fareType === fareType) {
         routeSegments[routeSegments.length - 1].route.push(nextStation);
+    } else {
+        const routeSegment: RouteSegment = {
+            route: [nextStation],
+            fareType
+        };
+        routeSegments.push(routeSegment)
     }
 
     return routeSegments;
