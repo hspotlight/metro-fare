@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FareService, TravelRoute } from "../services/fare.service";
-import { METRO_STATION, MRT_BLUE_STATION } from "../types/MetroStation";
+import { METRO_STATION } from "../types/MetroStation";
+import { STATION_NAME, STATION_NAME_KEY } from "../data/StationName";
 import {
   Button,
   Select,
@@ -39,8 +40,12 @@ const Calculator = () => {
   return (
     <section className="calculator-container">
       <h1>Metro Fare</h1>
-      <SelectComponent title="Source" value={source} onChange={setSource} />
-      <SelectComponent
+      <SelectStationComponent
+        title="Source"
+        value={source}
+        onChange={setSource}
+      />
+      <SelectStationComponent
         title="Destination"
         value={destination}
         onChange={setDestination}
@@ -64,7 +69,7 @@ const Calculator = () => {
   );
 };
 
-const SelectComponent = ({
+const SelectStationComponent = ({
   title,
   value,
   onChange,
@@ -73,35 +78,58 @@ const SelectComponent = ({
   value: string;
   onChange: Function;
 }) => {
+  const [lineType, setLineType] = useState<STATION_NAME_KEY>("MRT_BLUE");
+  const lineElementId = title + "-line-native-required";
   const selectElementId = title + "-native-required";
+  const stationsName = STATION_NAME[lineType];
   const getLabel = (key: string): string => {
     return key.replace(/_/g, " ");
   };
 
   return (
-    <FormControl required>
-      <InputLabel htmlFor={selectElementId}>{title}</InputLabel>
-      <Select
-        native
-        onChange={(e) => onChange(e.target.value)}
-        name={title}
-        value={value}
-        inputProps={{
-          id: selectElementId,
-        }}
-      >
-        <option value="" disabled></option>
-        {Object.keys(MRT_BLUE_STATION).map((stationKey) => {
-          const label = getLabel(stationKey);
-          return (
-            <option key={stationKey} value={stationKey}>
-              {label}
-            </option>
-          );
-        })}
-      </Select>
-      <FormHelperText>Required</FormHelperText>
-    </FormControl>
+    <>
+      <FormControl required>
+        <InputLabel htmlFor={lineElementId}>Line</InputLabel>
+        <Select
+          native
+          onChange={(e) => setLineType(e.target.value as STATION_NAME_KEY)}
+          name={"Line"}
+          value={lineType}
+          inputProps={{
+            id: lineElementId,
+          }}
+        >
+          <option value={"MRT_BLUE"} selected>
+            MRT
+          </option>
+          <option value={"BTS"}>BTS</option>
+        </Select>
+        <FormHelperText>Required</FormHelperText>
+      </FormControl>
+      <FormControl required>
+        <InputLabel htmlFor={selectElementId}>{title}</InputLabel>
+        <Select
+          native
+          onChange={(e) => onChange(e.target.value)}
+          name={title}
+          value={value}
+          inputProps={{
+            id: selectElementId,
+          }}
+        >
+          <option value="" disabled></option>
+          {stationsName.map((stationKey: string) => {
+            const label = getLabel(stationKey);
+            return (
+              <option key={stationKey} value={stationKey}>
+                {label}
+              </option>
+            );
+          })}
+        </Select>
+        <FormHelperText>Required</FormHelperText>
+      </FormControl>
+    </>
   );
 };
 

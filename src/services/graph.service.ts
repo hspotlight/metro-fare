@@ -1,10 +1,10 @@
 import { Line } from "../types/Line";
 import { Intersection } from "../types/Intersection";
-import { MRT_BLUE_LINE } from "../data/MrtBlueLine";
 import { METRO_STATION, BTS_SILOM_STATION } from "../types/MetroStation";
 import { Graph } from "../types/Graph";
 import { RouteSegment } from "../types/RouteSegment";
 import { FareType } from "../types/FareType";
+import { METRO_GRAPH } from "../data/MetroGraph";
 
 export const graphService = {
     createGraph(metroGraph: Graph, graph = Object.create(null)) {
@@ -41,7 +41,7 @@ export const graphService = {
             graph[secondStation].push(firstStation);
         });
     },
-    findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any): RouteSegment[] {
+    findRoute(source: METRO_STATION, destination: METRO_STATION, graph: any): RouteSegment[] {
         const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
         const stationsToBeVisited = [new StationHop(source, [routeSegment])];
 
@@ -110,4 +110,4 @@ export class StationHop {
     }
 }
 
-export const metroGraph = graphService.addLineToGraph(MRT_BLUE_LINE);
+export const metroGraph = graphService.createGraph(METRO_GRAPH);
