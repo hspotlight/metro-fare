@@ -256,6 +256,29 @@ describe('FareService', () => {
     });
 
     describe('MRT-BTS', () => {
+        it('should return 16 when 1 hops for BTS and stop at MRT without traverse', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.CHONG_NONSI,
+                    BTS_SILOM_STATION.SALA_DAENG
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    MRT_BLUE_STATION.SILOM,
+                ],
+                fareType: FareType.MRT_BLUE,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = MRT_BLUE_STATION.LUMPHINI;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[1].route).toBe(expectedResult[1].route);
+            expect(travelRoute.fare).toBe(16);
+        });
         it('should return 32 when 1 hops for BTS and 1 hops for MRT', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
@@ -278,6 +301,36 @@ describe('FareService', () => {
 
             expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
             expect(travelRoute.fare).toBe(32);
+        });
+        it('should return 56 when 6 hops for BTS and 2 hops for MRT', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.PHO_NIMIT,
+                    BTS_SILOM_STATION.WONGWIAN_YAI,
+                    BTS_SILOM_STATION.KRUNG_THON_BURI,
+                    BTS_SILOM_STATION.SAPHAN_TAKSIN,
+                    BTS_SILOM_STATION.SURASAK,
+                    BTS_SILOM_STATION.CHONG_NONSI,
+                    BTS_SILOM_STATION.SALA_DAENG,
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.HUA_LAMPHONG,
+                ],
+                fareType: FareType.MRT_BLUE,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = MRT_BLUE_STATION.LUMPHINI;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[1].route).toBe(expectedResult[1].route);
+            expect(travelRoute.fare).toBe(56);
         });
     });
 });

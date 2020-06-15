@@ -16,8 +16,9 @@ export const FareService = {
         const routeSegments = graphService.findRoute(source, destination, metroGraph);
 
         let totalFare = 0;
-        const route = routeSegments.map((routeSegment: RouteSegment) => {
-            const fare = this.calculateTotalFareFromRoute(routeSegment);
+        const route = routeSegments.map((routeSegment: RouteSegment, index: number) => {
+            const isLastSegment = routeSegments.length > 1 && index === routeSegments.length - 1;
+            const fare = this.calculateTotalFareFromRoute(routeSegment, isLastSegment);
             totalFare += fare;
             return {
                 route: routeSegment.route,
@@ -29,10 +30,14 @@ export const FareService = {
             fare: totalFare
         }
     },
-    calculateTotalFareFromRoute(routeSegment: RouteSegment): number {
+    calculateTotalFareFromRoute(routeSegment: RouteSegment, isLastSegment = false): number {
         const fareTable: number[] = METRO_FARE[routeSegment.fareType];
-
+        
         const hops = routeSegment.route.length - 1;
+        if (hops === 0 && isLastSegment) {
+            return 0;
+        }
+
         if (hops > fareTable.length) {
             return fareTable[fareTable.length - 1];
         }

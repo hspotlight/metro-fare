@@ -155,7 +155,7 @@ describe('GraphService', () => {
     });
 
     describe('FindRoute BTS-MRT', () => {
-        it('should return [] ', () => {
+        it('should return route of BTS 2 hops and MRT 2 hops', () => {
             const metroGraph: Graph = {
                 lines: [{
                     line: [
@@ -183,6 +183,56 @@ describe('GraphService', () => {
                 fareType: FareType.BTS
             }, {
                 route: [MRT_BLUE_STATION.SILOM, MRT_BLUE_STATION.LUMPHINI],
+                fareType: FareType.MRT_BLUE
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS 6 hops and MRT 2 hops', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.PHO_NIMIT,
+                        BTS_SILOM_STATION.WONGWIAN_YAI,
+                        BTS_SILOM_STATION.KRUNG_THON_BURI,
+                        BTS_SILOM_STATION.SAPHAN_TAKSIN,
+                        BTS_SILOM_STATION.SURASAK,
+                        BTS_SILOM_STATION.CHONG_NONSI,
+                        BTS_SILOM_STATION.SALA_DAENG,
+                    ],
+                }, {
+                    line: [
+                        MRT_BLUE_STATION.SILOM,
+                        MRT_BLUE_STATION.SAM_YAN,
+                        MRT_BLUE_STATION.HUA_LAMPHONG,
+                    ],
+                }],
+                intersections: [
+                    [BTS_SILOM_STATION.SALA_DAENG, MRT_BLUE_STATION.SILOM]
+                ]
+            }
+            const source = BTS_SILOM_STATION.PHO_NIMIT;
+            const destination = MRT_BLUE_STATION.HUA_LAMPHONG;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.PHO_NIMIT,
+                    BTS_SILOM_STATION.WONGWIAN_YAI,
+                    BTS_SILOM_STATION.KRUNG_THON_BURI,
+                    BTS_SILOM_STATION.SAPHAN_TAKSIN,
+                    BTS_SILOM_STATION.SURASAK,
+                    BTS_SILOM_STATION.CHONG_NONSI,
+                    BTS_SILOM_STATION.SALA_DAENG
+                ],
+                fareType: FareType.BTS
+            }, {
+                route: [
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.HUA_LAMPHONG
+                ],
                 fareType: FareType.MRT_BLUE
             }]
             expect(routeSegment).toMatchObject(expectedResult);
