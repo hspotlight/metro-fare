@@ -42,8 +42,6 @@ export const graphService = {
         });
     },
     findRoute(source: METRO_STATION, destination: METRO_STATION, graph?: any): RouteSegment[] {
-        if (source === destination) return [{route: [source], fareType: FareType.MRT_BLUE}];
-
         const routeSegment: RouteSegment = { route: [source], fareType: FareType.MRT_BLUE };
         const stationsToBeVisited = [new StationHop(source, [routeSegment])];
         const visitedStations = Object.create({});
@@ -51,14 +49,14 @@ export const graphService = {
 
         while (stationsToBeVisited.length > 0) {
             const currentStation = stationsToBeVisited.shift() as StationHop;
+            
+            if (currentStation.station === destination) {
+                return currentStation.paths;
+            }
 
             const nextStations = graph[currentStation.station];
             for (let i = 0; i < nextStations.length; i++) {
                 const nextStation = nextStations[i];
-                if (nextStation === destination) {
-                    const segment: RouteSegment = { route: [...currentStation.paths[0].route, destination], fareType: FareType.MRT_BLUE};
-                    return [segment];
-                }
 
                 if (Object.keys(visitedStations).indexOf(nextStation) === -1) {
                     const segment: RouteSegment = { route: [...currentStation.paths[0].route, nextStation], fareType: FareType.MRT_BLUE};
