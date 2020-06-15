@@ -10,6 +10,7 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import "../styles/Calculator.scss";
+import { FareType } from "../types/FareType";
 
 const Calculator = () => {
   const [source, setSource] = useState<string>("");
@@ -99,9 +100,7 @@ const SelectStationComponent = ({
             id: lineElementId,
           }}
         >
-          <option value={"MRT_BLUE"} selected>
-            MRT
-          </option>
+          <option value={"MRT_BLUE"}>MRT</option>
           <option value={"BTS"}>BTS</option>
         </Select>
         <FormHelperText>Required</FormHelperText>
@@ -138,15 +137,27 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
     <div>
       <div>Fare: {travelRoute.fare}</div>
       <div className="travel-route-container">
-        {travelRoute.route[0].route.map((stationKey, index) => {
-          const dashline = <div className="mrt-blue-dotted-line"></div>;
-          return (
-            <section key={stationKey}>
-              {index > 0 && dashline}
-              <section className="station-container">
-                <div className="mrt-blue-icon"></div>
-                <div>{stationKey}</div>
+        {travelRoute.route.map((routeSegment, segmentIndex) => {
+          const greyDashline = <div className="interchange-dotted-line"></div>;
+          const route = routeSegment.route.map((stationKey, index) => {
+            const dashLineStyle = routeSegment.fareType === FareType.MRT_BLUE ? "mrt-blue-dotted-line" : "bts-silom-dotted-line";
+            const iconStyle = routeSegment.fareType === FareType.MRT_BLUE ? "mrt-blue-icon" : "bts-silom-icon";
+            const dashline = <div className={dashLineStyle}></div>;
+            return (
+              <section key={stationKey}>
+                {index > 0 && dashline}
+                <section className="station-container">
+                  <div className={iconStyle}></div>
+                  <div>{stationKey}</div>
+                </section>
               </section>
+            );
+          });
+
+          return (
+            <section>
+              {segmentIndex > 0 && greyDashline}
+              {route}
             </section>
           );
         })}
