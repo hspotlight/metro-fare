@@ -4,17 +4,30 @@ import { graphService, metroGraph } from "./graph.service";
 import { RouteSegment } from "../types/RouteSegment";
 
 export type TravelRoute = {
-    route: METRO_STATION[],
+    route: {
+        route: METRO_STATION[],
+        fare: number
+    }[],
     fare: number,
 }
 
 export const FareService = {
     calculate(source: METRO_STATION, destination: METRO_STATION): TravelRoute {
         const routeSegments = graphService.findRoute(source, destination, metroGraph);
+
+        let totalFare = 0;
+        const route = routeSegments.map((routeSegment: RouteSegment) => {
+            const fare = this.calculateTotalFareFromRoute(routeSegment);
+            totalFare += fare;
+            return {
+                route: routeSegment.route,
+                fare
+            }
+        });
         return {
-            route: routeSegments[0].route,
-            fare: this.calculateTotalFareFromRoute(routeSegments[0])
-        };
+            route,
+            fare: totalFare
+        }
     },
     calculateTotalFareFromRoute(routeSegment: RouteSegment): number {
         const fareTable: number[] = METRO_FARE[routeSegment.fareType];

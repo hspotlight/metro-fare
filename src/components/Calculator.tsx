@@ -110,7 +110,7 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
     <div>
       <div>Fare: {travelRoute.fare}</div>
       <div className="travel-route-container">
-        {travelRoute.route.map((stationKey, index) => {
+        {travelRoute.route[0].route.map((stationKey, index) => {
           const dashline = <div className="mrt-blue-dotted-line"></div>;
           return (
             <section key={stationKey}>
