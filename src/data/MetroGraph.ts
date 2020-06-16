@@ -9,6 +9,7 @@ export const METRO_GRAPH: Graph = {
         BTS_SILOM_LINE,
     ],
     intersections: [
-        [MRT_BLUE_STATION.SILOM, BTS_SILOM_STATION.SALA_DAENG]
+        [MRT_BLUE_STATION.SILOM, BTS_SILOM_STATION.SALA_DAENG],
+        [MRT_BLUE_STATION.BANG_WA, BTS_SILOM_STATION.BANG_WA]
     ]
 }
