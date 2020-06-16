@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FareService, TravelRoute } from "../services/fare.service";
-import { METRO_STATION } from "../types/MetroStation";
+import {
+  METRO_STATION,
+  BTS_SILOM_STATION,
+} from "../types/MetroStation";
 import { STATION_NAME, STATION_NAME_KEY } from "../data/StationName";
 import {
   Button,
@@ -88,13 +91,21 @@ const SelectStationComponent = ({
   };
 
   const handleLineTypeSelectChange = (value: string) => {
-    setLineType(value as STATION_NAME_KEY)
-    onChange("")
-  }
+    setLineType(value as STATION_NAME_KEY);
+    onChange("");
+  };
+
+  useEffect(() => {
+    if (Object.keys(BTS_SILOM_STATION).includes(value)) {
+      setLineType("BTS");
+    } else {
+      setLineType("MRT_BLUE");
+    }
+  }, [value]);
 
   return (
     <section>
-      <FormControl style={{width: '80px'}} required>
+      <FormControl style={{ width: "80px" }} required>
         <InputLabel htmlFor={lineElementId}>Line</InputLabel>
         <Select
           native
@@ -110,7 +121,7 @@ const SelectStationComponent = ({
         </Select>
         <FormHelperText>Required</FormHelperText>
       </FormControl>
-      <FormControl style={{width: 'calc(100% - 80px)'}} required>
+      <FormControl style={{ width: "calc(100% - 80px)" }} required>
         <InputLabel htmlFor={selectElementId}>{title}</InputLabel>
         <Select
           native
@@ -145,8 +156,14 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
         {travelRoute.route.map((routeSegment, segmentIndex) => {
           const greyDashline = <div className="interchange-dotted-line"></div>;
           const route = routeSegment.route.map((stationKey, index) => {
-            const dashLineStyle = routeSegment.fareType === FareType.MRT_BLUE ? "mrt-blue-dotted-line" : "bts-silom-dotted-line";
-            const iconStyle = routeSegment.fareType === FareType.MRT_BLUE ? "mrt-blue-icon" : "bts-silom-icon";
+            const dashLineStyle =
+              routeSegment.fareType === FareType.MRT_BLUE
+                ? "mrt-blue-dotted-line"
+                : "bts-silom-dotted-line";
+            const iconStyle =
+              routeSegment.fareType === FareType.MRT_BLUE
+                ? "mrt-blue-icon"
+                : "bts-silom-icon";
             const dashline = <div className={dashLineStyle}></div>;
             return (
               <section key={stationKey}>
@@ -160,7 +177,7 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
           });
 
           return (
-            <section>
+            <section key={routeSegment.fareType}>
               {segmentIndex > 0 && greyDashline}
               {route}
             </section>
