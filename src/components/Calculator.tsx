@@ -87,13 +87,18 @@ const SelectStationComponent = ({
     return key.replace(/_/g, " ");
   };
 
+  const handleLineTypeSelectChange = (value: string) => {
+    setLineType(value as STATION_NAME_KEY)
+    onChange("")
+  }
+
   return (
     <section>
       <FormControl style={{width: '80px'}} required>
         <InputLabel htmlFor={lineElementId}>Line</InputLabel>
         <Select
           native
-          onChange={(e) => setLineType(e.target.value as STATION_NAME_KEY)}
+          onChange={(e: any) => handleLineTypeSelectChange(e.target.value)}
           name={"Line"}
           value={lineType}
           inputProps={{
