@@ -1,15 +1,24 @@
 .calculator-container {
-  width: 500;
-  height: 400;
+  width: 350px;
+  min-height: 200px;
   border: black 1px solid;
   padding: 10px;
   display: flex;
   flex-direction: column;
 }
+
 .form-button-group {
   display: flex;
   width: 100%;
   justify-content: center;
+}
+
+.form-staiton-select-line {
+  width: 80px;
+}
+
+.w-100 {
+  width: 100%;
 }
 
 .station-container {
@@ -25,7 +34,6 @@
   border-radius: 9px;
   border: 1px solid black;
 }
-
 
 .mrt-blue-dotted-line {
   width: 0px;
