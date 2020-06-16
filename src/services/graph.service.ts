@@ -46,28 +46,28 @@ export const graphService = {
         const stationsToBeVisited = [new StationHop(source, [routeSegment])];
 
         const visitedStations = Object.create({});
-        visitedStations[source] = true;
-
+        
         while (stationsToBeVisited.length > 0) {
             const currentStation = stationsToBeVisited.shift() as StationHop;
-
+            
             if (currentStation.station === destination) {
                 return currentStation.paths;
             }
+            
+            if (!Object.keys(visitedStations).includes(currentStation.station)) {
+                visitedStations[currentStation.station] = true;
 
-            const nextStations = graph[currentStation.station];
-            for (let i = 0; i < nextStations.length; i++) {
-                const nextStation = nextStations[i];
+                const nextStations: METRO_STATION[]  = graph[currentStation.station];
 
-                if (!Object.keys(visitedStations).includes(nextStation)) {
-                    visitedStations[nextStation] = true;
-
+                nextStations.forEach(nextStation => {
                     const routeSegments: RouteSegment[] = getNextStationRouteSegments(currentStation, nextStation);
 
                     const nextStationHop = new StationHop(nextStation, routeSegments);
+
                     stationsToBeVisited.push(nextStationHop);
-                }
+                });
             }
+
         }
         return [];
     }
