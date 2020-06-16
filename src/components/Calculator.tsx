@@ -98,7 +98,7 @@ const SelectStationComponent = ({
   useEffect(() => {
     if (Object.keys(BTS_SILOM_STATION).includes(value)) {
       setLineType("BTS");
-    } else {
+    } else if (value.length !== 0) {
       setLineType("MRT_BLUE");
     }
   }, [value]);
