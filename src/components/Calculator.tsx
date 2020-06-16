@@ -88,8 +88,8 @@ const SelectStationComponent = ({
   };
 
   return (
-    <>
-      <FormControl required>
+    <section>
+      <FormControl style={{width: '80px'}} required>
         <InputLabel htmlFor={lineElementId}>Line</InputLabel>
         <Select
           native
@@ -105,7 +105,7 @@ const SelectStationComponent = ({
         </Select>
         <FormHelperText>Required</FormHelperText>
       </FormControl>
-      <FormControl required>
+      <FormControl style={{width: 'calc(100% - 80px)'}} required>
         <InputLabel htmlFor={selectElementId}>{title}</InputLabel>
         <Select
           native
@@ -128,7 +128,7 @@ const SelectStationComponent = ({
         </Select>
         <FormHelperText>Required</FormHelperText>
       </FormControl>
-    </>
+    </section>
   );
 };
 
