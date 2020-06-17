@@ -167,9 +167,23 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
       <div>Fare: {travelRoute.fare}</div>
       <div className="travel-route-container">
         {travelRoute.route.map((routeSegment, segmentIndex) => {
-          const greyDashline = <div className="interchange-dotted-line"></div>;
+          const getInterChangeLine = () => {
+            if (segmentIndex > 0) {
+              if (routeSegment.lineType === travelRoute.route[segmentIndex - 1].lineType) {
+                const dottedLineStyle = routeSegment.lineType === LineType.MRT_BLUE
+                  ? "mrt-blue-dotted-line"
+                  : "bts-silom-dotted-line";
+                return <div className={dottedLineStyle}></div>;
+              } else {
+                return <div className="interchange-dotted-line"></div>;
+              }
+            } else {
+              return null;
+            }
+          }
+          const interchangeDottedLine = getInterChangeLine();
           const route = routeSegment.route.map((stationKey, index) => {
-            const dashLineStyle =
+            const dottedLineStyle =
               routeSegment.lineType === LineType.MRT_BLUE
                 ? "mrt-blue-dotted-line"
                 : "bts-silom-dotted-line";
@@ -177,7 +191,7 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
               routeSegment.lineType === LineType.MRT_BLUE
                 ? "mrt-blue-icon"
                 : "bts-silom-icon";
-            const dashline = <div className={dashLineStyle}></div>;
+            const dashline = <div className={dottedLineStyle}></div>;
             return (
               <section key={stationKey}>
                 {index > 0 && dashline}
@@ -191,7 +205,7 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
 
           return (
             <section key={routeSegment.lineType}>
-              {segmentIndex > 0 && greyDashline}
+              {interchangeDottedLine}
               {route}
             </section>
           );
