@@ -18,10 +18,11 @@ import { FareType } from "../types/FareType";
 const Calculator = () => {
   const [source, setSource] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [travelRoute, setTravelRoute] = useState<TravelRoute | undefined>(
     undefined
   );
-  const [isFormValid, setFormValid] = useState<boolean>(false);
+  const [isFormInvalid, setFormInValid] = useState<boolean>(false);
 
   const calculateRoute = () => {
     const travelRoute = FareService.calculate(
@@ -34,11 +35,18 @@ const Calculator = () => {
   const resetForm = () => {
     setSource("");
     setDestination("");
+    setErrorMessage("");
     setTravelRoute(undefined);
   };
 
   useEffect(() => {
-    setFormValid(source.length === 0 || destination.length === 0);
+    const isFormValid = source === destination || (source.length === 0 || destination.length === 0);
+    setFormInValid(isFormValid);
+    if (source === destination && source.length > 0) {
+      setErrorMessage("source and destination cannot be the same");
+    } else {
+      setErrorMessage("");
+    }
   }, [source, destination]);
 
   return (
@@ -63,14 +71,19 @@ const Calculator = () => {
           color="primary"
           onClick={calculateRoute}
           style={{ marginLeft: "20px" }}
-          disabled={isFormValid}
+          disabled={isFormInvalid}
         >
           Search
         </Button>
       </section>
+      {errorMessage.length > 0 && <ErrorMessage errorMessage={errorMessage} />}
       {travelRoute !== undefined && CalculationResult(travelRoute)}
     </section>
   );
+};
+
+const ErrorMessage = ({ errorMessage }: { errorMessage: string }) => {
+  return <div className="form-error-message">{errorMessage}</div>;
 };
 
 const SelectStationComponent = ({
