@@ -1,10 +1,15 @@
 .calculator-container {
   width: 350px;
-  min-height: 200px;
+  min-height: 270px;
   border: black 1px solid;
   padding: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.form-error-message {
+  margin-top: 7px;
+  color: red;
 }
 
 .form-button-group {
