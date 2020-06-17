@@ -167,36 +167,18 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
       <div>Fare: {travelRoute.fare}</div>
       <div className="travel-route-container">
         {travelRoute.route.map((routeSegment, segmentIndex) => {
-          const getInterChangeLine = () => {
-            if (segmentIndex > 0) {
-              if (routeSegment.lineType === travelRoute.route[segmentIndex - 1].lineType) {
-                const dottedLineStyle = routeSegment.lineType === LineType.MRT_BLUE
-                  ? "mrt-blue-dotted-line"
-                  : "bts-silom-dotted-line";
-                return <div className={dottedLineStyle}></div>;
-              } else {
-                return <div className="interchange-dotted-line"></div>;
-              }
-            } else {
-              return null;
-            }
+          let interchangeDottedLine = null;
+          if (segmentIndex > 0) {
+            interchangeDottedLine = getInterChangeLine(routeSegment.lineType, travelRoute.route[segmentIndex - 1].lineType);
           }
-          const interchangeDottedLine = getInterChangeLine();
           const route = routeSegment.route.map((stationKey, index) => {
-            const dottedLineStyle =
-              routeSegment.lineType === LineType.MRT_BLUE
-                ? "mrt-blue-dotted-line"
-                : "bts-silom-dotted-line";
-            const iconStyle =
-              routeSegment.lineType === LineType.MRT_BLUE
-                ? "mrt-blue-icon"
-                : "bts-silom-icon";
-            const dashline = <div className={dottedLineStyle}></div>;
+            const dottedLine = getDottedLine(routeSegment.lineType);
+            const stationIcon = getStationIcon(routeSegment.lineType);
             return (
               <section key={stationKey}>
-                {index > 0 && dashline}
+                {index > 0 && dottedLine}
                 <section className="station-container">
-                  <div className={iconStyle}></div>
+                  {stationIcon}
                   <div>{stationKey}</div>
                 </section>
               </section>
@@ -204,7 +186,7 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
           });
 
           return (
-            <section key={routeSegment.lineType}>
+            <section key={routeSegment.lineType + "-" + segmentIndex}>
               {interchangeDottedLine}
               {route}
             </section>
@@ -216,3 +198,25 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
 }
 
 export default Calculator;
+
+const getDottedLine = (currentLineType: LineType) => {
+  const dottedLineStyle = currentLineType === LineType.MRT_BLUE
+    ? "mrt-blue-dotted-line"
+    : "bts-silom-dotted-line";
+  return <div className={dottedLineStyle}></div>;
+}
+
+const getStationIcon = (currentLineType: LineType) => {
+  const iconStyle = currentLineType === LineType.MRT_BLUE
+    ? "mrt-blue-icon"
+    : "bts-silom-icon";
+  return <div className={iconStyle}></div>;
+}
+
+const getInterChangeLine = (currentLineType: LineType, prevLineType: LineType) => {
+  if (currentLineType === prevLineType) {
+    return getDottedLine(currentLineType);
+  } else {
+    return <div className="interchange-dotted-line"></div>;
+  }
+}

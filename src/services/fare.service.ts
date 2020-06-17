@@ -19,7 +19,7 @@ export const FareService = {
 
         let totalFare = 0;
         const route = routeSegments.map((routeSegment: RouteSegment) => {
-            const fare = calculateFareFromRouteSegment(routeSegment, routeSegments.length > 1);
+            const fare = calculateFareFromRouteSegment(routeSegment);
             const lineType = getLineTypeFromFareType(routeSegment.fareType);
             totalFare += fare;
             return {

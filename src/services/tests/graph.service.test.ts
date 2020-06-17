@@ -154,6 +154,111 @@ describe('GraphService', () => {
         });
     });
 
+    describe('FindRoute BTS (with Extension)', () => {
+        it('should return route of BTS Extension 1 station and BTS 1 station', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.WONGWIAN_YAI,
+                        BTS_SILOM_STATION.PHO_NIMIT,
+                    ],
+                }],
+            }
+            const source = BTS_SILOM_STATION.PHO_NIMIT;
+            const destination = BTS_SILOM_STATION.WONGWIAN_YAI;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.PHO_NIMIT,
+                ],
+                fareType: FareType.BTS_SILOM_EXTENSION_15,
+            }, {
+                route: [
+                    BTS_SILOM_STATION.WONGWIAN_YAI,
+                ],
+                fareType: FareType.BTS_SILOM
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS Extension 4 stations and BTS 1 station', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.WONGWIAN_YAI,
+                        BTS_SILOM_STATION.PHO_NIMIT,
+                        BTS_SILOM_STATION.TALAT_PHLU,
+                        BTS_SILOM_STATION.WUTTHAKAT,
+                        BTS_SILOM_STATION.BANG_WA,
+                    ],
+                }],
+            }
+            const source = BTS_SILOM_STATION.BANG_WA;
+            const destination = BTS_SILOM_STATION.WONGWIAN_YAI;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.BANG_WA,
+                    BTS_SILOM_STATION.WUTTHAKAT,
+                    BTS_SILOM_STATION.TALAT_PHLU,
+                    BTS_SILOM_STATION.PHO_NIMIT,
+                ],
+                fareType: FareType.BTS_SILOM_EXTENSION_15,
+            }, {
+                route: [
+                    BTS_SILOM_STATION.WONGWIAN_YAI,
+                ],
+                fareType: FareType.BTS_SILOM
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS Extension 4 stations and BTS 1 station', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.SURASAK,
+                        BTS_SILOM_STATION.SAPHAN_TAKSIN,
+                        BTS_SILOM_STATION.KRUNG_THON_BURI,
+                        BTS_SILOM_STATION.WONGWIAN_YAI,
+                        BTS_SILOM_STATION.PHO_NIMIT,
+                        BTS_SILOM_STATION.TALAT_PHLU,
+                        BTS_SILOM_STATION.WUTTHAKAT,
+                        BTS_SILOM_STATION.BANG_WA,
+                    ],
+                }],
+            }
+            const source = BTS_SILOM_STATION.BANG_WA;
+            const destination = BTS_SILOM_STATION.SURASAK;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.BANG_WA,
+                    BTS_SILOM_STATION.WUTTHAKAT,
+                    BTS_SILOM_STATION.TALAT_PHLU,
+                    BTS_SILOM_STATION.PHO_NIMIT,
+                ],
+                fareType: FareType.BTS_SILOM_EXTENSION_15,
+            }, {
+                route: [
+                    BTS_SILOM_STATION.WONGWIAN_YAI,
+                    BTS_SILOM_STATION.KRUNG_THON_BURI,
+                    BTS_SILOM_STATION.SAPHAN_TAKSIN,
+                    BTS_SILOM_STATION.SURASAK,
+                ],
+                fareType: FareType.BTS_SILOM
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+    });
+
     describe('FindRoute BTS-MRT', () => {
         it('should return route of BTS 1 station and MRT 1 station (interchange stations)', () => {
             const metroGraph: Graph = {
@@ -178,7 +283,7 @@ describe('GraphService', () => {
 
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.BANG_WA],
-                fareType: FareType.BTS_SILOM
+                fareType: FareType.BTS_SILOM_EXTENSION_15
             }, {
                 route: [MRT_BLUE_STATION.BANG_WA],
                 fareType: FareType.MRT_BLUE
@@ -249,6 +354,10 @@ describe('GraphService', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
                     BTS_SILOM_STATION.PHO_NIMIT,
+                ],
+                fareType: FareType.BTS_SILOM_EXTENSION_15,
+            }, {
+                route: [
                     BTS_SILOM_STATION.WONGWIAN_YAI,
                     BTS_SILOM_STATION.KRUNG_THON_BURI,
                     BTS_SILOM_STATION.SAPHAN_TAKSIN,
