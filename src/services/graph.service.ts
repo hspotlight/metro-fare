@@ -1,10 +1,10 @@
 import { Line } from "../types/Line";
 import { Intersection } from "../types/Intersection";
-import { METRO_STATION, BTS_SILOM_STATION } from "../types/MetroStation";
+import { METRO_STATION } from "../types/MetroStation";
 import { Graph } from "../types/Graph";
 import { RouteSegment } from "../types/RouteSegment";
-import { FareType } from "../types/FareType";
 import { METRO_GRAPH } from "../data/MetroGraph";
+import { getFareTypeFromStationId } from "./util.service";
 
 export const graphService = {
     createGraph(metroGraph: Graph, graph = Object.create(null)) {
@@ -70,11 +70,6 @@ export const graphService = {
         }
         return [];
     }
-}
-
-const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
-    if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM
-    return FareType.MRT_BLUE
 }
 
 const getNextStationRouteSegments = (currentStation: StationHop, nextStation: METRO_STATION) => {
