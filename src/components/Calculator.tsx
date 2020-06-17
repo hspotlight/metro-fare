@@ -13,7 +13,7 @@ import {
   FormHelperText,
 } from "@material-ui/core";
 import "../styles/Calculator.scss";
-import { FareType } from "../types/FareType";
+import { LineType } from "../types/LineType";
 
 const Calculator = () => {
   const [source, setSource] = useState<string>("");
@@ -170,11 +170,11 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
           const greyDashline = <div className="interchange-dotted-line"></div>;
           const route = routeSegment.route.map((stationKey, index) => {
             const dashLineStyle =
-              routeSegment.fareType === FareType.MRT_BLUE
+              routeSegment.lineType === LineType.MRT_BLUE
                 ? "mrt-blue-dotted-line"
                 : "bts-silom-dotted-line";
             const iconStyle =
-              routeSegment.fareType === FareType.MRT_BLUE
+              routeSegment.lineType === LineType.MRT_BLUE
                 ? "mrt-blue-icon"
                 : "bts-silom-icon";
             const dashline = <div className={dashLineStyle}></div>;
@@ -190,7 +190,7 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
           });
 
           return (
-            <section key={routeSegment.fareType}>
+            <section key={routeSegment.lineType}>
               {segmentIndex > 0 && greyDashline}
               {route}
             </section>

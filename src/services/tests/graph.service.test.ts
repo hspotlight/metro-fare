@@ -178,7 +178,7 @@ describe('GraphService', () => {
 
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.BANG_WA],
-                fareType: FareType.BTS
+                fareType: FareType.BTS_SILOM
             }, {
                 route: [MRT_BLUE_STATION.BANG_WA],
                 fareType: FareType.MRT_BLUE
@@ -210,7 +210,7 @@ describe('GraphService', () => {
 
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG,],
-                fareType: FareType.BTS
+                fareType: FareType.BTS_SILOM
             }, {
                 route: [MRT_BLUE_STATION.SILOM, MRT_BLUE_STATION.LUMPHINI],
                 fareType: FareType.MRT_BLUE
@@ -256,7 +256,7 @@ describe('GraphService', () => {
                     BTS_SILOM_STATION.CHONG_NONSI,
                     BTS_SILOM_STATION.SALA_DAENG
                 ],
-                fareType: FareType.BTS
+                fareType: FareType.BTS_SILOM
             }, {
                 route: [
                     MRT_BLUE_STATION.SILOM,
