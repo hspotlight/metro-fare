@@ -213,6 +213,25 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
+        it('should return 23 when travel from CHONG_NONSI to SURASUK (have one station in middle)', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.CHONG_NONSI,
+                    BTS_SILOM_STATION.SUKSA_WITTHAYA,
+                    BTS_SILOM_STATION.SURASAK
+                ],
+                fareType: FareType.BTS_SILOM,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.CHONG_NONSI;
+            const destination = BTS_SILOM_STATION.SURASAK;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
+            expect(travelRoute.fare).toBe(23);
+        });
         it('should return 16 when distance from source-distance is 1 hop', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG],
