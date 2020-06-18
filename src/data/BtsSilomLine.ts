@@ -4,6 +4,7 @@ import { Line } from "../types/Line";
 export const BTS_SILOM_LINE: Line = {
     line: [
         BTS_SILOM_STATION.NATIONAL_STADIUM,
+        BTS_SILOM_STATION.SIAM,
         BTS_SILOM_STATION.RATCHADAMRI,
         BTS_SILOM_STATION.SALA_DAENG,
         BTS_SILOM_STATION.CHONG_NONSI,
