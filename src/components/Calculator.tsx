@@ -15,6 +15,7 @@ import {
 } from "../types";
 import { STATION_NAME, STATION_NAME_KEY, Station } from "../data/StationName";
 import "../styles/Calculator.scss";
+import { FindRouteMethod } from "../services/graph.service";
 
 const Calculator = () => {
   const [source, setSource] = useState<string>("");
@@ -23,12 +24,14 @@ const Calculator = () => {
   const [travelRoute, setTravelRoute] = useState<TravelRoute | undefined>(
     undefined
   );
+  const [findRouteMethod, setFindRouteMethod] = useState<FindRouteMethod>('lowestHop');
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
 
   const calculateRoute = () => {
     const travelRoute = FareService.calculate(
       source as METRO_STATION,
-      destination as METRO_STATION
+      destination as METRO_STATION,
+      findRouteMethod
     );
     setTravelRoute(travelRoute);
   };
@@ -37,6 +40,7 @@ const Calculator = () => {
     setSource("");
     setDestination("");
     setErrorMessage("");
+    setFindRouteMethod('lowestHop');
     setTravelRoute(undefined);
   };
 
@@ -63,6 +67,22 @@ const Calculator = () => {
         value={destination}
         onChange={setDestination}
       />
+      <FormControl style={{ width: "100%" }} required>
+        <InputLabel htmlFor={'find-route-method'}>Method</InputLabel>
+        <Select
+          native
+          onChange={(e: any) => setFindRouteMethod(e.target.value as FindRouteMethod)}
+          name={"Line"}
+          value={findRouteMethod}
+          inputProps={{
+            id: 'find-route-method',
+          }}
+        >
+          <option value={"lowestHop"}>Lowest Hop</option>
+          <option value={'lowestFare'}>Lowest Fare</option>
+        </Select>
+        <FormHelperText>Required</FormHelperText>
+      </FormControl>
       <section className="form-button-group">
         <Button variant="contained" color="secondary" onClick={resetForm}>
           Reset
