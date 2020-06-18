@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import "../styles/Calculator.scss";
 import { LineType } from "../types/LineType";
+import { getNameFromStation } from "../services/util.service";
 
 const Calculator = () => {
   const [source, setSource] = useState<string>("");
@@ -171,12 +172,13 @@ function CalculationResult(travelRoute: TravelRoute): React.ReactNode {
           const route = routeSegment.route.map((stationKey, index) => {
             const dottedLine = getDottedLine(routeSegment.lineType);
             const stationIcon = getStationIcon(routeSegment.lineType);
+            const stationName = getNameFromStation(stationKey);
             return (
               <section key={stationKey}>
                 {index > 0 && dottedLine}
                 <section className="station-container">
                   {stationIcon}
-                  <div>{stationKey}</div>
+                  <div>{stationName}</div>
                 </section>
               </section>
             );
