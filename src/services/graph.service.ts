@@ -5,6 +5,7 @@ import { Graph } from "../types/Graph";
 import { RouteSegment } from "../types/RouteSegment";
 import { METRO_GRAPH } from "../data/MetroGraph";
 import { getFareTypeFromStationId } from "./util.service";
+import PriorityQueue from "priorityqueue";
 
 export const graphService = {
     createGraph(metroGraph: Graph, graph = Object.create(null)) {
@@ -42,13 +43,14 @@ export const graphService = {
         });
     },
     findRoute(source: METRO_STATION, destination: METRO_STATION, graph: any): RouteSegment[] {
+        const stationsToBeVisited = new PriorityQueue({});
         const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
-        const stationsToBeVisited = [new StationHop(source, [routeSegment])];
+        stationsToBeVisited.push(new StationHop(source, [routeSegment]));
 
         const visitedStations = Object.create({});
         
         while (stationsToBeVisited.length > 0) {
-            const currentStation = stationsToBeVisited.shift() as StationHop;
+            const currentStation = stationsToBeVisited.pop() as StationHop;
             
             if (currentStation.station === destination) {
                 return currentStation.paths;
