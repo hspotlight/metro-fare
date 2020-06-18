@@ -22,6 +22,14 @@ const fareTable: number[] = METRO_FARE[routeSegment.fareType];
     return fareTable[hops];
 }
 
+export const calculateTotalFare = (routeSegments: RouteSegment[]): number => {
+    let totalFare = 0;
+    routeSegments.forEach(routeSegment => {
+        totalFare += calculateFareFromRouteSegment(routeSegment);
+    });
+    return totalFare;
+};
+
 export const getLineTypeFromFareType = (fareType: FareType): LineType => {
     switch (fareType) {
         case FareType.BTS_SILOM:

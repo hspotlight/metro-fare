@@ -376,5 +376,96 @@ describe('GraphService', () => {
             }]
             expect(routeSegment).toMatchObject(expectedResult);
         });
+        it('should return the route that has minimum fare', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.SURASAK,
+                        BTS_SILOM_STATION.CHONG_NONSI,
+                        BTS_SILOM_STATION.SALA_DAENG,
+                    ],
+                }, {
+                    line: [
+                        MRT_BLUE_STATION.SILOM,
+                        MRT_BLUE_STATION.SAM_YAN,
+                        MRT_BLUE_STATION.HUA_LAMPHONG,
+                        MRT_BLUE_STATION.WAT_MANGKON,
+                        MRT_BLUE_STATION.SAM_YOT,
+                        MRT_BLUE_STATION.SANAM_CHAI,
+                    ],
+                }],
+                intersections: [
+                    [BTS_SILOM_STATION.SALA_DAENG, MRT_BLUE_STATION.SILOM],
+                    [BTS_SILOM_STATION.SURASAK, MRT_BLUE_STATION.SANAM_CHAI],
+                ]
+            }
+            const source = MRT_BLUE_STATION.SILOM;
+            const destination = MRT_BLUE_STATION.SANAM_CHAI;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph, 'lowestFare');
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.HUA_LAMPHONG,
+                    MRT_BLUE_STATION.WAT_MANGKON,
+                    MRT_BLUE_STATION.SAM_YOT,
+                    MRT_BLUE_STATION.SANAM_CHAI,
+                ],
+                fareType: FareType.MRT_BLUE
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return the route that has minimum hop', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.SURASAK,
+                        BTS_SILOM_STATION.CHONG_NONSI,
+                        BTS_SILOM_STATION.SALA_DAENG,
+                    ],
+                }, {
+                    line: [
+                        MRT_BLUE_STATION.SILOM,
+                        MRT_BLUE_STATION.SAM_YAN,
+                        MRT_BLUE_STATION.HUA_LAMPHONG,
+                        MRT_BLUE_STATION.WAT_MANGKON,
+                        MRT_BLUE_STATION.SAM_YOT,
+                        MRT_BLUE_STATION.SANAM_CHAI,
+                    ],
+                }],
+                intersections: [
+                    [BTS_SILOM_STATION.SALA_DAENG, MRT_BLUE_STATION.SILOM],
+                    [BTS_SILOM_STATION.SURASAK, MRT_BLUE_STATION.SANAM_CHAI],
+                ]
+            }
+            const source = MRT_BLUE_STATION.SILOM;
+            const destination = MRT_BLUE_STATION.SANAM_CHAI;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    MRT_BLUE_STATION.SILOM,
+                ],
+                fareType: FareType.MRT_BLUE
+            }, {
+                route: [
+                    BTS_SILOM_STATION.SALA_DAENG,
+                    BTS_SILOM_STATION.CHONG_NONSI,
+                    BTS_SILOM_STATION.SURASAK,
+                ],
+                fareType: FareType.BTS_SILOM
+            }, {
+                route: [
+                    MRT_BLUE_STATION.SANAM_CHAI,
+                ],
+                fareType: FareType.MRT_BLUE
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
     });
 });
