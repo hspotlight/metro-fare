@@ -6,7 +6,7 @@ import { METRO_GRAPH } from "../data/MetroGraph";
 const lowestFareComparator = (stationA: StationHop, stationB: StationHop) => stationB.getFare() - stationA.getFare();
 const lowestHopsComparator = (stationA: StationHop, stationB: StationHop) => stationB.getTotalHops() - stationA.getTotalHops();
 
-type FindRouteType = 'lowestFare' | 'lowestHop'
+export type FindRouteMethod = 'lowestFare' | 'lowestHop'
 
 export const graphService = {
     createGraph(metroGraph: Graph, graph = Object.create(null)) {
@@ -43,10 +43,10 @@ export const graphService = {
             graph[secondStation].push(firstStation);
         });
     },
-    findRoute(source: METRO_STATION, destination: METRO_STATION, graph: any, findRouteType: FindRouteType = 'lowestHop'): RouteSegment[] {
+    findRoute(source: METRO_STATION, destination: METRO_STATION, graph: any, findRouteMethod: FindRouteMethod = 'lowestHop'): RouteSegment[] {
         const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
         
-        const comparator = findRouteType === 'lowestHop' ? lowestHopsComparator : lowestFareComparator; 
+        const comparator = findRouteMethod === 'lowestHop' ? lowestHopsComparator : lowestFareComparator; 
         const stationsToBeVisited = new PriorityQueue({ comparator });
         stationsToBeVisited.push(new StationHop(source, [routeSegment]));
 
