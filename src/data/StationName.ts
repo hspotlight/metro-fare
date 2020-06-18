@@ -1,4 +1,4 @@
-import { MRT_BLUE_STATION, BTS_SILOM_STATION, METRO_STATION } from "../types/MetroStation";
+import { MRT_BLUE_STATION, BTS_SILOM_STATION, METRO_STATION } from "../types";
 
 export type STATION_NAME_KEY = 'BTS' | "MRT_BLUE"
 

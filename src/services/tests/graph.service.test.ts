@@ -1,9 +1,5 @@
 import { graphService } from "../graph.service";
-import { Line } from "../../types/Line";
-import { MRT_BLUE_STATION, BTS_SILOM_STATION } from "../../types/MetroStation";
-import { Graph } from "../../types/Graph";
-import { RouteSegment } from "../../types/RouteSegment";
-import { FareType } from "../../types/FareType";
+import { MRT_BLUE_STATION, BTS_SILOM_STATION, Line, Graph, RouteSegment, FareType } from "../../types";
 
 describe('GraphService', () => {
     describe('CreateGraph', () => {

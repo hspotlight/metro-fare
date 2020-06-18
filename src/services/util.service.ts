@@ -1,8 +1,5 @@
 import { METRO_FARE } from "../common/fare";
-import { RouteSegment } from "../types/RouteSegment";
-import { FareType } from "../types/FareType";
-import { LineType } from "../types/LineType";
-import { METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION } from "../types/MetroStation";
+import { FareType, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION } from "../types";
 import { STATION_NAME } from "../data/StationName";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment): number => {

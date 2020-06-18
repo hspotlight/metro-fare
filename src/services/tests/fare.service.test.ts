@@ -1,8 +1,6 @@
 import { FareService } from '../fare.service';
-import { MRT_BLUE_STATION, BTS_SILOM_STATION } from '../../types/MetroStation';
 import { graphService } from '../graph.service';
-import { RouteSegment } from '../../types/RouteSegment';
-import { FareType } from '../../types/FareType';
+import { MRT_BLUE_STATION, BTS_SILOM_STATION, RouteSegment, FareType } from '../../types';
 
 describe('FareService', () => {
     describe('MRT Blue line', () => {

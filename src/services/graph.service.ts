@@ -1,11 +1,7 @@
-import { Line } from "../types/Line";
-import { Intersection } from "../types/Intersection";
-import { METRO_STATION } from "../types/MetroStation";
-import { Graph } from "../types/Graph";
-import { RouteSegment } from "../types/RouteSegment";
-import { METRO_GRAPH } from "../data/MetroGraph";
-import { getFareTypeFromStationId, calculateTotalFare } from "./util.service";
 import PriorityQueue from "priorityqueue";
+import { getFareTypeFromStationId, calculateTotalFare } from "./util.service";
+import { METRO_STATION, Graph, RouteSegment, Line, Intersection } from "../types";
+import { METRO_GRAPH } from "../data/MetroGraph";
 
 const lowestFareComparator = (stationA: StationHop, stationB: StationHop) => stationB.getFare() - stationA.getFare();
 const lowestHopsComparator = (stationA: StationHop, stationB: StationHop) => stationB.getTotalHops() - stationA.getTotalHops();

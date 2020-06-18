@@ -1,5 +1,4 @@
-import { MRT_BLUE_STATION } from "../types/MetroStation";
-import { Line } from "../types/Line";
+import { MRT_BLUE_STATION, Line } from "../types";
 
 export const MRT_BLUE_LINE: Line = { 
     line: [
