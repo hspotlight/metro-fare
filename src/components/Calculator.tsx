@@ -1,10 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { FareService, TravelRoute } from "../services/fare.service";
-import {
-  METRO_STATION,
-  BTS_SILOM_STATION,
-} from "../types/MetroStation";
-import { STATION_NAME, STATION_NAME_KEY, Station } from "../data/StationName";
 import {
   Button,
   Select,
@@ -12,9 +6,15 @@ import {
   FormControl,
   FormHelperText,
 } from "@material-ui/core";
-import "../styles/Calculator.scss";
-import { LineType } from "../types/LineType";
+import { FareService, TravelRoute } from "../services/fare.service";
 import { getNameFromStation } from "../services/util.service";
+import {
+  METRO_STATION,
+  BTS_SILOM_STATION,
+  LineType
+} from "../types";
+import { STATION_NAME, STATION_NAME_KEY, Station } from "../data/StationName";
+import "../styles/Calculator.scss";
 
 const Calculator = () => {
   const [source, setSource] = useState<string>("");

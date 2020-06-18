@@ -1,7 +1,6 @@
 import { MRT_BLUE_LINE } from "./MrtBlueLine";
 import { BTS_SILOM_LINE } from "./BtsSilomLine";
-import { MRT_BLUE_STATION, BTS_SILOM_STATION } from "../types/MetroStation";
-import { Graph } from "../types/Graph";
+import { MRT_BLUE_STATION, BTS_SILOM_STATION, Graph } from "../types";
 
 export const METRO_GRAPH: Graph = {
     lines: [

@@ -1,5 +1,4 @@
-import { BTS_SILOM_STATION } from "../types/MetroStation";
-import { Line } from "../types/Line";
+import { BTS_SILOM_STATION, Line } from "../types";
 
 export const BTS_SILOM_LINE: Line = {
     line: [

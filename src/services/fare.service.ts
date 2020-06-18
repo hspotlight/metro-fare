@@ -1,8 +1,6 @@
-import { METRO_STATION } from "../types/MetroStation";
 import { graphService, metroGraph } from "./graph.service";
-import { RouteSegment } from "../types/RouteSegment";
 import { calculateFareFromRouteSegment, getLineTypeFromFareType } from "./util.service";
-import { LineType } from "../types/LineType";
+import { METRO_STATION, LineType, RouteSegment } from "../types";
 
 export type TravelRoute = {
     route: {
