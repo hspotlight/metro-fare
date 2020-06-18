@@ -4,7 +4,7 @@ import {
   METRO_STATION,
   BTS_SILOM_STATION,
 } from "../types/MetroStation";
-import { STATION_NAME, STATION_NAME_KEY } from "../data/StationName";
+import { STATION_NAME, STATION_NAME_KEY, Station } from "../data/StationName";
 import {
   Button,
   Select,
@@ -99,9 +99,6 @@ const SelectStationComponent = ({
   const lineElementId = title + "-line-native-required";
   const selectElementId = title + "-native-required";
   const stationsName = STATION_NAME[lineType];
-  const getLabel = (key: string): string => {
-    return key.replace(/_/g, " ");
-  };
 
   const handleLineTypeSelectChange = (value: string) => {
     setLineType(value as STATION_NAME_KEY);
@@ -146,10 +143,10 @@ const SelectStationComponent = ({
           }}
         >
           <option value="" disabled></option>
-          {stationsName.map((stationKey: string) => {
-            const label = getLabel(stationKey);
+          {stationsName.map((station: Station) => {
+            const label = station.nameEN;
             return (
-              <option key={stationKey} value={stationKey}>
+              <option key={station.key} value={station.key}>
                 {label}
               </option>
             );
