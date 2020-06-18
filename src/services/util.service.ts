@@ -46,7 +46,7 @@ export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
         BTS_SILOM_STATION.WUTTHAKAT,
         BTS_SILOM_STATION.BANG_WA,
     ];
-    if (Object.values(BTS_SILOM_EXTENSION).includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM_EXTENSION_15
+    if (BTS_SILOM_EXTENSION.includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM_EXTENSION_15
     if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM
     return FareType.MRT_BLUE
 }
