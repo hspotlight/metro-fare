@@ -20,6 +20,7 @@ import { getStationName } from "../services/util.service";
 import { LanguageContext, Language } from "../contexts/LanguageProvider";
 
 const Calculator = () => {
+  const { language, setLanguage } = useContext(LanguageContext);
   const [source, setSource] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -58,16 +59,24 @@ const Calculator = () => {
 
   return (
     <section className="calculator-container">
-      <h1>Metro Fare</h1>
+      <section className="header">
+        <h1>Metro Fare</h1>
+        <section style={{display: 'flex', alignItems: 'center'}}>
+          <div className={"flag th " + (language === "th" ? "language-active" : "")} onClick={() => language !== "th" && setLanguage("th")}></div>
+          <div className={"flag en " + (language === "en" ? "language-active" : "")} onClick={() => language !== "en" && setLanguage("en")}></div>
+        </section>
+      </section>
       <SelectStationComponent
         title="Source"
         value={source}
         onChange={setSource}
+        language={language}
       />
       <SelectStationComponent
         title="Destination"
         value={destination}
         onChange={setDestination}
+        language={language}
       />
       <FormControl style={{ width: "100%" }} required>
         <InputLabel htmlFor={'find-route-method'}>Method</InputLabel>
@@ -100,7 +109,7 @@ const Calculator = () => {
         </Button>
       </section>
       {errorMessage.length > 0 && <ErrorMessage errorMessage={errorMessage} />}
-      {travelRoute !== undefined && CalculationResult(travelRoute)}
+      {travelRoute !== undefined && <CalculationResult travelRoute={travelRoute} language={language}/>}
     </section>
   );
 };
@@ -113,12 +122,13 @@ const SelectStationComponent = ({
   title,
   value,
   onChange,
+  language,
 }: {
   title: string;
   value: string;
   onChange: Function;
+  language: Language;
 }) => {
-  const { language } = useContext(LanguageContext);
   const [lineType, setLineType] = useState<LineType>(LineType.MRT_BLUE);
   const lineElementId = title + "-line-native-required";
   const selectElementId = title + "-native-required";
