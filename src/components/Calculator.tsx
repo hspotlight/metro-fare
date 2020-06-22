@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Button,
   Select,
@@ -16,6 +16,8 @@ import { STATIONS, Station } from "../data/Stations";
 import { FindRouteMethod } from "../services/graph.service";
 import CalculationResult from "./CalculationResult";
 import "../styles/Calculator.scss";
+import { getStationName } from "../services/util.service";
+import { LanguageContext, Language } from "../contexts/LanguageProvider";
 
 const Calculator = () => {
   const [source, setSource] = useState<string>("");
@@ -116,6 +118,7 @@ const SelectStationComponent = ({
   value: string;
   onChange: Function;
 }) => {
+  const { language } = useContext(LanguageContext);
   const [lineType, setLineType] = useState<LineType>(LineType.MRT_BLUE);
   const lineElementId = title + "-line-native-required";
   const selectElementId = title + "-native-required";
@@ -165,7 +168,7 @@ const SelectStationComponent = ({
         >
           <option value="" disabled></option>
           {stationsName.map((station: Station) => {
-            const label = station.nameEN;
+            const label = getStationName(station, language as Language);
             return (
               <option key={station.key} value={station.key}>
                 {label}
