@@ -10,8 +10,9 @@ import { FareService, TravelRoute } from "../services/fare.service";
 import {
   METRO_STATION,
   BTS_SILOM_STATION,
+  LineType,
 } from "../types";
-import { STATION_NAME, STATION_NAME_KEY, Station } from "../data/StationName";
+import { STATIONS, Station } from "../data/Stations";
 import { FindRouteMethod } from "../services/graph.service";
 import CalculationResult from "./CalculationResult";
 import "../styles/Calculator.scss";
@@ -115,21 +116,21 @@ const SelectStationComponent = ({
   value: string;
   onChange: Function;
 }) => {
-  const [lineType, setLineType] = useState<STATION_NAME_KEY>("MRT_BLUE");
+  const [lineType, setLineType] = useState<LineType>(LineType.MRT_BLUE);
   const lineElementId = title + "-line-native-required";
   const selectElementId = title + "-native-required";
-  const stationsName = STATION_NAME[lineType].filter(station => !station.isNotAvailable);
+  const stationsName = STATIONS.filter(station => station.lineType === lineType && !station.isNotAvailable);
 
   const handleLineTypeSelectChange = (value: string) => {
-    setLineType(value as STATION_NAME_KEY);
+    setLineType(value as LineType);
     onChange("");
   };
 
   useEffect(() => {
     if (Object.values(BTS_SILOM_STATION).find((btsKey => btsKey === value))) {
-      setLineType("BTS");
+      setLineType(LineType.BTS_SILOM);
     } else if (value.length !== 0) {
-      setLineType("MRT_BLUE");
+      setLineType(LineType.MRT_BLUE);
     }
   }, [value]);
 
@@ -147,7 +148,7 @@ const SelectStationComponent = ({
           }}
         >
           <option value={"MRT_BLUE"}>MRT</option>
-          <option value={"BTS"}>BTS</option>
+          <option value={"BTS_SILOM"}>BTS SILOM</option>
         </Select>
         <FormHelperText>Required</FormHelperText>
       </FormControl>
