@@ -9,6 +9,7 @@ export type Station = {
 
 export const STATIONS: Station[] = [
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.NATIONAL_STADIUM, nameEN: 'National Stadium' },
+    { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.SIAM, nameEN: 'Siam' },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.RATCHADAMRI, nameEN: 'Ratchadamri' },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.SALA_DAENG, nameEN: 'Sala Deang' },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.CHONG_NONSI, nameEN: 'Chong Nonsi' },
