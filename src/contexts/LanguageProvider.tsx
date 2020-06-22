@@ -5,7 +5,7 @@ export type Language = "en" | "th";
 const defaultLanguage: Language = "en";
 
 const initialContextValue = {
-  language: "en",
+  language: "en" as Language,
   setLanguage: (_: Language) => {},
 };
 export const LanguageContext = createContext(initialContextValue);

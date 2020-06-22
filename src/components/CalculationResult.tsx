@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
+import React from "react";
 import { TravelRoute } from "../services/fare.service";
 import { getStation, getStationName } from "../services/util.service";
 import { LineType } from "../types";
 import "../styles/CalculationResult.scss";
-import { LanguageContext, Language } from "../contexts/LanguageProvider";
+import { Language } from "../contexts/LanguageProvider";
 import { Station } from "../data/Stations";
 
-const CalculationResult = (travelRoute: TravelRoute) => {
-  const { language } = useContext(LanguageContext);
+const CalculationResult = ({travelRoute, language}: {travelRoute: TravelRoute, language: Language}) => {
   return (
     <div>
       <div>Fare: {travelRoute.fare}</div>
@@ -24,7 +23,7 @@ const CalculationResult = (travelRoute: TravelRoute) => {
             const dottedLine = getDottedLine(routeSegment.lineType);
             const stationIcon = getStationIcon(routeSegment.lineType);
             const station = getStation(stationKey);
-            const stationName = getStationName(station as Station, language as Language);
+            const stationName = getStationName(station as Station, language);
             if (station?.isNotAvailable) {
               return null;
             }
