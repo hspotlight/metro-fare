@@ -1,7 +1,8 @@
 import PriorityQueue from "priorityqueue";
-import { getFareTypeFromStationId, calculateTotalFare } from "./util.service";
+import { getFareTypeFromStationId } from "./util.service";
 import { METRO_STATION, Graph, RouteSegment, Line, Intersection } from "../types";
 import { METRO_GRAPH } from "../data/MetroGraph";
+import { StationHop } from "../types/StationHop";
 
 const lowestFareComparator = (stationA: StationHop, stationB: StationHop) => stationB.getFare() - stationA.getFare();
 const lowestHopsComparator = (stationA: StationHop, stationB: StationHop) => stationB.getTotalHops() - stationA.getTotalHops();
@@ -103,28 +104,6 @@ const getNextStationRouteSegments = (currentStation: StationHop, nextStation: ME
     }
 
     return routeSegments;
-}
-
-export class StationHop {
-    station: METRO_STATION;
-    paths: RouteSegment[];
-
-    constructor(station: METRO_STATION, paths: RouteSegment[]) {
-        this.station = station;
-        this.paths = paths;
-    }
-
-    public getFare(): number {
-        return calculateTotalFare(this.paths);
-    }
-
-    public getTotalHops(): number {
-        let totalHops = 0;
-        this.paths.forEach(path => {
-            totalHops += path.route.length;
-        });
-        return totalHops;
-    }
 }
 
 export const metroGraph = graphService.createGraph(METRO_GRAPH);
