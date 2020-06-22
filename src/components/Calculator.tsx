@@ -118,7 +118,7 @@ const SelectStationComponent = ({
   const [lineType, setLineType] = useState<STATION_NAME_KEY>("MRT_BLUE");
   const lineElementId = title + "-line-native-required";
   const selectElementId = title + "-native-required";
-  const stationsName = STATION_NAME[lineType];
+  const stationsName = STATION_NAME[lineType].filter(station => !station.isNotAvailable);
 
   const handleLineTypeSelectChange = (value: string) => {
     setLineType(value as STATION_NAME_KEY);

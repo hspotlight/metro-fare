@@ -1,6 +1,6 @@
 import React from "react";
 import { TravelRoute } from "../services/fare.service";
-import { getNameFromStation } from "../services/util.service";
+import { getStation } from "../services/util.service";
 import { LineType } from "../types";
 import "../styles/CalculationResult.scss";
 
@@ -20,7 +20,12 @@ const CalculationResult = (travelRoute: TravelRoute) => {
           const route = routeSegment.route.map((stationKey, index) => {
             const dottedLine = getDottedLine(routeSegment.lineType);
             const stationIcon = getStationIcon(routeSegment.lineType);
-            const stationName = getNameFromStation(stationKey);
+            const station = getStation(stationKey);
+            const stationName = station?.nameEN;
+            if (station?.isNotAvailable) {
+              return null;
+            }
+
             return (
               <section key={stationKey}>
                 {index > 0 && dottedLine}
