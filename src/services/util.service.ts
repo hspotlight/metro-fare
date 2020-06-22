@@ -1,9 +1,9 @@
 import { METRO_FARE } from "../common/fare";
 import { FareType, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION } from "../types";
-import { STATION_NAME, Station } from "../data/StationName";
+import { STATIONS, Station } from "../data/Stations";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment): number => {
-const fareTable: number[] = METRO_FARE[routeSegment.fareType];
+    const fareTable: number[] = METRO_FARE[routeSegment.fareType];
 
     const hops = routeSegment.route.length - 1;
 
@@ -33,7 +33,7 @@ export const getLineTypeFromFareType = (fareType: FareType): LineType => {
         case FareType.BTS_SILOM_EXTENSION_15: return LineType.BTS_SILOM;
         default: return LineType.MRT_BLUE;
     }
-}
+};
 
 const isInterchangeStation = (station: METRO_STATION): boolean => {
     const interChangeStations: METRO_STATION[] = [
@@ -43,7 +43,7 @@ const isInterchangeStation = (station: METRO_STATION): boolean => {
         BTS_SILOM_STATION.SALA_DAENG
     ];
     return interChangeStations.includes(station);
-}
+};
 
 export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
     const BTS_SILOM_EXTENSION = [
@@ -55,15 +55,10 @@ export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
     if (BTS_SILOM_EXTENSION.includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM_EXTENSION_15
     if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM
     return FareType.MRT_BLUE
-}
+};
 
 export const getStation = (searchStation: METRO_STATION): Station | null => {
-    let stationName = STATION_NAME['BTS'];
-    let station = stationName.find(stationName => stationName.key === searchStation);
-    if (station) return station;
-
-    stationName = STATION_NAME['MRT_BLUE'];
-    station = stationName.find(stationName => stationName.key === searchStation);
+    let station = STATIONS.find(stationName => stationName.key === searchStation);
     if (station) return station;
 
     return null;
