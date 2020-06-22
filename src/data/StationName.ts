@@ -10,6 +10,7 @@ type StationName = {
 export type Station = {
     key: METRO_STATION,
     nameEN: string
+    isNotAvailable?: boolean,
 }
 
 export const STATION_NAME: StationName = {
@@ -18,7 +19,7 @@ export const STATION_NAME: StationName = {
         { key: BTS_SILOM_STATION.RATCHADAMRI, nameEN: 'Ratchadamri' },
         { key: BTS_SILOM_STATION.SALA_DAENG, nameEN: 'Sala Deang' },
         { key: BTS_SILOM_STATION.CHONG_NONSI, nameEN: 'Chong Nonsi' },
-        // BTS_SILOM_STATION.SUKSA_WITTHAYA, not finished construction yet
+        { key: BTS_SILOM_STATION.SUKSA_WITTHAYA, nameEN: 'Suksa Witthaya', isNotAvailable: true },
         { key: BTS_SILOM_STATION.SURASAK, nameEN: 'Surasak' },
         { key: BTS_SILOM_STATION.SAPHAN_TAKSIN, nameEN: 'Sahpan Taksin' },
         { key: BTS_SILOM_STATION.KRUNG_THON_BURI, nameEN: 'Krung Thon Buri' },

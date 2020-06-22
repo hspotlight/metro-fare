@@ -1,6 +1,6 @@
 import { METRO_FARE } from "../common/fare";
 import { FareType, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION } from "../types";
-import { STATION_NAME } from "../data/StationName";
+import { STATION_NAME, Station } from "../data/StationName";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment): number => {
 const fareTable: number[] = METRO_FARE[routeSegment.fareType];
@@ -57,14 +57,14 @@ export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
     return FareType.MRT_BLUE
 }
 
-export const getNameFromStation = (searchStation: METRO_STATION, lang = 'EN'): string => {
+export const getStation = (searchStation: METRO_STATION): Station | null => {
     let stationName = STATION_NAME['BTS'];
     let station = stationName.find(stationName => stationName.key === searchStation);
-    if (station) return station.nameEN;
+    if (station) return station;
 
     stationName = STATION_NAME['MRT_BLUE'];
     station = stationName.find(stationName => stationName.key === searchStation);
-    if (station) return station.nameEN;
+    if (station) return station;
 
-    return "";
+    return null;
 };
