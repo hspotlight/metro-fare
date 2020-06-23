@@ -175,7 +175,7 @@ const SelectStationComponent = ({
         >
           <option value="" disabled></option>
           {stationsName.map((station: Station) => {
-            const label = getStationName(station, i18n.language);
+            const label = "(" + station.key + ") " + getStationName(station, i18n.language);
             return (
               <option key={station.key} value={station.key}>
                 {label}

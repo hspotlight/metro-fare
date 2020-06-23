@@ -24,6 +24,7 @@ export const STATIONS: Station[] = [
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.WUTTHAKAT, nameEN: "Wutthakat", nameTH: "วุฒากาศ" },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.BANG_WA, nameEN: "Bang Wa", nameTH: "บางหว้า" },
 
+    { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.THAPHRA, nameEN: "Thaphra", nameTH: "ท่าพระ" },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.CHARAN_13, nameEN: "Charan 13", nameTH: "จรัญฯ 13" },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.FAI_CHAI, nameEN: "Fai chai", nameTH: "ไฟฉาย" },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_KHUN_NON, nameEN: "Bang Khun Non", nameTH: "บางขุนนนท์" },
@@ -55,7 +56,6 @@ export const STATIONS: Station[] = [
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.SAM_YOT, nameEN: "Sam Yot", nameTH: "สามยอด" },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.SANAM_CHAI, nameEN: "Sanam Chai", nameTH: "สยามไชย" },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.ITSARAPHAP, nameEN: "Itsaraphap", nameTH: "อิสรภาพ" },
-    { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.THAPHRA, nameEN: "Thaphra", nameTH: "ท่าพระ" },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_PHAI, nameEN: "Bang Phai", nameTH: "บางไผ่" },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_WA, nameEN: "Bang Wa", nameTH: "บางหว้า" },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.PHETKASEM_48, nameEN: "Phetkasem 48", nameTH: "เพชรเกษม 48" },
