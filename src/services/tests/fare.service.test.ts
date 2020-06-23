@@ -19,7 +19,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
-        it('should return 16 when distance from source-distance is 1 hop', () => {
+        it('should return 16 when distance from source-destination is 1 hop', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.RATCHADAPHISEK],
                 fareType: FareType.MRT_BLUE,
@@ -34,7 +34,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
-        it('should return 16 when distance from source-distance is 1 hop', () => {
+        it('should return 16 when distance from source-destination is 1 hop', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [MRT_BLUE_STATION.CHARAN_13, MRT_BLUE_STATION.THAPHRA],
                 fareType: FareType.MRT_BLUE,
@@ -49,7 +49,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
-        it('should return 19 when distance from source-distance is 2 hops', () => {
+        it('should return 19 when distance from source-destination is 2 hops', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
                     MRT_BLUE_STATION.LAT_PHRAO,
@@ -69,7 +69,7 @@ describe('FareService', () => {
             expect(travelRoute.fare).toBe(19);
         });
 
-        it('should return 21 when distance from source-distance is 3 hops', () => {
+        it('should return 21 when distance from source-destination is 3 hops', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
                     MRT_BLUE_STATION.LAT_PHRAO,
@@ -89,7 +89,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(21);
         });
-        it('should return 23 when distance from source-distance is 4 hops', () => {
+        it('should return 23 when distance from source-destination is 4 hops', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
                     MRT_BLUE_STATION.LAT_PHRAO,
@@ -110,7 +110,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(23);
         });
-        it('should return 25 when distance from source-distance is 5 hops', () => {
+        it('should return 25 when distance from source-destination is 5 hops', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
                     MRT_BLUE_STATION.LAT_PHRAO,
@@ -132,7 +132,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(25);
         });
-        it('should return 42 when distance from source-distance is 13 hops', () => {
+        it('should return 42 when distance from source-destination is 13 hops', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
                     MRT_BLUE_STATION.LAT_PHRAO,
@@ -162,7 +162,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(42);
         });
-        it('should return 42 when distance from source-distance more than 13 hops', () => {
+        it('should return 42 when distance from source-destination more than 13 hops', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
                     MRT_BLUE_STATION.LAT_PHRAO,
@@ -230,7 +230,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(23);
         });
-        it('should return 16 when distance from source-distance is 1 hop', () => {
+        it('should return 16 when distance from source-destination is 1 hop', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG],
                 fareType: FareType.BTS_SILOM,
@@ -245,7 +245,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(16);
         });
-        it('should return 23 when distance from source-distance is 2 hop', () => {
+        it('should return 23 when distance from source-destination is 2 hop', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG, BTS_SILOM_STATION.RATCHADAMRI],
                 fareType: FareType.BTS_SILOM,
@@ -260,7 +260,7 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(23);
         });
-        it('should return 37 when distance from source-distance is 6 hop', () => {
+        it('should return 37 when distance from source-destination is 6 hop', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [
                     BTS_SILOM_STATION.CHONG_NONSI,
