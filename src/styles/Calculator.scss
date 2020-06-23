@@ -1,10 +1,11 @@
 .calculator-container {
-  width: 350px;
+  width: 450px;
   min-height: 270px;
   border: black 1px solid;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  border-radius: 20px;
 }
 
 .header {
@@ -21,14 +22,6 @@
   display: flex;
   width: 100%;
   justify-content: center;
-}
-
-.form-staiton-select-line {
-  width: 80px;
-}
-
-.w-100 {
-  width: 100%;
 }
 
 .flag {
