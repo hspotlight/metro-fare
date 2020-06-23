@@ -23,26 +23,3 @@
   width: 100%;
   justify-content: center;
 }
-
-.flag {
-  width: 30px;
-  height: 30px;
-  margin-left: 5px;
-  cursor: pointer;
-  border-bottom-width: 2px;
-  border-bottom-style: solid;
-  border-bottom-color: transparent;
-}
-
-.th {
-  background-image: url("../assets//thailand.svg");
-}
-
-.en {
-  background-image: url("../assets//uk.svg");
-}
-
-.language-active {
-  cursor: unset;
-  border-bottom-color: black;
-}
