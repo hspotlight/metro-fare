@@ -4,12 +4,12 @@ import { MRT_BLUE_STATION, BTS_SILOM_STATION, Line, Graph, RouteSegment, FareTyp
 describe('GraphService', () => {
     describe('CreateGraph', () => {
         it('should create the graph of MRT line', () => {
-            const expectedResult = {
-                'LAT_PHRAO': [MRT_BLUE_STATION.RATCHADAPHISEK],
-                'RATCHADAPHISEK': [MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.SUTTHISAN],
-                'SUTTHISAN': [MRT_BLUE_STATION.RATCHADAPHISEK, MRT_BLUE_STATION.HUAI_KHWANG],
-                'HUAI_KHWANG': [MRT_BLUE_STATION.SUTTHISAN],
-            };
+            const expectedResult = Object.create({});
+            expectedResult[MRT_BLUE_STATION.LAT_PHRAO] = [MRT_BLUE_STATION.RATCHADAPHISEK];
+            expectedResult[MRT_BLUE_STATION.RATCHADAPHISEK] = [MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.SUTTHISAN];
+            expectedResult[MRT_BLUE_STATION.SUTTHISAN] = [MRT_BLUE_STATION.RATCHADAPHISEK, MRT_BLUE_STATION.HUAI_KHWANG];
+            expectedResult[MRT_BLUE_STATION.HUAI_KHWANG] = [MRT_BLUE_STATION.SUTTHISAN];
+            
             const metroLine: Line = {
                 line: [
                     MRT_BLUE_STATION.LAT_PHRAO,
