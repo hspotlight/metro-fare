@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Select,
@@ -17,10 +17,10 @@ import { FindRouteMethod } from "../services/graph.service";
 import CalculationResult from "./CalculationResult";
 import "../styles/Calculator.scss";
 import { getStationName } from "../services/util.service";
-import { LanguageContext, Language } from "../contexts/LanguageProvider";
+import { useTranslation } from "react-i18next";
 
 const Calculator = () => {
-  const { language, setLanguage } = useContext(LanguageContext);
+  const { t: translate, i18n } = useTranslation();
   const [source, setSource] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -62,41 +62,39 @@ const Calculator = () => {
       <section className="header">
         <h1>Metro Fare</h1>
         <section style={{display: 'flex', alignItems: 'center'}}>
-          <div className={"flag th " + (language === "th" ? "language-active" : "")} onClick={() => language !== "th" && setLanguage("th")}></div>
-          <div className={"flag en " + (language === "en" ? "language-active" : "")} onClick={() => language !== "en" && setLanguage("en")}></div>
+          <div className={"flag th " + (i18n.language === "th" ? "language-active" : "")} onClick={() => i18n.language !== "th" && i18n.changeLanguage("th")}></div>
+          <div className={"flag en " + (i18n.language === "en" ? "language-active" : "")} onClick={() => i18n.language !== "en" && i18n.changeLanguage("en")}></div>
         </section>
       </section>
       <SelectStationComponent
-        title="Source"
+        title={translate('route.source')}
         value={source}
         onChange={setSource}
-        language={language}
       />
       <SelectStationComponent
-        title="Destination"
+        title={translate('route.destination')}
         value={destination}
         onChange={setDestination}
-        language={language}
       />
       <FormControl style={{ width: "100%" }} required>
         <InputLabel htmlFor={'find-route-method'}>Method</InputLabel>
         <Select
           native
           onChange={(e: any) => setFindRouteMethod(e.target.value as FindRouteMethod)}
-          name={"Line"}
+          name={translate('lineType.line')}
           value={findRouteMethod}
           inputProps={{
             id: 'find-route-method',
           }}
         >
-          <option value={"lowestHop"}>Lowest Hop</option>
-          <option value={'lowestFare'}>Lowest Fare</option>
+          <option value={"lowestHop"}>{translate('findRouteMethod.lowestHop')}</option>
+          <option value={'lowestFare'}>{translate('findRouteMethod.lowestFare')}</option>
         </Select>
         <FormHelperText>Required</FormHelperText>
       </FormControl>
       <section className="form-button-group">
         <Button variant="contained" color="secondary" onClick={resetForm}>
-          Reset
+        {translate('common.reset')}
         </Button>
         <Button
           variant="contained"
@@ -105,11 +103,11 @@ const Calculator = () => {
           style={{ marginLeft: "20px" }}
           disabled={isFormInvalid}
         >
-          Search
+          {translate('common.search')}
         </Button>
       </section>
       {errorMessage.length > 0 && <ErrorMessage errorMessage={errorMessage} />}
-      {travelRoute !== undefined && <CalculationResult travelRoute={travelRoute} language={language}/>}
+      {travelRoute !== undefined && <CalculationResult travelRoute={travelRoute} language={i18n.language}/>}
     </section>
   );
 };
@@ -122,13 +120,12 @@ const SelectStationComponent = ({
   title,
   value,
   onChange,
-  language,
 }: {
   title: string;
   value: string;
   onChange: Function;
-  language: Language;
 }) => {
+  const { t: translate, i18n } = useTranslation();
   const [lineType, setLineType] = useState<LineType>(LineType.MRT_BLUE);
   const lineElementId = title + "-line-native-required";
   const selectElementId = title + "-native-required";
@@ -149,7 +146,7 @@ const SelectStationComponent = ({
 
   return (
     <section>
-      <FormControl style={{ width: "120px" }} required>
+      <FormControl style={{ width: "145px" }} required>
         <InputLabel htmlFor={lineElementId}>Line</InputLabel>
         <Select
           native
@@ -160,12 +157,12 @@ const SelectStationComponent = ({
             id: lineElementId,
           }}
         >
-          <option value={"MRT_BLUE"}>MRT</option>
-          <option value={"BTS_SILOM"}>BTS SILOM</option>
+          <option value={"MRT_BLUE"}>{translate('lineType.mrtBlue')}</option>
+          <option value={"BTS_SILOM"}>{translate('lineType.btsSilom')}</option>
         </Select>
         <FormHelperText>Required</FormHelperText>
       </FormControl>
-      <FormControl style={{ width: "calc(100% - 120px)" }} required>
+      <FormControl style={{ width: "calc(100% - 145px)" }} required>
         <InputLabel htmlFor={selectElementId}>{title}</InputLabel>
         <Select
           native
@@ -178,7 +175,7 @@ const SelectStationComponent = ({
         >
           <option value="" disabled></option>
           {stationsName.map((station: Station) => {
-            const label = getStationName(station, language as Language);
+            const label = getStationName(station, i18n.language);
             return (
               <option key={station.key} value={station.key}>
                 {label}

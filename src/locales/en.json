@@ -1,0 +1,20 @@
+{
+  "route": {
+    "source": "Source",
+    "destination": "Destination",
+    "fare": "Fare"
+  },
+  "findRouteMethod": {
+    "lowestHop": "Lowest Hop",
+    "lowestFare": "Lowest Fare"
+  },
+  "lineType": {
+    "line": "Line",
+    "btsSilom": "BTS Silom",
+    "mrtBlue": "MRT Blue"
+  },
+  "common": {
+    "search": "Search",
+    "reset": "Reset"
+  }
+}

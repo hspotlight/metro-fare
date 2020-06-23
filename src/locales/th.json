@@ -1,0 +1,20 @@
+{
+  "route": {
+    "source": "สถานีต้นทาง",
+    "destination": "สถานีปลายทาง",
+    "fare": "ค่าโดยสาร"
+  },
+  "findRouteMethod": {
+    "lowestHop": "จำนวนสถานีน้อยที่สุด",
+    "lowestFare": "ราคาค่าโดยสารถูกที่สุด"
+  },
+  "lineType": {
+    "line": "สาย",
+    "btsSilom": "BTS สายสีลม",
+    "mrtBlue": "MRT สายสีน้ำเงิน"
+  },
+  "common": {
+    "search": "ค้นหา",
+    "reset": "ล้างค่า"
+  }
+}

@@ -3,13 +3,14 @@ import { TravelRoute } from "../services/fare.service";
 import { getStation, getStationName } from "../services/util.service";
 import { LineType } from "../types";
 import "../styles/CalculationResult.scss";
-import { Language } from "../contexts/LanguageProvider";
 import { Station } from "../data/Stations";
+import { useTranslation } from "react-i18next";
 
-const CalculationResult = ({travelRoute, language}: {travelRoute: TravelRoute, language: Language}) => {
+const CalculationResult = ({travelRoute, language}: {travelRoute: TravelRoute, language: string}) => {
+  const {t: translate } = useTranslation();
   return (
     <div>
-      <div>Fare: {travelRoute.fare}</div>
+      <div>{translate('route.fare')}: {travelRoute.fare}</div>
       <div className="travel-route-container">
         {travelRoute.route.map((routeSegment, segmentIndex) => {
           let interchangeDottedLine = null;
