@@ -6,8 +6,8 @@ import "../styles/CalculationResult.scss";
 import { Station } from "../data/Stations";
 import { useTranslation } from "react-i18next";
 
-const CalculationResult = ({travelRoute, language}: {travelRoute: TravelRoute, language: string}) => {
-  const {t: translate } = useTranslation();
+const CalculationResult = ({travelRoute}: {travelRoute: TravelRoute}) => {
+  const {t: translate, i18n } = useTranslation();
   return (
     <div>
       <div>{translate('route.fare')}: {travelRoute.fare}</div>
@@ -24,7 +24,7 @@ const CalculationResult = ({travelRoute, language}: {travelRoute: TravelRoute, l
             const dottedLine = getDottedLine(routeSegment.lineType);
             const stationIcon = getStationIcon(routeSegment.lineType);
             const station = getStation(stationKey);
-            const stationName = "(" + station?.key + ") " + getStationName(station as Station, language);
+            const stationName = "(" + station?.key + ") " + getStationName(station as Station, i18n.language);
             if (station?.isNotAvailable) {
               return null;
             }
