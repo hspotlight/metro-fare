@@ -1,11 +1,29 @@
 .calculator-container {
   width: 450px;
   min-height: 270px;
+  max-height: calc(100% - 40px);
   border: black 1px solid;
   padding: 10px;
   display: flex;
   flex-direction: column;
   border-radius: 20px;
+}
+
+@media only screen and (max-width: 800px) {
+  .calculator-container {
+    width: calc(100% - 22px);
+    max-height: calc(100% - 22px);
+    z-index: 1100;
+    border: black 1px solid;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background: white;
+    padding: 10px;
+    bottom: 0;
+    border-radius: 22px;
+  }
 }
 
 .header {

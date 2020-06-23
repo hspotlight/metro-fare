@@ -18,5 +18,11 @@
     "required": "จำเป็น",
     "search": "ค้นหา",
     "reset": "ล้างค่า"
+  },
+  "map": {
+    "popup": {
+      "setSource": "เลือกสถานีต้นทาง",
+      "setDestination": "เลือกสถานีปลายทาง"
+    }
   }
 }
