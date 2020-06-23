@@ -5,6 +5,7 @@
     "fare": "ค่าโดยสาร"
   },
   "findRouteMethod": {
+    "method": "วิธีเดินทาง",
     "lowestHop": "จำนวนสถานีน้อยที่สุด",
     "lowestFare": "ราคาค่าโดยสารถูกที่สุด"
   },
@@ -14,6 +15,7 @@
     "mrtBlue": "MRT สายสีน้ำเงิน"
   },
   "common": {
+    "required": "จำเป็น",
     "search": "ค้นหา",
     "reset": "ล้างค่า"
   }

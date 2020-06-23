@@ -5,6 +5,7 @@
     "fare": "Fare"
   },
   "findRouteMethod": {
+    "method": "Method",
     "lowestHop": "Lowest Hop",
     "lowestFare": "Lowest Fare"
   },
@@ -14,6 +15,7 @@
     "mrtBlue": "MRT Blue"
   },
   "common": {
+    "required": "Required",
     "search": "Search",
     "reset": "Reset"
   }
