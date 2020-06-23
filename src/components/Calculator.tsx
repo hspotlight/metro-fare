@@ -18,9 +18,10 @@ import CalculationResult from "./CalculationResult";
 import "../styles/Calculator.scss";
 import { getStationName } from "../services/util.service";
 import { useTranslation } from "react-i18next";
+import LanguageController from "./LanguageController";
 
 const Calculator = () => {
-  const { t: translate, i18n } = useTranslation();
+  const { t: translate } = useTranslation();
   const [source, setSource] = useState<string>("");
   const [destination, setDestination] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -56,10 +57,7 @@ const Calculator = () => {
     <section className="calculator-container">
       <section className="header">
         <h1>Metro Fare</h1>
-        <section style={{display: 'flex', alignItems: 'center'}}>
-          <div className={"flag th " + (i18n.language === "th" ? "language-active" : "")} onClick={() => i18n.language !== "th" && i18n.changeLanguage("th")}></div>
-          <div className={"flag en " + (i18n.language === "en" ? "language-active" : "")} onClick={() => i18n.language !== "en" && i18n.changeLanguage("en")}></div>
-        </section>
+        <LanguageController />
       </section>
       <SelectStationComponent
         title={translate('route.source')}
@@ -102,7 +100,7 @@ const Calculator = () => {
         </Button>
       </section>
       {errorMessage.length > 0 && <ErrorMessage errorMessage={errorMessage} />}
-      {travelRoute !== undefined && <CalculationResult travelRoute={travelRoute} language={i18n.language}/>}
+      {travelRoute && <CalculationResult travelRoute={travelRoute} />}
     </section>
   );
 };
