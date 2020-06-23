@@ -18,5 +18,11 @@
     "required": "Required",
     "search": "Search",
     "reset": "Reset"
+  },
+  "map": {
+    "popup": {
+      "setSource": "Set Source",
+      "setDestination": "Set Destination"
+    }
   }
 }

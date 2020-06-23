@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Button,
   Select,
@@ -6,19 +6,18 @@ import {
   FormControl,
   FormHelperText,
 } from "@material-ui/core";
-import { FareService, TravelRoute } from "../services/fare.service";
-import { METRO_STATION } from "../types";
-import { FindRouteMethod } from "../services/graph.service";
-import CalculationResult from "./CalculationResult";
 import { useTranslation } from "react-i18next";
+import { TripContext } from "../contexts/TripProvider";
+import { FareService, TravelRoute } from "../services/fare.service";
+import { FindRouteMethod } from "../services/graph.service";
 import LanguageController from "./LanguageController";
 import StationSelect from "./StationSelect";
+import CalculationResult from "./CalculationResult";
 import "../styles/Calculator.scss";
 
 const Calculator = () => {
   const { t: translate } = useTranslation();
-  const [source, setSource] = useState<string>("");
-  const [destination, setDestination] = useState<string>("");
+  const { trip, setSource, setDestination, resetTrip } = useContext(TripContext);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [travelRoute, setTravelRoute] = useState<TravelRoute | undefined>(
     undefined
@@ -30,25 +29,24 @@ const Calculator = () => {
 
   const calculateRoute = () => {
     const travelRoute = FareService.calculate(
-      source as METRO_STATION,
-      destination as METRO_STATION,
+      trip.source,
+      trip.destination,
       findRouteMethod
     );
     setTravelRoute(travelRoute);
   };
 
   const resetForm = () => {
-    setSource("");
-    setDestination("");
+    resetTrip()
     setErrorMessage("");
     setFindRouteMethod("lowestHop");
     setTravelRoute(undefined);
   };
 
   useEffect(() => {
-    const isFormValid = source.length === 0 || destination.length === 0;
+    const isFormValid = trip.source.length === 0 || trip.destination.length === 0;
     setFormInValid(isFormValid);
-  }, [source, destination]);
+  }, [trip]);
 
   return (
     <section className="calculator-container">
@@ -58,12 +56,12 @@ const Calculator = () => {
       </section>
       <StationSelect
         title={translate("route.source")}
-        value={source}
+        value={trip.source}
         onChange={setSource}
       />
       <StationSelect
         title={translate("route.destination")}
-        value={destination}
+        value={trip.destination}
         onChange={setDestination}
       />
       <FormControl style={{ width: "100%" }} required>
