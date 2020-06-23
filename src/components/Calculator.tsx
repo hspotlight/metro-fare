@@ -48,13 +48,8 @@ const Calculator = () => {
   };
 
   useEffect(() => {
-    const isFormValid = source === destination || (source.length === 0 || destination.length === 0);
+    const isFormValid = (source.length === 0 || destination.length === 0);
     setFormInValid(isFormValid);
-    if (source === destination && source.length > 0) {
-      setErrorMessage("source and destination cannot be the same");
-    } else {
-      setErrorMessage("");
-    }
   }, [source, destination]);
 
   return (
@@ -77,11 +72,11 @@ const Calculator = () => {
         onChange={setDestination}
       />
       <FormControl style={{ width: "100%" }} required>
-        <InputLabel htmlFor={'find-route-method'}>Method</InputLabel>
+        <InputLabel htmlFor={'find-route-method'}>{translate('findRouteMethod.method')}</InputLabel>
         <Select
           native
           onChange={(e: any) => setFindRouteMethod(e.target.value as FindRouteMethod)}
-          name={translate('lineType.line')}
+          name={"Line"}
           value={findRouteMethod}
           inputProps={{
             id: 'find-route-method',
@@ -90,7 +85,7 @@ const Calculator = () => {
           <option value={"lowestHop"}>{translate('findRouteMethod.lowestHop')}</option>
           <option value={'lowestFare'}>{translate('findRouteMethod.lowestFare')}</option>
         </Select>
-        <FormHelperText>Required</FormHelperText>
+        <FormHelperText>{translate('common.required')}</FormHelperText>
       </FormControl>
       <section className="form-button-group">
         <Button variant="contained" color="secondary" onClick={resetForm}>
@@ -147,7 +142,7 @@ const SelectStationComponent = ({
   return (
     <section>
       <FormControl style={{ width: "145px" }} required>
-        <InputLabel htmlFor={lineElementId}>Line</InputLabel>
+        <InputLabel htmlFor={lineElementId}>{translate('lineType.line')}</InputLabel>
         <Select
           native
           onChange={(e: any) => handleLineTypeSelectChange(e.target.value)}
@@ -160,7 +155,7 @@ const SelectStationComponent = ({
           <option value={"MRT_BLUE"}>{translate('lineType.mrtBlue')}</option>
           <option value={"BTS_SILOM"}>{translate('lineType.btsSilom')}</option>
         </Select>
-        <FormHelperText>Required</FormHelperText>
+        <FormHelperText>{translate('common.required')}</FormHelperText>
       </FormControl>
       <FormControl style={{ width: "calc(100% - 145px)" }} required>
         <InputLabel htmlFor={selectElementId}>{title}</InputLabel>
@@ -183,7 +178,7 @@ const SelectStationComponent = ({
             );
           })}
         </Select>
-        <FormHelperText>Required</FormHelperText>
+        <FormHelperText>{translate('common.required')}</FormHelperText>
       </FormControl>
     </section>
   );
