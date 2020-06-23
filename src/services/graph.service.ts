@@ -55,6 +55,8 @@ export const graphService = {
         minimumFare[source] = 0;
 
         const visitedStations = Object.create({});
+        const isStationVisted = (currentStation: StationHop) => !Object.keys(visitedStations).includes(currentStation.station)
+
         while (stationsToBeVisited.length > 0) {
             const currentStation = stationsToBeVisited.pop() as StationHop;
             
@@ -62,7 +64,7 @@ export const graphService = {
                 return currentStation.paths;
             }
             
-            if (!Object.keys(visitedStations).includes(currentStation.station)) {
+            if (isStationVisted(currentStation)) {
                 visitedStations[currentStation.station] = true;
 
                 const nextStations: METRO_STATION[]  = graph[currentStation.station];
