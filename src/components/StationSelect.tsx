@@ -17,8 +17,8 @@ const StationSelect = ({
 }) => {
   const { t: translate, i18n } = useTranslation();
   const [lineType, setLineType] = useState<LineType>(LineType.MRT_BLUE);
-  const lineElementId = title + "-line-native-required";
-  const selectElementId = title + "-native-required";
+  const lineElementId = `${title}-line-native-required`;
+  const selectElementId = `${title}-native-required`;
   const isStationAvailable = (station: Station) => station.lineType === lineType && !station.isNotAvailable
   const stationsName = STATIONS.filter(isStationAvailable);
 
@@ -68,8 +68,7 @@ const StationSelect = ({
         >
           <option value="" disabled></option>
           {stationsName.map((station: Station) => {
-            const label =
-              "(" + station.key + ") " + getStationName(station, i18n.language);
+            const label = `(${station.key}) ${getStationName(station, i18n.language)}`;
             return (
               <option key={station.key} value={station.key}>
                 {label}
