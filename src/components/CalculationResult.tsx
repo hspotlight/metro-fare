@@ -24,7 +24,7 @@ const CalculationResult = ({travelRoute}: {travelRoute: TravelRoute}) => {
             const dottedLine = getDottedLine(routeSegment.lineType);
             const stationIcon = getStationIcon(routeSegment.lineType);
             const station = getStation(stationKey);
-            const stationName = "(" + station?.key + ") " + getStationName(station as Station, i18n.language);
+            const stationName = `(${station?.key}) ${getStationName(station as Station, i18n.language)}`;
             if (station?.isNotAvailable) {
               return null;
             }

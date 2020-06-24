@@ -119,8 +119,7 @@ const StationMarker = ({
 }) => {
   const { t: translate, i18n } = useTranslation();
   const { setSource, setDestination } = useContext(TripContext);
-  const stationName =
-    "(" + station.key + ") " + getStationName(station, i18n.language);
+  const stationName = `(${station.key}) ${getStationName(station, i18n.language)}`;
   const popupRef = React.useRef(null);
 
   const closePopusOnClick = () => {
