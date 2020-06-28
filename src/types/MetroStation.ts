@@ -50,10 +50,58 @@ export enum BTS_SILOM_STATION {
     SAPHAN_TAKSIN = "S6",
     KRUNG_THON_BURI = "S7",
     WONGWIAN_YAI = "S8",
+
     PHO_NIMIT = "S9",
     TALAT_PHLU = "S10",
     WUTTHAKAT = "S11",
     BANG_WA = "S12",
+}
+
+export enum BTS_SUKHUMVIT_STATION {
+    WAT_PHRA_SRI_MAHATHAT = "N17",
+    INFANTRY_REGIMENT_11 = "N16",
+    BANG_BUA = "N15",
+    ROYAL_FOREST_DEPARTMENT = "N14",
+    KASETSART_UNIVERSITY = "N13",
+    SENA_NIKHOM = "N12",
+    RATCHAYOTHIN = "N11",
+    PHAHON_YOTHIN_24 = "N10",
+    HA_YEAK_LAT_PHRAO = "N9",
+
+    MO_CHIT = "N8",
+    SAPHAN_KHWAI = "N7",
+    SENA_RUAM = "N6",
+    ARI = "N5",
+    SANAM_PAO = "N4",
+    VICTORY_MONUMENT = "N3",
+    PHAYA_THAI = "N2",
+    RATCHATHEWI = "N1",
+    SIAM = "CEN",
+    CHIT_LOM = "E1",
+    PHOLEN_CHIT = "E2",
+    NANA = "E3",
+    ASOK = "E4",
+    PHROM_PHONG = "E5",
+    THONG_LO = "E6",
+    EKKAMAI = "E7",
+    PHRA_KHANONG = "E8",
+
+    ON_NUT = "E9",
+    BANG_CHAK = "E10",
+    PUNNAWITHI = "E11",
+    UDOM_SUK = "E12",
+    BANG_NA = "E13",
+    BEARING = "E14",
+
+    SAMRONG = "E15",
+    PU_CHAO = "E16",
+    CHANG_ERAWAN = "E17",
+    ROYAL_THAI_NAVAL_ACADEMY = "E18",
+    PAK_NAM = "E19",
+    SRINAGARINDRA = "E20",
+    PHRAEK_SA = "E21",
+    SAI_LUAT = "E22",
+    KHEHA = "E23",
 }
 
 export type METRO_STATION = MRT_BLUE_STATION | BTS_SILOM_STATION;
