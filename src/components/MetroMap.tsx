@@ -17,14 +17,13 @@ import { colors } from "../common/colors";
 import { LineType } from "../types";
 import { STATIONS, Station } from "../data/Stations";
 
-const mrtBlueStations = STATIONS.filter(
-  (station) => station.lineType === LineType.MRT_BLUE && !station.isNotAvailable
+const filterLineType = (lineType: LineType) => (
+  STATIONS.filter((station) => station.lineType === lineType && !station.isNotAvailable)
 );
 
-const btsSilomStations = STATIONS.filter(
-  (station) =>
-    station.lineType === LineType.BTS_SILOM && !station.isNotAvailable
-);
+const mrtBlueStations = filterLineType(LineType.MRT_BLUE);
+const btsSilomStations = filterLineType(LineType.BTS_SILOM);
+const btsSukhumvitStations = filterLineType(LineType.BTS_SUKHUMVIT);
 
 const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
   return stations.map((station) => station.position);
@@ -82,6 +81,14 @@ export const MetroMap = () => {
               />
             </FeatureGroup>
           </LayersControl.Overlay>
+          <LayersControl.Overlay name="BTS Sukhumvit Line" checked={true}>
+            <FeatureGroup name="bts-sukhumvit-line">
+              <Polyline
+                positions={getPolyLineFromStations(btsSukhumvitStations)}
+                color={colors.btsSukhumvit}
+              />
+            </FeatureGroup>
+          </LayersControl.Overlay>
           <LayersControl.Overlay name="MRT Blue Line Station" checked={true}>
             <FeatureGroup name="mrt-blue-station">
               {mrtBlueStations.map((station) => (
@@ -100,6 +107,17 @@ export const MetroMap = () => {
                   key={station.key}
                   station={station}
                   color={colors.btsSilom}
+                />
+              ))}
+            </FeatureGroup>
+          </LayersControl.Overlay>
+          <LayersControl.Overlay name="BTS Sukhumvit Line Station" checked={true}>
+            <FeatureGroup name="bts-sukhumvit-station">
+              {btsSukhumvitStations.map((station) => (
+                <StationMarker
+                  key={station.key}
+                  station={station}
+                  color={colors.btsSukhumvit}
                 />
               ))}
             </FeatureGroup>
