@@ -216,7 +216,7 @@ describe('GraphService', () => {
                 route: [
                     BTS_SILOM_STATION.WONGWIAN_YAI,
                 ],
-                fareType: FareType.BTS_SILOM
+                fareType: FareType.BTS
             }]
             expect(routeSegment).toMatchObject(expectedResult);
         });
@@ -250,7 +250,7 @@ describe('GraphService', () => {
                 route: [
                     BTS_SILOM_STATION.WONGWIAN_YAI,
                 ],
-                fareType: FareType.BTS_SILOM
+                fareType: FareType.BTS
             }]
             expect(routeSegment).toMatchObject(expectedResult);
         });
@@ -290,7 +290,7 @@ describe('GraphService', () => {
                     BTS_SILOM_STATION.SAPHAN_TAKSIN,
                     BTS_SILOM_STATION.SURASAK,
                 ],
-                fareType: FareType.BTS_SILOM
+                fareType: FareType.BTS
             }]
             expect(routeSegment).toMatchObject(expectedResult);
         });
@@ -352,7 +352,7 @@ describe('GraphService', () => {
 
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG,],
-                fareType: FareType.BTS_SILOM
+                fareType: FareType.BTS
             }, {
                 route: [MRT_BLUE_STATION.SILOM, MRT_BLUE_STATION.LUMPHINI],
                 fareType: FareType.MRT_BLUE
@@ -402,7 +402,7 @@ describe('GraphService', () => {
                     BTS_SILOM_STATION.CHONG_NONSI,
                     BTS_SILOM_STATION.SALA_DAENG
                 ],
-                fareType: FareType.BTS_SILOM
+                fareType: FareType.BTS
             }, {
                 route: [
                     MRT_BLUE_STATION.SILOM,
@@ -495,7 +495,7 @@ describe('GraphService', () => {
                     BTS_SILOM_STATION.CHONG_NONSI,
                     BTS_SILOM_STATION.SURASAK,
                 ],
-                fareType: FareType.BTS_SILOM
+                fareType: FareType.BTS
             }, {
                 route: [
                     MRT_BLUE_STATION.SANAM_CHAI,

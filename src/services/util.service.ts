@@ -30,7 +30,7 @@ export const calculateTotalFare = (routeSegments: RouteSegment[]): number => {
 
 export const getLineTypeFromFareType = (fareType: FareType): LineType => {
     switch (fareType) {
-        case FareType.BTS_SILOM:
+        case FareType.BTS: return LineType.BTS;
         case FareType.BTS_SILOM_EXTENSION_15: return LineType.BTS_SILOM;
         default: return LineType.MRT_BLUE;
     }
@@ -48,7 +48,7 @@ const isInterchangeStation = (station: METRO_STATION): boolean => {
 
 export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
     if (BTS_SILOM_EXTENSION_15.includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM_EXTENSION_15
-    if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM
+    if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION)) return FareType.BTS
     return FareType.MRT_BLUE
 };
 

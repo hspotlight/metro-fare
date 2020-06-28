@@ -21,7 +21,9 @@ export const graphService = {
     },
     addLineToGraph(metroLine: Line, graph = Object.create(null)) {
         metroLine.line.forEach((station, index) => {
-            graph[station] = [];
+            if (!Object.keys(graph).includes(station)) {
+                graph[station] = [];
+            }
             if (index > 0) {
                 const prevStation = metroLine.line[index - 1];
                 graph[station].push(prevStation);
