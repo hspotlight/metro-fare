@@ -1,5 +1,5 @@
 import { graphService } from "../graph.service";
-import { MRT_BLUE_STATION, BTS_SILOM_STATION, Line, Graph, RouteSegment, FareType } from "../../types";
+import { MRT_BLUE_STATION, BTS_SILOM_STATION, Line, Graph, RouteSegment, FareType, BTS_SUKHUMVIT_STATION } from "../../types";
 
 describe('GraphService', () => {
     describe('CreateGraph', () => {
@@ -28,7 +28,7 @@ describe('GraphService', () => {
         });
     });
 
-    describe('FindRoute', () => {
+    describe('FindRoute MRT', () => {
         it('should return empty array when there is not possible path from source to destination', () => {
             const metroLine: Line = {
                 line: [
@@ -191,7 +191,7 @@ describe('GraphService', () => {
         });
     });
 
-    describe('FindRoute BTS (with Extension)', () => {
+    describe('FindRoute BTS Silom (with Extension)', () => {
         it('should return route of BTS Extension 1 station and BTS 1 station', () => {
             const metroGraph: Graph = {
                 lines: [{
@@ -501,6 +501,285 @@ describe('GraphService', () => {
                     MRT_BLUE_STATION.SANAM_CHAI,
                 ],
                 fareType: FareType.MRT_BLUE
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+    });
+
+    describe('FindRoute BTS Silom + Sukhumvit', () => {
+        it('should return route of BTS 2 stations when travel from ratchadamri to siam', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.SIAM,
+                        BTS_SILOM_STATION.RATCHADAMRI,
+                    ],
+                }, {
+                    line: [
+                        BTS_SUKHUMVIT_STATION.SIAM,
+                    ],
+                }]
+            }
+            const source = BTS_SILOM_STATION.RATCHADAMRI;
+            const destination = BTS_SUKHUMVIT_STATION.SIAM;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.RATCHADAMRI, BTS_SILOM_STATION.SIAM],
+                fareType: FareType.BTS
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS 3 stations when travel from ratchadamri to chit lom', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.SIAM,
+                        BTS_SILOM_STATION.RATCHADAMRI,
+                    ],
+                }, {
+                    line: [
+                        BTS_SUKHUMVIT_STATION.SIAM,
+                        BTS_SUKHUMVIT_STATION.CHIT_LOM
+                    ],
+                }]
+            }
+            const source = BTS_SILOM_STATION.RATCHADAMRI;
+            const destination = BTS_SUKHUMVIT_STATION.CHIT_LOM;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.RATCHADAMRI, BTS_SILOM_STATION.SIAM, BTS_SUKHUMVIT_STATION.CHIT_LOM],
+                fareType: FareType.BTS
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS 5 stations when travel from sala daeng to phloen Chit', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SILOM_STATION.SIAM,
+                        BTS_SILOM_STATION.RATCHADAMRI,
+                        BTS_SILOM_STATION.SALA_DAENG,
+                    ],
+                }, {
+                    line: [
+                        BTS_SUKHUMVIT_STATION.SIAM,
+                        BTS_SUKHUMVIT_STATION.CHIT_LOM,
+                        BTS_SUKHUMVIT_STATION.PHOLEN_CHIT,
+                    ],
+                }]
+            }
+            const source = BTS_SILOM_STATION.SALA_DAENG;
+            const destination = BTS_SUKHUMVIT_STATION.PHOLEN_CHIT;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.SALA_DAENG,
+                    BTS_SILOM_STATION.RATCHADAMRI,
+                    BTS_SILOM_STATION.SIAM,
+                    BTS_SUKHUMVIT_STATION.CHIT_LOM,
+                    BTS_SUKHUMVIT_STATION.PHOLEN_CHIT
+                ],
+                fareType: FareType.BTS
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+    });
+
+    describe('FindRoute BTS Sukhumvit (with Extension)', () => {
+        it('should return route of BTS Sukhumvit 1 station and BTS Sukhumvit Extension 1 station', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SUKHUMVIT_STATION.ON_NUT,
+                        BTS_SUKHUMVIT_STATION.BANG_CHAK,
+                    ],
+                }],
+            }
+            const source = BTS_SUKHUMVIT_STATION.ON_NUT;
+            const destination = BTS_SUKHUMVIT_STATION.BANG_CHAK;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.ON_NUT,
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.BANG_CHAK,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS Sukhumvit Extension (15 baht) 1 station and BTS Extension (0 baht) 1 station', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SUKHUMVIT_STATION.BEARING,
+                        BTS_SUKHUMVIT_STATION.SAMRONG,
+                    ],
+                }],
+            }
+            const source = BTS_SUKHUMVIT_STATION.BEARING;
+            const destination = BTS_SUKHUMVIT_STATION.SAMRONG;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.BEARING,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.SAMRONG,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0,
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS Sukhumvit 1 station and BTS Sukhumvit Extension (0 baht) 1 station', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SUKHUMVIT_STATION.MO_CHIT,
+                        BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO,
+                    ],
+                }],
+            }
+            const source = BTS_SUKHUMVIT_STATION.MO_CHIT;
+            const destination = BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.MO_CHIT,
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0,
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS Sukhumvit Extension (15 baht) 2 stations', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SUKHUMVIT_STATION.BANG_CHAK,
+                        BTS_SUKHUMVIT_STATION.PUNNAWITHI,
+                    ],
+                }],
+            }
+            const source = BTS_SUKHUMVIT_STATION.BANG_CHAK;
+            const destination = BTS_SUKHUMVIT_STATION.PUNNAWITHI;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.BANG_CHAK,
+                    BTS_SUKHUMVIT_STATION.PUNNAWITHI,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS Sukhumvit 1 station and BTS Sukhumvit Extension (15 baht) 4 stations', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SUKHUMVIT_STATION.ON_NUT,
+                        BTS_SUKHUMVIT_STATION.BANG_CHAK,
+                        BTS_SUKHUMVIT_STATION.PUNNAWITHI,
+                        BTS_SUKHUMVIT_STATION.UDOM_SUK,
+                        BTS_SUKHUMVIT_STATION.BANG_NA,
+                    ],
+                }],
+            }
+            const source = BTS_SUKHUMVIT_STATION.ON_NUT;
+            const destination = BTS_SUKHUMVIT_STATION.BANG_NA;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.ON_NUT,
+                ],
+                fareType: FareType.BTS
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.BANG_CHAK,
+                    BTS_SUKHUMVIT_STATION.PUNNAWITHI,
+                    BTS_SUKHUMVIT_STATION.UDOM_SUK,
+                    BTS_SUKHUMVIT_STATION.BANG_NA,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+            }]
+            expect(routeSegment).toMatchObject(expectedResult);
+        });
+        it('should return route of BTS Sukhumvit Extension (15 baht) 2 station and BTS Sukhumvit Extension (0 baht) 9 stations', () => {
+            const metroGraph: Graph = {
+                lines: [{
+                    line: [
+                        BTS_SUKHUMVIT_STATION.BANG_NA,
+                        BTS_SUKHUMVIT_STATION.BEARING,
+                        BTS_SUKHUMVIT_STATION.SAMRONG,
+                        BTS_SUKHUMVIT_STATION.PU_CHAO,
+                        BTS_SUKHUMVIT_STATION.CHANG_ERAWAN,
+                        BTS_SUKHUMVIT_STATION.ROYAL_THAI_NAVAL_ACADEMY,
+                        BTS_SUKHUMVIT_STATION.PAK_NAM,
+                        BTS_SUKHUMVIT_STATION.SRINAGARINDRA,
+                        BTS_SUKHUMVIT_STATION.PHRAEK_SA,
+                        BTS_SUKHUMVIT_STATION.SAI_LUAT,
+                        BTS_SUKHUMVIT_STATION.KHEHA,
+                    ],
+                }],
+            }
+            const source = BTS_SUKHUMVIT_STATION.BANG_NA;
+            const destination = BTS_SUKHUMVIT_STATION.KHEHA;
+
+            const graph = graphService.createGraph(metroGraph);
+            const routeSegment = graphService.findRoute(source, destination, graph);
+
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.BANG_NA,
+                    BTS_SUKHUMVIT_STATION.BEARING,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.SAMRONG,
+                    BTS_SUKHUMVIT_STATION.PU_CHAO,
+                    BTS_SUKHUMVIT_STATION.CHANG_ERAWAN,
+                    BTS_SUKHUMVIT_STATION.ROYAL_THAI_NAVAL_ACADEMY,
+                    BTS_SUKHUMVIT_STATION.PAK_NAM,
+                    BTS_SUKHUMVIT_STATION.SRINAGARINDRA,
+                    BTS_SUKHUMVIT_STATION.PHRAEK_SA,
+                    BTS_SUKHUMVIT_STATION.SAI_LUAT,
+                    BTS_SUKHUMVIT_STATION.KHEHA,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0,
             }]
             expect(routeSegment).toMatchObject(expectedResult);
         });
