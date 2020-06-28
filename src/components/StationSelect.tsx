@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FormControl, InputLabel, Select, FormHelperText } from "@material-ui/core";
 import { STATIONS, Station } from "../data/Stations";
-import { LineType, BTS_SILOM_STATION } from "../types";
+import { LineType, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION } from "../types";
 import { getStationName } from "../services/util.service";
 import "../styles/StationSelect.scss";
 
@@ -30,6 +30,8 @@ const StationSelect = ({
   useEffect(() => {
     if (Object.values(BTS_SILOM_STATION).find((btsKey) => btsKey === value)) {
       setLineType(LineType.BTS_SILOM);
+    } else if (Object.values(BTS_SUKHUMVIT_STATION).find((btsKey) => btsKey === value)) {
+      setLineType(LineType.BTS_SUKHUMVIT);
     } else if (value.length !== 0) {
       setLineType(LineType.MRT_BLUE);
     }
@@ -52,6 +54,7 @@ const StationSelect = ({
         >
           <option value={"MRT_BLUE"}>{translate("lineType.mrtBlue")}</option>
           <option value={"BTS_SILOM"}>{translate("lineType.btsSilom")}</option>
+          <option value={"BTS_SUKHUMVIT"}>{translate("lineType.btsSukhumvit")}</option>
         </Select>
         <FormHelperText>{translate("common.required")}</FormHelperText>
       </FormControl>

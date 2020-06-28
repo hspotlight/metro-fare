@@ -1,5 +1,5 @@
 import { LatLngTuple } from "leaflet";
-import { MRT_BLUE_STATION, BTS_SILOM_STATION, METRO_STATION, LineType } from "../types";
+import { MRT_BLUE_STATION, BTS_SILOM_STATION, METRO_STATION, LineType, BTS_SUKHUMVIT_STATION } from "../types";
 
 export type Station = {
     lineType: LineType,
@@ -11,6 +11,48 @@ export type Station = {
 }
 
 export const STATIONS: Station[] = [
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.WAT_PHRA_SRI_MAHATHAT, nameEN: "Wat Phra Sri Mahathat", nameTH: "วัดพระศรีมหาธาตุ", position: [13.8738232,100.5961105] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.INFANTRY_REGIMENT_11, nameEN: "11th Infantry Regiment", nameTH: "กรมทหารราบที่ 11", position: [13.8661475,100.591308] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.BANG_BUA, nameEN: "Bang Bua", nameTH: "บางบัว", position: [13.8553094,100.5846442] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.ROYAL_FOREST_DEPARTMENT, nameEN: "Royal Forest Department", nameTH: "กรมป่าไม้", position: [13.84856,100.5803215] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.KASETSART_UNIVERSITY, nameEN: "Kasetsart University", nameTH: "มหาวิทยาลัยเกษตรศาสตร์", position: [13.8431313,100.5769458] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SENA_NIKHOM, nameEN: "Sena Nikhom", nameTH: "เสนานิคม", position: [13.8364983,100.5732126] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.RATCHAYOTHIN, nameEN: "Ratchayothin", nameTH: "รัชโยธิน", position: [13.8298038,100.5692076] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PHAHON_YOTHIN_24, nameEN: "Phahon Yothin 24", nameTH: "พหลโยธิน", position: [13.8211366,100.5631756] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO, nameEN: "Ha Yaek Lat Phrao", nameTH: "ห้าแยกลาดพร้าว", position: [13.8152791,100.5586098] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.MO_CHIT, nameEN: "Mo Chit", nameTH: "หมอชิต", position: [13.8030896,100.5534233] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SAPHAN_KHWAI, nameEN: "Saphan Khwai", nameTH: "สะพานควาย", position: [13.7933116,100.548437] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SENA_RUAM, nameEN: "Sena Ruam", nameTH: "เสนาร่วม", position: [13.7887714,100.5470649], isNotAvailable: true },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.ARI, nameEN: "Ari", nameTH: "อารีย์", position: [13.7789389,100.5437398] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SANAM_PAO, nameEN: "Sanam Pao", nameTH: "สนามเป้า", position: [13.7732208,100.542245] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.VICTORY_MONUMENT, nameEN: "Victory Monument", nameTH: "อนุสาวรีย์ชัยสมรภูมิ", position: [13.7617773,100.5358332] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PHAYA_THAI, nameEN: "Phaya Thai", nameTH: "พญาไท", position: [13.7560439,100.5322183] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.RATCHATHEWI, nameEN: "Ratchathewi", nameTH: "ราชเทวี", position: [13.7518942,100.5305269] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SIAM, nameEN: "Siam", nameTH: "สยาม", position: [13.745629,100.534212] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.CHIT_LOM, nameEN: "Chit Lom", nameTH: "ชิดลม", position: [13.7428823,100.5430418] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PHOLEN_CHIT, nameEN: "Phloen Chit", nameTH: "เพลินจิต", position: [13.7420492,100.5488787] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.NANA, nameEN: "Nana", nameTH: "นานา", position: [13.7396773,100.5548288] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.ASOK, nameEN: "Asok", nameTH: "อโศก", position: [13.7358571,100.5595781] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PHROM_PHONG, nameEN: "Phrom Phong", nameTH: "พร้อมพงษ์", position: [13.7300521,100.5692988] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.THONG_LO, nameEN: "Thong Lo", nameTH: "ทองหล่อ", position: [13.7230642,100.5769334] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.EKKAMAI, nameEN: "Ekkamai", nameTH: "เอกมัย", position: [13.7174233,100.5849453] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PHRA_KHANONG, nameEN: "Phra Khanong", nameTH: "พระโขนง", position: [13.7148844,100.5896607] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.ON_NUT, nameEN: "On Nut", nameTH: "อ่อนนุช", position: [13.7014406,100.5959518] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.BANG_CHAK, nameEN: "Bang Chak", nameTH: "บางจาก", position: [13.6952099,100.5994486] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PUNNAWITHI, nameEN: "Punnawithi", nameTH: "ปุณณวิถี", position: [13.6859779,100.6065138] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.UDOM_SUK, nameEN: "Udom Suk", nameTH: "อุดมสุข", position: [13.6751367,100.6064558] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.BANG_NA, nameEN: "Bang Na", nameTH: "บางนา", position: [13.6663817,100.6028575] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.BEARING, nameEN: "Bearing", nameTH: "แบริ่ง", position: [13.6570623,100.5982435] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SAMRONG, nameEN: "Samrong", nameTH: "สำโรง", position: [13.6459108,100.5916199] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PU_CHAO, nameEN: "Pu Chao", nameTH: "ปู่เจ้า", position: [13.6341256,100.5894381] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.CHANG_ERAWAN, nameEN: "Chang Erawan", nameTH: "ช้างเอราวัณ", position: [13.6209034,100.5858316] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.ROYAL_THAI_NAVAL_ACADEMY, nameEN: "Royal Thai Naval Academy", nameTH: "โรงเรียนนายเรือ", position: [13.6049202,100.5910427] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PAK_NAM, nameEN: "Pak Nam", nameTH: "ปากน้ำ", position: [13.597601,100.5967594] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SRINAGARINDRA, nameEN: "Srinagarindra", nameTH: "ศรีนครินทร์", position: [13.5894777,100.6072642] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PHRAEK_SA, nameEN: "Phraek Sa", nameTH: "แพรกษา", position: [13.579972,100.6041302] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SAI_LUAT, nameEN: "Sai Luat", nameTH: "สายลวด", position: [13.5731174,100.6009526] },
+    { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.KHEHA, nameEN: "Kheha", nameTH: "เคหะฯ", position: [13.566714,100.6051023] },
+    
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.NATIONAL_STADIUM, nameEN: "National Stadium", nameTH: "สนามกีฬาแห่งชาติ", position: [13.746527,100.529095] },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.SIAM, nameEN: "Siam", nameTH: "สยาม", position: [13.745629,100.534212] },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.RATCHADAMRI, nameEN: "Ratchadamri", nameTH: "ราชดำริ", position: [13.739466,100.539472] },

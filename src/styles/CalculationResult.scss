@@ -18,7 +18,7 @@
 .mrt-blue-icon {
   width: 16px;
   height: 16px;
-  background-color: blue;
+  background-color: #1e3a8d;
   margin-right: 5px;
   border-radius: 9px;
   border: 1px solid black;
@@ -28,13 +28,22 @@
   width: 0px;
   height: 20px;
   margin-left: 11px;
-  border-left: 5px dotted blue;
+  border-left: 5px dotted #1e3a8d;
 }
 
 .bts-silom-icon {
   width: 16px;
   height: 16px;
-  background-color: #00ff00;
+  background-color: #00817d;
+  margin-right: 5px;
+  border-radius: 9px;
+  border: 1px solid black;
+}
+
+.bts-sukhumvit-icon {
+  width: 16px;
+  height: 16px;
+  background-color: #79b828;
   margin-right: 5px;
   border-radius: 9px;
   border: 1px solid black;
@@ -44,7 +53,14 @@
   width: 0px;
   height: 20px;
   margin-left: 11px;
-  border-left: 5px dotted #00ff00;
+  border-left: 5px dotted #00817d;
+}
+
+.bts-sukhumvit-dotted-line {
+  width: 0px;
+  height: 20px;
+  margin-left: 11px;
+  border-left: 5px dotted #79b828;
 }
 
 .interchange-dotted-line {
