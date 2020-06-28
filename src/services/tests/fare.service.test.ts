@@ -199,7 +199,7 @@ describe('FareService', () => {
         it('should return 16 when source and destination are the same station', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI],
-                fareType: FareType.BTS_SILOM,
+                fareType: FareType.BTS,
             }];
             graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
             const source = BTS_SILOM_STATION.CHONG_NONSI;
@@ -218,7 +218,7 @@ describe('FareService', () => {
                     BTS_SILOM_STATION.SUKSA_WITTHAYA,
                     BTS_SILOM_STATION.SURASAK
                 ],
-                fareType: FareType.BTS_SILOM,
+                fareType: FareType.BTS,
             }];
             graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
             const source = BTS_SILOM_STATION.CHONG_NONSI;
@@ -233,7 +233,7 @@ describe('FareService', () => {
         it('should return 16 when distance from source-destination is 1 hop', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG],
-                fareType: FareType.BTS_SILOM,
+                fareType: FareType.BTS,
             }];
             graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
             const source = BTS_SILOM_STATION.CHONG_NONSI;
@@ -248,7 +248,7 @@ describe('FareService', () => {
         it('should return 23 when distance from source-destination is 2 hop', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI, BTS_SILOM_STATION.SALA_DAENG, BTS_SILOM_STATION.RATCHADAMRI],
-                fareType: FareType.BTS_SILOM,
+                fareType: FareType.BTS,
             }];
             graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
             const source = BTS_SILOM_STATION.CHONG_NONSI;
@@ -271,7 +271,7 @@ describe('FareService', () => {
                     BTS_SILOM_STATION.PHO_NIMIT,
                     BTS_SILOM_STATION.TALAT_PHLU
                 ],
-                fareType: FareType.BTS_SILOM,
+                fareType: FareType.BTS,
             }];
             graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
             const source = BTS_SILOM_STATION.CHONG_NONSI;
@@ -289,7 +289,7 @@ describe('FareService', () => {
         it('should return 0 when no hops for BTS and MRT (just walking)', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.BANG_WA],
-                fareType: FareType.BTS_SILOM
+                fareType: FareType.BTS
             }, {
                 route: [MRT_BLUE_STATION.BANG_WA],
                 fareType: FareType.MRT_BLUE
@@ -312,7 +312,7 @@ describe('FareService', () => {
                     BTS_SILOM_STATION.CHONG_NONSI,
                     BTS_SILOM_STATION.SALA_DAENG
                 ],
-                fareType: FareType.BTS_SILOM,
+                fareType: FareType.BTS,
             }, {
                 route: [
                     MRT_BLUE_STATION.SILOM,
@@ -337,7 +337,7 @@ describe('FareService', () => {
                     BTS_SILOM_STATION.CHONG_NONSI,
                     BTS_SILOM_STATION.SALA_DAENG
                 ],
-                fareType: FareType.BTS_SILOM,
+                fareType: FareType.BTS,
             }, {
                 route: [
                     MRT_BLUE_STATION.SILOM,
@@ -368,7 +368,7 @@ describe('FareService', () => {
                     BTS_SILOM_STATION.CHONG_NONSI,
                     BTS_SILOM_STATION.SALA_DAENG,
                 ],
-                fareType: FareType.BTS_SILOM,
+                fareType: FareType.BTS,
             }, {
                 route: [
                     MRT_BLUE_STATION.SILOM,
