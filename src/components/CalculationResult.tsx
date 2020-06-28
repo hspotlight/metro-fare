@@ -21,20 +21,20 @@ const CalculationResult = ({travelRoute}: {travelRoute: TravelRoute}) => {
             );
           }
           const route = routeSegment.route.map((stationKey, index) => {
-            const dottedLine = getDottedLine(routeSegment.lineType);
-            const stationIcon = getStationIcon(routeSegment.lineType);
-            const station = getStation(stationKey);
-            if (station?.isNotAvailable) {
+            const station = getStation(stationKey) as Station;
+            const dottedLineStyle = getDottedLineStyle(station.lineType);
+            const stationIconStyle = getStationIconStyle(station.lineType);
+            if (station.isNotAvailable) {
               return null;
             }
 
-            const stationName = `(${station?.key}) ${getStationName(station as Station, i18n.language)}`;
+            const stationName = `(${station.key}) ${getStationName(station as Station, i18n.language)}`;
 
             return (
               <section key={stationKey}>
-                {index > 0 && dottedLine}
+                {index > 0 && <div className={dottedLineStyle}></div>}
                 <section className="station-container">
-                  {stationIcon}
+                  {<div className={stationIconStyle}></div>}
                   <div>{stationName}</div>
                 </section>
               </section>
@@ -55,18 +55,22 @@ const CalculationResult = ({travelRoute}: {travelRoute: TravelRoute}) => {
 
 export default CalculationResult;
 
-export const getDottedLine = (currentLineType: LineType) => {
-  const dottedLineStyle =
-    currentLineType === LineType.MRT_BLUE
-      ? "mrt-blue-dotted-line"
-      : "bts-silom-dotted-line";
-  return <div className={dottedLineStyle}></div>;
+export const getDottedLineStyle = (currentLineType: LineType) => {
+  switch(currentLineType) {
+    case LineType.MRT_BLUE: return "mrt-blue-dotted-line";
+    case LineType.BTS_SILOM: return "bts-silom-dotted-line";
+    case LineType.BTS_SUKHUMVIT: return "bts-sukhumvit-dotted-line";
+    default: return "bts-silom-dotted-line";
+  }
 };
 
-export const getStationIcon = (currentLineType: LineType) => {
-  const iconStyle =
-    currentLineType === LineType.MRT_BLUE ? "mrt-blue-icon" : "bts-silom-icon";
-  return <div className={iconStyle}></div>;
+export const getStationIconStyle = (currentLineType: LineType) => {
+  switch(currentLineType) {
+    case LineType.MRT_BLUE: return "mrt-blue-icon";
+    case LineType.BTS_SILOM: return "bts-silom-icon";
+    case LineType.BTS_SUKHUMVIT: return "bts-sukhumvit-icon";
+    default: return "bts-silom-icon";
+  }
 };
 
 export const getInterChangeLine = (
@@ -74,8 +78,21 @@ export const getInterChangeLine = (
   prevLineType: LineType
 ) => {
   if (currentLineType === prevLineType) {
-    return getDottedLine(currentLineType);
+    const style = getDottedLineStyle(currentLineType);
+    return <div className={style}></div>;
   } else {
+    if (
+      (currentLineType === LineType.BTS && prevLineType === LineType.BTS_SILOM) ||
+      (currentLineType === LineType.BTS_SILOM && prevLineType === LineType.BTS)) {
+      const style = getDottedLineStyle(LineType.BTS_SILOM);
+      return <div className={style}></div>;
+    }
+    if (
+      (currentLineType === LineType.BTS && prevLineType === LineType.BTS_SUKHUMVIT) ||
+      (currentLineType === LineType.BTS_SUKHUMVIT && prevLineType === LineType.BTS)) {
+      const style = getDottedLineStyle(LineType.BTS_SUKHUMVIT);
+      return <div className={style}></div>;
+    }
     return <div className="interchange-dotted-line"></div>;
   }
 };
