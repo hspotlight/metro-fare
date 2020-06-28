@@ -1,6 +1,7 @@
 import { METRO_FARE } from "../common/fare";
 import { FareType, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION } from "../types";
 import { STATIONS, Station } from "../data/Stations";
+import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment): number => {
     const fareTable: number[] = METRO_FARE[routeSegment.fareType];
@@ -46,13 +47,7 @@ const isInterchangeStation = (station: METRO_STATION): boolean => {
 };
 
 export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
-    const BTS_SILOM_EXTENSION = [
-        BTS_SILOM_STATION.PHO_NIMIT,
-        BTS_SILOM_STATION.TALAT_PHLU,
-        BTS_SILOM_STATION.WUTTHAKAT,
-        BTS_SILOM_STATION.BANG_WA,
-    ];
-    if (BTS_SILOM_EXTENSION.includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM_EXTENSION_15
+    if (BTS_SILOM_EXTENSION_15.includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM_EXTENSION_15
     if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM
     return FareType.MRT_BLUE
 };
