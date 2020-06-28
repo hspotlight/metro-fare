@@ -1,6 +1,6 @@
 import { FareService } from '../fare.service';
 import { graphService } from '../graph.service';
-import { MRT_BLUE_STATION, BTS_SILOM_STATION, RouteSegment, FareType } from '../../types';
+import { MRT_BLUE_STATION, BTS_SILOM_STATION, RouteSegment, FareType, BTS_SUKHUMVIT_STATION, LineType } from '../../types';
 
 describe('FareService', () => {
     describe('MRT Blue line', () => {
@@ -195,7 +195,7 @@ describe('FareService', () => {
             expect(travelRoute.fare).toBe(42);
         });
     });
-    describe('BTS line', () => {
+    describe('BTS Silom line', () => {
         it('should return 16 when source and destination are the same station', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.CHONG_NONSI],
@@ -283,9 +283,201 @@ describe('FareService', () => {
             expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
             expect(travelRoute.fare).toBe(37);
         });
+        it('should return 15 when travel from Wongwian Yai to Pho Nimit', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.WONGWIAN_YAI,
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    BTS_SILOM_STATION.PHO_NIMIT,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.WONGWIAN_YAI;
+            const destination = BTS_SILOM_STATION.PHO_NIMIT;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
+            expect(travelRoute.fare).toBe(15);
+        });
+        it('should return 31 when travel from Phra Khanong to Pho Nimit', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.KRUNG_THON_BURI,
+                    BTS_SILOM_STATION.WONGWIAN_YAI,
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    BTS_SILOM_STATION.PHO_NIMIT,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.KRUNG_THON_BURI;
+            const destination = BTS_SILOM_STATION.PHO_NIMIT;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
+            expect(travelRoute.fare).toBe(31);
+        });
     });
 
-    describe('MRT-BTS', () => {
+    describe('BTS Sukhumvit line', () => {
+        it('should return 26 when distance from source-destination is 2 hop', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [BTS_SILOM_STATION.RATCHADAMRI, BTS_SILOM_STATION.SIAM, BTS_SUKHUMVIT_STATION.CHIT_LOM],
+                fareType: FareType.BTS,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.RATCHADAMRI;
+            const destination = BTS_SUKHUMVIT_STATION.CHIT_LOM;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
+            expect(travelRoute.fare).toBe(23);
+        });
+        it('should return 30 when distance from source-destination is 4 hop', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SILOM_STATION.SALA_DAENG,
+                    BTS_SILOM_STATION.RATCHADAMRI,
+                    BTS_SILOM_STATION.SIAM,
+                    BTS_SUKHUMVIT_STATION.CHIT_LOM,
+                    BTS_SUKHUMVIT_STATION.PHOLEN_CHIT,
+                ],
+                fareType: FareType.BTS,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SILOM_STATION.SALA_DAENG;
+            const destination = BTS_SUKHUMVIT_STATION.PHOLEN_CHIT;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
+            expect(travelRoute.fare).toBe(30);
+        });
+        it('should return 15 when travel from On Nut to Bang chak', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.ON_NUT,
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.BANG_CHAK,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SUKHUMVIT_STATION.ON_NUT;
+            const destination = BTS_SUKHUMVIT_STATION.BANG_CHAK;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
+            expect(travelRoute.fare).toBe(15);
+        });
+        it('should return 31 when travel from Phra Khanong to Bang chak', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.PHRA_KHANONG,
+                    BTS_SUKHUMVIT_STATION.ON_NUT,
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.BANG_CHAK,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SUKHUMVIT_STATION.ON_NUT;
+            const destination = BTS_SUKHUMVIT_STATION.BANG_CHAK;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(expectedResult[0].fareType);
+            expect(travelRoute.fare).toBe(31);
+        });
+        it('should return 15 when travel from Bang Na to Sam Rong', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.BANG_NA,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.SAMRONG,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SUKHUMVIT_STATION.BANG_NA;
+            const destination = BTS_SUKHUMVIT_STATION.SAMRONG;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(LineType.BTS_SUKHUMVIT);
+            expect(travelRoute.fare).toBe(15);
+        });
+        it('should return 16 when travel from Saphan Khwai to Ha Yaek Lat Phrao', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.SAPHAN_KHWAI,
+                    BTS_SUKHUMVIT_STATION.MO_CHIT,
+                ],
+                fareType: FareType.BTS,
+            }, {
+                route: [
+                    BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SUKHUMVIT_STATION.SAPHAN_KHWAI;
+            const destination = BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(LineType.BTS);
+            expect(travelRoute.fare).toBe(16);
+        });
+        it('should return 23 when travel from Saphan Khwai to Ari', () => {
+            const expectedResult: RouteSegment[] = [{
+                route: [
+                    BTS_SUKHUMVIT_STATION.SAPHAN_KHWAI,
+                    BTS_SUKHUMVIT_STATION.SENA_RUAM,
+                    BTS_SUKHUMVIT_STATION.ARI,
+                ],
+                fareType: FareType.BTS,
+            }];
+            graphService.findRoute = jest.fn().mockReturnValueOnce(expectedResult);
+            const source = BTS_SUKHUMVIT_STATION.SAPHAN_KHWAI;
+            const destination = BTS_SUKHUMVIT_STATION.ARI;
+
+            const travelRoute = FareService.calculate(source, destination);
+
+            expect(travelRoute.route[0].route).toBe(expectedResult[0].route);
+            expect(travelRoute.route[0].lineType).toBe(LineType.BTS);
+            expect(travelRoute.fare).toBe(23);
+        });
+    });
+    describe('MRT-BTS Silom', () => {
         it('should return 0 when no hops for BTS and MRT (just walking)', () => {
             const expectedResult: RouteSegment[] = [{
                 route: [BTS_SILOM_STATION.BANG_WA],
