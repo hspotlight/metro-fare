@@ -1,7 +1,8 @@
 import { METRO_FARE } from "../common/fare";
-import { FareType, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION } from "../types";
+import { FareType, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION, BTS_SUKHUMVIT_STATION } from "../types";
 import { STATIONS, Station } from "../data/Stations";
 import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
+import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BTSSukhumvitLine";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment): number => {
     const fareTable: number[] = METRO_FARE[routeSegment.fareType];
@@ -48,7 +49,10 @@ const isInterchangeStation = (station: METRO_STATION): boolean => {
 
 export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
     if (BTS_SILOM_EXTENSION_15.includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM_EXTENSION_15
-    if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION)) return FareType.BTS
+    if (BTS_SUKHUMVIT_EXTENSION_15.includes(station as BTS_SUKHUMVIT_STATION)) return FareType.BTS_SUKHUMVIT_EXTENSION_15
+    if (BTS_SUKHUMVIT_EXTENSION_0.includes(station as BTS_SUKHUMVIT_STATION)) return FareType.BTS_SUKHUMVIT_EXTENSION_0
+    if (Object.values(BTS_SILOM_STATION).includes(station as BTS_SILOM_STATION) ||
+        Object.values(BTS_SUKHUMVIT_STATION).includes(station as BTS_SUKHUMVIT_STATION)) return FareType.BTS
     return FareType.MRT_BLUE
 };
 
