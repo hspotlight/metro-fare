@@ -41,10 +41,11 @@ export const getLineTypeFromFareType = (fareType: FareType): LineType => {
 
 const isInterchangeStation = (station: METRO_STATION): boolean => {
     const interChangeStations: METRO_STATION[] = [
-        MRT_BLUE_STATION.BANG_WA,
-        BTS_SILOM_STATION.BANG_WA,
-        MRT_BLUE_STATION.SILOM,
-        BTS_SILOM_STATION.SALA_DAENG
+        MRT_BLUE_STATION.SILOM, BTS_SILOM_STATION.SALA_DAENG,
+        MRT_BLUE_STATION.BANG_WA, BTS_SILOM_STATION.BANG_WA,
+        MRT_BLUE_STATION.SUKHUMVIT, BTS_SUKHUMVIT_STATION.ASOK,
+        MRT_BLUE_STATION.CHATUCHAK_PARK, BTS_SUKHUMVIT_STATION.MO_CHIT,
+        MRT_BLUE_STATION.PHAHON_YOTHIN, BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO,
     ];
     return interChangeStations.includes(station);
 };
