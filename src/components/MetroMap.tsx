@@ -7,6 +7,7 @@ import {
   Popup,
   FeatureGroup,
   LayersControl,
+  Tooltip
 } from "react-leaflet";
 import { LatLngTuple, LatLngBoundsLiteral } from "leaflet";
 import { Button } from "@material-ui/core";
@@ -181,6 +182,7 @@ const StationMarker = ({
           </Button>
         </section>
       </Popup>
+      <Tooltip>{stationName}</Tooltip>
     </CircleMarker>
   );
 };
