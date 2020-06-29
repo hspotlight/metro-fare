@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Map,
   TileLayer,
@@ -7,9 +7,10 @@ import {
   Popup,
   FeatureGroup,
   LayersControl,
-  Tooltip
+  Tooltip,
 } from "react-leaflet";
-import { LatLngTuple, LatLngBoundsLiteral } from "leaflet";
+import Control from 'react-leaflet-control';
+import { LatLngTuple } from "leaflet";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { TripContext } from "../contexts/TripProvider";
@@ -17,6 +18,8 @@ import { getStationName } from "../services/util.service";
 import { colors } from "../common/colors";
 import { LineType } from "../types";
 import { STATIONS, Station } from "../data/Stations";
+import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION, DEFAULT_MAP_MAX_BOUNDS } from "../common/mapConstants";
+import "../styles/App.scss";
 
 const filterLineType = (lineType: LineType) => (
   STATIONS.filter((station) => station.lineType === lineType && !station.isNotAvailable)
@@ -31,18 +34,18 @@ const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
 };
 
 export const MetroMap = () => {
-  const [mapCenter] = useState<LatLngTuple>([13.773565, 100.521852]);
+  const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
 
-  // will change maxBound later
-  const maxBounds: LatLngBoundsLiteral = [
-    [13.449045, 100.0327245],
-    [14.0599723, 100.9603826],
-  ];
+  useEffect(() => {
+    if (!(mapCenter[0] === DEFAULT_MAP_CENTER[0] && mapCenter[1] === DEFAULT_MAP_CENTER[1])) {
+      setMapCenter(DEFAULT_MAP_CENTER);
+    }
+  }, [mapCenter]);
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Map
-        maxBounds={maxBounds}
+        maxBounds={DEFAULT_MAP_MAX_BOUNDS}
         style={{ height: "100%", width: "100%" }}
         center={mapCenter}
         zoom={12}
@@ -50,10 +53,7 @@ export const MetroMap = () => {
         maxZoom={17}
       >
         <LayersControl position="topright">
-          <LayersControl.BaseLayer
-            name="BaseMap"
-            checked={true}
-          >
+          <LayersControl.BaseLayer name="Standard map" checked={true}>
             <TileLayer
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -112,7 +112,10 @@ export const MetroMap = () => {
               ))}
             </FeatureGroup>
           </LayersControl.Overlay>
-          <LayersControl.Overlay name="BTS Sukhumvit Line Station" checked={true}>
+          <LayersControl.Overlay
+            name="BTS Sukhumvit Line Station"
+            checked={true}
+          >
             <FeatureGroup name="bts-sukhumvit-station">
               {btsSukhumvitStations.map((station) => (
                 <StationMarker
@@ -124,6 +127,11 @@ export const MetroMap = () => {
             </FeatureGroup>
           </LayersControl.Overlay>
         </LayersControl>
+        <Control position="topleft" >
+          <div className="map-control" onClick={() => setMapCenter(DUMMY_MAP_POSITION) }>
+            <img className="home-icon" src="home.png" alt="Reset View Button"/>
+          </div>
+        </Control>
       </Map>
     </div>
   );
