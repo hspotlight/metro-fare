@@ -53,11 +53,9 @@ const isInterchangeStation = (station: METRO_STATION): boolean => {
 const isExtensionBorderStation = (station: METRO_STATION): boolean => {
     const extensionBorderStation: METRO_STATION[] = [
         BTS_SILOM_STATION.WONGWIAN_YAI,
-
         BTS_SUKHUMVIT_STATION.ON_NUT,
-        
-        // BTS_SUKHUMVIT_STATION.BEARING,
-        // BTS_SUKHUMVIT_STATION.MO_CHIT,
+        BTS_SUKHUMVIT_STATION.BEARING,
+        BTS_SUKHUMVIT_STATION.MO_CHIT,
     ];
     return extensionBorderStation.includes(station);
 };
