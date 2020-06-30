@@ -3,6 +3,7 @@ import { FareType, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT
 import { STATIONS, Station } from "../data/Stations";
 import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
 import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BTSSukhumvitLine";
+import { LatLngTuple } from "leaflet";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment): number => {
     const fareTable: number[] = METRO_FARE[routeSegment.fareType];
@@ -79,3 +80,12 @@ export const getStation = (searchStation: METRO_STATION): Station | null => {
 export const getStationName = (station: Station, lang: string = 'en') => {
     return lang === 'en' ? station.nameEN : station.nameTH;
 }
+
+// map util
+export const filterStationByLineType = (lineType: LineType) => (
+    STATIONS.filter((station) => station.lineType === lineType && !station.isNotAvailable)
+);
+
+export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
+    return stations.map((station) => station.position);
+};
