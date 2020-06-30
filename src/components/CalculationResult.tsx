@@ -1,7 +1,6 @@
 import React from "react";
-import { TravelRoute } from "../services/fare.service";
 import { getStation, getStationName } from "../services/util.service";
-import { LineType } from "../types";
+import { LineType, TravelRoute } from "../types";
 import "../styles/CalculationResult.scss";
 import { Station } from "../data/Stations";
 import { useTranslation } from "react-i18next";

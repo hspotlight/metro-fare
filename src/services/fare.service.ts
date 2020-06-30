@@ -1,15 +1,6 @@
 import { graphService, metroGraph } from "./graph.service";
 import { calculateFareFromRouteSegment, getLineTypeFromFareType } from "./util.service";
-import { METRO_STATION, LineType, RouteSegment } from "../types";
-
-export type TravelRoute = {
-    route: {
-        route: METRO_STATION[],
-        lineType: LineType,
-        fare: number
-    }[],
-    fare: number,
-}
+import { METRO_STATION, RouteSegment, TravelRoute } from "../types";
 
 export const FareService = {
     calculate(source: METRO_STATION, destination: METRO_STATION): TravelRoute {
