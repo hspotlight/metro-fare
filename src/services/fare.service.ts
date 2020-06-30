@@ -1,4 +1,4 @@
-import { graphService, metroGraph, FindRouteMethod } from "./graph.service";
+import { graphService, metroGraph } from "./graph.service";
 import { calculateFareFromRouteSegment, getLineTypeFromFareType } from "./util.service";
 import { METRO_STATION, LineType, RouteSegment } from "../types";
 
@@ -12,8 +12,8 @@ export type TravelRoute = {
 }
 
 export const FareService = {
-    calculate(source: METRO_STATION, destination: METRO_STATION, findRouteMethod: FindRouteMethod = 'lowestHop'): TravelRoute {
-        const routeSegments = graphService.findRoute(source, destination, metroGraph, findRouteMethod);
+    calculate(source: METRO_STATION, destination: METRO_STATION): TravelRoute {
+        const routeSegments = graphService.findRoute(source, destination, metroGraph);
 
         let totalFare = 0;
         const route = routeSegments.map((routeSegment: RouteSegment) => {
