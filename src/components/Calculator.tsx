@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { TripContext } from "../contexts/TripProvider";
-import { FareService, TravelRoute } from "../services/fare.service";
+import { FareService } from "../services/fare.service";
 import LanguageController from "./LanguageController";
 import StationSelect from "./StationSelect";
 import CalculationResult from "./CalculationResult";
@@ -10,13 +10,16 @@ import "../styles/Calculator.scss";
 
 const Calculator = () => {
   const { t: translate } = useTranslation();
-  const { trip, setSource, setDestination, resetTrip } = useContext(
-    TripContext
-  );
+  const {
+    trip,
+    travelRoute,
+    setSource,
+    setDestination,
+    setTravelRoute,
+    resetTrip,
+    resetTravelRoute,
+  } = useContext(TripContext);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [travelRoute, setTravelRoute] = useState<TravelRoute | undefined>(
-    undefined
-  );
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
 
   const calculateRoute = () => {
@@ -27,7 +30,7 @@ const Calculator = () => {
   const resetForm = () => {
     resetTrip();
     setErrorMessage("");
-    setTravelRoute(undefined);
+    resetTravelRoute();
   };
 
   useEffect(() => {
@@ -68,7 +71,7 @@ const Calculator = () => {
         </Button>
       </section>
       {errorMessage.length > 0 && <ErrorMessage errorMessage={errorMessage} />}
-      {travelRoute && <CalculationResult travelRoute={travelRoute} />}
+      {travelRoute.route.length > 0 && <CalculationResult travelRoute={travelRoute} />}
     </section>
   );
 };

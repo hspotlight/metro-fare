@@ -5,3 +5,4 @@ export * from './Line';
 export * from './Intersection';
 export * from './RouteSegment';
 export * from './MetroStation';
+export * from './TravelRoute';
