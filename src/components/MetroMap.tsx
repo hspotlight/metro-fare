@@ -9,22 +9,14 @@ import {
 import { LatLngTuple } from "leaflet";
 import { colors } from "../common/colors";
 import { LineType } from "../types";
-import { STATIONS, Station } from "../data/Stations";
 import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION, DEFAULT_MAP_MAX_BOUNDS } from "../common/mapConstants";
 import MapControl from "./map/MapControl";
 import StationMarker from "./map/StationMarker";
+import { filterStationByLineType, getPolyLineFromStations } from "../services/util.service";
 
-const filterLineType = (lineType: LineType) => (
-  STATIONS.filter((station) => station.lineType === lineType && !station.isNotAvailable)
-);
-
-const mrtBlueStations = filterLineType(LineType.MRT_BLUE);
-const btsSilomStations = filterLineType(LineType.BTS_SILOM);
-const btsSukhumvitStations = filterLineType(LineType.BTS_SUKHUMVIT);
-
-const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
-  return stations.map((station) => station.position);
-};
+const mrtBlueStations = filterStationByLineType(LineType.MRT_BLUE);
+const btsSilomStations = filterStationByLineType(LineType.BTS_SILOM);
+const btsSukhumvitStations = filterStationByLineType(LineType.BTS_SUKHUMVIT);
 
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
