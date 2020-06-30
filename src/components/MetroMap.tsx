@@ -1,24 +1,18 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Map,
   TileLayer,
-  CircleMarker,
   Polyline,
-  Popup,
   FeatureGroup,
   LayersControl,
-  Tooltip,
 } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
-import { Button } from "@material-ui/core";
-import { useTranslation } from "react-i18next";
-import { TripContext } from "../contexts/TripProvider";
-import { getStationName } from "../services/util.service";
 import { colors } from "../common/colors";
 import { LineType } from "../types";
 import { STATIONS, Station } from "../data/Stations";
 import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION, DEFAULT_MAP_MAX_BOUNDS } from "../common/mapConstants";
 import MapControl from "./map/MapControl";
+import StationMarker from "./map/StationMarker";
 
 const filterLineType = (lineType: LineType) => (
   STATIONS.filter((station) => station.lineType === lineType && !station.isNotAvailable)
@@ -129,63 +123,5 @@ export const MetroMap = () => {
         <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
       </Map>
     </div>
-  );
-};
-
-const StationMarker = ({
-  station,
-  color,
-}: {
-  station: Station;
-  color: string;
-}) => {
-  const { t: translate, i18n } = useTranslation();
-  const { setSource, setDestination } = useContext(TripContext);
-  const stationName = `(${station.key}) ${getStationName(station, i18n.language)}`;
-  const popupRef = React.useRef(null);
-
-  const closePopusOnClick = () => {
-    // @ts-ignore
-    popupRef.current.leafletElement.options.leaflet.map.closePopup();
-  };
-
-  return (
-    <CircleMarker
-      center={station.position}
-      radius={10}
-      color="black"
-      weight={1.5}
-      fillColor={color}
-      fillOpacity={1}
-    >
-      <Popup ref={popupRef}>
-        <section
-          style={{ display: "flex", flexDirection: "column", width: "170px" }}
-        >
-          <h3>{stationName}</h3>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setSource(station.key);
-              closePopusOnClick();
-            }}
-          >
-            {translate("map.popup.setSource")}
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setDestination(station.key);
-              closePopusOnClick();
-            }}
-          >
-            {translate("map.popup.setDestination")}
-          </Button>
-        </section>
-      </Popup>
-      <Tooltip>{stationName}</Tooltip>
-    </CircleMarker>
   );
 };
