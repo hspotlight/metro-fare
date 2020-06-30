@@ -24,6 +24,12 @@
     "popup": {
       "setSource": "Set Source",
       "setDestination": "Set Destination"
+    },
+    "legend": {
+      "legend": "Legend",
+      "btsSilomLine": "BTS SkyTrain Silom Line",
+      "btsSukhumvitLine": "BTS SkyTrain Sukhumvit Line",
+      "mrtBlueLine": "MRT Blue Line"
     }
   }
 }

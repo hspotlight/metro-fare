@@ -1,0 +1,67 @@
+.map-legend {
+  background-color: white;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  border-radius: 10px;
+  position: absolute;
+  top: 0px;
+  left: 40px;
+  width: 270px;
+  height: 90px;
+  padding: 10px;
+}
+
+.map-legend .title {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.map-legend .legend {
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.map-legend .legend-key-value {
+  display: flex;
+}
+
+.legend-key-value .key {
+  width: 35px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.key .circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 15px;
+  position: absolute;
+}
+
+.key.mrt-blue-line .circle {
+  background-color: #1e3a8d;
+}
+
+.key.bts-silom-line .circle {
+  background-color: #00817d;
+}
+
+.key.bts-sukhumvit-line .circle {
+  background-color: #79b828;
+}
+
+.key.mrt-blue-line .line {
+  width: 100%;
+  border-top: 5px solid #1e3a8d;
+}
+
+.key.bts-silom-line .line {
+  width: 100%;
+  border-top: 5px solid #00817d;
+}
+
+.key.bts-sukhumvit-line .line {
+  width: 100%;
+  border-top: 5px solid #79b828;
+}

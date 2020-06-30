@@ -9,7 +9,6 @@ import {
   LayersControl,
   Tooltip,
 } from "react-leaflet";
-import Control from 'react-leaflet-control';
 import { LatLngTuple } from "leaflet";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
@@ -19,7 +18,7 @@ import { colors } from "../common/colors";
 import { LineType } from "../types";
 import { STATIONS, Station } from "../data/Stations";
 import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION, DEFAULT_MAP_MAX_BOUNDS } from "../common/mapConstants";
-import "../styles/App.scss";
+import MapControl from "./map/MapControl";
 
 const filterLineType = (lineType: LineType) => (
   STATIONS.filter((station) => station.lineType === lineType && !station.isNotAvailable)
@@ -127,11 +126,7 @@ export const MetroMap = () => {
             </FeatureGroup>
           </LayersControl.Overlay>
         </LayersControl>
-        <Control position="topleft" >
-          <div className="map-control" onClick={() => setMapCenter(DUMMY_MAP_POSITION) }>
-            <img className="home-icon" src="home.png" alt="Reset View Button"/>
-          </div>
-        </Control>
+        <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
       </Map>
     </div>
   );
