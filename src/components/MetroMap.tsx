@@ -21,10 +21,7 @@ const btsSukhumvitStations = filterStationByLineType(LineType.BTS_SUKHUMVIT);
 
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
-  const { trip, travelRoute } = useContext(TripContext);
-
-  const source = getStation(trip.source);
-  const destination = getStation(trip.destination);
+  const { travelRoute } = useContext(TripContext);
   
   useEffect(() => {
     if (!(mapCenter[0] === DEFAULT_MAP_CENTER[0] && mapCenter[1] === DEFAULT_MAP_CENTER[1])) {
@@ -118,31 +115,38 @@ export const MetroMap = () => {
           </LayersControl.Overlay>
         </LayersControl>
         <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
-
-        {travelRoute.route.length > 0 && (
-          <>
-            <FeatureGroup name="travel-route">
-              <Polyline
-                positions={getPolyLineFromStations(getStationsFromTravelRoute(travelRoute))}
-                color={colors.travelRoute}
-                weight={10}
-              />
-            </FeatureGroup>
-            <FeatureGroup name="travel-route-station">
-              <StationMarker
-                station={source as Station}
-                fillColor={colors.sourceStation}
-                showPopup={false}
-              />
-              <StationMarker
-                station={destination as Station}
-                fillColor={colors.destinationStation}
-                showPopup={false}
-              />
-            </FeatureGroup>
-          </>
-        )}
+        {travelRoute.route.length > 0 && <TravelRouteLayer />}
       </Map>
     </div>
   );
 };
+
+const TravelRouteLayer = () => {
+  const { trip, travelRoute } = useContext(TripContext);
+
+  const source = getStation(trip.source);
+  const destination = getStation(trip.destination);
+  return (
+    <>
+      <FeatureGroup name="travel-route">
+        <Polyline
+          positions={getPolyLineFromStations(getStationsFromTravelRoute(travelRoute))}
+          color={colors.travelRoute}
+          weight={10}
+        />
+      </FeatureGroup>
+      <FeatureGroup name="travel-route-station">
+        <StationMarker
+          station={source as Station}
+          fillColor={colors.sourceStation}
+          showPopup={false}
+        />
+        <StationMarker
+          station={destination as Station}
+          fillColor={colors.destinationStation}
+          showPopup={false}
+        />
+      </FeatureGroup>
+    </>
+  )
+}
