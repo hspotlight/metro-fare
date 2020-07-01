@@ -12,8 +12,8 @@ const MapControl = (props: any) => {
         <div className="map-control">
           <img className="control-icon control-icon-top" src="home.png" alt="Reset View Button" onClick={onResetViewClick}/>
           <img className="control-icon control-icon-bottom" src="info.png" alt="Map Legend" onClick={() => setLegendToggleStatus(!legendToggleStatus)}/>
+          {legendToggleStatus && <MapLegend />}
         </div>
-        {legendToggleStatus && <MapLegend />}
       </Control>
     </>
   );
