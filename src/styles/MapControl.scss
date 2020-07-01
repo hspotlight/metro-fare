@@ -1,29 +1,28 @@
 .map-control {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
   border-radius: 4px;
-  height: 55px;
   display: flex;
   flex-direction: column;
 }
 
 .control-icon {
-  width: 26px;
-  height: 26px;
-  padding-bottom: 2px;
   background-color: white;
-  border-radius: 4px;
+  font-size: 25px;
+  padding: 3px;
   cursor: pointer;
 }
 
 .control-icon-top {
-  border-radius: unset;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   border-bottom: 1px solid #ccc;
 }
 
+.control-icon-middle {
+  border-bottom: 1px solid #ccc;
+}
+
 .control-icon-bottom {
-  border-radius: unset;
   border-bottom-left-radius: 4px;
   border-bottom-right-radius: 4px;
 }
@@ -36,10 +35,5 @@
     position: absolute;
     right: 0px;
     top: 260px;
-  }
-
-  .control-icon {
-    width: 30px;
-    height: 30px;
   }
 }
