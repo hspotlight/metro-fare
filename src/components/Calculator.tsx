@@ -22,15 +22,16 @@ const Calculator = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
 
+  const showTravelRoute = travelRoute.route.length > 0 && trip.source && trip.destination;
   const calculateRoute = () => {
     const travelRoute = FareService.calculate(trip.source, trip.destination);
     setTravelRoute(travelRoute);
   };
 
   const resetForm = () => {
+    resetTravelRoute();
     resetTrip();
     setErrorMessage("");
-    resetTravelRoute();
   };
 
   useEffect(() => {
@@ -71,7 +72,7 @@ const Calculator = () => {
         </Button>
       </section>
       {errorMessage.length > 0 && <ErrorMessage errorMessage={errorMessage} />}
-      {travelRoute.route.length > 0 && <CalculationResult travelRoute={travelRoute} />}
+      {showTravelRoute && <CalculationResult travelRoute={travelRoute} />}
     </section>
   );
 };

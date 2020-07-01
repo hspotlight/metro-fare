@@ -115,6 +115,11 @@ const TravelRouteLayer = () => {
 
   const source = getStation(trip.source);
   const destination = getStation(trip.destination);
+
+  if (!(source && destination)) {
+    return null;
+  }
+
   return (
     <>
       <FeatureGroup name="travel-route">
