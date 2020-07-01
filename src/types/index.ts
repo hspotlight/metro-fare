@@ -6,3 +6,4 @@ export * from './Intersection';
 export * from './RouteSegment';
 export * from './MetroStation';
 export * from './TravelRoute';
+export * from './Station';

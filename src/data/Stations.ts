@@ -1,14 +1,4 @@
-import { LatLngTuple } from "leaflet";
-import { MRT_BLUE_STATION, BTS_SILOM_STATION, METRO_STATION, LineType, BTS_SUKHUMVIT_STATION } from "../types";
-
-export type Station = {
-    lineType: LineType,
-    key: METRO_STATION,
-    nameEN: string,
-    nameTH: string,
-    position: LatLngTuple
-    isNotAvailable?: boolean,
-}
+import { Station, LineType, MRT_BLUE_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION } from "../types";
 
 export const STATIONS: Station[] = [
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.WAT_PHRA_SRI_MAHATHAT, nameEN: "Wat Phra Sri Mahathat", nameTH: "วัดพระศรีมหาธาตุ", position: [13.875241,100.596737] },
