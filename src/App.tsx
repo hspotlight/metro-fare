@@ -8,14 +8,19 @@ import "./styles/App.scss";
 
 const App = () => {
   return (
-    <div className="App">
-      <I18nextProvider i18n={i18n}>
-        <TripProvider>
-          <Calculator />
-          <MetroMap />
-        </TripProvider>
-      </I18nextProvider>
-    </div>
+    <>
+      <div className="App">
+        <I18nextProvider i18n={i18n}>
+          <TripProvider>
+            <Calculator />
+            <MetroMap />
+          </TripProvider>
+        </I18nextProvider>
+      </div>
+      <footer>
+        <a href="https://github.com/hspotlight/">Developed by HSpolight</a>
+      </footer>
+    </>
   );
 };
 
