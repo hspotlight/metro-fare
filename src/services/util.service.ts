@@ -1,6 +1,6 @@
 import { METRO_FARE } from "../common/fare";
-import { FareType, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION, BTS_SUKHUMVIT_STATION } from "../types";
-import { STATIONS, Station } from "../data/Stations";
+import { FareType, Station, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION, BTS_SUKHUMVIT_STATION, TravelRoute } from "../types";
+import { STATIONS} from "../data/Stations";
 import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
 import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BTSSukhumvitLine";
 import { LatLngTuple } from "leaflet";
@@ -89,3 +89,27 @@ export const filterStationByLineType = (lineType: LineType) => (
 export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
     return stations.map((station) => station.position);
 };
+
+export const getStationsFromTravelRoute = (travelRoute: TravelRoute): Station[] => {
+    const stationKeys = getStationKeysFromTravelRoute(travelRoute);
+    return getAllStations(stationKeys);
+}
+
+const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[] => {
+    let stationKeys: METRO_STATION[] = [];
+    travelRoute.route.forEach(route => {
+        stationKeys = [...stationKeys, ...route.route]
+    });
+    return stationKeys;
+}
+
+const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
+    const stations: Station[] = [];
+    stationKeys.forEach((stationKey: METRO_STATION) => {
+        const station = getStation(stationKey);
+        if (station) {
+            stations.push(station);
+        }
+    });
+    return stations;
+}

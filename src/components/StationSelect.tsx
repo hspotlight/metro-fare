@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FormControl, InputLabel, Select, FormHelperText } from "@material-ui/core";
-import { STATIONS, Station } from "../data/Stations";
-import { LineType, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION } from "../types";
+import { STATIONS } from "../data/Stations";
+import { LineType, Station, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION } from "../types";
 import { getStationName } from "../services/util.service";
 import "../styles/StationSelect.scss";
 

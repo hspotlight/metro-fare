@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Map,
   TileLayer,
@@ -8,11 +8,12 @@ import {
 } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
 import { colors } from "../common/colors";
-import { LineType } from "../types";
+import { LineType, Station } from "../types";
 import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION, DEFAULT_MAP_MAX_BOUNDS } from "../common/mapConstants";
 import MapControl from "./map/MapControl";
 import StationMarker from "./map/StationMarker";
-import { filterStationByLineType, getPolyLineFromStations } from "../services/util.service";
+import { filterStationByLineType, getPolyLineFromStations, getStation, getStationsFromTravelRoute } from "../services/util.service";
+import { TripContext } from "../contexts/TripProvider";
 
 const mrtBlueStations = filterStationByLineType(LineType.MRT_BLUE);
 const btsSilomStations = filterStationByLineType(LineType.BTS_SILOM);
@@ -20,7 +21,11 @@ const btsSukhumvitStations = filterStationByLineType(LineType.BTS_SUKHUMVIT);
 
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
+  const { trip, travelRoute } = useContext(TripContext);
 
+  const source = getStation(trip.source);
+  const destination = getStation(trip.destination);
+  
   useEffect(() => {
     if (!(mapCenter[0] === DEFAULT_MAP_CENTER[0] && mapCenter[1] === DEFAULT_MAP_CENTER[1])) {
       setMapCenter(DEFAULT_MAP_CENTER);
@@ -113,6 +118,29 @@ export const MetroMap = () => {
           </LayersControl.Overlay>
         </LayersControl>
         <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
+
+        {travelRoute.route.length > 0 && (
+          <>
+            <FeatureGroup name="travel-route">
+              <Polyline
+                positions={getPolyLineFromStations(getStationsFromTravelRoute(travelRoute))}
+                color={colors.travelRoute}
+              />
+            </FeatureGroup>
+            <FeatureGroup name="travel-route-station">
+              <StationMarker
+                station={source as Station}
+                color={colors.sourceStation}
+                showPopup={false}
+              />
+              <StationMarker
+                station={destination as Station}
+                color={colors.destinationStation}
+                showPopup={false}
+              />
+            </FeatureGroup>
+          </>
+        )}
       </Map>
     </div>
   );

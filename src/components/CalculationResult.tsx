@@ -1,8 +1,7 @@
 import React from "react";
 import { getStation, getStationName } from "../services/util.service";
-import { LineType, TravelRoute } from "../types";
+import { LineType, TravelRoute, Station } from "../types";
 import "../styles/CalculationResult.scss";
-import { Station } from "../data/Stations";
 import { useTranslation } from "react-i18next";
 
 const CalculationResult = ({travelRoute}: {travelRoute: TravelRoute}) => {
