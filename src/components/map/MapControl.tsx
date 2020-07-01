@@ -3,12 +3,12 @@ import Control from "react-leaflet-control";
 import MapLegend from "./MapLegend";
 import "../../styles/MapControl.scss";
 
-const MapControl = ({onResetViewClick}: {onResetViewClick: any}) => {
+const MapControl = (props: any) => {
   const [legendToggleStatus, setLegendToggleStatus] = useState(false);
-  console.log(legendToggleStatus);
+  const { onResetViewClick } = props;
   return (
     <>
-      <Control position="topleft">
+      <Control {...props}>
         <div className="map-control">
           <img className="control-icon control-icon-top" src="home.png" alt="Reset View Button" onClick={onResetViewClick}/>
           <img className="control-icon control-icon-bottom" src="info.png" alt="Map Legend" onClick={() => setLegendToggleStatus(!legendToggleStatus)}/>

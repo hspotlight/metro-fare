@@ -4,7 +4,6 @@ import {
   TileLayer,
   Polyline,
   FeatureGroup,
-  LayersControl,
 } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
 import { colors } from "../common/colors";
@@ -38,88 +37,78 @@ export const MetroMap = () => {
         zoom={12}
         minZoom={12}
         maxZoom={17}
+        zoomControl={false}
       >
-        <LayersControl position="topright">
-          <LayersControl.BaseLayer name="Standard map" checked={true}>
-            <TileLayer
-              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-          </LayersControl.BaseLayer>
-          <LayersControl.Overlay name="MRT Blue Line" checked={true}>
-            <FeatureGroup name="mrt-blue-line">
-              <Polyline
-                positions={getPolyLineFromStations(mrtBlueStations)}
-                color={colors.mrtBlue}
-              />
-              <Polyline
-                positions={[
-                  [13.740013, 100.470773],
-                  [13.7298, 100.474151],
-                ]}
-                color={colors.mrtBlue}
-              />
-            </FeatureGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="BTS Silom Line" checked={true}>
-            <FeatureGroup name="bts-silom-line">
-              <Polyline
-                positions={getPolyLineFromStations(btsSilomStations)}
-                color={colors.btsSilom}
-              />
-            </FeatureGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="BTS Sukhumvit Line" checked={true}>
-            <FeatureGroup name="bts-sukhumvit-line">
-              <Polyline
-                positions={getPolyLineFromStations(btsSukhumvitStations)}
-                color={colors.btsSukhumvit}
-              />
-            </FeatureGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="MRT Blue Line Station" checked={true}>
-            <FeatureGroup name="mrt-blue-station">
-              {mrtBlueStations.map((station) => (
-                <StationMarker
-                  key={station.key}
-                  station={station}
-                  fillColor={colors.mrtBlue}
-                />
-              ))}
-            </FeatureGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay name="BTS Silom Line Station" checked={true}>
-            <FeatureGroup name="bts-silom-station">
-              {btsSilomStations.map((station) => (
-                <StationMarker
-                  key={station.key}
-                  station={station}
-                  fillColor={colors.btsSilom}
-                />
-              ))}
-            </FeatureGroup>
-          </LayersControl.Overlay>
-          <LayersControl.Overlay
-            name="BTS Sukhumvit Line Station"
-            checked={true}
-          >
-            <FeatureGroup name="bts-sukhumvit-station">
-              {btsSukhumvitStations.map((station) => (
-                <StationMarker
-                  key={station.key}
-                  station={station}
-                  fillColor={colors.btsSukhumvit}
-                />
-              ))}
-            </FeatureGroup>
-          </LayersControl.Overlay>
-        </LayersControl>
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <MetroLineLayers />
         <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
         {travelRoute.route.length > 0 && <TravelRouteLayer />}
       </Map>
     </div>
   );
 };
+
+const MetroLineLayers = () => {
+  return (
+    <>
+      <FeatureGroup name="mrt-blue-line">
+        <Polyline
+          positions={getPolyLineFromStations(mrtBlueStations)}
+          color={colors.mrtBlue}
+        />
+        <Polyline
+          positions={[
+            [13.740013, 100.470773],
+            [13.7298, 100.474151],
+          ]}
+          color={colors.mrtBlue}
+        />
+      </FeatureGroup>
+      <FeatureGroup name="bts-silom-line">
+        <Polyline
+          positions={getPolyLineFromStations(btsSilomStations)}
+          color={colors.btsSilom}
+        />
+      </FeatureGroup>
+      <FeatureGroup name="bts-sukhumvit-line">
+        <Polyline
+          positions={getPolyLineFromStations(btsSukhumvitStations)}
+          color={colors.btsSukhumvit}
+        />
+      </FeatureGroup>
+      <FeatureGroup name="mrt-blue-station">
+        {mrtBlueStations.map((station) => (
+          <StationMarker
+            key={station.key}
+            station={station}
+            fillColor={colors.mrtBlue}
+          />
+        ))}
+      </FeatureGroup>
+      <FeatureGroup name="bts-silom-station">
+        {btsSilomStations.map((station) => (
+          <StationMarker
+            key={station.key}
+            station={station}
+            fillColor={colors.btsSilom}
+          />
+        ))}
+      </FeatureGroup>
+      <FeatureGroup name="bts-sukhumvit-station">
+        {btsSukhumvitStations.map((station) => (
+          <StationMarker
+            key={station.key}
+            station={station}
+            fillColor={colors.btsSukhumvit}
+          />
+        ))}
+      </FeatureGroup>
+    </>
+  )
+}
 
 const TravelRouteLayer = () => {
   const { trip, travelRoute } = useContext(TripContext);
