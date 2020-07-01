@@ -126,7 +126,7 @@ const TravelRouteLayer = () => {
         <Polyline
           positions={getPolyLineFromStations(getStationsFromTravelRoute(travelRoute))}
           color={colors.travelRoute}
-          weight={10}
+          weight={7}
         />
       </FeatureGroup>
       <FeatureGroup name="travel-route-station">
@@ -134,11 +134,13 @@ const TravelRouteLayer = () => {
           station={source as Station}
           fillColor={colors.sourceStation}
           showPopup={false}
+          radius={12}
         />
         <StationMarker
           station={destination as Station}
           fillColor={colors.destinationStation}
           showPopup={false}
+          radius={12}
         />
       </FeatureGroup>
     </>
