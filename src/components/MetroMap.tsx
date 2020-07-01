@@ -86,7 +86,7 @@ export const MetroMap = () => {
                 <StationMarker
                   key={station.key}
                   station={station}
-                  color={colors.mrtBlue}
+                  fillColor={colors.mrtBlue}
                 />
               ))}
             </FeatureGroup>
@@ -97,7 +97,7 @@ export const MetroMap = () => {
                 <StationMarker
                   key={station.key}
                   station={station}
-                  color={colors.btsSilom}
+                  fillColor={colors.btsSilom}
                 />
               ))}
             </FeatureGroup>
@@ -111,7 +111,7 @@ export const MetroMap = () => {
                 <StationMarker
                   key={station.key}
                   station={station}
-                  color={colors.btsSukhumvit}
+                  fillColor={colors.btsSukhumvit}
                 />
               ))}
             </FeatureGroup>
@@ -125,17 +125,18 @@ export const MetroMap = () => {
               <Polyline
                 positions={getPolyLineFromStations(getStationsFromTravelRoute(travelRoute))}
                 color={colors.travelRoute}
+                weight={10}
               />
             </FeatureGroup>
             <FeatureGroup name="travel-route-station">
               <StationMarker
                 station={source as Station}
-                color={colors.sourceStation}
+                fillColor={colors.sourceStation}
                 showPopup={false}
               />
               <StationMarker
                 station={destination as Station}
-                color={colors.destinationStation}
+                fillColor={colors.destinationStation}
                 showPopup={false}
               />
             </FeatureGroup>
