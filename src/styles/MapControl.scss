@@ -28,11 +28,14 @@
   border-bottom-right-radius: 4px;
 }
 
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 768px) {
   .map-control {
     box-shadow: unset;
     border: 2px solid rgba(0, 0, 0, 0.2);
     height: 65px;
+    position: absolute;
+    right: 0px;
+    top: 260px;
   }
 
   .control-icon {
