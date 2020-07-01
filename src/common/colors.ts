@@ -6,4 +6,5 @@ export const colors = {
     travelRoute: '#1DD300',
     sourceStation: '#3AAACF',
     destinationStation: '#F80012',
+    intermediateStation: '#C9C9C9'
 };

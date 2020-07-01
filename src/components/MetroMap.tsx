@@ -39,12 +39,12 @@ export const MetroMap = () => {
         maxZoom={17}
         zoomControl={false}
       >
+        <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MetroLineLayers />
-        <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
+        {travelRoute.route.length === 0 && <MetroLineLayers /> }
         {travelRoute.route.length > 0 && <TravelRouteLayer />}
       </Map>
     </div>
@@ -119,12 +119,16 @@ const TravelRouteLayer = () => {
   if (!(source && destination)) {
     return null;
   }
+  const allStationsInRoute = getStationsFromTravelRoute(travelRoute);
+  const intermediateStations = allStationsInRoute.filter((station) =>
+    station.key !== source.key && station.key !== destination.key
+  )
 
   return (
     <>
       <FeatureGroup name="travel-route">
         <Polyline
-          positions={getPolyLineFromStations(getStationsFromTravelRoute(travelRoute))}
+          positions={getPolyLineFromStations(allStationsInRoute)}
           color={colors.travelRoute}
           weight={7}
         />
@@ -136,6 +140,17 @@ const TravelRouteLayer = () => {
           showPopup={false}
           radius={12}
         />
+        {intermediateStations.map((station) => {
+          return (
+            <StationMarker
+              key={`intermediate-${station.key}`}
+              station={station as Station}
+              fillColor={colors.intermediateStation}
+              showPopup={false}
+              radius={12}
+            />
+          );
+        })}
         <StationMarker
           station={destination as Station}
           fillColor={colors.destinationStation}
@@ -144,5 +159,5 @@ const TravelRouteLayer = () => {
         />
       </FeatureGroup>
     </>
-  )
+  );
 }
