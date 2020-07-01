@@ -1,4 +1,8 @@
 {
+  "tab": {
+    "search": "Search",
+    "result": "Result"
+  },
   "route": {
     "source": "Source",
     "destination": "Destination",
