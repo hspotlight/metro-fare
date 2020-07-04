@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, ReactNode } from "react";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { TripContext } from "../contexts/TripProvider";
@@ -23,7 +23,8 @@ const Calculator = () => {
   const [showCalculator, setShowCalculator] = useState<boolean>(true);
   const [showResult, setShowResult] = useState<boolean>(true);
 
-  const showTravelRoute = travelRoute.route.length > 0 && trip.source && trip.destination;
+  const showTravelRoute =
+    travelRoute.route.length > 0 && trip.source && trip.destination;
   const calculateRoute = () => {
     const travelRoute = FareService.calculate(trip.source, trip.destination);
     setTravelRoute(travelRoute);
@@ -44,20 +45,11 @@ const Calculator = () => {
 
   return (
     <section className="calculator-container">
-      <section className="header">
-        <div>{translate('tab.search')}</div>
-        <div
-          className="chevron-icon-container"
-          onClick={() => setShowCalculator(!showCalculator)}
-        >
-          {showCalculator ? (
-            <i className="fa fa-chevron-down" aria-hidden="true" />
-            ) : (
-            <i className="fa fa-chevron-right" aria-hidden="true" />
-          )}
-        </div>
-      </section>
-      <section className={`detail ${showCalculator ? "show" : "hide"}`}>
+      <Section
+        title={translate("tab.search")}
+        showDetail={showCalculator}
+        setShowDetail={() => setShowCalculator(!showCalculator)}
+      >
         <StationSelect
           title={translate("route.source")}
           value={trip.source}
@@ -86,27 +78,49 @@ const Calculator = () => {
         {errorMessage.length > 0 && (
           <ErrorMessage errorMessage={errorMessage} />
         )}
-      </section>
+      </Section>
       {showTravelRoute && (
-          <>
-          <section className="header">
-            <div>{translate('tab.result')}</div>
-            <div
-              className="chevron-icon-container"
-              onClick={() => setShowResult(!showResult)}>
-              {showResult ? (
-                <i className="fa fa-chevron-down" aria-hidden="true" />
-                ) : (
-                <i className="fa fa-chevron-right" aria-hidden="true" />
-              )}
-            </div>
-          </section>
-          <section className={`detail ${showResult ? "show" : "hide"}`}>
-            <CalculationResult travelRoute={travelRoute} />
-          </section>
-        </>
+        <Section
+          title={translate("tab.result")}
+          showDetail={showResult}
+          setShowDetail={() => setShowResult(!showResult)}
+        >
+          <CalculationResult travelRoute={travelRoute} />
+        </Section>
       )}
     </section>
+  );
+};
+
+type SectionProps = {
+  title: string;
+  showDetail: boolean;
+  setShowDetail: any;
+  children: ReactNode;
+};
+
+const Section = ({
+  title,
+  showDetail,
+  setShowDetail,
+  children,
+}: SectionProps) => {
+  return (
+    <>
+      <section className="header">
+        <div>{title}</div>
+        <div className="chevron-icon-container" onClick={setShowDetail}>
+          {showDetail ? (
+            <i className="fa fa-chevron-down" aria-hidden="true" />
+          ) : (
+            <i className="fa fa-chevron-right" aria-hidden="true" />
+          )}
+        </div>
+      </section>
+      <section className={`detail ${showDetail ? "show" : "hide"}`}>
+        {children}
+      </section>
+    </>
   );
 };
 
