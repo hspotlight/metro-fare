@@ -1,0 +1,21 @@
+.route-container {
+  width: 85%;
+  flex-direction: column;
+}
+
+.fare-container {
+  width: 15%;
+  justify-content: flex-end;
+  display: flex;
+}
+
+.intermediate-station {
+  &.section {
+    display: flex;
+    height: 22px;
+  }
+  .display-text {
+    margin-left: 14px;
+    color: #575757;
+  }
+}

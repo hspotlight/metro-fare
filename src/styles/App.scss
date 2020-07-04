@@ -23,6 +23,11 @@ footer {
   }
 }
 
+.divider {
+  border: 1px solid #807b7b;
+  margin: 5px 0px 5px 0px;
+}
+
 @media only screen and (max-width: 768px) {
   .App {
     height: 100%;

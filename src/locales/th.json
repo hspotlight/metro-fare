@@ -7,7 +7,11 @@
   "route": {
     "source": "สถานีต้นทาง",
     "destination": "สถานีปลายทาง",
-    "fare": "ค่าโดยสาร"
+    "fare": "ค่าโดยสาร",
+    "intermediateStationText": "{{count}} สถานี"
+  },
+  "priceSymbol": {
+    "baht": "฿"
   },
   "findRouteMethod": {
     "method": "วิธีเดินทาง",

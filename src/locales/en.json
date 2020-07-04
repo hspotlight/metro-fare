@@ -7,7 +7,11 @@
   "route": {
     "source": "Source",
     "destination": "Destination",
-    "fare": "Fare"
+    "fare": "Fare",
+    "intermediateStationText": "{{count}} stations"
+  },
+  "priceSymbol": {
+    "baht": "฿"
   },
   "findRouteMethod": {
     "method": "Method",

@@ -6,7 +6,8 @@ import { FareService } from "../services/fare.service";
 import StationSelect from "./StationSelect";
 import CalculationResult from "./CalculationResult";
 import "../styles/Calculator.scss";
-import { TravelRoute } from "../types";
+import { TravelRoute, LineType } from "../types";
+import Route from "./Route";
 
 const Calculator = () => {
   const { t: translate } = useTranslation();
@@ -99,13 +100,16 @@ const Calculator = () => {
               setTravelRoute(route);
               setShowSelectedRoute(true);
             }
-
             return (
-              <div key={`travel-route-${index}`} onClick={onTravelRouteClick}>
-                <div>Show me the way</div>
-                {route.fare}
-              </div>
-            )
+              <React.Fragment key={`travel-route-${index}`}>
+                {index > 0 && <div className="divider"></div>}
+                <Route
+                  trip={trip}
+                  route={route}
+                  onClick={onTravelRouteClick}
+                />
+              </React.Fragment>
+            );
           })}
           
         </Section>
@@ -121,6 +125,15 @@ const Calculator = () => {
       )}
     </section>
   );
+};
+
+export const getStationIconStyle = (currentLineType: LineType) => {
+  switch(currentLineType) {
+    case LineType.MRT_BLUE: return "mrt-blue-icon";
+    case LineType.BTS_SILOM: return "bts-silom-icon";
+    case LineType.BTS_SUKHUMVIT: return "bts-sukhumvit-icon";
+    default: return "bts-silom-icon";
+  }
 };
 
 type SectionProps = {
