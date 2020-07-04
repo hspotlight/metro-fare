@@ -1,5 +1,4 @@
 import React from "react";
-import { Trip } from "../contexts/TripProvider";
 import { TravelRoute, Station, LineType } from "../types";
 import { useTranslation } from "react-i18next";
 import {
@@ -11,22 +10,25 @@ import { getStationIconStyle } from "./CalculationResult";
 import "../styles/Route.scss";
 
 const Route = ({
-  trip,
   route,
   onClick,
   isActive,
 }: {
-  trip: Trip;
   route: TravelRoute;
   onClick: any;
   isActive: boolean
 }) => {
   const { t: translate } = useTranslation();
-  const sourceStation = getStation(trip.source);
-  const destinationStation = getStation(trip.destination);
+  // TODO: Refactor route.route
+  const sourceStation = getStation(route.route[0].route[0]);
+  const destinationStation = getStation(
+    route.route[route.route.length - 1].route[
+      route.route[route.route.length - 1].route.length - 1
+    ]
+  );
 
   const intermediateStationCount =
-    trip.source === trip.destination ? 0 : getStationsCount(route) - 2;
+  sourceStation?.key === destinationStation?.key ? 0 : getStationsCount(route) - 2;
 
   return (
     <div className={`route-block-container ${isActive ? "active": ""}`} onClick={onClick}>
