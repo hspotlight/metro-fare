@@ -20,15 +20,15 @@ const Calculator = () => {
   } = useContext(TripContext);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
-  const [showCalculator, setShowCalculator] = useState<boolean>(true);
-  const [showResult, setShowResult] = useState<boolean>(true);
+  const [showTripSelector, setShowTripSelector] = useState<boolean>(true);
+  const [showSelectedRoute, setShowSelectedRoute] = useState<boolean>(true);
 
   const showTravelRoute =
     travelRoute.route.length > 0 && trip.source && trip.destination;
   const calculateRoute = () => {
     const travelRoute = FareService.calculate(trip.source, trip.destination);
     setTravelRoute(travelRoute);
-    setShowResult(true);
+    setShowSelectedRoute(true);
   };
 
   const resetForm = () => {
@@ -47,8 +47,8 @@ const Calculator = () => {
     <section className="calculator-container">
       <Section
         title={translate("tab.search")}
-        showDetail={showCalculator}
-        setShowDetail={() => setShowCalculator(!showCalculator)}
+        showDetail={showTripSelector}
+        setShowDetail={() => setShowTripSelector(!showTripSelector)}
       >
         <StationSelect
           title={translate("route.source")}
@@ -82,8 +82,8 @@ const Calculator = () => {
       {showTravelRoute && (
         <Section
           title={translate("tab.result")}
-          showDetail={showResult}
-          setShowDetail={() => setShowResult(!showResult)}
+          showDetail={showSelectedRoute}
+          setShowDetail={() => setShowSelectedRoute(!showSelectedRoute)}
         >
           <CalculationResult travelRoute={travelRoute} />
         </Section>
