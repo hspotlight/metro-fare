@@ -95,6 +95,11 @@ export const getStationsFromTravelRoute = (travelRoute: TravelRoute): Station[] 
     return getAllStations(stationKeys);
 }
 
+export const getStationsCount = (travelRoute: TravelRoute): number => {
+    const stationKeys = getStationKeysFromTravelRoute(travelRoute);
+    return stationKeys.length;
+}
+
 const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[] => {
     let stationKeys: METRO_STATION[] = [];
     travelRoute.route.forEach(route => {
