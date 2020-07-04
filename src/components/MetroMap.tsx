@@ -4,6 +4,7 @@ import {
   TileLayer,
   Polyline,
   FeatureGroup,
+  LayersControl,
 } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
 import { colors } from "../common/colors";
@@ -20,6 +21,7 @@ const btsSukhumvitStations = filterStationByLineType(LineType.BTS_SUKHUMVIT);
 
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
+  const [showMetroLineLayers, setShowMetroLayers] = useState(true);
   const { travelRoute } = useContext(TripContext);
   
   useEffect(() => {
@@ -27,6 +29,10 @@ export const MetroMap = () => {
       setMapCenter(DEFAULT_MAP_CENTER);
     }
   }, [mapCenter]);
+
+  useEffect(() => {
+    setShowMetroLayers(travelRoute.route.length === 0);
+  }, [travelRoute])
 
   return (
     <div style={{ height: "100%", width: "100%" }}>
@@ -43,16 +49,17 @@ export const MetroMap = () => {
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {travelRoute.route.length === 0 && <MetroLineLayers /> }
+        <MetroLineLayers showMetroLineLayers={showMetroLineLayers} />
         {travelRoute.route.length > 0 && <TravelRouteLayer />}
       </Map>
     </div>
   );
 };
 
-const MetroLineLayers = () => {
+const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: boolean}) => {
   return (
-    <>
+    <LayersControl position="topright">
+    <LayersControl.Overlay name="MRT Blue Line" checked={true}>
       <FeatureGroup name="mrt-blue-line">
         <Polyline
           positions={getPolyLineFromStations(mrtBlueStations)}
@@ -66,18 +73,24 @@ const MetroLineLayers = () => {
           color={colors.mrtBlue}
         />
       </FeatureGroup>
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="BTS Silom Line" checked={true}>
       <FeatureGroup name="bts-silom-line">
         <Polyline
           positions={getPolyLineFromStations(btsSilomStations)}
           color={colors.btsSilom}
         />
       </FeatureGroup>
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="BTS Sukhumvit Line" checked={true}>
       <FeatureGroup name="bts-sukhumvit-line">
         <Polyline
           positions={getPolyLineFromStations(btsSukhumvitStations)}
           color={colors.btsSukhumvit}
         />
       </FeatureGroup>
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="MRT Blue Station" checked={showMetroLineLayers}>
       <FeatureGroup name="mrt-blue-station">
         {mrtBlueStations.map((station) => (
           <StationMarker
@@ -87,6 +100,8 @@ const MetroLineLayers = () => {
           />
         ))}
       </FeatureGroup>
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="BTS Silom Station" checked={showMetroLineLayers}>
       <FeatureGroup name="bts-silom-station">
         {btsSilomStations.map((station) => (
           <StationMarker
@@ -96,6 +111,8 @@ const MetroLineLayers = () => {
           />
         ))}
       </FeatureGroup>
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="BTS Sukhumvit Station" checked={showMetroLineLayers}>
       <FeatureGroup name="bts-sukhumvit-station">
         {btsSukhumvitStations.map((station) => (
           <StationMarker
@@ -105,7 +122,8 @@ const MetroLineLayers = () => {
           />
         ))}
       </FeatureGroup>
-    </>
+      </LayersControl.Overlay>
+    </LayersControl>
   )
 }
 
