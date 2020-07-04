@@ -148,7 +148,7 @@ const TravelRouteLayer = () => {
             <StationMarker
               key={`intermediate-${station.key}`}
               station={station as Station}
-              fillColor={colors.intermediateStation}
+              fillColor={getColorFromLineType(station.lineType)}
               showPopup={false}
               radius={12}
             />
@@ -163,4 +163,13 @@ const TravelRouteLayer = () => {
       </FeatureGroup>
     </>
   );
+}
+
+const getColorFromLineType = (lineType: LineType) => {
+  switch(lineType) {
+    case LineType.MRT_BLUE: return colors.mrtBlue;
+    case LineType.BTS_SILOM: return colors.btsSilom;
+    case LineType.BTS_SUKHUMVIT: return colors.btsSukhumvit;
+    default: return colors.btsSilom;
+  }
 }
