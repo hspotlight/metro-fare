@@ -108,7 +108,6 @@ const Calculator = () => {
               <React.Fragment key={`travel-route-${index}`}>
                 {index > 0 && <div className="divider"></div>}
                 <Route
-                  trip={trip}
                   route={route}
                   isActive={travelRoute === route}
                   onClick={onTravelRouteClick}
