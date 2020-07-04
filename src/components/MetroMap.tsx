@@ -8,7 +8,7 @@ import {
 import { LatLngTuple } from "leaflet";
 import { colors } from "../common/colors";
 import { LineType, Station } from "../types";
-import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION, DEFAULT_MAP_MAX_BOUNDS } from "../common/mapConstants";
+import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION } from "../common/mapConstants";
 import MapControl from "./map/MapControl";
 import StationMarker from "./map/StationMarker";
 import { filterStationByLineType, getPolyLineFromStations, getStation, getStationsFromTravelRoute } from "../services/util.service";
@@ -31,7 +31,6 @@ export const MetroMap = () => {
   return (
     <div style={{ height: "100%", width: "100%" }}>
       <Map
-        maxBounds={DEFAULT_MAP_MAX_BOUNDS}
         style={{ height: "100%", width: "100%" }}
         center={mapCenter}
         zoom={12}
