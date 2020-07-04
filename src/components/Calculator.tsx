@@ -33,8 +33,11 @@ const Calculator = () => {
     travelRoute.route.length > 0 && trip.source && trip.destination;
 
   const calculateRoute = () => {
-    const travelRoute = FareService.calculate(trip.source, trip.destination);
-    setAllTravelRoutes([travelRoute]);
+    let travelRoutes = FareService.findAllRoutes(trip.source, trip.destination);
+    // sorted and get top 3
+    travelRoutes = travelRoutes.sort((a, b) => a.fare - b.fare);
+    travelRoutes = travelRoutes.slice(0, 3);
+    setAllTravelRoutes(travelRoutes);
     setShowAllTravelRoutes(true);
   };
 
@@ -99,6 +102,7 @@ const Calculator = () => {
             const onTravelRouteClick = () => {
               setTravelRoute(route);
               setShowSelectedRoute(true);
+              setShowTripSelector(false);
             }
             return (
               <React.Fragment key={`travel-route-${index}`}>
@@ -106,6 +110,7 @@ const Calculator = () => {
                 <Route
                   trip={trip}
                   route={route}
+                  isActive={travelRoute === route}
                   onClick={onTravelRouteClick}
                 />
               </React.Fragment>

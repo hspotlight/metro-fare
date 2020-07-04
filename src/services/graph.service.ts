@@ -43,6 +43,7 @@ export const graphService = {
             graph[secondStation].push(firstStation);
         });
     },
+    // TODO: refactor remove
     findRoute(source: METRO_STATION, destination: METRO_STATION, graph: any): RouteSegment[] {
         const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
         
@@ -82,6 +83,33 @@ export const graphService = {
             }
         }
         return [];
+    },
+    findAllRoutes(source: METRO_STATION, destination: METRO_STATION, graph: any): RouteSegment[][] {
+        const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
+        
+        const comparator = lowestHopsComparator;
+        const stationsToBeVisited = new PriorityQueue({ comparator });
+        stationsToBeVisited.push(new StationHop(source, [routeSegment]));
+
+        const allPossibleRoutes: RouteSegment[][] = [];
+        while (stationsToBeVisited.length > 0) {
+            const currentStation = stationsToBeVisited.pop() as StationHop;
+            
+            if (currentStation.station === destination) {
+                allPossibleRoutes.push(currentStation.paths);
+            }
+            
+            const nextStations: METRO_STATION[]  = graph[currentStation.station];
+            nextStations.forEach(nextStation => {
+                const routeSegments: RouteSegment[] = getNextStationRouteSegments(currentStation, nextStation);
+
+                if (!currentStation.isStationInPath(nextStation)) {
+                    const nextStationHop = new StationHop(nextStation, routeSegments);
+                    stationsToBeVisited.push(nextStationHop);
+                }
+            });
+        }
+        return allPossibleRoutes;
     }
 }
 

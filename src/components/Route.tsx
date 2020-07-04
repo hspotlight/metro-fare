@@ -14,10 +14,12 @@ const Route = ({
   trip,
   route,
   onClick,
+  isActive,
 }: {
   trip: Trip;
   route: TravelRoute;
   onClick: any;
+  isActive: boolean
 }) => {
   const { t: translate } = useTranslation();
   const sourceStation = getStation(trip.source);
@@ -27,7 +29,7 @@ const Route = ({
     trip.source === trip.destination ? 0 : getStationsCount(route) - 2;
 
   return (
-    <div onClick={onClick} style={{ display: "flex" }}>
+    <div className={`route-block-container ${isActive ? "active": ""}`} onClick={onClick}>
       <div className="route-container">
         <StationBLock station={sourceStation as Station} />
         <section className="intermediate-station section">

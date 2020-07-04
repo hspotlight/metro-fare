@@ -1,3 +1,10 @@
+.route-block-container {
+  display: flex;
+  &.active {
+    background-color: rgba(235, 250, 0, 0.68);
+  }
+}
+
 .route-container {
   width: 85%;
   flex-direction: column;
