@@ -6,6 +6,7 @@ import { FareService } from "../services/fare.service";
 import StationSelect from "./StationSelect";
 import CalculationResult from "./CalculationResult";
 import "../styles/Calculator.scss";
+import { TravelRoute } from "../types";
 
 const Calculator = () => {
   const { t: translate } = useTranslation();
@@ -20,21 +21,29 @@ const Calculator = () => {
   } = useContext(TripContext);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
+
   const [showTripSelector, setShowTripSelector] = useState<boolean>(true);
-  const [showSelectedRoute, setShowSelectedRoute] = useState<boolean>(true);
+  const [showAllTravelRoutes, setShowAllTravelRoutes] = useState<boolean>(false);
+  const [showSelectedRoute, setShowSelectedRoute] = useState<boolean>(false);
+
+  const [allTravelRoutes, setAllTravelRoutes] = useState<TravelRoute[]>([]);
 
   const showTravelRoute =
     travelRoute.route.length > 0 && trip.source && trip.destination;
+
   const calculateRoute = () => {
     const travelRoute = FareService.calculate(trip.source, trip.destination);
-    setTravelRoute(travelRoute);
-    setShowSelectedRoute(true);
+    setAllTravelRoutes([travelRoute]);
+    setShowAllTravelRoutes(true);
   };
 
   const resetForm = () => {
     resetTravelRoute();
     resetTrip();
     setErrorMessage("");
+    setAllTravelRoutes([]);
+    setShowAllTravelRoutes(false);
+    setShowSelectedRoute(false);
   };
 
   useEffect(() => {
@@ -79,9 +88,31 @@ const Calculator = () => {
           <ErrorMessage errorMessage={errorMessage} />
         )}
       </Section>
+      {allTravelRoutes.length > 0 && (
+        <Section
+          title={translate("tab.allRoutes", {count: allTravelRoutes.length})}
+          showDetail={showAllTravelRoutes}
+          setShowDetail={() => setShowAllTravelRoutes(!showAllTravelRoutes)}
+        >
+          {allTravelRoutes.map((route, index) => {
+            const onTravelRouteClick = () => {
+              setTravelRoute(route);
+              setShowSelectedRoute(true);
+            }
+
+            return (
+              <div key={`travel-route-${index}`} onClick={onTravelRouteClick}>
+                <div>Show me the way</div>
+                {route.fare}
+              </div>
+            )
+          })}
+          
+        </Section>
+      )}
       {showTravelRoute && (
         <Section
-          title={translate("tab.result")}
+          title={translate("tab.selectedRoute")}
           showDetail={showSelectedRoute}
           setShowDetail={() => setShowSelectedRoute(!showSelectedRoute)}
         >

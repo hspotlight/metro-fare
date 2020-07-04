@@ -1,7 +1,8 @@
 {
   "tab": {
     "search": "Search",
-    "result": "Result"
+    "allRoutes": "Result {{count}} route(s)",
+    "selectedRoute": "Selected Route"
   },
   "route": {
     "source": "Source",
