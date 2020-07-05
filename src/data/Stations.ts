@@ -1,4 +1,4 @@
-import { Station, LineType, MRT_BLUE_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION } from "../types";
+import { Station, LineType, MRT_BLUE_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, ARL_STATION } from "../types";
 
 export const STATIONS: Station[] = [
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.WAT_PHRA_SRI_MAHATHAT, nameEN: "Wat Phra Sri Mahathat", nameTH: "วัดพระศรีมหาธาตุ", position: [13.875241,100.596737] },
@@ -96,4 +96,13 @@ export const STATIONS: Station[] = [
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.PHASI_CHAROEN, nameEN: "Phasi Charoen", nameTH: "ภาษีเจริญ", position: [13.712904,100.434328] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_KHAE, nameEN: "Bang Khae", nameTH: "บางแค", position: [13.711939,100.422306] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.LAK_SONG, nameEN: "Lak Song", nameTH: "หลักสอง", position: [13.710900,100.409439] },
+
+    { lineType: LineType.ARL, key: ARL_STATION.SUVARNABHUMI, nameEN: "Suvarnabhumi", nameTH: "สุวรรณภูมิ", position: [13.694890,100.751570] },
+    { lineType: LineType.ARL, key: ARL_STATION.LAT_KRABANG, nameEN: "Lat Kbabang", nameTH: "ลาดกระบัง", position: [13.727459,100.748484] },
+    { lineType: LineType.ARL, key: ARL_STATION.BAN_THAP_CHANG, nameEN: "Ban Thap Chang", nameTH: "บ้านทับช้าง", position: [13.732950,100.690768] },
+    { lineType: LineType.ARL, key: ARL_STATION.HUA_MAK, nameEN: "Hua Mak", nameTH: "หัวหมาก", position: [13.738085,100.645253] },
+    { lineType: LineType.ARL, key: ARL_STATION.RAMKHAMHAENG, nameEN: "Ramkhamhaeng", nameTH: "รามคำแหง", position: [13.743041,100.600061] },
+    { lineType: LineType.ARL, key: ARL_STATION.MAKKASAN, nameEN: "Makkasan", nameTH: "มักกะสัน", position: [13.750957,100.561119] },
+    { lineType: LineType.ARL, key: ARL_STATION.RATCHAPRAROP, nameEN: "Rachaprarop", nameTH: "ราชปรารภ", position: [13.755188,100.542015] },
+    { lineType: LineType.ARL, key: ARL_STATION.PHAYA_THAI, nameEN: "Phaya Thai", nameTH: "พญาไท", position: [13.756712,100.534892] }
 ];

@@ -49,6 +49,15 @@
   border: 1px solid black;
 }
 
+.arl-icon {
+  width: 16px;
+  height: 16px;
+  background-color: #e30713;
+  margin-right: 5px;
+  border-radius: 9px;
+  border: 1px solid black;
+}
+
 .bts-silom-dotted-line {
   width: 0px;
   height: 20px;
@@ -61,6 +70,13 @@
   height: 20px;
   margin-left: 11px;
   border-left: 5px dotted #79b828;
+}
+
+.arl-dotted-line {
+  width: 0px;
+  height: 20px;
+  margin-left: 11px;
+  border-left: 5px dotted #e30713;
 }
 
 .interchange-dotted-line {
