@@ -19,9 +19,21 @@ const mrtBlueStations = filterStationByLineType(LineType.MRT_BLUE);
 const btsSilomStations = filterStationByLineType(LineType.BTS_SILOM);
 const btsSukhumvitStations = filterStationByLineType(LineType.BTS_SUKHUMVIT);
 
+export type MetroLineLayers = {
+  mrtBlue: boolean
+  btsSilom: boolean
+  btsSukhumvit: boolean
+}
+
+const DEFAULT_METRO_LINE_LAYERS: MetroLineLayers = {
+  mrtBlue: true,
+  btsSilom: true,
+  btsSukhumvit: true
+}
+
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
-  const [showMetroLineLayers, setShowMetroLayers] = useState(true);
+  const [showMetroLineLayers, setShowMetroLayers] = useState<MetroLineLayers>(DEFAULT_METRO_LINE_LAYERS);
   const { travelRoute } = useContext(TripContext);
   
   useEffect(() => {
@@ -31,7 +43,12 @@ export const MetroMap = () => {
   }, [mapCenter]);
 
   useEffect(() => {
-    setShowMetroLayers(travelRoute.route.length === 0);
+    const isVisible = travelRoute.route.length === 0;
+    setShowMetroLayers({
+      mrtBlue: isVisible,
+      btsSilom: isVisible,
+      btsSukhumvit: isVisible
+    });
   }, [travelRoute])
 
   return (
@@ -44,7 +61,10 @@ export const MetroMap = () => {
         maxZoom={17}
         zoomControl={false}
       >
-        <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
+        <MapControl 
+        showMetroLineLayers={showMetroLineLayers} 
+        setShowMetroLayers={setShowMetroLayers}
+        onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -56,7 +76,7 @@ export const MetroMap = () => {
   );
 };
 
-const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: boolean}) => {
+const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineLayers}) => {
   return (
     <LayersControl position="topright">
     <LayersControl.Overlay name="MRT Blue Line" checked={true}>
@@ -90,7 +110,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: boolean}) 
         />
       </FeatureGroup>
       </LayersControl.Overlay>
-      <LayersControl.Overlay name="MRT Blue Station" checked={showMetroLineLayers}>
+      <LayersControl.Overlay name="MRT Blue Station" checked={showMetroLineLayers.mrtBlue}>
       <FeatureGroup name="mrt-blue-station">
         {mrtBlueStations.map((station) => (
           <StationMarker
@@ -101,7 +121,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: boolean}) 
         ))}
       </FeatureGroup>
       </LayersControl.Overlay>
-      <LayersControl.Overlay name="BTS Silom Station" checked={showMetroLineLayers}>
+      <LayersControl.Overlay name="BTS Silom Station" checked={showMetroLineLayers.btsSilom}>
       <FeatureGroup name="bts-silom-station">
         {btsSilomStations.map((station) => (
           <StationMarker
@@ -112,7 +132,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: boolean}) 
         ))}
       </FeatureGroup>
       </LayersControl.Overlay>
-      <LayersControl.Overlay name="BTS Sukhumvit Station" checked={showMetroLineLayers}>
+      <LayersControl.Overlay name="BTS Sukhumvit Station" checked={showMetroLineLayers.btsSukhumvit}>
       <FeatureGroup name="bts-sukhumvit-station">
         {btsSukhumvitStations.map((station) => (
           <StationMarker

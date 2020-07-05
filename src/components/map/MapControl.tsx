@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 const MapControl = (props: any) => {
   const { i18n } = useTranslation();
   const [legendToggleStatus, setLegendToggleStatus] = useState(false);
-  const { onResetViewClick } = props;
+  const { onResetViewClick, showMetroLineLayers, setShowMetroLayers } = props;
 
   const toggleLanguage = i18n.language === "th" ? "en" : "th";
 
@@ -18,7 +18,7 @@ const MapControl = (props: any) => {
           <i className="fa fa-home control-icon control-icon-top" aria-hidden="true" onClick={onResetViewClick}/>
           <i className="fa fa-info-circle control-icon control-icon-middle" aria-hidden="true" onClick={() => setLegendToggleStatus(!legendToggleStatus)}/>
           <i className="fa fa-language control-icon control-icon-bottom" aria-hidden="true" onClick={() => i18n.changeLanguage(toggleLanguage)}/>
-          {legendToggleStatus && <MapLegend />}
+          {legendToggleStatus && <MapLegend showMetroLineLayers={showMetroLineLayers} setShowMetroLayers={setShowMetroLayers}  />}
         </div>
       </Control>
     </>

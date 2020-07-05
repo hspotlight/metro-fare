@@ -6,64 +6,68 @@
   top: 0px;
   right: 40px;
   width: 270px;
-  height: 90px;
+  height: 100px;
   padding: 10px;
-}
 
-.map-legend .title {
-  font-weight: bold;
-  font-size: 16px;
-}
+  .title {
+    font-weight: bold;
+    font-size: 16px;
+  }
 
-.map-legend .legend {
-  font-size: 14px;
-  margin-top: 5px;
-}
+  .legend {
+    font-size: 14px;
+    margin-top: 5px;
+  }
 
-.map-legend .legend-key-value {
-  display: flex;
-}
+  .legend-key-value {
+    display: flex;
 
-.legend-key-value .key {
-  width: 35px;
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+    span.MuiButtonBase-root {
+      padding: 0px 5px 0px 0px;
+    }
 
-.key .circle {
-  width: 15px;
-  height: 15px;
-  border-radius: 15px;
-  position: absolute;
-}
+    .key {
+      width: 35px;
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-.key.mrt-blue-line .circle {
-  background-color: #1e3a8d;
-}
+      .circle {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        position: absolute;
+      }
+    }
 
-.key.bts-silom-line .circle {
-  background-color: #00817d;
-}
+    .key.mrt-blue-line .circle {
+      background-color: #1e3a8d;
+    }
 
-.key.bts-sukhumvit-line .circle {
-  background-color: #79b828;
-}
+    .key.bts-silom-line .circle {
+      background-color: #00817d;
+    }
 
-.key.mrt-blue-line .line {
-  width: 100%;
-  border-top: 5px solid #1e3a8d;
-}
+    .key.bts-sukhumvit-line .circle {
+      background-color: #79b828;
+    }
 
-.key.bts-silom-line .line {
-  width: 100%;
-  border-top: 5px solid #00817d;
-}
+    .key.mrt-blue-line .line {
+      width: 100%;
+      border-top: 5px solid #1e3a8d;
+    }
 
-.key.bts-sukhumvit-line .line {
-  width: 100%;
-  border-top: 5px solid #79b828;
+    .key.bts-silom-line .line {
+      width: 100%;
+      border-top: 5px solid #00817d;
+    }
+
+    .key.bts-sukhumvit-line .line {
+      width: 100%;
+      border-top: 5px solid #79b828;
+    }
+  }
 }
 
 @media only screen and (max-width: 768px) {
