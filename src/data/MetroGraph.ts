@@ -1,13 +1,15 @@
-import { MRT_BLUE_STATION, BTS_SILOM_STATION, Graph, BTS_SUKHUMVIT_STATION } from "../types";
+import { MRT_BLUE_STATION, BTS_SILOM_STATION, Graph, BTS_SUKHUMVIT_STATION, ARL_STATION } from "../types";
 import { MRT_BLUE_LINE } from "./MrtBlueLine";
 import { BTS_SILOM_LINE } from "./BtsSilomLine";
 import { BTS_SUKHUMVIT_LINE } from "./BTSSukhumvitLine";
+import { ARL_LINE } from "./ArlLine";
 
 export const METRO_GRAPH: Graph = {
     lines: [
         MRT_BLUE_LINE,
         BTS_SILOM_LINE,
         BTS_SUKHUMVIT_LINE,
+        ARL_LINE,
     ],
     intersections: [
         [MRT_BLUE_STATION.SILOM, BTS_SILOM_STATION.SALA_DAENG],
@@ -15,5 +17,7 @@ export const METRO_GRAPH: Graph = {
         [MRT_BLUE_STATION.SUKHUMVIT, BTS_SUKHUMVIT_STATION.ASOK],
         [MRT_BLUE_STATION.CHATUCHAK_PARK, BTS_SUKHUMVIT_STATION.MO_CHIT],
         [MRT_BLUE_STATION.PHAHON_YOTHIN, BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO],
+        [MRT_BLUE_STATION.PHETCHABURI, ARL_STATION.MAKKASAN],
+        [BTS_SUKHUMVIT_STATION.PHAYA_THAI, ARL_STATION.PHAYA_THAI],
     ]
 }

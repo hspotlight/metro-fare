@@ -1,5 +1,5 @@
 import { METRO_FARE } from "../common/fare";
-import { FareType, Station, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION, BTS_SUKHUMVIT_STATION, TravelRoute } from "../types";
+import { FareType, Station, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION, BTS_SUKHUMVIT_STATION, TravelRoute, ARL_STATION } from "../types";
 import { STATIONS} from "../data/Stations";
 import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
 import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BTSSukhumvitLine";
@@ -36,6 +36,7 @@ export const getLineTypeFromFareType = (fareType: FareType): LineType => {
         case FareType.BTS_SILOM_EXTENSION_15: return LineType.BTS_SILOM;
         case FareType.BTS_SUKHUMVIT_EXTENSION_15:
         case FareType.BTS_SUKHUMVIT_EXTENSION_0: return LineType.BTS_SUKHUMVIT;
+        case FareType.ARL: return LineType.ARL;
         default: return LineType.MRT_BLUE;
     }
 };
@@ -47,6 +48,8 @@ const isInterchangeStation = (station: METRO_STATION): boolean => {
         MRT_BLUE_STATION.SUKHUMVIT, BTS_SUKHUMVIT_STATION.ASOK,
         MRT_BLUE_STATION.CHATUCHAK_PARK, BTS_SUKHUMVIT_STATION.MO_CHIT,
         MRT_BLUE_STATION.PHAHON_YOTHIN, BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO,
+        MRT_BLUE_STATION.PHETCHABURI, ARL_STATION.MAKKASAN,
+        BTS_SUKHUMVIT_STATION.PHAYA_THAI, ARL_STATION.PHAYA_THAI,
     ];
     return interChangeStations.includes(station);
 };
@@ -62,6 +65,7 @@ const isExtensionBorderStation = (station: METRO_STATION): boolean => {
 };
 
 export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
+    if (Object.values(ARL_STATION).includes(station as ARL_STATION)) return FareType.ARL
     if (BTS_SILOM_EXTENSION_15.includes(station as BTS_SILOM_STATION)) return FareType.BTS_SILOM_EXTENSION_15
     if (BTS_SUKHUMVIT_EXTENSION_15.includes(station as BTS_SUKHUMVIT_STATION)) return FareType.BTS_SUKHUMVIT_EXTENSION_15
     if (BTS_SUKHUMVIT_EXTENSION_0.includes(station as BTS_SUKHUMVIT_STATION)) return FareType.BTS_SUKHUMVIT_EXTENSION_0

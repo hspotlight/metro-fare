@@ -3,6 +3,7 @@ export const colors = {
     mrtPurple: '#85348f',
     btsSukhumvit: '#79b828',
     btsSilom: '#00817d',
+    arl: '#e30713',
     travelRoute: '#1DD300',
     sourceStation: '#3AAACF',
     destinationStation: '#F80012',
