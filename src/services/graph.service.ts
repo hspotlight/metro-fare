@@ -58,7 +58,7 @@ export const graphService = {
             const currentStation = stationsToBeVisited.pop() as StationHop;
             
             if (currentStation.station === destination) {
-                return currentStation.paths;
+                return currentStation.routeSegments;
             }
             
             if (isStationVisted(currentStation)) {
@@ -88,7 +88,7 @@ export const graphService = {
             const currentStation = stationsToBeVisited.pop() as StationHop;
             
             if (currentStation.station === destination) {
-                allPossibleRoutes.push(currentStation.paths);
+                allPossibleRoutes.push(currentStation.routeSegments);
             }
             
             const nextStations: METRO_STATION[]  = graph[currentStation.station];
@@ -107,7 +107,7 @@ export const graphService = {
 
 const getNextStationRouteSegments = (currentStation: StationHop, nextStation: METRO_STATION) => {
     const fareType = getFareTypeFromStationId(nextStation);
-    const routeSegments: RouteSegment[] = currentStation.paths.map((routeSegment: RouteSegment): RouteSegment => {
+    const routeSegments: RouteSegment[] = currentStation.routeSegments.map((routeSegment: RouteSegment): RouteSegment => {
         return {
             route: [...routeSegment.route],
             fareType: routeSegment.fareType
