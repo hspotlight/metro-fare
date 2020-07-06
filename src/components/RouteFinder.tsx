@@ -5,11 +5,11 @@ import { TripContext, emptyTravelRoute } from "../contexts/TripProvider";
 import { FareService } from "../services/fare.service";
 import StationSelect from "./StationSelect";
 import SelectedRoute from "./SelectedRoute";
-import "../styles/Calculator.scss";
+import "../styles/RouteFinder.scss";
 import { TravelRoute } from "../types";
 import Route from "./Route";
 
-const Calculator = () => {
+const RouteFinder = () => {
   const { t: translate } = useTranslation();
   const {
     trip,
@@ -37,6 +37,7 @@ const Calculator = () => {
     // sorted and get top 3
     travelRoutes = travelRoutes.sort((a, b) => a.fare - b.fare);
     travelRoutes = travelRoutes.slice(0, 3);
+
     setAllTravelRoutes(travelRoutes);
     setShowAllTravelRoutes(true);
     setShowSelectedRoute(false);
@@ -59,7 +60,7 @@ const Calculator = () => {
   }, [trip]);
 
   return (
-    <section className="calculator-container">
+    <section className="route-finder-container">
       <Section
         title={translate("tab.search")}
         showDetail={showTripSelector}
@@ -169,4 +170,4 @@ const ErrorMessage = ({ errorMessage }: { errorMessage: string }) => {
   return <div className="form-error-message">{errorMessage}</div>;
 };
 
-export default Calculator;
+export default RouteFinder;

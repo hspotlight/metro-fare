@@ -1,4 +1,4 @@
-.calculator-container {
+.route-finder-container {
   width: 450px;
   max-height: calc(100% - 40px);
   border: black 1px solid;
@@ -15,7 +15,7 @@
 }
 
 @media only screen and (max-width: 768px) {
-  .calculator-container {
+  .route-finder-container {
     width: calc(100% - 74px);
     max-height: calc(100% - 22px);
     border-radius: 8px 8px 0px 0px;
