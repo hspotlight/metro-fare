@@ -8,18 +8,19 @@ import {
 } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
 import { colors } from "../common/colors";
-import { Station, MetroLineLayerVisibility } from "../types";
-import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION, DEFAULT_METRO_LINE_LAYERS } from "../common/mapConstants";
+import { Station } from "../types";
+import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION } from "../common/mapConstants";
 import MapControl from "./map/MapControl";
 import StationMarker from "./map/StationMarker";
 import { getPolyLineFromStations, getStation, getStationsFromTravelRoute } from "../services/util.service";
 import { TripContext } from "../contexts/TripProvider";
 import { MRT_BLUE, BTS_SILOM, BTS_SUKHUMVIT, ARL, BRT } from "../data";
 import { getColorFromLineType } from "../services/ui-style.service";
+import { MapContext } from "../contexts/MapProvider";
 
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
-  const [showMetroLineLayers, setShowMetroLayers] = useState<MetroLineLayerVisibility>(DEFAULT_METRO_LINE_LAYERS);
+  const { setShowMetroLayers } = useContext(MapContext);
   const { travelRoute } = useContext(TripContext);
   
   useEffect(() => {
@@ -37,34 +38,33 @@ export const MetroMap = () => {
       arl: isVisible,
       brt: isVisible
     });
-  }, [travelRoute])
+  }, [travelRoute, setShowMetroLayers])
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
-      <Map
-        style={{ height: "100%", width: "100%" }}
-        center={mapCenter}
-        zoom={12}
-        minZoom={12}
-        maxZoom={17}
-        zoomControl={false}
-      >
-        <MapControl 
-        showMetroLineLayers={showMetroLineLayers} 
-        setShowMetroLayers={setShowMetroLayers}
-        onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
-        <TileLayer
-          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <MetroLineLayers showMetroLineLayers={showMetroLineLayers} />
-        {travelRoute.route.length > 0 && <TravelRouteLayer />}
-      </Map>
+    <div className="width-100 height-100">
+        <Map
+          className="width-100 height-100"
+          center={mapCenter}
+          zoom={12}
+          minZoom={12}
+          maxZoom={17}
+          zoomControl={false}
+        >
+          <MapControl 
+            onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
+          <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <MetroLineLayers />
+          {travelRoute.route.length > 0 && <TravelRouteLayer />}
+        </Map>
     </div>
   );
 };
 
-const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineLayerVisibility}) => {
+const MetroLineLayers = () => {
+  const { showMetroLineLayers } = useContext(MapContext);
   return (
     <LayersControl position="topright">
     <LayersControl.Overlay name="MRT Blue Line" checked={true}>

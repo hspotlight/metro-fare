@@ -5,6 +5,7 @@ import TripProvider from "./contexts/TripProvider";
 import Calculator from "./components/Calculator";
 import { MetroMap } from "./components/MetroMap";
 import "./styles/App.scss";
+import MapProvider from "./contexts/MapProvider";
 
 const App = () => {
   return (
@@ -13,7 +14,9 @@ const App = () => {
         <I18nextProvider i18n={i18n}>
           <TripProvider>
             <Calculator />
-            <MetroMap />
+            <MapProvider>
+              <MetroMap />
+            </MapProvider>
           </TripProvider>
         </I18nextProvider>
       </div>
