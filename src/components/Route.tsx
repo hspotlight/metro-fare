@@ -6,8 +6,8 @@ import {
   getStationName,
   getStationsCount,
 } from "../services/util.service";
-import { getStationIconStyle } from "./CalculationResult";
 import "../styles/Route.scss";
+import { getStationIconStyle } from "../services/ui-style.service";
 
 const Route = ({
   route,
