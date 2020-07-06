@@ -23,7 +23,8 @@
     "btsSilom": "BTS Silom",
     "btsSukhumvit": "BTS Sukhumvit",
     "mrtBlue": "MRT Blue",
-    "arl": "ARL Airport Rail Link"
+    "arl": "ARL Airport Rail Link",
+    "brt": "BRT Bus Rapid Transit"
   },
   "common": {
     "required": "Required",
@@ -40,7 +41,8 @@
       "btsSilomLine": "BTS SkyTrain Silom Line",
       "btsSukhumvitLine": "BTS SkyTrain Sukhumvit Line",
       "mrtBlueLine": "MRT Blue Line",
-      "arlLine": "ARL Airport Rail Link Line"
+      "arlLine": "ARL Airport Rail Link Line",
+      "brtLine": "BRT Bus Rapid Transit"
     }
   }
 }

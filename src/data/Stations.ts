@@ -1,4 +1,4 @@
-import { Station, LineType, MRT_BLUE_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, ARL_STATION } from "../types";
+import { Station, LineType, MRT_BLUE_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, ARL_STATION, BRT_STATION } from "../types";
 
 export const STATIONS: Station[] = [
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.WAT_PHRA_SRI_MAHATHAT, nameEN: "Wat Phra Sri Mahathat", nameTH: "วัดพระศรีมหาธาตุ", position: [13.875241,100.596737] },
@@ -104,5 +104,18 @@ export const STATIONS: Station[] = [
     { lineType: LineType.ARL, key: ARL_STATION.RAMKHAMHAENG, nameEN: "Ramkhamhaeng", nameTH: "รามคำแหง", position: [13.743041,100.600061] },
     { lineType: LineType.ARL, key: ARL_STATION.MAKKASAN, nameEN: "Makkasan", nameTH: "มักกะสัน", position: [13.750957,100.561119] },
     { lineType: LineType.ARL, key: ARL_STATION.RATCHAPRAROP, nameEN: "Rachaprarop", nameTH: "ราชปรารภ", position: [13.755188,100.542015] },
-    { lineType: LineType.ARL, key: ARL_STATION.PHAYA_THAI, nameEN: "Phaya Thai", nameTH: "พญาไท", position: [13.756712,100.534892] }
+    { lineType: LineType.ARL, key: ARL_STATION.PHAYA_THAI, nameEN: "Phaya Thai", nameTH: "พญาไท", position: [13.756712,100.534892] },
+
+    { lineType: LineType.BRT, key: BRT_STATION.SATHON, nameEN: "Sathon", nameTH: "สาธร", position: [13.721408,100.530541] },
+    { lineType: LineType.BRT, key: BRT_STATION.AKHAN_SONGKHRO, nameEN: "Akhan Songkhro", nameTH: "อาคารสงเคราะห์", position: [13.717271,100.532548] },
+    { lineType: LineType.BRT, key: BRT_STATION.TECHNIC_KRUNGTHEP, nameEN: "Technic Krungthep", nameTH: "เทคนิคกรุงเทพ", position: [13.712426,100.534975] },
+    { lineType: LineType.BRT, key: BRT_STATION.THANON_CHAN, nameEN: "Thanon Chan", nameTH: "ถนนจันทร์", position: [13.704760,100.538898] },
+    { lineType: LineType.BRT, key: BRT_STATION.NARARAM_III, nameEN: "Nararam III", nameTH: "นราราม 3", position: [13.696448,100.545296] },
+    { lineType: LineType.BRT, key: BRT_STATION.WAT_DAN, nameEN: "Wat Dan", nameTH: "วันด่าน", position: [13.674250,100.543150] },
+    { lineType: LineType.BRT, key: BRT_STATION.WAT_PARIWAT, nameEN: "Wat Pariwat", nameTH: "วัดปริวาส", position: [13.674697,100.534259] },
+    { lineType: LineType.BRT, key: BRT_STATION.WAT_DOKMAI, nameEN: "Wat Dokmai", nameTH: "วัดดอกไม้", position: [13.682374,100.525374] },
+    { lineType: LineType.BRT, key: BRT_STATION.RAMA_IX_BRIDGE, nameEN: "Rama IX Bridge", nameTH: "สะพานพระราม 9", position: [13.688209,100.515458] },
+    { lineType: LineType.BRT, key: BRT_STATION.CHAROENRAT, nameEN: "Charoenrat", nameTH: "เจริญราษฎร์", position: [13.690268,100.504202] },
+    { lineType: LineType.BRT, key: BRT_STATION.RAMA_III_BRIDGE, nameEN: "Rama III Bridge", nameTH: "สะพานพระราม 3", position: [13.693939,100.500065] },
+    { lineType: LineType.BRT, key: BRT_STATION.RATCHAPRUEK, nameEN: "Ratchapruek", nameTH: "ราชพฤกษ์", position: [13.715876,100.478942] },
 ];

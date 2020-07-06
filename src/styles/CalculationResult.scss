@@ -58,6 +58,15 @@
   border: 1px solid black;
 }
 
+.brt-icon {
+  width: 16px;
+  height: 16px;
+  background-color: #dcdc00;
+  margin-right: 5px;
+  border-radius: 9px;
+  border: 1px solid black;
+}
+
 .bts-silom-dotted-line {
   width: 0px;
   height: 20px;
@@ -77,6 +86,13 @@
   height: 20px;
   margin-left: 11px;
   border-left: 5px dotted #e30713;
+}
+
+.brt-dotted-line {
+  width: 0px;
+  height: 20px;
+  margin-left: 11px;
+  border-left: 5px dotted #dcdc00;
 }
 
 .interchange-dotted-line {

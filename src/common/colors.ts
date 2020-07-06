@@ -4,6 +4,7 @@ export const colors = {
     btsSukhumvit: '#79b828',
     btsSilom: '#00817d',
     arl: '#e30713',
+    brt: '#dcdc00',
     travelRoute: '#1DD300',
     sourceStation: '#3AAACF',
     destinationStation: '#F80012',

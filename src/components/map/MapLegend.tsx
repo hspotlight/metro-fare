@@ -45,6 +45,12 @@ const MapLegend = ({showMetroLineLayers, setShowMetroLayers}: {showMetroLineLaye
           status={showMetroLineLayers.arl}
           onChange={() => handleChange('arl')}
         />
+        <LegendLabel
+          line="brt-line"
+          title={translate("map.legend.brtLine")}
+          status={showMetroLineLayers.brt}
+          onChange={() => handleChange('brt')}
+        />
       </div>
     </div>
   );

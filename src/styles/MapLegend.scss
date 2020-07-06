@@ -6,7 +6,7 @@
   top: 0px;
   right: 40px;
   width: 300px;
-  height: 120px;
+  height: 150px;
   padding: 10px;
 
   .title {
@@ -57,6 +57,10 @@
       background-color: #e30713;
     }
 
+    .key.brt-line .circle {
+      background-color: #dcdc00;
+    }
+
     .key.mrt-blue-line .line {
       width: 100%;
       border-top: 5px solid #1e3a8d;
@@ -75,6 +79,11 @@
     .key.arl-line .line {
       width: 100%;
       border-top: 5px solid #e30713;
+    }
+
+    .key.brt-line .line {
+      width: 100%;
+      border-top: 5px solid #dcdc00;
     }
   }
 }
