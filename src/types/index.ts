@@ -7,3 +7,4 @@ export * from './RouteSegment';
 export * from './MetroStation';
 export * from './TravelRoute';
 export * from './Station';
+export * from './MetroLineVisibility';

@@ -8,33 +8,18 @@ import {
 } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
 import { colors } from "../common/colors";
-import { LineType, Station } from "../types";
-import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION } from "../common/mapConstants";
+import { Station, MetroLineLayerVisibility } from "../types";
+import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION, DEFAULT_METRO_LINE_LAYERS } from "../common/mapConstants";
 import MapControl from "./map/MapControl";
 import StationMarker from "./map/StationMarker";
 import { getPolyLineFromStations, getStation, getStationsFromTravelRoute } from "../services/util.service";
 import { TripContext } from "../contexts/TripProvider";
 import { MRT_BLUE, BTS_SILOM, BTS_SUKHUMVIT, ARL, BRT } from "../data";
-
-export type MetroLineLayers = {
-  mrtBlue: boolean
-  btsSilom: boolean
-  btsSukhumvit: boolean
-  arl: boolean
-  brt: boolean
-}
-
-const DEFAULT_METRO_LINE_LAYERS: MetroLineLayers = {
-  mrtBlue: true,
-  btsSilom: true,
-  btsSukhumvit: true,
-  arl: true,
-  brt: true
-}
+import { getColorFromLineType } from "../services/ui-style.service";
 
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
-  const [showMetroLineLayers, setShowMetroLayers] = useState<MetroLineLayers>(DEFAULT_METRO_LINE_LAYERS);
+  const [showMetroLineLayers, setShowMetroLayers] = useState<MetroLineLayerVisibility>(DEFAULT_METRO_LINE_LAYERS);
   const { travelRoute } = useContext(TripContext);
   
   useEffect(() => {
@@ -79,7 +64,7 @@ export const MetroMap = () => {
   );
 };
 
-const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineLayers}) => {
+const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineLayerVisibility}) => {
   return (
     <LayersControl position="topright">
     <LayersControl.Overlay name="MRT Blue Line" checked={true}>
