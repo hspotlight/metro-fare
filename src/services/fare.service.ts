@@ -9,7 +9,7 @@ export const FareService = {
 
         let totalFare = 0;
         const route = routeSegments.map((routeSegment: RouteSegment) => {
-            const fare = calculateFareFromRouteSegment(routeSegment);
+            const fare = calculateFareFromRouteSegment(routeSegment, source === destination);
             const lineType = getLineTypeFromFareType(routeSegment.fareType);
             totalFare += fare;
             return {
@@ -28,7 +28,7 @@ export const FareService = {
         const travelRoutes = routeSegmentsList.map(routeSegments => {
             let totalFare = 0;
             const route = routeSegments.map((routeSegment: RouteSegment) => {
-                const fare = calculateFareFromRouteSegment(routeSegment);
+                const fare = calculateFareFromRouteSegment(routeSegment, source === destination);
                 const lineType = getLineTypeFromFareType(routeSegment.fareType);
                 totalFare += fare;
                 return {
