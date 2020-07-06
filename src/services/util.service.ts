@@ -2,7 +2,7 @@ import { METRO_FARE } from "../common/fare";
 import { FareType, Station, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, TravelRoute, ARL_STATION, BRT_STATION, Intersection } from "../types";
 import { STATIONS } from "../data/Stations";
 import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
-import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BtsSukhumvitLine";
+import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BtsSukhumvitLinee";
 import { LatLngTuple } from "leaflet";
 import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
 
