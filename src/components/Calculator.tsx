@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { TripContext, emptyTravelRoute } from "../contexts/TripProvider";
 import { FareService } from "../services/fare.service";
 import StationSelect from "./StationSelect";
-import CalculationResult from "./CalculationResult";
+import SelectedRoute from "./SelectedRoute";
 import "../styles/Calculator.scss";
 import { TravelRoute } from "../types";
 import Route from "./Route";
@@ -126,7 +126,7 @@ const Calculator = () => {
           showDetail={showSelectedRoute}
           setShowDetail={() => setShowSelectedRoute(!showSelectedRoute)}
         >
-          <CalculationResult travelRoute={travelRoute} />
+          <SelectedRoute travelRoute={travelRoute} />
         </Section>
       )}
     </section>

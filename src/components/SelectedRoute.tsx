@@ -1,11 +1,11 @@
 import React from "react";
 import { getStation, getStationName } from "../services/util.service";
 import { TravelRoute, Station } from "../types";
-import "../styles/CalculationResult.scss";
+import "../styles/SelectedRoute.scss";
 import { useTranslation } from "react-i18next";
 import { getDottedLineStyle, getStationIconStyle, getInterChangeLine } from "../services/ui-style.service";
 
-const CalculationResult = ({travelRoute}: {travelRoute: TravelRoute}) => {
+const SelectedRoute = ({travelRoute}: {travelRoute: TravelRoute}) => {
   const {t: translate, i18n } = useTranslation();
   return (
     <div>
@@ -52,4 +52,4 @@ const CalculationResult = ({travelRoute}: {travelRoute: TravelRoute}) => {
   );
 };
 
-export default CalculationResult;
+export default SelectedRoute;
