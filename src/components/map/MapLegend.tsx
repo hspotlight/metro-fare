@@ -1,20 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import "../../styles/MapLegend.scss";
 import { Checkbox } from "@material-ui/core";
 import { MetroLineLayerVisibility } from "../../types/";
+import { MapContext } from "../../contexts/MapProvider";
 
-const MapLegend = ({showMetroLineLayers, setShowMetroLayers}: {showMetroLineLayers: MetroLineLayerVisibility, setShowMetroLayers: Function}) => {
+const MapLegend = () => {
+  const { showMetroLineLayers, setShowMetroLayers } = useContext(MapContext);
   const { t: translate } = useTranslation();
 
   const handleChange = (key: keyof MetroLineLayerVisibility) => {
-    setShowMetroLayers((prevState: MetroLineLayerVisibility) => {
-      const newState = {
-      ...prevState,
-      }
-      newState[key] = !newState[key];
-      return newState;
-    })
+    const newState = {
+      ...showMetroLineLayers,
+    };
+    newState[key] = !newState[key];
+    setShowMetroLayers(newState);
   }
 
   return (
