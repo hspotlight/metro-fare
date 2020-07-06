@@ -2,13 +2,13 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import "../../styles/MapLegend.scss";
 import { Checkbox } from "@material-ui/core";
-import { MetroLineLayers } from "../MetroMap";
+import { MetroLineLayerVisibility } from "../../types/";
 
-const MapLegend = ({showMetroLineLayers, setShowMetroLayers}: {showMetroLineLayers: MetroLineLayers, setShowMetroLayers: Function}) => {
+const MapLegend = ({showMetroLineLayers, setShowMetroLayers}: {showMetroLineLayers: MetroLineLayerVisibility, setShowMetroLayers: Function}) => {
   const { t: translate } = useTranslation();
 
-  const handleChange = (key: keyof MetroLineLayers) => {
-    setShowMetroLayers((prevState: MetroLineLayers) => {
+  const handleChange = (key: keyof MetroLineLayerVisibility) => {
+    setShowMetroLayers((prevState: MetroLineLayerVisibility) => {
       const newState = {
       ...prevState,
       }
