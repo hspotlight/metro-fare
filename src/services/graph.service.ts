@@ -51,9 +51,6 @@ export const graphService = {
         const stationsToBeVisited = new PriorityQueue({ comparator });
         stationsToBeVisited.push(new StationHop(source, [routeSegment]));
 
-        const minimumFare = Object.create({});
-        minimumFare[source] = 0;
-
         const visitedStations = Object.create({});
         const isStationVisted = (currentStation: StationHop) => !Object.keys(visitedStations).includes(currentStation.station)
 
@@ -73,12 +70,7 @@ export const graphService = {
                     const routeSegments: RouteSegment[] = getNextStationRouteSegments(currentStation, nextStation);
 
                     const nextStationHop = new StationHop(nextStation, routeSegments);
-                    const fare = nextStationHop.getFare();
-
-                    if (minimumFare[nextStation] === undefined || fare < minimumFare[nextStation]) {
-                        minimumFare[nextStation] = fare;
-                        stationsToBeVisited.push(nextStationHop);
-                    }
+                    stationsToBeVisited.push(nextStationHop);
                 });
             }
         }

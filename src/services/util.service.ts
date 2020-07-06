@@ -5,13 +5,13 @@ import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
 import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BTSSukhumvitLine";
 import { LatLngTuple } from "leaflet";
 
-export const calculateFareFromRouteSegment = (routeSegment: RouteSegment): number => {
+export const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTravelToSelf: boolean): number => {
     const fareTable: number[] = METRO_FARE[routeSegment.fareType];
 
     const hops = routeSegment.route.length - 1;
 
     const station = routeSegment.route[0];
-    if (hops === 0 && (isInterchangeStation(station) || isExtensionBorderStation(station))) {
+    if (!isTravelToSelf && hops === 0 && (isInterchangeStation(station) || isExtensionBorderStation(station))) {
         return 0;
     }
 
@@ -21,14 +21,6 @@ export const calculateFareFromRouteSegment = (routeSegment: RouteSegment): numbe
 
     return fareTable[hops];
 }
-
-export const calculateTotalFare = (routeSegments: RouteSegment[]): number => {
-    let totalFare = 0;
-    routeSegments.forEach(routeSegment => {
-        totalFare += calculateFareFromRouteSegment(routeSegment);
-    });
-    return totalFare;
-};
 
 export const getLineTypeFromFareType = (fareType: FareType): LineType => {
     switch (fareType) {

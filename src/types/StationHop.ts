@@ -1,5 +1,4 @@
 import { METRO_STATION, RouteSegment } from ".";
-import { calculateTotalFare } from "../services/util.service";
 
 export class StationHop {
     station: METRO_STATION;
@@ -8,10 +7,6 @@ export class StationHop {
     constructor(station: METRO_STATION, paths: RouteSegment[]) {
         this.station = station;
         this.paths = paths;
-    }
-
-    public getFare(): number {
-        return calculateTotalFare(this.paths);
     }
 
     public getTotalHops(): number {
