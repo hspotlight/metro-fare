@@ -1,9 +1,10 @@
 import { METRO_FARE } from "../common/fare";
-import { FareType, Station, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION, BTS_SUKHUMVIT_STATION, TravelRoute, ARL_STATION, BRT_STATION } from "../types";
-import { STATIONS} from "../data/Stations";
+import { FareType, Station, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, TravelRoute, ARL_STATION, BRT_STATION, Intersection } from "../types";
+import { STATIONS } from "../data/Stations";
 import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
 import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BtsSukhumvitLine";
 import { LatLngTuple } from "leaflet";
+import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTravelToSelf: boolean): number => {
     const fareTable: number[] = METRO_FARE[routeSegment.fareType];
@@ -22,6 +23,18 @@ export const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTrav
     return fareTable[hops];
 }
 
+const isInterchangeStation = (station: METRO_STATION): boolean => {
+    const interChangeStations: METRO_STATION[] = [];
+    ALL_INTERSECTIONS.forEach((intersection: Intersection) => {
+        interChangeStations.push(...intersection);
+    })
+    return interChangeStations.includes(station);
+};
+
+const isExtensionBorderStation = (station: METRO_STATION): boolean => {
+    return EXTENSION_BORDER_STATIONS.includes(station);
+};
+
 export const getLineTypeFromFareType = (fareType: FareType): LineType => {
     switch (fareType) {
         case FareType.BTS: return LineType.BTS;
@@ -32,31 +45,6 @@ export const getLineTypeFromFareType = (fareType: FareType): LineType => {
         case FareType.BRT: return LineType.BRT;
         default: return LineType.MRT_BLUE;
     }
-};
-
-const isInterchangeStation = (station: METRO_STATION): boolean => {
-    const interChangeStations: METRO_STATION[] = [
-        MRT_BLUE_STATION.SILOM, BTS_SILOM_STATION.SALA_DAENG,
-        MRT_BLUE_STATION.BANG_WA, BTS_SILOM_STATION.BANG_WA,
-        MRT_BLUE_STATION.SUKHUMVIT, BTS_SUKHUMVIT_STATION.ASOK,
-        MRT_BLUE_STATION.CHATUCHAK_PARK, BTS_SUKHUMVIT_STATION.MO_CHIT,
-        MRT_BLUE_STATION.PHAHON_YOTHIN, BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO,
-        MRT_BLUE_STATION.PHETCHABURI, ARL_STATION.MAKKASAN,
-        BTS_SUKHUMVIT_STATION.PHAYA_THAI, ARL_STATION.PHAYA_THAI,
-        BTS_SILOM_STATION.CHONG_NONSI, BRT_STATION.SATHON,
-        BTS_SILOM_STATION.TALAT_PHLU, BRT_STATION.RATCHAPRUEK,
-    ];
-    return interChangeStations.includes(station);
-};
-
-const isExtensionBorderStation = (station: METRO_STATION): boolean => {
-    const extensionBorderStation: METRO_STATION[] = [
-        BTS_SILOM_STATION.WONGWIAN_YAI,
-        BTS_SUKHUMVIT_STATION.ON_NUT,
-        BTS_SUKHUMVIT_STATION.BEARING,
-        BTS_SUKHUMVIT_STATION.MO_CHIT,
-    ];
-    return extensionBorderStation.includes(station);
 };
 
 export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
@@ -81,6 +69,35 @@ export const getStationName = (station: Station, lang: string = 'en') => {
     return lang === 'en' ? station.nameEN : station.nameTH;
 }
 
+export const getStationsFromTravelRoute = (travelRoute: TravelRoute): Station[] => {
+    const stationKeys = getStationKeysFromTravelRoute(travelRoute);
+    return getAllStations(stationKeys);
+}
+
+export const getStationsCount = (travelRoute: TravelRoute): number => {
+    const stationKeys = getStationKeysFromTravelRoute(travelRoute);
+    return stationKeys.length;
+}
+
+const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[] => {
+    let stationKeys: METRO_STATION[] = [];
+    travelRoute.route.forEach(route => {
+        stationKeys = [...stationKeys, ...route.route]
+    });
+    return stationKeys;
+}
+
+const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
+    const stations: Station[] = [];
+    stationKeys.forEach((stationKey: METRO_STATION) => {
+        const station = getStation(stationKey);
+        if (station) {
+            stations.push(station);
+        }
+    });
+    return stations;
+}
+
 // map util
 // Extract data
 export const filterStationByLineType = (lineType: LineType) => (
@@ -92,36 +109,3 @@ export const filterStationByLineType = (lineType: LineType) => (
 export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
     return stations.map((station) => station.position);
 };
-
-// util
-export const getStationsFromTravelRoute = (travelRoute: TravelRoute): Station[] => {
-    const stationKeys = getStationKeysFromTravelRoute(travelRoute);
-    return getAllStations(stationKeys);
-}
-
-// util
-export const getStationsCount = (travelRoute: TravelRoute): number => {
-    const stationKeys = getStationKeysFromTravelRoute(travelRoute);
-    return stationKeys.length;
-}
-
-// util
-const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[] => {
-    let stationKeys: METRO_STATION[] = [];
-    travelRoute.route.forEach(route => {
-        stationKeys = [...stationKeys, ...route.route]
-    });
-    return stationKeys;
-}
-
-// util
-const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
-    const stations: Station[] = [];
-    stationKeys.forEach((stationKey: METRO_STATION) => {
-        const station = getStation(stationKey);
-        if (station) {
-            stations.push(station);
-        }
-    });
-    return stations;
-}
