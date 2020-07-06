@@ -1,4 +1,16 @@
 import { LineType } from "../types";
+import { colors } from "../common/colors";
+
+export const getColorFromLineType = (lineType: LineType) => {
+  switch(lineType) {
+    case LineType.MRT_BLUE: return colors.mrtBlue;
+    case LineType.BTS_SILOM: return colors.btsSilom;
+    case LineType.BTS_SUKHUMVIT: return colors.btsSukhumvit;
+    case LineType.ARL: return colors.arl;
+    case LineType.BRT: return colors.brt;
+    default: return colors.btsSilom;
+  }
+}
 
 export const getDottedLineStyle = (lineType: LineType) => {
   switch (lineType) {
