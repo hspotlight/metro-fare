@@ -2,25 +2,25 @@ import { METRO_STATION, RouteSegment } from ".";
 
 export class StationHop {
     station: METRO_STATION;
-    paths: RouteSegment[]; // TODO: Refactor change to routeSegment
+    routeSegments: RouteSegment[];
 
     constructor(station: METRO_STATION, paths: RouteSegment[]) {
         this.station = station;
-        this.paths = paths;
+        this.routeSegments = paths;
     }
 
     public getTotalHops(): number {
         let totalHops = 0;
-        this.paths.forEach(path => {
-            totalHops += path.route.length;
+        this.routeSegments.forEach(routeSegment => {
+            totalHops += routeSegment.route.length;
         });
         return totalHops;
     }
 
     public isStationInPath(searchStation: METRO_STATION): boolean {
         let isInPath = false;
-        this.paths.forEach(path => {
-            isInPath = isInPath || path.route.includes(searchStation);
+        this.routeSegments.forEach(routeSegment => {
+            isInPath = isInPath || routeSegment.route.includes(searchStation);
         })
         return isInPath;
     }
