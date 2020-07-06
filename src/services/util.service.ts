@@ -2,7 +2,7 @@ import { METRO_FARE } from "../common/fare";
 import { FareType, Station, LineType, RouteSegment, METRO_STATION, BTS_SILOM_STATION, MRT_BLUE_STATION, BTS_SUKHUMVIT_STATION, TravelRoute, ARL_STATION, BRT_STATION } from "../types";
 import { STATIONS} from "../data/Stations";
 import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
-import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BTSSukhumvitLine";
+import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BtsSukhumvitLine";
 import { LatLngTuple } from "leaflet";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTravelToSelf: boolean): number => {
@@ -82,24 +82,30 @@ export const getStationName = (station: Station, lang: string = 'en') => {
 }
 
 // map util
+// Extract data
 export const filterStationByLineType = (lineType: LineType) => (
     STATIONS.filter((station) => station.lineType === lineType && !station.isNotAvailable)
 );
 
+
+// TODO: add polyline
 export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
     return stations.map((station) => station.position);
 };
 
+// util
 export const getStationsFromTravelRoute = (travelRoute: TravelRoute): Station[] => {
     const stationKeys = getStationKeysFromTravelRoute(travelRoute);
     return getAllStations(stationKeys);
 }
 
+// util
 export const getStationsCount = (travelRoute: TravelRoute): number => {
     const stationKeys = getStationKeysFromTravelRoute(travelRoute);
     return stationKeys.length;
 }
 
+// util
 const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[] => {
     let stationKeys: METRO_STATION[] = [];
     travelRoute.route.forEach(route => {
@@ -108,6 +114,7 @@ const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[
     return stationKeys;
 }
 
+// util
 const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
     const stations: Station[] = [];
     stationKeys.forEach((stationKey: METRO_STATION) => {
