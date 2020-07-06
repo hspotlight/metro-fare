@@ -228,14 +228,3 @@ const TravelRouteLayer = () => {
     </>
   );
 }
-
-const getColorFromLineType = (lineType: LineType) => {
-  switch(lineType) {
-    case LineType.MRT_BLUE: return colors.mrtBlue;
-    case LineType.BTS_SILOM: return colors.btsSilom;
-    case LineType.BTS_SUKHUMVIT: return colors.btsSukhumvit;
-    case LineType.ARL: return colors.arl;
-    case LineType.BRT: return colors.brt;
-    default: return colors.btsSilom;
-  }
-}
