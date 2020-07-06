@@ -6,7 +6,7 @@ import { FareService } from "../services/fare.service";
 import StationSelect from "./StationSelect";
 import CalculationResult from "./CalculationResult";
 import "../styles/Calculator.scss";
-import { TravelRoute, LineType } from "../types";
+import { TravelRoute } from "../types";
 import Route from "./Route";
 
 const Calculator = () => {
