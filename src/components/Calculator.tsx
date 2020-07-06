@@ -139,6 +139,7 @@ export const getStationIconStyle = (currentLineType: LineType) => {
     case LineType.BTS_SILOM: return "bts-silom-icon";
     case LineType.BTS_SUKHUMVIT: return "bts-sukhumvit-icon";
     case LineType.ARL: return "arl-icon";
+    case LineType.BRT: return "brt-icon";
     default: return "bts-silom-icon";
   }
 };

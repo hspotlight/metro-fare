@@ -19,19 +19,22 @@ const mrtBlueStations = filterStationByLineType(LineType.MRT_BLUE);
 const btsSilomStations = filterStationByLineType(LineType.BTS_SILOM);
 const btsSukhumvitStations = filterStationByLineType(LineType.BTS_SUKHUMVIT);
 const arlStations = filterStationByLineType(LineType.ARL);
+const brtStations = filterStationByLineType(LineType.BRT);
 
 export type MetroLineLayers = {
   mrtBlue: boolean
   btsSilom: boolean
   btsSukhumvit: boolean
   arl: boolean
+  brt: boolean
 }
 
 const DEFAULT_METRO_LINE_LAYERS: MetroLineLayers = {
   mrtBlue: true,
   btsSilom: true,
   btsSukhumvit: true,
-  arl: true
+  arl: true,
+  brt: true
 }
 
 export const MetroMap = () => {
@@ -51,7 +54,8 @@ export const MetroMap = () => {
       mrtBlue: isVisible,
       btsSilom: isVisible,
       btsSukhumvit: isVisible,
-      arl: isVisible
+      arl: isVisible,
+      brt: isVisible
     });
   }, [travelRoute])
 
@@ -122,6 +126,14 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
         />
       </FeatureGroup>
       </LayersControl.Overlay>
+      <LayersControl.Overlay name="BRT Line" checked={true}>
+      <FeatureGroup name="brt-line">
+        <Polyline
+          positions={getPolyLineFromStations(brtStations)}
+          color={colors.brt}
+        />
+      </FeatureGroup>
+      </LayersControl.Overlay>
       <LayersControl.Overlay name="MRT Blue Station" checked={showMetroLineLayers.mrtBlue}>
       <FeatureGroup name="mrt-blue-station">
         {mrtBlueStations.map((station) => (
@@ -162,6 +174,17 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
             key={station.key}
             station={station}
             fillColor={colors.arl}
+          />
+        ))}
+      </FeatureGroup>
+      </LayersControl.Overlay>
+      <LayersControl.Overlay name="BRT Station" checked={showMetroLineLayers.brt}>
+      <FeatureGroup name="brt-station">
+        {brtStations.map((station) => (
+          <StationMarker
+            key={station.key}
+            station={station}
+            fillColor={colors.brt}
           />
         ))}
       </FeatureGroup>
@@ -232,6 +255,7 @@ const getColorFromLineType = (lineType: LineType) => {
     case LineType.BTS_SILOM: return colors.btsSilom;
     case LineType.BTS_SUKHUMVIT: return colors.btsSukhumvit;
     case LineType.ARL: return colors.arl;
+    case LineType.BRT: return colors.brt;
     default: return colors.btsSilom;
   }
 }
