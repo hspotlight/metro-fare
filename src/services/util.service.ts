@@ -98,13 +98,7 @@ const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
     return stations;
 }
 
-// map util
-// Extract data
-export const filterStationByLineType = (lineType: LineType) => (
-    STATIONS.filter((station) => station.lineType === lineType && !station.isNotAvailable)
-);
-
-
+// MAP UTIL
 // TODO: add polyline
 export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
     return stations.map((station) => station.position);

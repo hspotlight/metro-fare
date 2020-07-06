@@ -12,14 +12,9 @@ import { LineType, Station } from "../types";
 import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION } from "../common/mapConstants";
 import MapControl from "./map/MapControl";
 import StationMarker from "./map/StationMarker";
-import { filterStationByLineType, getPolyLineFromStations, getStation, getStationsFromTravelRoute } from "../services/util.service";
+import { getPolyLineFromStations, getStation, getStationsFromTravelRoute } from "../services/util.service";
 import { TripContext } from "../contexts/TripProvider";
-
-const mrtBlueStations = filterStationByLineType(LineType.MRT_BLUE);
-const btsSilomStations = filterStationByLineType(LineType.BTS_SILOM);
-const btsSukhumvitStations = filterStationByLineType(LineType.BTS_SUKHUMVIT);
-const arlStations = filterStationByLineType(LineType.ARL);
-const brtStations = filterStationByLineType(LineType.BRT);
+import { MRT_BLUE, BTS_SILOM, BTS_SUKHUMVIT, ARL, BRT } from "../data";
 
 export type MetroLineLayers = {
   mrtBlue: boolean
@@ -90,7 +85,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
     <LayersControl.Overlay name="MRT Blue Line" checked={true}>
       <FeatureGroup name="mrt-blue-line">
         <Polyline
-          positions={getPolyLineFromStations(mrtBlueStations)}
+          positions={getPolyLineFromStations(MRT_BLUE)}
           color={colors.mrtBlue}
         />
         <Polyline
@@ -105,7 +100,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
       <LayersControl.Overlay name="BTS Silom Line" checked={true}>
       <FeatureGroup name="bts-silom-line">
         <Polyline
-          positions={getPolyLineFromStations(btsSilomStations)}
+          positions={getPolyLineFromStations(BTS_SILOM)}
           color={colors.btsSilom}
         />
       </FeatureGroup>
@@ -113,7 +108,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
       <LayersControl.Overlay name="BTS Sukhumvit Line" checked={true}>
       <FeatureGroup name="bts-sukhumvit-line">
         <Polyline
-          positions={getPolyLineFromStations(btsSukhumvitStations)}
+          positions={getPolyLineFromStations(BTS_SUKHUMVIT)}
           color={colors.btsSukhumvit}
         />
       </FeatureGroup>
@@ -121,7 +116,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
       <LayersControl.Overlay name="ARL Line" checked={true}>
       <FeatureGroup name="arl-line">
         <Polyline
-          positions={getPolyLineFromStations(arlStations)}
+          positions={getPolyLineFromStations(ARL)}
           color={colors.arl}
         />
       </FeatureGroup>
@@ -129,14 +124,14 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
       <LayersControl.Overlay name="BRT Line" checked={true}>
       <FeatureGroup name="brt-line">
         <Polyline
-          positions={getPolyLineFromStations(brtStations)}
+          positions={getPolyLineFromStations(BRT)}
           color={colors.brt}
         />
       </FeatureGroup>
       </LayersControl.Overlay>
       <LayersControl.Overlay name="MRT Blue Station" checked={showMetroLineLayers.mrtBlue}>
       <FeatureGroup name="mrt-blue-station">
-        {mrtBlueStations.map((station) => (
+        {MRT_BLUE.map((station) => (
           <StationMarker
             key={station.key}
             station={station}
@@ -147,7 +142,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
       </LayersControl.Overlay>
       <LayersControl.Overlay name="BTS Silom Station" checked={showMetroLineLayers.btsSilom}>
       <FeatureGroup name="bts-silom-station">
-        {btsSilomStations.map((station) => (
+        {BTS_SILOM.map((station) => (
           <StationMarker
             key={station.key}
             station={station}
@@ -158,7 +153,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
       </LayersControl.Overlay>
       <LayersControl.Overlay name="BTS Sukhumvit Station" checked={showMetroLineLayers.btsSukhumvit}>
       <FeatureGroup name="bts-sukhumvit-station">
-        {btsSukhumvitStations.map((station) => (
+        {BTS_SUKHUMVIT.map((station) => (
           <StationMarker
             key={station.key}
             station={station}
@@ -169,7 +164,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
       </LayersControl.Overlay>
       <LayersControl.Overlay name="Airport Rail Link Station" checked={showMetroLineLayers.arl}>
       <FeatureGroup name="arl-station">
-        {arlStations.map((station) => (
+        {ARL.map((station) => (
           <StationMarker
             key={station.key}
             station={station}
@@ -180,7 +175,7 @@ const MetroLineLayers = ({showMetroLineLayers}: {showMetroLineLayers: MetroLineL
       </LayersControl.Overlay>
       <LayersControl.Overlay name="BRT Station" checked={showMetroLineLayers.brt}>
       <FeatureGroup name="brt-station">
-        {brtStations.map((station) => (
+        {BRT.map((station) => (
           <StationMarker
             key={station.key}
             station={station}

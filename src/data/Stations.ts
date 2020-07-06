@@ -1,6 +1,6 @@
 import { Station, LineType, MRT_BLUE_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, ARL_STATION, BRT_STATION } from "../types";
 
-export const STATIONS: Station[] = [
+export const BTS_SUKHUMVIT: Station[] = [
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.WAT_PHRA_SRI_MAHATHAT, nameEN: "Wat Phra Sri Mahathat", nameTH: "วัดพระศรีมหาธาตุ", position: [13.875241,100.596737] },
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.INFANTRY_REGIMENT_11, nameEN: "11th Infantry Regiment", nameTH: "กรมทหารราบที่ 11", position: [13.867671,100.592022] },
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.BANG_BUA, nameEN: "Bang Bua", nameTH: "บางบัว", position: [13.855927,100.585095] },
@@ -42,7 +42,9 @@ export const STATIONS: Station[] = [
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.PHRAEK_SA, nameEN: "Phraek Sa", nameTH: "แพรกษา", position: [13.584208,100.607918] },
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.SAI_LUAT, nameEN: "Sai Luat", nameTH: "สายลวด", position: [13.577885,100.605494] },
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.KHEHA, nameEN: "Kheha", nameTH: "เคหะฯ", position: [13.567602,100.607662] },
-    
+];
+
+export const BTS_SILOM: Station[] = [
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.NATIONAL_STADIUM, nameEN: "National Stadium", nameTH: "สนามกีฬาแห่งชาติ", position: [13.746527,100.529095] },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.SIAM, nameEN: "Siam", nameTH: "สยาม", position: [13.745629,100.534212] },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.RATCHADAMRI, nameEN: "Ratchadamri", nameTH: "ราชดำริ", position: [13.739466,100.539472] },
@@ -57,7 +59,9 @@ export const STATIONS: Station[] = [
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.TALAT_PHLU, nameEN: "Talat Phlu", nameTH: "ตลาดพลู", position: [13.714049,100.476350] },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.WUTTHAKAT, nameEN: "Wutthakat", nameTH: "วุฒากาศ", position: [13.712864,100.469270] },
     { lineType: LineType.BTS_SILOM, key: BTS_SILOM_STATION.BANG_WA, nameEN: "Bang Wa", nameTH: "บางหว้า", position: [13.721087,100.457810] },
+];
 
+export const MRT_BLUE: Station[] = [
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.CHARAN_13, nameEN: "Charan 13", nameTH: "จรัญฯ 13", position: [13.740013,100.470773] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.FAI_CHAI, nameEN: "Fai chai", nameTH: "ไฟฉาย", position: [13.755730,100.469326] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_KHUN_NON, nameEN: "Bang Khun Non", nameTH: "บางขุนนนท์", position: [13.763704,100.473645] },
@@ -96,7 +100,9 @@ export const STATIONS: Station[] = [
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.PHASI_CHAROEN, nameEN: "Phasi Charoen", nameTH: "ภาษีเจริญ", position: [13.712904,100.434328] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_KHAE, nameEN: "Bang Khae", nameTH: "บางแค", position: [13.711939,100.422306] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.LAK_SONG, nameEN: "Lak Song", nameTH: "หลักสอง", position: [13.710900,100.409439] },
+];
 
+export const ARL: Station[] = [
     { lineType: LineType.ARL, key: ARL_STATION.SUVARNABHUMI, nameEN: "Suvarnabhumi", nameTH: "สุวรรณภูมิ", position: [13.694890,100.751570] },
     { lineType: LineType.ARL, key: ARL_STATION.LAT_KRABANG, nameEN: "Lat Kbabang", nameTH: "ลาดกระบัง", position: [13.727459,100.748484] },
     { lineType: LineType.ARL, key: ARL_STATION.BAN_THAP_CHANG, nameEN: "Ban Thap Chang", nameTH: "บ้านทับช้าง", position: [13.732950,100.690768] },
@@ -105,7 +111,9 @@ export const STATIONS: Station[] = [
     { lineType: LineType.ARL, key: ARL_STATION.MAKKASAN, nameEN: "Makkasan", nameTH: "มักกะสัน", position: [13.750957,100.561119] },
     { lineType: LineType.ARL, key: ARL_STATION.RATCHAPRAROP, nameEN: "Rachaprarop", nameTH: "ราชปรารภ", position: [13.755188,100.542015] },
     { lineType: LineType.ARL, key: ARL_STATION.PHAYA_THAI, nameEN: "Phaya Thai", nameTH: "พญาไท", position: [13.756712,100.534892] },
+];
 
+export const BRT: Station[] = [
     { lineType: LineType.BRT, key: BRT_STATION.SATHON, nameEN: "Sathon", nameTH: "สาธร", position: [13.721408,100.530541] },
     { lineType: LineType.BRT, key: BRT_STATION.AKHAN_SONGKHRO, nameEN: "Akhan Songkhro", nameTH: "อาคารสงเคราะห์", position: [13.717271,100.532548] },
     { lineType: LineType.BRT, key: BRT_STATION.TECHNIC_KRUNGTHEP, nameEN: "Technic Krungthep", nameTH: "เทคนิคกรุงเทพ", position: [13.712426,100.534975] },
@@ -118,4 +126,12 @@ export const STATIONS: Station[] = [
     { lineType: LineType.BRT, key: BRT_STATION.CHAROENRAT, nameEN: "Charoenrat", nameTH: "เจริญราษฎร์", position: [13.690268,100.504202] },
     { lineType: LineType.BRT, key: BRT_STATION.RAMA_III_BRIDGE, nameEN: "Rama III Bridge", nameTH: "สะพานพระราม 3", position: [13.693939,100.500065] },
     { lineType: LineType.BRT, key: BRT_STATION.RATCHAPRUEK, nameEN: "Ratchapruek", nameTH: "ราชพฤกษ์", position: [13.715876,100.478942] },
+];
+
+export const STATIONS: Station[] = [
+    ...BTS_SILOM,
+    ...BTS_SUKHUMVIT,
+    ...MRT_BLUE,
+    ...ARL,
+    ...BRT
 ];
