@@ -20,7 +20,9 @@ export const FareService = {
         });
         return {
             route,
-            fare: totalFare
+            fare: totalFare,
+            source,
+            destination,
         }
     },
     findAllRoutes(source: METRO_STATION, destination: METRO_STATION): TravelRoute[] {
@@ -39,7 +41,9 @@ export const FareService = {
             });
             return {
                 route,
-                fare: totalFare
+                fare: totalFare,
+                source,
+                destination,
             }
         })
         return travelRoutes;
