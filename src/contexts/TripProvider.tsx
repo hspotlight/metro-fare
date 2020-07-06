@@ -14,7 +14,9 @@ export const unfilledTrip: Trip = {
 
 export const emptyTravelRoute: TravelRoute = {
   route: [],
-  fare: 0
+  fare: 0,
+  source: "" as METRO_STATION,
+  destination: "" as METRO_STATION,
 };
 
 const initialTripContext = {

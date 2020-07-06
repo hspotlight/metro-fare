@@ -7,4 +7,6 @@ export type TravelRoute = {
         fare: number
     }[],
     fare: number,
+    source: METRO_STATION,
+    destination: METRO_STATION,
 }

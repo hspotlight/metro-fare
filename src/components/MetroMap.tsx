@@ -176,12 +176,8 @@ const MetroLineLayers = () => {
 const TravelRouteLayer = () => {
   const { travelRoute } = useContext(TripContext);
 
-  const source = getStation(travelRoute.route[0].route[0]);
-  const destination = getStation(
-    travelRoute.route[travelRoute.route.length - 1].route[
-      travelRoute.route[travelRoute.route.length - 1].route.length - 1
-    ]
-  );
+  const source = getStation(travelRoute.source);
+  const destination = getStation(travelRoute.destination);
 
   if (!(source && destination)) {
     return null;
