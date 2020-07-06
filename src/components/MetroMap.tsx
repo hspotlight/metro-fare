@@ -190,11 +190,24 @@ const TravelRouteLayer = () => {
   return (
     <>
       <FeatureGroup name="travel-route">
-        <Polyline
-          positions={getPolyLineFromStations(allStationsInRoute)}
-          color={colors.travelRoute}
-          weight={7}
-        />
+        {allStationsInRoute.map((currentStation, index) => {
+          if (index === 0) return null;
+          const prevStation = allStationsInRoute[index - 1];
+          const polyline = [prevStation.position, currentStation.position];
+          const color =
+            prevStation.lineType === currentStation.lineType
+              ? getColorFromLineType(currentStation.lineType)
+              : colors.interchangeStation;
+
+          return (
+            <Polyline
+              key={`travel-route-${prevStation.key}-${currentStation.key}`}
+              positions={polyline}
+              color={color}
+              weight={7}
+            />
+          );
+        })}
       </FeatureGroup>
       <FeatureGroup name="travel-route-station">
         <StationMarker

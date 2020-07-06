@@ -5,8 +5,7 @@ export const colors = {
     btsSilom: '#00817d',
     arl: '#e30713',
     brt: '#dcdc00',
-    travelRoute: '#1DD300',
     sourceStation: '#3AAACF',
     destinationStation: '#F80012',
-    intermediateStation: '#C9C9C9'
+    interchangeStation: '#AAAAAA',
 };
