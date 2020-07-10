@@ -15,7 +15,7 @@ import StationMarker from "./map/StationMarker";
 import { getPolyLineFromStations, getStation, getStationsFromTravelRoute } from "../services/util.service";
 import { TripContext } from "../contexts/TripProvider";
 import { MRT_BLUE, BTS_SILOM, BTS_SUKHUMVIT, ARL, BRT } from "../data";
-import { getColorFromLineType } from "../services/ui-style.service";
+import { getColorFromLineType, getInterChangeLineColor } from "../services/ui-style.service";
 import { MapContext } from "../contexts/MapProvider";
 
 export const MetroMap = () => {
@@ -194,10 +194,7 @@ const TravelRouteLayer = () => {
           if (index === 0) return null;
           const prevStation = allStationsInRoute[index - 1];
           const polyline = [prevStation.position, currentStation.position];
-          const color =
-            prevStation.lineType === currentStation.lineType
-              ? getColorFromLineType(currentStation.lineType)
-              : colors.interchangeStation;
+          const color = getInterChangeLineColor(currentStation.lineType, prevStation.lineType);
 
           return (
             <Polyline

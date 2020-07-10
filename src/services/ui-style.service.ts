@@ -54,3 +54,20 @@ export const getInterChangeLine = (
     return "interchange-dotted-line";
   }
 };
+
+export const getInterChangeLineColor = (
+  currentLineType: LineType,
+  prevLineType: LineType
+) => {
+  if (currentLineType === prevLineType) {
+    return getColorFromLineType(currentLineType);
+  } else {
+    if (
+      // siam (silom line) to any sukhumvit station
+      (currentLineType === LineType.BTS_SUKHUMVIT && prevLineType === LineType.BTS_SILOM) ||
+      (currentLineType === LineType.BTS_SILOM && prevLineType === LineType.BTS_SUKHUMVIT)) {
+      return getColorFromLineType(LineType.BTS_SUKHUMVIT);
+    }
+    return colors.interchangeStation;
+  }
+};
