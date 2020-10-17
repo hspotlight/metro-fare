@@ -23,15 +23,15 @@ export const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTrav
     return fareTable[hops];
 }
 
-const isInterchangeStation = (station: METRO_STATION): boolean => {
+export const isInterchangeStation = (station: METRO_STATION): boolean => {
     const interChangeStations: METRO_STATION[] = [];
-    ALL_INTERSECTIONS.forEach((intersection: Intersection) => {
-        interChangeStations.push(...intersection);
+    ALL_INTERSECTIONS.forEach((stationPair: Intersection) => {
+        interChangeStations.push(...stationPair);
     })
     return interChangeStations.includes(station);
 };
 
-const isExtensionBorderStation = (station: METRO_STATION): boolean => {
+export const isExtensionBorderStation = (station: METRO_STATION): boolean => {
     return EXTENSION_BORDER_STATIONS.includes(station);
 };
 
@@ -47,6 +47,7 @@ export const getLineTypeFromFareType = (fareType: FareType): LineType => {
     }
 };
 
+// TODO: rename either station id or station key
 export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
     if (Object.values(ARL_STATION).includes(station as ARL_STATION)) return FareType.ARL
     if (Object.values(BRT_STATION).includes(station as BRT_STATION)) return FareType.BRT
@@ -74,15 +75,16 @@ export const getStationsFromTravelRoute = (travelRoute: TravelRoute): Station[] 
     return getAllStations(stationKeys);
 }
 
+// TODO: to cleanup and remove
 export const getStationsCount = (travelRoute: TravelRoute): number => {
     const stationKeys = getStationKeysFromTravelRoute(travelRoute);
     return stationKeys.length;
 }
 
-const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[] => {
+export const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[] => {
     let stationKeys: METRO_STATION[] = [];
     travelRoute.route.forEach(route => {
-        stationKeys = [...stationKeys, ...route.route]
+        stationKeys.push(...route.route)
     });
     return stationKeys;
 }
