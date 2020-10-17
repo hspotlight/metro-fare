@@ -10,12 +10,12 @@ export const METRO_FARE: FARE = {
 }
 
 export type FARE = {
-    BRT: number[],
-    ARL: number[],
-    BTS: number[],
-    BTS_SILOM_EXTENSION_15: number[],
-    BTS_SUKHUMVIT_EXTENSION_15: number[],
-    BTS_SUKHUMVIT_EXTENSION_0: number[],
-    MRT_BLUE: number[],
-    MRT_PURPLE: number[],
+    BRT: number[]
+    ARL: number[]
+    BTS: number[]
+    BTS_SILOM_EXTENSION_15: number[]
+    BTS_SUKHUMVIT_EXTENSION_15: number[]
+    BTS_SUKHUMVIT_EXTENSION_0: number[]
+    MRT_BLUE: number[]
+    MRT_PURPLE: number[]
 }
