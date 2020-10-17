@@ -21,7 +21,7 @@ const App = () => {
         </I18nextProvider>
       </div>
       <footer>
-        <a href="https://github.com/hspotlight/">Developed by HSpolight</a>
+        <a href="https://github.com/hspotlight/">Developed by HSpotlight</a>
       </footer>
     </>
   );
