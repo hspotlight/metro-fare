@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, ReactNode } from "react";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { TripContext, emptyTravelRoute } from "../contexts/TripProvider";
-import { FareService } from "../services/fare.service";
+import FareService from "../services/fare.service";
 import StationSelect from "./StationSelect";
 import SelectedRoute from "./SelectedRoute";
 import "../styles/RouteFinder.scss";
