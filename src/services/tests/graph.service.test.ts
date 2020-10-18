@@ -2,6 +2,7 @@ import GraphService from "../graph.service";
 import { MRT_BLUE_STATION, BTS_SILOM_STATION, Line, Graph, RouteSegment, FareType, BTS_SUKHUMVIT_STATION } from "../../types";
 import { StationHop } from "../../types/StationHop";
 import { getFareTypeFromStationId } from "../util.service";
+import { MRT_BLUE_LINE } from "../../data";
 
 describe('GraphService', () => {
     describe('CreateGraph', () => {
@@ -840,6 +841,65 @@ describe('GraphService', () => {
                 route: [BTS_SUKHUMVIT_STATION.NANA],
                 fareType: FareType.BTS
             }]);
+        });
+    });
+
+    describe('findAllRoutes', () => {
+        it('should return two routes from CHARAN_13 to THAPHRA (any two station pair in MRT line)', () => {
+            const source = MRT_BLUE_STATION.CHARAN_13;
+            const destination = MRT_BLUE_STATION.THAPHRA;
+            const graph = GraphService.createGraph({
+                lines: [MRT_BLUE_LINE]
+            });
+            const routeSegmentslist: RouteSegment[][] = [
+            [{
+                route: [
+                    MRT_BLUE_STATION.CHARAN_13,
+                    MRT_BLUE_STATION.THAPHRA
+                ],
+                fareType: FareType.MRT_BLUE,
+            }],
+            [{
+                route: [
+                    MRT_BLUE_STATION.CHARAN_13,
+                    MRT_BLUE_STATION.FAI_CHAI,
+                    MRT_BLUE_STATION.BANG_KHUN_NON,
+                    MRT_BLUE_STATION.BANG_YI_KHAN,
+                    MRT_BLUE_STATION.SIRINDHORN,
+                    MRT_BLUE_STATION.BANG_PHLAT,
+                    MRT_BLUE_STATION.BANG_O,
+                    MRT_BLUE_STATION.BANG_PHO,
+                    MRT_BLUE_STATION.TAO_POON,
+                    MRT_BLUE_STATION.BANG_SUE,
+                    MRT_BLUE_STATION.KAMPHAENG_PHET,
+                    MRT_BLUE_STATION.CHATUCHAK_PARK,
+                    MRT_BLUE_STATION.PHAHON_YOTHIN,
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                    MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
+                    MRT_BLUE_STATION.PHRA_RAM_9,
+                    MRT_BLUE_STATION.PHETCHABURI,
+                    MRT_BLUE_STATION.SUKHUMVIT,
+                    MRT_BLUE_STATION.QUEEN_SIRIKIT_NATIONAL_CONVENTION_CENTRE,
+                    MRT_BLUE_STATION.KHLONG_TOEI,
+                    MRT_BLUE_STATION.LUMPHINI,
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.HUA_LAMPHONG,
+                    MRT_BLUE_STATION.WAT_MANGKON,
+                    MRT_BLUE_STATION.SAM_YOT,
+                    MRT_BLUE_STATION.SANAM_CHAI,
+                    MRT_BLUE_STATION.ITSARAPHAP,
+                    MRT_BLUE_STATION.THAPHRA
+                ],
+                fareType: FareType.MRT_BLUE,
+            }]];
+    
+            const routes = GraphService.findAllRoutes(source, destination, graph);
+
+            expect(routes).toMatchObject(routeSegmentslist);
         });
     });
 });

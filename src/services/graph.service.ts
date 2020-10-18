@@ -3,6 +3,7 @@ import { getFareTypeFromStationId } from "./util.service";
 import { METRO_STATION, Graph, RouteSegment, Line, Intersection } from "../types";
 import { METRO_GRAPH } from "../data/MetroGraph";
 import { StationHop } from "../types/StationHop";
+import cloneDeep from "lodash.clonedeep";
 
 const lowestHopsComparator = (stationA: StationHop, stationB: StationHop) => stationB.getTotalHops() - stationA.getTotalHops();
 
@@ -109,12 +110,7 @@ const findAllRoutes = (source: METRO_STATION, destination: METRO_STATION, graph:
 
 const getNextStationRouteSegments = (currentStation: StationHop, nextStation: METRO_STATION): RouteSegment[] => {
     const fareType = getFareTypeFromStationId(nextStation);
-    const routeSegments: RouteSegment[] = currentStation.routeSegments.map((routeSegment: RouteSegment): RouteSegment => {
-        return {
-            route: [...routeSegment.route],
-            fareType: routeSegment.fareType
-        };
-    });
+    const routeSegments: RouteSegment[] = cloneDeep(currentStation.routeSegments);
 
     if (routeSegments[routeSegments.length - 1].fareType === fareType) {
         routeSegments[routeSegments.length - 1].route.push(nextStation);
@@ -128,7 +124,6 @@ const getNextStationRouteSegments = (currentStation: StationHop, nextStation: ME
 
     return routeSegments;
 }
-
 
 const GraphService = {
     createGraph,
