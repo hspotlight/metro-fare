@@ -96,9 +96,9 @@ const findAllRoutes = (source: METRO_STATION, destination: METRO_STATION, graph:
         
         const nextStations: METRO_STATION[]  = graph[currentStation.station];
         nextStations.forEach(nextStation => {
-            const routeSegments: RouteSegment[] = getNextStationRouteSegments(currentStation, nextStation);
-
+            
             if (!currentStation.isStationInPath(nextStation)) {
+                const routeSegments: RouteSegment[] = getNextStationRouteSegments(currentStation, nextStation);
                 const nextStationHop = new StationHop(nextStation, routeSegments);
                 stationsToBeVisited.push(nextStationHop);
             }
@@ -107,7 +107,7 @@ const findAllRoutes = (source: METRO_STATION, destination: METRO_STATION, graph:
     return allPossibleRoutes;
 }
 
-const getNextStationRouteSegments = (currentStation: StationHop, nextStation: METRO_STATION) => {
+const getNextStationRouteSegments = (currentStation: StationHop, nextStation: METRO_STATION): RouteSegment[] => {
     const fareType = getFareTypeFromStationId(nextStation);
     const routeSegments: RouteSegment[] = currentStation.routeSegments.map((routeSegment: RouteSegment): RouteSegment => {
         return {
@@ -134,6 +134,7 @@ const GraphService = {
     createGraph,
     findRoute,
     findAllRoutes,
+    getNextStationRouteSegments
 }
 
 export default GraphService;

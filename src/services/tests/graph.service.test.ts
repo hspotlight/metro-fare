@@ -1,5 +1,7 @@
 import GraphService from "../graph.service";
 import { MRT_BLUE_STATION, BTS_SILOM_STATION, Line, Graph, RouteSegment, FareType, BTS_SUKHUMVIT_STATION } from "../../types";
+import { StationHop } from "../../types/StationHop";
+import { getFareTypeFromStationId } from "../util.service";
 
 describe('GraphService', () => {
     describe('CreateGraph', () => {
@@ -16,6 +18,32 @@ describe('GraphService', () => {
                     MRT_BLUE_STATION.RATCHADAPHISEK,
                     MRT_BLUE_STATION.SUTTHISAN,
                     MRT_BLUE_STATION.HUAI_KHWANG,
+                ]
+            }
+            const metroGraph: Graph = {
+                lines: [metroLine]
+            }
+
+            const graph = GraphService.createGraph(metroGraph);
+
+            expect(graph).toMatchObject(expectedResult);
+        });
+        it('should create the graph with intersection', () => {
+            const expectedResult = Object.create({});
+            expectedResult[MRT_BLUE_STATION.LAT_PHRAO] = [MRT_BLUE_STATION.RATCHADAPHISEK, MRT_BLUE_STATION.HUAI_KHWANG];
+            expectedResult[MRT_BLUE_STATION.RATCHADAPHISEK] = [MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.SUTTHISAN];
+            expectedResult[MRT_BLUE_STATION.SUTTHISAN] = [MRT_BLUE_STATION.RATCHADAPHISEK, MRT_BLUE_STATION.HUAI_KHWANG];
+            expectedResult[MRT_BLUE_STATION.HUAI_KHWANG] = [MRT_BLUE_STATION.SUTTHISAN, MRT_BLUE_STATION.LAT_PHRAO];
+
+            const metroLine: Line = {
+                line: [
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                ],
+                intersections: [
+                    [MRT_BLUE_STATION.LAT_PHRAO, MRT_BLUE_STATION.HUAI_KHWANG]
                 ]
             }
             const metroGraph: Graph = {
@@ -783,6 +811,35 @@ describe('GraphService', () => {
                 fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0,
             }]
             expect(routeSegment).toMatchObject(expectedResult);
+        });
+    });
+    describe('getNextStationRouteSegments', () => {
+        const source = MRT_BLUE_STATION.CHATUCHAK_PARK;
+        const routeSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
+        it('should return MRT route segment with two stations (same fareType)', () => {
+            const currentStationHop = new StationHop(source, [routeSegment])
+            const nextStation = MRT_BLUE_STATION.FAI_CHAI;
+
+            const newRouteSegments = GraphService.getNextStationRouteSegments(currentStationHop, nextStation);
+
+            expect(newRouteSegments).toMatchObject([{
+                ...routeSegment,
+                route: [
+                    ...routeSegment.route,
+                    nextStation
+                ]
+            }]);
+        });
+        it('should return MRT route segment and BTS route segment (different fareType)', () => {
+            const currentStationHop = new StationHop(source, [routeSegment])
+            const nextStation = BTS_SUKHUMVIT_STATION.NANA;
+
+            const newRouteSegments = GraphService.getNextStationRouteSegments(currentStationHop, nextStation);
+
+            expect(newRouteSegments).toMatchObject([routeSegment, {
+                route: [BTS_SUKHUMVIT_STATION.NANA],
+                fareType: FareType.BTS
+            }]);
         });
     });
 });
