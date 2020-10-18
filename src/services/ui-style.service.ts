@@ -34,6 +34,7 @@ export const getStationIconStyle = (lineType: LineType) => {
   }
 };
 
+// TODO: rename and refactor
 export const getInterChangeLine = (
   currentLineType: LineType,
   prevLineType: LineType
@@ -55,6 +56,7 @@ export const getInterChangeLine = (
   }
 };
 
+// TODO: rename and refactor, check logic with getInterchangeLine
 export const getInterChangeLineColor = (
   currentLineType: LineType,
   prevLineType: LineType
