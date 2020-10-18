@@ -70,6 +70,7 @@ export const getStationName = (station: Station, lang: string = 'en') => {
     return lang === 'en' ? station.nameEN : station.nameTH;
 }
 
+// TODO: cleanup and remove
 export const getStationsFromTravelRoute = (travelRoute: TravelRoute): Station[] => {
     const stationKeys = getStationKeysFromTravelRoute(travelRoute);
     return getAllStations(stationKeys);
@@ -89,7 +90,7 @@ export const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_S
     return stationKeys;
 }
 
-const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
+export const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
     const stations: Station[] = [];
     stationKeys.forEach((stationKey: METRO_STATION) => {
         const station = getStation(stationKey);

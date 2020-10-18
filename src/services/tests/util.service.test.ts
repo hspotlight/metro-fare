@@ -1,6 +1,5 @@
-import { getStationName, getStation, getPolyLineFromStations, getLineTypeFromFareType, isInterchangeStation, isExtensionBorderStation, getStationKeysFromTravelRoute, getFareTypeFromStationId } from '../util.service';
-import { MRT_BLUE_STATION, LineType, BTS_SILOM_STATION, METRO_STATION, Station, FareType, BTS_SUKHUMVIT_STATION, TravelRoute, ARL_STATION, BRT_STATION } from '../../types';
-import { BTS_SILOM_EXTENSION_15 } from '../../data';
+import { getStationName, getStation, getPolyLineFromStations, getLineTypeFromFareType, isInterchangeStation, isExtensionBorderStation, getStationKeysFromTravelRoute, getFareTypeFromStationId, getAllStations, calculateFareFromRouteSegment } from '../util.service';
+import { MRT_BLUE_STATION, LineType, BTS_SILOM_STATION, METRO_STATION, Station, FareType, BTS_SUKHUMVIT_STATION, TravelRoute, ARL_STATION, BRT_STATION, RouteSegment } from '../../types';
 
 describe('Util Service', () => {
     const station: Station = {
@@ -133,5 +132,62 @@ describe('Util Service', () => {
                 expect(fareType).toBe(mapping.fareType);
             });
         })
+    });
+    describe('getAllStations', () => {
+        it('should return all stations from given staion id', () => {
+            const stationIds = [MRT_BLUE_STATION.LUMPHINI, MRT_BLUE_STATION.PHAHON_YOTHIN];
+            const stations = getAllStations(stationIds);
+            expect(stations).toMatchObject([
+                { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.LUMPHINI, nameEN: "Lumphini", nameTH: "ลุมพินี", position: [13.725501,100.545714] },
+                { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.PHAHON_YOTHIN, nameEN: "Phahon Yothin", nameTH: "พหลโยธิน", position: [13.812951,100.561568] },
+            ]);
+        });
+    });
+    describe('calculateFareFromRouteSegment', () => {
+        it('should return 16 if travel to itself (MRT)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    MRT_BLUE_STATION.PHAHON_YOTHIN,
+                ],
+                fareType: FareType.MRT_BLUE
+            };
+            const isTravelToSelf = true;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(16);
+        });
+        it('should return 16 if route has 1 hop (MRT)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    MRT_BLUE_STATION.PHAHON_YOTHIN,
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                ],
+                fareType: FareType.MRT_BLUE
+            };
+            const isTravelToSelf = true;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(16);
+        });
+        it('should return 0 if the route segement has one station and it is interchange station  (BTS)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    BTS_SUKHUMVIT_STATION.ASOK,
+                ],
+                fareType: FareType.BTS
+            };
+            const isTravelToSelf = false;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(0);
+        });
+        it('should return 0 if the route segement has one station and it is extension border station  (BTS)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    BTS_SUKHUMVIT_STATION.ON_NUT,
+                ],
+                fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
+            };
+            const isTravelToSelf = false;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(0);
+        });
     });
 })
