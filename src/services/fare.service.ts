@@ -1,9 +1,9 @@
-import { graphService, metroGraph } from "./graph.service";
+import GraphService, { metroGraph } from "./graph.service";
 import { calculateFareFromRouteSegment, getLineTypeFromFareType } from "./util.service";
 import { METRO_STATION, RouteSegment, TravelRoute } from "../types";
 
 const findAllRoutes = (source: METRO_STATION, destination: METRO_STATION): TravelRoute[] => {
-    const routeSegmentsList = graphService.findAllRoutes(source, destination, metroGraph);
+    const routeSegmentsList = GraphService.findAllRoutes(source, destination, metroGraph);
     const travelRoutes = routeSegmentsList.map(routeSegments => {
         return FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
     })

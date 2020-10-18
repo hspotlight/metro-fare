@@ -1,6 +1,6 @@
 import FareService from '../fare.service';
 import { MRT_BLUE_STATION, BTS_SILOM_STATION, RouteSegment, FareType, BTS_SUKHUMVIT_STATION, TravelRoute, LineType } from '../../types';
-import { graphService } from '../graph.service';
+import GraphService from '../graph.service';
 import { mocked } from 'ts-jest/dist/utils/testing';
 
 jest.mock('../graph.service')
@@ -520,7 +520,7 @@ describe('FareService', () => {
                 ],
                 fareType: FareType.MRT_BLUE,
             }];
-            mocked(graphService.findAllRoutes).mockReturnValue([routeSegments]);
+            mocked(GraphService.findAllRoutes).mockReturnValue([routeSegments]);
             
             const source = BTS_SILOM_STATION.CHONG_NONSI;
             const destination = MRT_BLUE_STATION.LUMPHINI;
@@ -570,7 +570,7 @@ describe('FareService', () => {
                 fareType: FareType.BTS,
             }]
             ];
-            mocked(graphService.findAllRoutes).mockReturnValue(routeSegmentslist);
+            mocked(GraphService.findAllRoutes).mockReturnValue(routeSegmentslist);
             
             const source = BTS_SUKHUMVIT_STATION.MO_CHIT;
             const destination = BTS_SUKHUMVIT_STATION.HA_YEAK_LAT_PHRAO;
