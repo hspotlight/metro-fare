@@ -1,7 +1,9 @@
 import { LineType } from "../types";
 import { colors } from "../common/colors";
+import { DottedLineStyle } from "../types/styles/dottedLineStyle";
+import { StationIconStyle } from "../types/styles/StationIconStyle";
 
-export const getColorFromLineType = (lineType: LineType) => {
+export const getColorFromLineType = (lineType: LineType): colors => {
   switch(lineType) {
     case LineType.MRT_BLUE: return colors.mrtBlue;
     case LineType.BTS_SILOM: return colors.btsSilom;
@@ -12,7 +14,7 @@ export const getColorFromLineType = (lineType: LineType) => {
   }
 }
 
-export const getDottedLineStyle = (lineType: LineType) => {
+export const getDottedLineStyle = (lineType: LineType): DottedLineStyle => {
   switch (lineType) {
     case LineType.MRT_BLUE: return "mrt-blue-dotted-line";
     case LineType.BTS_SILOM: return "bts-silom-dotted-line";
@@ -23,7 +25,7 @@ export const getDottedLineStyle = (lineType: LineType) => {
   }
 };
 
-export const getStationIconStyle = (lineType: LineType) => {
+export const getStationIconStyle = (lineType: LineType): StationIconStyle => {
   switch (lineType) {
     case LineType.MRT_BLUE: return "mrt-blue-icon";
     case LineType.BTS_SILOM: return "bts-silom-icon";
@@ -38,7 +40,7 @@ export const getStationIconStyle = (lineType: LineType) => {
 export const getInterChangeLine = (
   currentLineType: LineType,
   prevLineType: LineType
-) => {
+): DottedLineStyle => {
   if (currentLineType === prevLineType) {
     return getDottedLineStyle(currentLineType);
   } else {
@@ -60,7 +62,7 @@ export const getInterChangeLine = (
 export const getInterChangeLineColor = (
   currentLineType: LineType,
   prevLineType: LineType
-) => {
+): colors => {
   if (currentLineType === prevLineType) {
     return getColorFromLineType(currentLineType);
   } else {

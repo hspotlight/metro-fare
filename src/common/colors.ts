@@ -8,4 +8,6 @@ export const colors = {
     sourceStation: '#3AAACF',
     destinationStation: '#F80012',
     interchangeStation: '#AAAAAA',
-};
+} as const;
+
+export type colors = (typeof colors)[keyof typeof colors]
