@@ -1,6 +1,6 @@
 import { LineType } from "../types";
 import { colors } from "../common/colors";
-import { DottedLineStyle } from "../types/styles/dottedLineStyle";
+import { DottedLineStyle } from "../types/styles/DottedLineStyle";
 import { StationIconStyle } from "../types/styles/StationIconStyle";
 
 export const getColorFromLineType = (lineType: LineType): colors => {
@@ -37,6 +37,7 @@ export const getStationIconStyle = (lineType: LineType): StationIconStyle => {
 };
 
 // TODO: rename and refactor
+// TODO: fix color ari->surasuk siam station icon color
 export const getInterChangeLine = (
   currentLineType: LineType,
   prevLineType: LineType
