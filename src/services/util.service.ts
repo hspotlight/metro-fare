@@ -41,27 +41,12 @@ export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {
     return FareType.MRT_BLUE
 };
 
-export const getStation = (searchStation: METRO_STATION): Station | null => {
-    let station = STATIONS.find(stationName => stationName.key === searchStation);
-    if (station) return station;
-
-    return null;
+export const getStation = (searchStation: METRO_STATION): Station | undefined => {
+    return STATIONS.find(stationName => stationName.key === searchStation);
 };
 
 export const getStationName = (station: Station, lang: string = 'en') => {
     return lang === 'en' ? station.nameEN : station.nameTH;
-}
-
-// TODO: cleanup and remove
-export const getStationsFromTravelRoute = (travelRoute: TravelRoute): Station[] => {
-    const stationKeys = getStationKeysFromTravelRoute(travelRoute);
-    return getAllStations(stationKeys);
-}
-
-// TODO: to cleanup and remove
-export const getStationsCount = (travelRoute: TravelRoute): number => {
-    const stationKeys = getStationKeysFromTravelRoute(travelRoute);
-    return stationKeys.length;
 }
 
 export const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION[] => {
@@ -86,5 +71,5 @@ export const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
 // MAP UTIL
 // TODO: add polyline
 export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
-    return stations.map((station) => station.position);
+    return stations.map(station => station.position);
 };

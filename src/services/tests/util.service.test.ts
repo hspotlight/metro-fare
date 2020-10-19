@@ -24,13 +24,13 @@ describe('Util Service', () => {
         it('should return bts bangwa station', () => {
             const station = getStation(BTS_SILOM_STATION.BANG_WA);
 
-            expect(station).not.toBeNull();
+            expect(station).not.toBeUndefined();
             expect(station?.key).toBe(BTS_SILOM_STATION.BANG_WA);
         });
         it('should return null if station key is not in the list', () => {
             const station = getStation('undefined' as METRO_STATION);
 
-            expect(station).toBeNull()
+            expect(station).toBeUndefined()
         });
     });
     describe('getPolyLineFromStations', () => {

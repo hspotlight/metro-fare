@@ -12,7 +12,7 @@ import { Station } from "../types";
 import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION } from "../common/mapConstants";
 import MapControl from "./map/MapControl";
 import StationMarker from "./map/StationMarker";
-import { getPolyLineFromStations, getStation, getStationsFromTravelRoute } from "../services/util.service";
+import { getAllStations, getPolyLineFromStations, getStation, getStationKeysFromTravelRoute } from "../services/util.service";
 import { TripContext } from "../contexts/TripProvider";
 import { MRT_BLUE, BTS_SILOM, BTS_SUKHUMVIT, ARL, BRT } from "../data";
 import { getColorFromLineType, getInterChangeLineColor } from "../services/ui-style.service";
@@ -182,7 +182,9 @@ const TravelRouteLayer = () => {
   if (!(source && destination)) {
     return null;
   }
-  const allStationsInRoute = getStationsFromTravelRoute(travelRoute);
+  const stationKeys = getStationKeysFromTravelRoute(travelRoute);
+  const allStationsInRoute = getAllStations(stationKeys);
+
   const intermediateStations = allStationsInRoute.filter((station) =>
     station.key !== source.key && station.key !== destination.key
   )
