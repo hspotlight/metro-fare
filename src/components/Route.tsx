@@ -3,8 +3,8 @@ import { TravelRoute, Station, LineType } from "../types";
 import { useTranslation } from "react-i18next";
 import {
   getStation,
+  getStationKeysFromTravelRoute,
   getStationName,
-  getStationsCount,
 } from "../services/util.service";
 import "../styles/Route.scss";
 import { getStationIconStyle } from "../services/ui-style.service";
@@ -22,8 +22,10 @@ const Route = ({
   const sourceStation = getStation(travelRoute.source);
   const destinationStation = getStation(travelRoute.destination);
 
+  const stationKeys = getStationKeysFromTravelRoute(travelRoute);
+  
   const intermediateStationCount =
-  sourceStation?.key === destinationStation?.key ? 0 : getStationsCount(travelRoute) - 2;
+  sourceStation?.key === destinationStation?.key ? 0 : stationKeys.length - 2;
 
   return (
     <div className={`route-block-container ${isActive ? "active": ""}`} onClick={onClick}>
