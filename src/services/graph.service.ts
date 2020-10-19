@@ -46,40 +46,6 @@ const addIntersectionsToGraph = (intersections: Intersection[], graph: any) => {
     });
 }
 
-// TODO: refactor remove
-const findRoute = (source: METRO_STATION, destination: METRO_STATION, graph: any): RouteSegment[] => {
-    const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
-    
-    const comparator = lowestHopsComparator;
-    const stationsToBeVisited = new PriorityQueue({ comparator });
-    stationsToBeVisited.push(new StationHop(source, [routeSegment]));
-
-    const visitedStations = Object.create({});
-    const isStationVisted = (currentStation: StationHop) => !Object.keys(visitedStations).includes(currentStation.station)
-
-    while (stationsToBeVisited.length > 0) {
-        const currentStation = stationsToBeVisited.pop() as StationHop;
-        
-        if (currentStation.station === destination) {
-            return currentStation.routeSegments;
-        }
-        
-        if (isStationVisted(currentStation)) {
-            visitedStations[currentStation.station] = true;
-
-            const nextStations: METRO_STATION[]  = graph[currentStation.station];
-
-            nextStations.forEach(nextStation => {
-                const routeSegments: RouteSegment[] = getNextStationRouteSegments(currentStation, nextStation);
-
-                const nextStationHop = new StationHop(nextStation, routeSegments);
-                stationsToBeVisited.push(nextStationHop);
-            });
-        }
-    }
-    return [];
-}
-
 const findAllRoutes = (source: METRO_STATION, destination: METRO_STATION, graph: any): RouteSegment[][] => {
     const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
     
@@ -127,7 +93,6 @@ const getNextStationRouteSegments = (currentStation: StationHop, nextStation: ME
 
 const GraphService = {
     createGraph,
-    findRoute,
     findAllRoutes,
     getNextStationRouteSegments
 }
