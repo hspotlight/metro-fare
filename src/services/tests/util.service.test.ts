@@ -189,5 +189,158 @@ describe('Util Service', () => {
             const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
             expect(fare).toBe(0);
         });
+        it('should return 19 if travel from CHARUN13 to ITSARAPHAP (short route)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    MRT_BLUE_STATION.CHARAN_13,
+                    MRT_BLUE_STATION.THAPHRA,
+                    MRT_BLUE_STATION.ITSARAPHAP,
+                ],
+                fareType: FareType.MRT_BLUE
+            };
+            const isTravelToSelf = false;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(19);
+        })
+        it('should return 19 if travel from CHARUN13 to ITSARAPHAP (long route)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    MRT_BLUE_STATION.CHARAN_13,
+                    MRT_BLUE_STATION.FAI_CHAI,
+                    MRT_BLUE_STATION.BANG_KHUN_NON,
+                    MRT_BLUE_STATION.BANG_YI_KHAN,
+                    MRT_BLUE_STATION.SIRINDHORN,
+                    MRT_BLUE_STATION.BANG_PHLAT,
+                    MRT_BLUE_STATION.BANG_O,
+                    MRT_BLUE_STATION.BANG_PHO,
+                    MRT_BLUE_STATION.TAO_POON,
+                    MRT_BLUE_STATION.BANG_SUE,
+                    MRT_BLUE_STATION.KAMPHAENG_PHET,
+                    MRT_BLUE_STATION.CHATUCHAK_PARK,
+                    MRT_BLUE_STATION.PHAHON_YOTHIN,
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                    MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
+                    MRT_BLUE_STATION.PHRA_RAM_9,
+                    MRT_BLUE_STATION.PHETCHABURI,
+                    MRT_BLUE_STATION.SUKHUMVIT,
+                    MRT_BLUE_STATION.QUEEN_SIRIKIT_NATIONAL_CONVENTION_CENTRE,
+                    MRT_BLUE_STATION.KHLONG_TOEI,
+                    MRT_BLUE_STATION.LUMPHINI,
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.HUA_LAMPHONG,
+                    MRT_BLUE_STATION.WAT_MANGKON,
+                    MRT_BLUE_STATION.SAM_YOT,
+                    MRT_BLUE_STATION.SANAM_CHAI,
+                    MRT_BLUE_STATION.ITSARAPHAP,
+                ],
+                fareType: FareType.MRT_BLUE
+            };
+            const isTravelToSelf = false;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(19);
+        })
+        it('should return 19 if travel from BANG PHAI to ITSARAPHAP (short route)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    MRT_BLUE_STATION.BANG_PHAI,
+                    MRT_BLUE_STATION.THAPHRA,
+                    MRT_BLUE_STATION.ITSARAPHAP,
+                ],
+                fareType: FareType.MRT_BLUE
+            };
+            const isTravelToSelf = false;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(19);
+        })
+        it('should return 19 if travel from BANG PHAI to ITSARAPHAP (long route)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    MRT_BLUE_STATION.BANG_PHAI,
+                    MRT_BLUE_STATION.THAPHRA,
+                    MRT_BLUE_STATION.CHARAN_13,
+                    MRT_BLUE_STATION.FAI_CHAI,
+                    MRT_BLUE_STATION.BANG_KHUN_NON,
+                    MRT_BLUE_STATION.BANG_YI_KHAN,
+                    MRT_BLUE_STATION.SIRINDHORN,
+                    MRT_BLUE_STATION.BANG_PHLAT,
+                    MRT_BLUE_STATION.BANG_O,
+                    MRT_BLUE_STATION.BANG_PHO,
+                    MRT_BLUE_STATION.TAO_POON,
+                    MRT_BLUE_STATION.BANG_SUE,
+                    MRT_BLUE_STATION.KAMPHAENG_PHET,
+                    MRT_BLUE_STATION.CHATUCHAK_PARK,
+                    MRT_BLUE_STATION.PHAHON_YOTHIN,
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                    MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
+                    MRT_BLUE_STATION.PHRA_RAM_9,
+                    MRT_BLUE_STATION.PHETCHABURI,
+                    MRT_BLUE_STATION.SUKHUMVIT,
+                    MRT_BLUE_STATION.QUEEN_SIRIKIT_NATIONAL_CONVENTION_CENTRE,
+                    MRT_BLUE_STATION.KHLONG_TOEI,
+                    MRT_BLUE_STATION.LUMPHINI,
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.HUA_LAMPHONG,
+                    MRT_BLUE_STATION.WAT_MANGKON,
+                    MRT_BLUE_STATION.SAM_YOT,
+                    MRT_BLUE_STATION.SANAM_CHAI,
+                    MRT_BLUE_STATION.ITSARAPHAP,
+                ],
+                fareType: FareType.MRT_BLUE
+            };
+            const isTravelToSelf = false;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(19);
+        })
+        it('should return 19 if travel from ITSARAPHAP to BANG PHAI (long route)', () => {
+            const routeSegment: RouteSegment = {
+                route: [
+                    MRT_BLUE_STATION.ITSARAPHAP,
+                    MRT_BLUE_STATION.SANAM_CHAI,
+                    MRT_BLUE_STATION.SAM_YOT,
+                    MRT_BLUE_STATION.WAT_MANGKON,
+                    MRT_BLUE_STATION.HUA_LAMPHONG,
+                    MRT_BLUE_STATION.SAM_YAN,
+                    MRT_BLUE_STATION.SILOM,
+                    MRT_BLUE_STATION.LUMPHINI,
+                    MRT_BLUE_STATION.KHLONG_TOEI,
+                    MRT_BLUE_STATION.QUEEN_SIRIKIT_NATIONAL_CONVENTION_CENTRE,
+                    MRT_BLUE_STATION.SUKHUMVIT,
+                    MRT_BLUE_STATION.PHETCHABURI,
+                    MRT_BLUE_STATION.PHRA_RAM_9,
+                    MRT_BLUE_STATION.THAILAND_CULTURAL_CENTRE,
+                    MRT_BLUE_STATION.HUAI_KHWANG,
+                    MRT_BLUE_STATION.SUTTHISAN,
+                    MRT_BLUE_STATION.RATCHADAPHISEK,
+                    MRT_BLUE_STATION.LAT_PHRAO,
+                    MRT_BLUE_STATION.PHAHON_YOTHIN,
+                    MRT_BLUE_STATION.CHATUCHAK_PARK,
+                    MRT_BLUE_STATION.KAMPHAENG_PHET,
+                    MRT_BLUE_STATION.BANG_SUE,
+                    MRT_BLUE_STATION.TAO_POON,
+                    MRT_BLUE_STATION.BANG_PHO,
+                    MRT_BLUE_STATION.BANG_O,
+                    MRT_BLUE_STATION.BANG_PHLAT,
+                    MRT_BLUE_STATION.SIRINDHORN,
+                    MRT_BLUE_STATION.BANG_YI_KHAN,
+                    MRT_BLUE_STATION.BANG_KHUN_NON,
+                    MRT_BLUE_STATION.FAI_CHAI,
+                    MRT_BLUE_STATION.CHARAN_13,
+                    MRT_BLUE_STATION.THAPHRA,
+                    MRT_BLUE_STATION.BANG_PHAI
+                ],
+                fareType: FareType.MRT_BLUE
+            };
+            const isTravelToSelf = false;
+            const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+            expect(fare).toBe(19);
+        })
     });
 })

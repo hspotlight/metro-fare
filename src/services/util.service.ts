@@ -5,11 +5,12 @@ import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
 import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BtsSukhumvitLine";
 import { LatLngTuple } from "leaflet";
 import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
+import { MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
 
 export const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTravelToSelf: boolean): number => {
     const fareTable: number[] = METRO_FARE[routeSegment.fareType];
 
-    const hops = routeSegment.route.length - 1;
+    const hops = calculateHop(routeSegment);
 
     const station = routeSegment.route[0];
     if (!isTravelToSelf && hops === 0 && (isInterchangeStation(station) || isExtensionBorderStation(station))) {
@@ -106,3 +107,35 @@ export const getAllStations = (stationKeys: METRO_STATION[]): Station[] => {
 export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
     return stations.map((station) => station.position);
 };
+
+function calculateHop(routeSegment: RouteSegment) {
+    if (routeSegment.fareType !== FareType.MRT_BLUE) return routeSegment.route.length - 1;
+
+    let hops = routeSegment.route.length - 1;
+    const station = routeSegment.route[0];
+    const lastStation = routeSegment.route[hops];
+    const indexA = MRT_BLUE_CYCLE.findIndex(s => s === station) 
+    const indexB = MRT_BLUE_CYCLE.findIndex(s => s === lastStation)
+    const isInTheRing = (index: number) => index !== -1
+    const getHopFromCycleStation = (indexA: number, indexB: number) => 
+        Math.min(
+            Math.abs(indexA - indexB),
+            MRT_BLUE_CYCLE.length - Math.abs(indexA - indexB)
+        );
+    const getHopFromTailStation = (indexA: number, indexB: number) => 
+        Math.abs(indexA - indexB)
+    if (isInTheRing(indexA) && isInTheRing(indexB)) {
+        hops = getHopFromCycleStation(indexA, indexB)
+    } 
+    else if (isInTheRing(indexA) && !isInTheRing(indexB)) {
+        const thapraIndex = 0
+        hops = getHopFromTailStation(thapraIndex, MRT_BLUE_TAIL.indexOf(lastStation))
+            + getHopFromCycleStation(thapraIndex, MRT_BLUE_CYCLE.indexOf(station))
+    }
+     else if (!isInTheRing(indexA) && isInTheRing(indexB)) {
+        const thapraIndex = 0
+        hops = getHopFromTailStation(thapraIndex, MRT_BLUE_TAIL.indexOf(station))
+            + getHopFromCycleStation(thapraIndex, MRT_BLUE_CYCLE.indexOf(lastStation))
+    }
+    return hops
+}
