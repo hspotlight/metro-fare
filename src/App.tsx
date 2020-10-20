@@ -3,7 +3,7 @@ import {I18nextProvider} from 'react-i18next';
 import i18n from './contexts/i18n';
 import TripProvider from "./contexts/TripProvider";
 import RouteFinder from "./components/RouteFinder";
-import { MetroMap } from "./components/MetroMap";
+import { MetroMap } from "./components/map/MetroMap";
 import "./styles/App.scss";
 import MapProvider from "./contexts/MapProvider";
 

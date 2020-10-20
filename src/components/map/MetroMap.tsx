@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
-import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION } from "../common/mapConstants";
-import MapControl from "./map/MapControl";
-import { TripContext } from "../contexts/TripProvider";
-import { MapContext } from "../contexts/MapProvider";
-import { MetroLineLayers } from "./map/MetroLineLayers";
-import { TravelRouteLayer } from "./map/TravelRouteLayer";
+import { DEFAULT_MAP_CENTER, DUMMY_MAP_POSITION } from "../../common/mapConstants";
+import MapControl from "./MapControl";
+import { TripContext } from "../../contexts/TripProvider";
+import { MapContext } from "../../contexts/MapProvider";
+import { MetroLineLayers } from "./MetroLineLayers";
+import { TravelRouteLayer } from "./TravelRouteLayer";
 
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
