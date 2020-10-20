@@ -1,4 +1,4 @@
-import { Station, LineType, MRT_BLUE_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, ARL_STATION, BRT_STATION } from "../types";
+import { Station, LineType, MRT_BLUE_STATION, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, ARL_STATION, BRT_STATION, MRT_PURPLE_STATION } from "../types";
 
 export const BTS_SUKHUMVIT: Station[] = [
     { lineType: LineType.BTS_SUKHUMVIT, key: BTS_SUKHUMVIT_STATION.WAT_PHRA_SRI_MAHATHAT, nameEN: "Wat Phra Sri Mahathat", nameTH: "วัดพระศรีมหาธาตุ", position: [13.875241,100.596737] },
@@ -70,7 +70,7 @@ export const MRT_BLUE: Station[] = [
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_PHLAT, nameEN: "Bang Phlat", nameTH: "บางพลัด", position: [13.792322,100.504897] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_O, nameEN: "Bang O", nameTH: "บางอ้อ", position: [13.798907,100.509790] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_PHO, nameEN: "Bang Pho", nameTH: "บางโพ", position: [13.806387,100.521049] },
-    { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.TAO_POON, nameEN: "Tao Poon", nameTH: "เตาปูน", position: [13.806106,100.531158] },
+    { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.TAO_POON, nameEN: "Tao Poon", nameTH: "เตาปูน", position: [13.806139,100.530752] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.BANG_SUE, nameEN: "Bang Sue", nameTH: "บางซื่อ", position: [13.802664,100.540289] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.KAMPHAENG_PHET, nameEN: "Kamphaeng Phet", nameTH: "กำแพงเพชร", position: [13.797936,100.547939] },
     { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.CHATUCHAK_PARK, nameEN: "Chatuchak Park", nameTH: "สวนจตุจักร", position: [13.802920,100.553354] },
@@ -127,6 +127,25 @@ export const BRT: Station[] = [
     { lineType: LineType.BRT, key: BRT_STATION.RAMA_III_BRIDGE, nameEN: "Rama III Bridge", nameTH: "สะพานพระราม 3", position: [13.693939,100.500065] },
     { lineType: LineType.BRT, key: BRT_STATION.RATCHAPRUEK, nameEN: "Ratchapruek", nameTH: "ราชพฤกษ์", position: [13.715876,100.478942] },
 ];
+
+export const MRT_PURPLE: Station[] = [
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.KHLONG_BANG_PHAI, nameEN: "Khlong Bang Phai", nameTH: "คลองบางไผ่", position: [13.892447,100.408225] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.TALAD_BANG_YAI, nameEN: "Talad Bang Yai", nameTH: "ตลาดบางใหญ่", position: [13.881028,100.409291] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.SAM_YAEK_BANG_YAI, nameEN: "Sam Yaek Bang Yai", nameTH: "สามแยกบางใหญ่", position: [13.874684,100.419358] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.BANG_PHLU, nameEN: "Bang Phlu", nameTH: "บางพลู", position: [13.875757,100.433802] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.BANG_RAK_YAI, nameEN: "Bang Rak Yai", nameTH: "บางรักใหญ่", position: [13.876636,100.444928] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.BANG_RAK_NOI_THA_IT, nameEN: "Bang Rak Noi Tha It", nameTH: "บางรักน้อยท่าอิฐ", position: [13.874808,100.455973] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.SAI_MA, nameEN: "Sai Ma", nameTH: "ไทรม้า", position: [13.870515,100.466693] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.PHRA_NANG_KLAO_BRIDGE, nameEN: "Phra Nang klao Bridge", nameTH: "สะพานพระนั่งเกล้า", position: [13.870305,100.480141] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.YAEK_NONTHABURI_1, nameEN: "Yaek Nonthaburi 1", nameTH: "แยกนนทบุรี 1", position: [13.865973,100.494076] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.BANG_KRASO, nameEN: "Bang Kraso", nameTH: "บางกระสอ", position: [13.861666,100.504639] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.NONTHABURI_CIVIC_CENTER, nameEN: "Nonthaburi Civic Center", nameTH: "ศูนย์ราชการนนทบุรี", position: [13.860222,100.513078] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.MINISTRY_OF_PUBLIC_HEALTH, nameEN: "Ministry of Public Health", nameTH: "กระทรวงสาธารณสุข", position: [13.848557,100.514710] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.YAEK_TIWANON, nameEN: "Yaek Tiwanon", nameTH: "แยกติวานนท์", position: [13.839524,100.514953] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.WONG_SAWANG, nameEN: "Wong Sawang", nameTH: "วงศ์สว่าง", position: [13.829857,100.526497] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.BANG_SON, nameEN: "Bang Son", nameTH: "บางซ่อน", position: [13.820093,100.532459] },
+    { lineType: LineType.MRT_PURPLE, key: MRT_PURPLE_STATION.TAO_POON, nameEN: "Tao Poon", nameTH: "เตาปูน", position: [13.806139,100.530752] }
+]
 
 export const STATIONS: Station[] = [
     ...BTS_SILOM,
