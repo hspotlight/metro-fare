@@ -4,21 +4,44 @@ import { render } from "@testing-library/react";
 import SelectedRoute from "../SelectedRoute";
 import { MRT_BLUE_STATION, LineType, BTS_SUKHUMVIT_STATION, TravelRoute, Station, BTS_SILOM_STATION } from "../../types";
 
-let travelRoute: TravelRoute;
-let station: Station;
+const travelRoute: TravelRoute = {
+  route: [
+    {
+      route: [MRT_BLUE_STATION.SILOM, MRT_BLUE_STATION.LUMPHINI],
+      lineType: LineType.MRT_BLUE,
+      fare: 0
+    },
+    {
+      route: [BTS_SUKHUMVIT_STATION.ARI, BTS_SUKHUMVIT_STATION.ASOK],
+      lineType: LineType.BTS_SUKHUMVIT,
+      fare: 0
+    }
+  ],
+  fare: 0,
+  source: MRT_BLUE_STATION.SILOM,
+  destination: MRT_BLUE_STATION.LUMPHINI
+};
+const station: Station = {
+  lineType: LineType.MRT_BLUE,
+  key: MRT_BLUE_STATION.BANG_WA,
+  nameEN: 'english',
+  nameTH: 'thai',
+  isNotAvailable: false,
+  position: [0, 0]
+};  
 
-import * as uiservice from "../../services/ui-style.service";
+import * as uiService from "../../services/ui-style.service";
 jest.mock("../../services/ui-style.service");
 
-const mockGetInterChangeLine = uiservice.getInterChangeLine as jest.MockedFunction<typeof uiservice.getInterChangeLine>;
-const mockGetDottedLineStyle = uiservice.getDottedLineStyle as jest.MockedFunction<typeof uiservice.getDottedLineStyle>;
-const mockGetStationIconStyle = uiservice.getStationIconStyle as jest.MockedFunction<typeof uiservice.getStationIconStyle>;
+const mockGetInterChangeLine = uiService.getInterChangeLine as jest.MockedFunction<typeof uiService.getInterChangeLine>;
+const mockGetDottedLineStyle = uiService.getDottedLineStyle as jest.MockedFunction<typeof uiService.getDottedLineStyle>;
+const mockGetStationIconStyle = uiService.getStationIconStyle as jest.MockedFunction<typeof uiService.getStationIconStyle>;
 
-import * as service from "../../services/util.service";
+import * as utilService from "../../services/util.service";
 jest.mock("../../services/util.service");
 
-const mockGetStation = service.getStation as jest.MockedFunction<typeof service.getStation>;
-const mockGetStationName = service.getStationName as jest.MockedFunction<typeof service.getStationName>;
+const mockGetStation = utilService.getStation as jest.MockedFunction<typeof utilService.getStation>;
+const mockGetStationName = utilService.getStationName as jest.MockedFunction<typeof utilService.getStationName>;
 
 let mockedTranslate = jest.fn();
 let mockedChangeLanguage = jest.fn();
@@ -35,45 +58,23 @@ jest.mock("react-i18next", () => {
   }
 });
 
-beforeEach(() => {
-  jest.clearAllMocks();
-  station = {
-    lineType: LineType.MRT_BLUE,
-    key: MRT_BLUE_STATION.BANG_WA,
-    nameEN: 'english',
-    nameTH: 'thai',
-    isNotAvailable: false,
-    position: [0, 0]
-  };
-  travelRoute = {
-    route: [
-      {
-        route: [MRT_BLUE_STATION.SILOM, MRT_BLUE_STATION.LUMPHINI],
-        lineType: LineType.MRT_BLUE,
-        fare: 0
-      },
-      {
-        route: [BTS_SUKHUMVIT_STATION.ARI, BTS_SUKHUMVIT_STATION.ASOK],
-        lineType: LineType.BTS_SUKHUMVIT,
-        fare: 0
-      }
-    ],
-    fare: 0,
-    source: MRT_BLUE_STATION.SILOM,
-    destination: MRT_BLUE_STATION.LUMPHINI
-  };
-  mockGetStation.mockReturnValue(station);
-});
-
 describe("<SelectedRoute />", () => {
-  test("should render the component without errors", async () => {
-    render(<SelectedRoute travelRoute={travelRoute}/>);;
+  beforeEach(() => {
+    jest.clearAllMocks();
+    mockGetStation.mockReturnValue(station);
   });
 
-  test("should show the fare and translated text", async () => {
+  it("should render the component without errors", async () => {
+    render(<SelectedRoute travelRoute={travelRoute}/>);
+  });
+
+  it("should show the fare and translated text", async () => {
     mockedTranslate.mockReturnValue("Fare");
-    travelRoute.fare = 150;
-    const { findByTestId } = render(<SelectedRoute travelRoute={travelRoute}/>);
+    const travelRouteWith150Fare = {
+      ...travelRoute,
+      fare: 150
+    }
+    const { findByTestId } = render(<SelectedRoute travelRoute={travelRouteWith150Fare}/>);
 
     const component =  await findByTestId("selected-route-fare");
 
@@ -81,7 +82,7 @@ describe("<SelectedRoute />", () => {
     expect(component).toHaveTextContent("Fare: 150");
   });
 
-  test("should show the container with correct classname", async () => {
+  it("should show the container with correct classname", async () => {
     const { findByTestId } = render(<SelectedRoute travelRoute={travelRoute}/>);
 
     const component =  await findByTestId("selected-route-container");
@@ -89,14 +90,17 @@ describe("<SelectedRoute />", () => {
     expect(component).toHaveClass("travel-route-container");
   });
 
-  test("should call getInterChangeLine if there are more than 2 route segments", async () => {
-    travelRoute.route = [
-      { route: [], lineType: LineType.MRT_BLUE, fare: 0},
-      { route: [], lineType: LineType.BTS_SUKHUMVIT, fare: 0},
-      { route: [], lineType: LineType.BTS_SILOM, fare: 0},
-    ]
+  it("should call getInterChangeLine if there are more than 2 route segments", async () => {
+    const travelRouteWith3Routes = {
+      ...travelRoute,
+      route: [
+        { route: [], lineType: LineType.MRT_BLUE, fare: 0},
+        { route: [], lineType: LineType.BTS_SUKHUMVIT, fare: 0},
+        { route: [], lineType: LineType.BTS_SILOM, fare: 0},
+      ]
+    }
     mockGetInterChangeLine.mockReturnValueOnce("arl-dotted-line").mockReturnValueOnce("interchange-dotted-line");
-    const { findAllByTestId } = render(<SelectedRoute travelRoute={travelRoute}/>);
+    const { findAllByTestId } = render(<SelectedRoute travelRoute={travelRouteWith3Routes}/>);
 
     const components =  await findAllByTestId("selected-route-interchange-dotted-line-style");
 
@@ -107,9 +111,12 @@ describe("<SelectedRoute />", () => {
     expect(mockGetInterChangeLine.mock.calls[1]).toEqual([LineType.BTS_SILOM, LineType.BTS_SUKHUMVIT]);
   });
 
-test("should not have stations if station is not available", async () => {
-    station.isNotAvailable = true;
-    mockGetStation.mockReturnValue(station);
+  it("should not have stations if station is not available", async () => {
+    const notAvailableStation = {
+      ...station,
+      isNotAvailable: true
+    };
+    mockGetStation.mockReturnValue(notAvailableStation);
     const { queryByTestId } = render(<SelectedRoute travelRoute={travelRoute}/>);
 
     const component =  await queryByTestId("selected-route-station");
@@ -117,15 +124,20 @@ test("should not have stations if station is not available", async () => {
     expect(component).toBeNull();
   });
 
-  test("should have station names correct if station is available", async () => {
-    travelRoute.route = [
-      { route: [BTS_SILOM_STATION.SALA_DAENG, BTS_SILOM_STATION.SIAM], lineType: LineType.MRT_BLUE, fare: 0},
-    ]
-    station.isNotAvailable = false;
-    station.key = BTS_SILOM_STATION.SIAM;
-    mockGetStation.mockReturnValue(station);
+  it("should have station names correct if station is available", async () => {
+    const travelRouteWithOneRoute = {
+      ...travelRoute,
+      route: [
+        { route: [BTS_SILOM_STATION.SALA_DAENG, BTS_SILOM_STATION.SIAM], lineType: LineType.MRT_BLUE, fare: 0},
+      ]
+    }
+    const stationWithSiamKey = {
+      ...station,
+      key: BTS_SILOM_STATION.SIAM
+    };
+    mockGetStation.mockReturnValue(stationWithSiamKey);
     mockGetStationName.mockReturnValueOnce("station1").mockReturnValueOnce("station2");
-    const { getAllByTestId } = render(<SelectedRoute travelRoute={travelRoute}/>);
+    const { getAllByTestId } = render(<SelectedRoute travelRoute={travelRouteWithOneRoute}/>);
 
     const components = await getAllByTestId("selected-route-station-name");
 
@@ -136,7 +148,7 @@ test("should not have stations if station is not available", async () => {
     expect(components[1]).toHaveTextContent(`(${BTS_SILOM_STATION.SIAM}) station2`);
   });
 
-  test("should use dotted line style from ui service get dotted line style when the index is not zero", async () => {
+  it("should use dotted line style from ui service get dotted line style when the index is not zero", async () => {
     mockGetDottedLineStyle.mockReturnValue("bts-silom-dotted-line");
     const { getAllByTestId } = render(<SelectedRoute travelRoute={travelRoute}/>);
 
@@ -146,18 +158,21 @@ test("should not have stations if station is not available", async () => {
     expect(components[0]).toHaveClass("bts-silom-dotted-line");
   });
 
-  test("should not call dotted line style if there is only one station", async () => {
-    travelRoute.route = [
-      { route: [ BTS_SILOM_STATION.SIAM ], lineType: LineType.MRT_BLUE, fare: 0},
-    ]
-    const { queryByAltText } = render(<SelectedRoute travelRoute={travelRoute}/>);
+  it("should not call dotted line style if there is only one station", async () => {
+    const travelRouteWithOneRouteAndOneStation = {
+      ...travelRoute,
+      route: [
+        { route: [ BTS_SILOM_STATION.SIAM ], lineType: LineType.MRT_BLUE, fare: 0},
+      ]
+    }
+    const { queryByAltText } = render(<SelectedRoute travelRoute={travelRouteWithOneRouteAndOneStation}/>);
 
     const component = await queryByAltText("selected-route-station-dotted-line-style");
 
     expect(component).toBeNull();
   });
 
-  test("should use station icon style from ui service", async () => {
+  it("should use station icon style from ui service", async () => {
     mockGetStationIconStyle.mockReturnValue("bts-silom-icon");
     const { getAllByTestId } = render(<SelectedRoute travelRoute={travelRoute}/>);
 

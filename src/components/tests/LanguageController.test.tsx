@@ -18,12 +18,12 @@ jest.mock("react-i18next", () => {
   }
 });
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-
 describe("<LanguageController />", () => {
-  test("should have correct class name with th language", async () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should have correct class name with th language", async () => {
     mockedLanguage = "th";
     const { findByTestId } = render(<LanguageController />);
 
@@ -32,7 +32,7 @@ describe("<LanguageController />", () => {
     expect(controller).toHaveClass("flag th language-active");
   });
 
-  test("should have correct class name with en language", async () => {
+  it("should have correct class name with en language", async () => {
     mockedLanguage = "en";
     const { findByTestId } = render(<LanguageController />);
     
@@ -41,7 +41,7 @@ describe("<LanguageController />", () => {
     expect(controller).toHaveClass("flag en language-active");
   });
 
-  test("should call change language with th when click th", async () => {
+  it("should call change language with th when click th", async () => {
     const { findByTestId } = render(<LanguageController />);
     const controller = await findByTestId("language-controller-th");
 
@@ -50,7 +50,7 @@ describe("<LanguageController />", () => {
     expect(mockedChangeLanguage.mock.calls[0][0]).toBe("th");
   });
 
-  test("should call change language with en when click en", async () => {
+  it("should call change language with en when click en", async () => {
     const { findByTestId } = render(<LanguageController />);
     const controller =  await findByTestId("language-controller-en");
 
