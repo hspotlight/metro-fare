@@ -22,6 +22,7 @@ export const emptyTravelRoute: TravelRoute = {
 const initialTripContext = {
   trip: unfilledTrip,
   travelRoute: emptyTravelRoute,
+  setJourney: (a: METRO_STATION, b: METRO_STATION) => {},
   setSource: (_: METRO_STATION) => {},
   setDestination: (_: METRO_STATION) => {},
   setTravelRoute: (_: TravelRoute) => {},
@@ -51,6 +52,13 @@ const TripProvider = ({ children }: { children: any }) => {
     });
   };
 
+  const setJourney = (departure: METRO_STATION, arrival: METRO_STATION) => {
+    setTrip({
+      source: departure,
+      destination: arrival
+    })
+  }
+
   const resetTrip = () => {
     setTrip(unfilledTrip);
   };
@@ -64,6 +72,7 @@ const TripProvider = ({ children }: { children: any }) => {
       value={{
         trip,
         travelRoute,
+        setJourney,
         setSource,
         setDestination,
         resetTrip,

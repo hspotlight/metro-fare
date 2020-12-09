@@ -10,8 +10,14 @@
     "fare": "ค่าโดยสาร",
     "intermediateStationText": "{{count}} สถานี"
   },
+  "station": {
+    "station": "สถานี"
+  },
   "priceSymbol": {
     "baht": "฿"
+  },
+  "currency": {
+    "baht": "บาท"
   },
   "findRouteMethod": {
     "method": "วิธีเดินทาง",
