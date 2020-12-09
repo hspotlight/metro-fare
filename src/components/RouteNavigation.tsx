@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { useTripContext } from "../contexts/TripProvider";
 import "../styles/RouteNavigation.scss";
 import StationSelectInput from "./StationSelectInput";
+import { Link } from "react-router-dom";
 
 const RouteNavigation = () => {
   const { t: translate } = useTranslation();
@@ -16,14 +17,15 @@ const RouteNavigation = () => {
     setFormInValid(isFormValid);
   }, [trip]);
 
-  const navigateToRoutesPage = () => {
-    console.log("navigate to Routes page");
-  };
-
   return (
     <div className="route-navigation">
       <div className="logo-container">
-        <img height="100" width="100" src="metro-fare-logo.jpg" alt="Metro Fare logo" />
+        <img
+          height="100"
+          width="100"
+          src="metro-fare-logo.jpg"
+          alt="Metro Fare logo"
+        />
       </div>
       <div>
         <StationSelectInput
@@ -42,15 +44,28 @@ const RouteNavigation = () => {
         <Button variant="contained" color="secondary" onClick={resetTrip}>
           {translate("common.reset")}
         </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={navigateToRoutesPage}
-          style={{ marginLeft: "20px" }}
-          disabled={isFormInvalid}
-        >
-          {translate("common.search")}
-        </Button>
+
+        {isFormInvalid ? (
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ marginLeft: "20px" }}
+            disabled={true}
+          >
+            {translate("common.search")}
+          </Button>
+        ) : (
+          <Link to={`/routes?departure=${trip.source}&arrival=${trip.destination}`}>
+            <Button
+              variant="contained"
+              color="primary"
+              style={{ marginLeft: "20px" }}
+              disabled={false}
+            >
+              {translate("common.search")}
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );
