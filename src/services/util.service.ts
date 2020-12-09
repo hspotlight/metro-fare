@@ -28,6 +28,18 @@ export const getLineTypeFromFareType = (fareType: FareType): LineType => {
         default: return LineType.MRT_BLUE;
     }
 };
+export const getLineTypeLabel = (lineType: LineType): string => {
+    switch (lineType) {
+        case LineType.BRT: return 'BTS';
+        case LineType.ARL: return 'ARL';
+        case LineType.BTS: return 'BTS';
+        case LineType.BTS_SILOM: return 'BTS';
+        case LineType.BTS_SUKHUMVIT: return 'BTS';
+        case LineType.MRT_BLUE: return 'MRT';
+        case LineType.MRT_PURPLE: return 'MRT';
+        default: return 'MRT';
+    }
+};
 
 // TODO: rename either station id or station key
 export const getFareTypeFromStationId = (station: METRO_STATION): FareType => {

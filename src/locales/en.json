@@ -10,8 +10,14 @@
     "fare": "Fare",
     "intermediateStationText": "{{count}} stations"
   },
+  "station": {
+    "station": "station(s)"
+  },
   "priceSymbol": {
     "baht": "฿"
+  },
+  "currency": {
+    "baht": "Baht"
   },
   "findRouteMethod": {
     "method": "Method",
