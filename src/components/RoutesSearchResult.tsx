@@ -4,9 +4,11 @@ import FareService from "../services/fare.service";
 import { TravelRoute } from "../types";
 import RouteFromTo from "./RouteFromTo";
 import RouteInfoCard from "./RouteInfoCard";
+import { useHistory } from 'react-router-dom'
 
 const RoutesSearchResult = () => {
-  const { trip } = useTripContext();
+  const history = useHistory()
+  const { trip, setTravelRoute } = useTripContext();
   const [travelRoutes, setTravelRoutes] = useState<TravelRoute[]>([])
 
   useEffect(() => {
@@ -19,7 +21,8 @@ const RoutesSearchResult = () => {
   }, [trip])
 
   const handleViewRouteDetail = (travelRoute: TravelRoute) => {
-    console.log('x', travelRoute)
+    setTravelRoute(travelRoute)
+    history.push('route-detail')
   }
 
   return (
@@ -27,7 +30,6 @@ const RoutesSearchResult = () => {
       <RouteFromTo departure={trip.source} arrival={trip.destination} />
       {travelRoutes.length > 0 &&
         travelRoutes.map((travelRoute, index) => {
-          console.log(travelRoute)
           return <RouteInfoCard key={index} travelRoute={travelRoute} title={'Route ' + (index + 1)} onClick={handleViewRouteDetail} />
         })
       }

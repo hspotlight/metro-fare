@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import HeaderBar from "../components/HeaderBar";
+import RouteDetail from "../components/RouteDetail";
 import RouteNavigation from "../components/RouteNavigation";
 import RoutesSearchResult from "../components/RoutesSearchResult";
 
@@ -25,11 +26,19 @@ const RoutesPage = () => (
   </div>
 );
 
+const RouteDetailPage = () => (
+  <div style={pageWithHeaderStyle}>
+    <HeaderBar title={"Route Detail"} backButton />
+    <RouteDetail />
+  </div>
+);
+
 export const WebRouter = () => {
   return (
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/routes" component={RoutesPage} />
+      <Route path="/route-detail" component={RouteDetailPage} />
     </Switch>
   );
 };

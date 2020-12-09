@@ -1,0 +1,10 @@
+.route-detail {
+    .selected-route {
+        width: calc(100% - 40px);
+        margin: 20px 10px 0 10px;
+        padding: 5px 10px;
+        font-size: 16px;
+        border: 1px solid rgba(0, 0, 0, .5);
+        border-radius: 8px;
+    }
+}
