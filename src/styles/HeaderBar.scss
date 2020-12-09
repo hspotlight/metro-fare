@@ -1,11 +1,22 @@
 .header-bar {
-  align-self: flex-start;
-  align-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 50px;
   line-height: 50px;
   margin: 0px 10px;
-  font-size: 24px;
   width: calc(100% - 20px);
-  text-align: center;
   border-bottom: 3px solid #1E3A8D;
+
+  .back-button {
+    position: absolute;
+    left: 20px;
+    font-size: 20px;
+  }
+
+  .header-title {
+    align-self: center;
+    text-align: center;
+    font-size: 24px;
+  }
 }
