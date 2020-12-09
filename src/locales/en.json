@@ -5,8 +5,8 @@
     "selectedRoute": "Selected Route"
   },
   "route": {
-    "source": "Source",
-    "destination": "Destination",
+    "source": "Departure station",
+    "destination": "Arrival station",
     "fare": "Fare",
     "intermediateStationText": "{{count}} stations"
   },

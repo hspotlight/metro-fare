@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import { METRO_STATION } from "../types/MetroStation";
 import { TravelRoute } from "../types";
 
@@ -30,6 +30,8 @@ const initialTripContext = {
 };
 
 export const TripContext = createContext(initialTripContext);
+
+export const useTripContext = () => useContext(TripContext);
 
 const TripProvider = ({ children }: { children: any }) => {
   const [trip, setTrip] = useState<Trip>(unfilledTrip);
