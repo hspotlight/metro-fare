@@ -20,7 +20,7 @@ const HomePage = () => (
 
 const RoutesPage = () => (
   <div style={pageWithHeaderStyle}>
-    <HeaderBar title={"Routes"} backButton="/" />
+    <HeaderBar title={"Routes"} backButton />
     <RoutesSearchResult />
   </div>
 );
