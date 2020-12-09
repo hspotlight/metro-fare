@@ -1,6 +1,14 @@
 .route-navigation {
+    align-self: flex-start;
+    padding-top: 100px;
     padding-left: 25px;
     padding-right: 25px;
+
+    .logo-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
 
     .action-button-group {
         margin-top: 25px;

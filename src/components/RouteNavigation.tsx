@@ -22,6 +22,9 @@ const RouteNavigation = () => {
 
   return (
     <div className="route-navigation">
+      <div className="logo-container">
+        <img height="100" width="100" src="metro-fare-logo.jpg" alt="Metro Fare logo" />
+      </div>
       <div>
         <StationSelectInput
           title={translate("route.source")}
