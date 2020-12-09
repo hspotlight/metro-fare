@@ -1,8 +1,25 @@
 import React from "react";
-import '../styles/HeaderBar.scss';
+import { Link } from "react-router-dom";
+import "../styles/HeaderBar.scss";
 
-const HeaderBar = ({ title }: { title: string }) => {
-  return <div className="header-bar">{title}</div>;
+type HeaderBarProps = {
+  title: string;
+  backButton?: string;
+};
+
+const HeaderBar = ({ title, backButton }: HeaderBarProps) => {
+  return (
+    <div className="header-bar">
+      {backButton && (
+        <div className="back-button">
+          <Link to={backButton}>
+            <i className="fa fa-chevron-left" aria-hidden="true" style={{color: 'black'}} />
+          </Link>
+        </div>
+      )}
+      <div className="header-title">{title}</div>
+    </div>
+  );
 };
 
 export default HeaderBar;
