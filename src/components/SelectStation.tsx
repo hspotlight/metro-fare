@@ -5,6 +5,7 @@ import { useTripContext } from "../contexts/TripProvider";
 import { searchStation } from "../services/search.service";
 import { METRO_STATION, Station } from "../types";
 import { SearchResultList } from "./SearchResultList";
+import "../styles/SelectStation.scss";
 
 const SelectStation = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -34,19 +35,22 @@ const SelectStation = () => {
   };
 
   return (
-    <div>
+    <div className="select-station">
       <Input
+        className="search-box"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
 
-      {searchTermLength === 0 && <div> please select station</div>}
-      {searchTermLength !== 0 && searchTermLength <= 2 && <div>less word</div>}
+      {/* {searchTermLength === 0 && <div> please select station</div>}
+        {searchTermLength !== 0 && searchTermLength <= 2 && <div>less word</div>} */}
       {searchTermLength >= 3 && (
-        <SearchResultList
-          searchItems={searchResult}
-          handleOnItemClick={handleOnItemClick}
-        />
+        <div className="search-result">
+          <SearchResultList
+            searchItems={searchResult}
+            handleOnItemClick={handleOnItemClick}
+          />
+        </div>
       )}
     </div>
   );
