@@ -4,18 +4,23 @@ import { useTranslation } from "react-i18next";
 import { useTripContext } from "../contexts/TripProvider";
 import "../styles/RouteNavigation.scss";
 import StationSelectInput from "./StationSelectInput";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const RouteNavigation = () => {
   const { t: translate } = useTranslation();
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
   const { trip, setSource, setDestination, resetTrip } = useTripContext();
+  const history = useHistory()
 
   useEffect(() => {
     const isFormValid =
       trip.source.length === 0 || trip.destination.length === 0;
     setFormInValid(isFormValid);
   }, [trip]);
+
+  const handleOnFocus = (selectStationType: 'source' | 'destination') => {
+    history.push(`/select-station/${selectStationType}`)
+  }
 
   return (
     <div className="route-navigation">
@@ -32,11 +37,13 @@ const RouteNavigation = () => {
           title={translate("route.source")}
           value={trip.source}
           onClick={setSource}
+          onFocus={() => handleOnFocus('source')}
         />
         <StationSelectInput
           title={translate("route.destination")}
           value={trip.destination}
           onClick={setDestination}
+          onFocus={() => handleOnFocus('destination')}
         />
       </div>
 
