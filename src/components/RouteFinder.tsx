@@ -41,7 +41,7 @@ const RouteFinder = () => {
     setAllTravelRoutes(travelRoutes);
     setShowAllTravelRoutes(true);
     setShowSelectedRoute(false);
-    setTravelRoute(emptyTravelRoute);
+    setTravelRoute(emptyTravelRoute); // why reset?
   };
 
   const resetForm = () => {
