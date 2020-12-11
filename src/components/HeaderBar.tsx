@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "../styles/HeaderBar.scss";
 
 type HeaderBarProps = {
@@ -18,7 +18,7 @@ const HeaderBar = ({ title, backButton }: HeaderBarProps) => {
     <div className="header-bar">
       {backButton && (
         <div className="back-button" onClick={goBack}>
-            <i className="fa fa-chevron-left" aria-hidden="true" style={{color: 'black'}} />
+          <i className="fa fa-chevron-left" aria-hidden="true" />
         </div>
       )}
       <div className="header-title">{title}</div>
