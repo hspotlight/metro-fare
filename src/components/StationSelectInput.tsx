@@ -10,17 +10,19 @@ export type StationSelectInputProps = {
   title: string;
   value: string;
   onClick: (_: any) => void;
+  onFocus: (_: any) => void;
 };
 
 const StationSelectInput = ({
   title,
   value,
   onClick,
+  onFocus
 }: StationSelectInputProps) => {
   const { i18n } = useTranslation();
   const stationElementId = `${title}-native-required`;
   return (
-    <div className="station-select-input">
+    <div className="station-select-input" onFocus={onFocus}>
       <InputLabel htmlFor={stationElementId}>{title}</InputLabel>
       <Select
         native

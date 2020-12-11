@@ -4,6 +4,7 @@ import HeaderBar from "../components/HeaderBar";
 import RouteDetail from "../components/RouteDetail";
 import RouteNavigation from "../components/RouteNavigation";
 import RoutesSearchResult from "../components/RoutesSearchResult";
+import SelectStation from "../components/SelectStation";
 
 const pageWithHeaderStyle: React.CSSProperties = {
   display: "flex",
@@ -33,12 +34,20 @@ const RouteDetailPage = () => (
   </div>
 );
 
+const SelectStationPage = () => (
+  <div style={pageWithHeaderStyle}>
+    <HeaderBar title={"Stations"} backButton />
+    <SelectStation />
+  </div>
+);
+
 export const WebRouter = () => {
   return (
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/routes" component={RoutesPage} />
       <Route path="/route-detail" component={RouteDetailPage} />
+      <Route path="/select-station/:type" component={SelectStationPage} />
     </Switch>
   );
 };
