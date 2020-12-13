@@ -2,6 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { getLineTypeLabel, getStationName } from "../services/util.service";
 import { METRO_STATION, Station } from "../types";
+import "../styles/SearchResultList.scss";
 
 type SearchResultListProps = {
   searchItems: Station[];
@@ -13,16 +14,12 @@ export const SearchResultList = ({
   handleOnItemClick,
 }: SearchResultListProps) => {
   return (
-    <div>
-      {searchItems.length === 0 ? (
-        <div>empty screen</div>
-      ) : (
-        <div>
-          {searchItems.map((item, index) => (
-            <SearchItem key={index} item={item} onClick={handleOnItemClick} />
-          ))}
-        </div>
-      )}
+    <div className="search-result-list">
+      <div>
+        {searchItems.map((item, index) => (
+          <SearchItem key={index} item={item} onClick={handleOnItemClick} />
+        ))}
+      </div>
     </div>
   );
 };
@@ -38,6 +35,7 @@ const SearchItem = ({ item, onClick }: SearchItemProps) => {
   const stationName = getStationName(item, i18n.language);
   return (
     <div
+      className="search-item"
       onClick={() => onClick(item.key)}
     >{`${lineType} [${item.key}] ${stationName}`}</div>
   );
