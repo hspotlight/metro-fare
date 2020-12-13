@@ -1,4 +1,4 @@
-import { Input, InputLabel, Select } from "@material-ui/core";
+import { Input, InputLabel } from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { STATIONS } from "../data";
@@ -9,14 +9,12 @@ import "../styles/StationSelectInput.scss";
 export type StationSelectInputProps = {
   title: string;
   value: string;
-  onClick: (_: any) => void;
   onFocus: (_: any) => void;
 };
 
 const StationSelectInput = ({
   title,
   value,
-  onClick,
   onFocus,
 }: StationSelectInputProps) => {
   const { i18n } = useTranslation();
