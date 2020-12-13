@@ -21,6 +21,7 @@ const RoutesSearchResult = () => {
     } else {
       history.replace('/')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
