@@ -1,10 +1,10 @@
-import { InputLabel, Select } from "@material-ui/core";
+import { Input, InputLabel, Select } from "@material-ui/core";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { STATIONS } from "../data";
 import { Station } from "../types";
 import { getLineTypeLabel, getStationName } from "../services/util.service";
-import '../styles/StationSelectInput.scss';
+import "../styles/StationSelectInput.scss";
 
 export type StationSelectInputProps = {
   title: string;
@@ -17,37 +17,23 @@ const StationSelectInput = ({
   title,
   value,
   onClick,
-  onFocus
+  onFocus,
 }: StationSelectInputProps) => {
   const { i18n } = useTranslation();
   const stationElementId = `${title}-native-required`;
+  const station = STATIONS.find((station) => station.key === value);
+  const getStationLabel = (station: Station | undefined) => {
+    if (!station) return "";
+
+    const lineType = getLineTypeLabel(station.lineType);
+    const stationName = getStationName(station, i18n.language);
+    return station ? `${lineType} [${station.key}] ${stationName}` : "";
+  };
+  const label = getStationLabel(station);
   return (
     <div className="station-select-input" onFocus={onFocus}>
       <InputLabel htmlFor={stationElementId}>{title}</InputLabel>
-      <Select
-        native
-        onChange={(e: any) => onClick(e.target.value)}
-        name={"Line"}
-        value={value}
-        inputProps={{
-          id: stationElementId,
-        }}
-      >
-        <option value={""}></option>
-        {STATIONS.map((station: Station) => {
-          const stationName = getStationName(
-            station,
-            i18n.language
-          );
-          const stationLine = getLineTypeLabel(station.lineType);
-          const label = `${stationLine} [${station.key}] ${stationName}`;
-          return (
-            <option key={station.key} value={station.key}>
-              {label}
-            </option>
-          );
-        })}
-      </Select>
+      <Input className="station-input" value={label} />
     </div>
   );
 };
