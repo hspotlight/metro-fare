@@ -1,6 +1,6 @@
 .route-detail {
     .selected-route {
-        height: 60vh;
+        height: 55vh;
         width: calc(100% - 40px);
         margin: 20px 10px 0 10px;
         padding: 5px 10px;
@@ -10,7 +10,7 @@
     }
     @media only screen and (max-width: 768px) {
         .travel-route-container {
-            max-height: calc(60vh - 20px);
+            max-height: calc(55vh - 20px);
         }
     }
 }
