@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import "../styles/HeaderBar.scss";
 
 type HeaderBarProps = {
@@ -9,9 +9,21 @@ type HeaderBarProps = {
 
 const HeaderBar = ({ title, backButton }: HeaderBarProps) => {
   const history = useHistory()
+  const location = useLocation()
 
   const goBack = () => {
-    history.goBack()
+    if (location.pathname === '/routes') {
+      history.replace('/');
+    }
+    if (location.pathname === '/select-station/source' || location.pathname === '/select-station/destination') {
+      history.replace('/');
+    }
+    if (location.pathname === '/route-detail') {
+      const query = new URLSearchParams(location.search);
+      const source = query.get('source');
+      const destination = query.get('destination');
+      history.replace(`/routes?source=${source}&destination=${destination}`);
+    }
   }
 
   return (
