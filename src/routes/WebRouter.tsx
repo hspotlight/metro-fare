@@ -57,7 +57,7 @@ export const WebRouter = () => {
       <Route exact path="/" component={HomePage} />
       <Route path="/routes" component={RoutesPage} />
       <Route path="/route-detail" component={RouteDetailPage} />
-      <Route path="/select-station/:type" component={SelectStationPage} />
+      <Route path="/select-station" component={SelectStationPage} />
       <Route component={RedirectToHomePage} />
     </Switch>
   );

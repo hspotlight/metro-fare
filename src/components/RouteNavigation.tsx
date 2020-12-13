@@ -19,7 +19,7 @@ const RouteNavigation = () => {
   }, [trip]);
 
   const handleOnFocus = (selectStationType: 'source' | 'destination') => {
-    history.push(`/select-station/${selectStationType}`)
+    history.push(`/select-station?type=${selectStationType}`)
   }
 
   return (

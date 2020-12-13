@@ -15,7 +15,7 @@ const HeaderBar = ({ title, backButton }: HeaderBarProps) => {
     if (location.pathname === '/routes') {
       history.replace('/');
     }
-    if (location.pathname === '/select-station/source' || location.pathname === '/select-station/destination') {
+    if (location.pathname === '/select-station') {
       history.replace('/');
     }
     if (location.pathname === '/route-detail') {
