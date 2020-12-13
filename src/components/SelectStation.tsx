@@ -1,15 +1,12 @@
 import { TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useTripContext } from "../contexts/TripProvider";
 import { searchStation } from "../services/search.service";
 import { METRO_STATION, Station } from "../types";
 import { SearchResultList } from "./SearchResultList";
 import "../styles/SelectStation.scss";
-
-type UrlParams = {
-  type: "source" | "destination";
-};
+import { useTranslation } from "react-i18next";
 
 const SelectStation = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -17,7 +14,13 @@ const SelectStation = () => {
   const [searchResult, setSearchResult] = useState<Station[]>([]);
   const { setSource, setDestination } = useTripContext();
   const history = useHistory();
-  const params = useParams<UrlParams>();
+  const {t: translate } = useTranslation();
+  const query = new URLSearchParams(useLocation().search);
+  const type = query.get('type');
+  
+  const textFieldLabel = () => {
+    return type === 'source' ? translate('route.source') : translate('route.destination');
+  }
 
   useEffect(() => {
     if (searchTerm.length > 2) {
@@ -29,10 +32,10 @@ const SelectStation = () => {
   }, [searchTerm]);
 
   const handleOnItemClick = (stationId: METRO_STATION) => {
-    if (params.type === "source") {
+    if (type === "source") {
       setSource(stationId);
       history.goBack();
-    } else if (params.type === "destination") {
+    } else if (type === "destination") {
       setDestination(stationId);
       history.goBack();
     }
@@ -45,7 +48,7 @@ const SelectStation = () => {
           className="search-box"
           id="outlined-basic"
           variant="outlined"
-          label={params.type}
+          label={textFieldLabel()}
           placeholder="E.g. Chong Nonsi"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
