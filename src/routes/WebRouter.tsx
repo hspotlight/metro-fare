@@ -1,5 +1,5 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Route, Switch, useHistory } from "react-router-dom";
 import HeaderBar from "../components/HeaderBar";
 import RouteDetail from "../components/RouteDetail";
 import RouteNavigation from "../components/RouteNavigation";
@@ -41,6 +41,16 @@ const SelectStationPage = () => (
   </div>
 );
 
+const RedirectToHomePage = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    history.replace("/");
+  }, []);
+
+  return <div></div>;
+};
+
 export const WebRouter = () => {
   return (
     <Switch>
@@ -48,6 +58,7 @@ export const WebRouter = () => {
       <Route path="/routes" component={RoutesPage} />
       <Route path="/route-detail" component={RouteDetailPage} />
       <Route path="/select-station/:type" component={SelectStationPage} />
+      <Route component={RedirectToHomePage} />
     </Switch>
   );
 };

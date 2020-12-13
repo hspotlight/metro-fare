@@ -6,14 +6,14 @@ import { useTranslation } from "react-i18next";
 type RouteInfoCardProps = {
   travelRoute: TravelRoute;
   title: string;
-  onClick: (_: TravelRoute) => void;
+  onClick: () => void;
 };
 
 const RouteInfoCard = ({ travelRoute, title, onClick }: RouteInfoCardProps) => {
   const { t: translate } = useTranslation();
   const numberOfStations = getStationKeysFromTravelRoute(travelRoute).length;
   return (
-    <div className="route-info-card" onClick={() => onClick(travelRoute)}>
+    <div className="route-info-card" onClick={onClick}>
       <div className="route-info">
         <div className="title">{title}</div>
         <div className="row">
