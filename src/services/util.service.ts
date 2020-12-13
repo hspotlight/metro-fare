@@ -30,7 +30,7 @@ export const getLineTypeFromFareType = (fareType: FareType): LineType => {
 };
 export const getLineTypeLabel = (lineType: LineType): string => {
     switch (lineType) {
-        case LineType.BRT: return 'BTS';
+        case LineType.BRT: return 'BRT';
         case LineType.ARL: return 'ARL';
         case LineType.BTS: return 'BTS';
         case LineType.BTS_SILOM: return 'BTS';
