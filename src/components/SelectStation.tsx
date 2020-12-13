@@ -1,4 +1,4 @@
-import { Input } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useTripContext } from "../contexts/TripProvider";
@@ -7,13 +7,17 @@ import { METRO_STATION, Station } from "../types";
 import { SearchResultList } from "./SearchResultList";
 import "../styles/SelectStation.scss";
 
+type UrlParams = {
+  type: "source" | "destination";
+};
+
 const SelectStation = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const searchTermLength = (searchTerm || "").length;
   const [searchResult, setSearchResult] = useState<Station[]>([]);
   const { setSource, setDestination } = useTripContext();
   const history = useHistory();
-  const params: { type: "source" | "destination" } = useParams();
+  const params = useParams<UrlParams>();
 
   useEffect(() => {
     if (searchTerm.length > 2) {
@@ -36,15 +40,22 @@ const SelectStation = () => {
 
   return (
     <div className="select-station">
-      <Input
-        className="search-box"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
+      <div>
+        <TextField
+          className="search-box"
+          id="outlined-basic"
+          variant="outlined"
+          label={params.type}
+          placeholder="E.g. Chong Nonsi"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
 
-      {/* {searchTermLength === 0 && <div> please select station</div>}
-        {searchTermLength !== 0 && searchTermLength <= 2 && <div>less word</div>} */}
-      {searchTermLength >= 3 && (
+      {searchResult.length === 0 && searchTermLength !== 0 && (
+        <div className="empty-result">result not found</div>
+      )}
+      {searchResult.length > 0 && (
         <div className="search-result">
           <SearchResultList
             searchItems={searchResult}
