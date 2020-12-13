@@ -62,7 +62,7 @@ const RouteNavigation = () => {
             {translate("common.search")}
           </Button>
         ) : (
-          <Link to={`/routes?departure=${trip.source}&arrival=${trip.destination}`}>
+          <Link to={`/routes?source=${trip.source}&destination=${trip.destination}`}>
             <Button
               variant="contained"
               color="primary"
