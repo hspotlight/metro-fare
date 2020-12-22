@@ -41,6 +41,12 @@ const SelectStation = () => {
     }
   };
 
+  const getDisplayMessage = (searchTermLength: number) => {
+    if (searchTermLength === 0) return translate("selectStation.startText");
+    if (searchTermLength < 2) return translate("selectStation.tooShort");
+    return translate("selectStation.notFound");
+  }
+
   return (
     <div className="select-station">
       <div>
@@ -55,8 +61,8 @@ const SelectStation = () => {
         />
       </div>
 
-      {searchResult.length === 0 && searchTermLength !== 0 && (
-        <div className="empty-result">result not found</div>
+      {searchResult.length === 0 && (
+        <div className="display-message">{getDisplayMessage(searchTermLength)}</div>
       )}
       {searchResult.length > 0 && (
         <div className="search-result">

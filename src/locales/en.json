@@ -52,6 +52,7 @@
     }
   },
   "selectStation": {
+    "startText": "Please enter station name",
     "notFound": "Results not found",
     "tooShort": "Keyword too short!"
   }
