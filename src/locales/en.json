@@ -50,5 +50,9 @@
       "arlLine": "ARL Airport Rail Link Line",
       "brtLine": "BRT Bus Rapid Transit"
     }
+  },
+  "selectStation": {
+    "notFound": "Results not found",
+    "tooShort": "Keyword too short!"
   }
 }
