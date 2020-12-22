@@ -52,6 +52,7 @@
     }
   },
   "selectStation": {
+    "startText": "โปรดกรอกชื่อสถานี",
     "notFound": "ไม่พบข้อมูล",
     "tooShort": "คำสั้นไป"
   }
