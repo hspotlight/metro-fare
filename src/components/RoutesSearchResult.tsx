@@ -6,6 +6,7 @@ import RouteFromTo from "./RouteFromTo";
 import RouteInfoCard from "./RouteInfoCard";
 import { useHistory, useLocation } from "react-router-dom";
 import { getStation } from "../services/util.service";
+import Analytics from '../analytics/Analytics';
 
 const RoutesSearchResult = () => {
   const history = useHistory();
@@ -14,6 +15,7 @@ const RoutesSearchResult = () => {
   const query = new URLSearchParams(useLocation().search);
 
   useEffect(() => {
+    Analytics.logCurrentScreen('route_search_result_screen');
     const source = query.get("source");
     const destination = query.get("destination");
     if (getStation(source as METRO_STATION) && getStation(destination as METRO_STATION)) {

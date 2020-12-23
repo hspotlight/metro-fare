@@ -8,6 +8,7 @@ import { getStation, getStationKeysFromTravelRoute } from "../services/util.serv
 import { useHistory, useLocation } from "react-router-dom";
 import { METRO_STATION } from "../types";
 import FareService from "../services/fare.service";
+import Analytics from "../analytics/Analytics";
 
 const RouteDetail = () => {
   const { travelRoute, setTravelRoute } = useTripContext();
@@ -16,6 +17,7 @@ const RouteDetail = () => {
   const history = useHistory();
 
   useEffect(() => {
+    Analytics.logCurrentScreen('route_detail_screen');
     const source = query.get("source");
     const destination = query.get("destination");
     const routeIndex = query.get("route");
