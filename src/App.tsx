@@ -9,6 +9,7 @@ import MapProvider from "./contexts/MapProvider";
 import { canShowMobileUi } from "./config/featureToggle";
 import { WebRouter } from "./routes/WebRouter";
 import { BrowserRouter } from "react-router-dom";
+import "./config/firebaseConfig";
 
 const App = () => {
   return (

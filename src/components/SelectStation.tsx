@@ -7,6 +7,7 @@ import { METRO_STATION, Station } from "../types";
 import { SearchResultList } from "./SearchResultList";
 import "../styles/SelectStation.scss";
 import { useTranslation } from "react-i18next";
+import Analytics from "../analytics/Analytics";
 
 const SelectStation = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -21,6 +22,10 @@ const SelectStation = () => {
   const textFieldLabel = () => {
     return type === 'source' ? translate('route.source') : translate('route.destination');
   }
+
+  useEffect(() => {
+    Analytics.logCurrentScreen('select_station_screen');
+  }, [])
 
   useEffect(() => {
     if (searchTerm.length > 2) {

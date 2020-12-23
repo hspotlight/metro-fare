@@ -5,12 +5,17 @@ import { useTripContext } from "../contexts/TripProvider";
 import "../styles/RouteNavigation.scss";
 import StationSelectInput from "./StationSelectInput";
 import { Link, useHistory } from "react-router-dom";
+import Analytics from '../analytics/Analytics';
 
 const RouteNavigation = () => {
   const { t: translate } = useTranslation();
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
   const { trip, resetTrip } = useTripContext();
-  const history = useHistory()
+  const history = useHistory();
+
+  useEffect(() => {
+    Analytics.logCurrentScreen('route_navigation_screen');
+  }, []);
 
   useEffect(() => {
     const isFormValid =
@@ -20,6 +25,10 @@ const RouteNavigation = () => {
 
   const handleOnFocus = (selectStationType: 'source' | 'destination') => {
     history.push(`/select-station?type=${selectStationType}`)
+  }
+
+  const onSearchClick = () => {
+    Analytics.logEvent('station_search_pair', trip)
   }
 
   return (
@@ -66,6 +75,7 @@ const RouteNavigation = () => {
               color="primary"
               style={{ marginLeft: "20px" }}
               disabled={false}
+              onClick={onSearchClick}
             >
               {translate("common.search")}
             </Button>
