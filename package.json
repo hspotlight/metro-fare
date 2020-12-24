@@ -34,7 +34,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && cp _redirects ./build",
+    "build": "react-scripts build && sh post-build.sh",
     "test": "react-scripts test",
     "test:coverage": "yarn test --coverage --watchAll=false",
     "eject": "react-scripts eject",
