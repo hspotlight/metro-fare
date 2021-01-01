@@ -1,5 +1,5 @@
 import FareService from '../fare.service';
-import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, RouteSegment, FareType, BTS_SUKHUMVIT_STATION_ID, TravelRoute, LineType } from '../../types';
+import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, RouteSegment, FareType, BTS_SUKHUMVIT_STATION_ID, Journey, LineType } from '../../types';
 import GraphService from '../graph.service';
 import { mocked } from 'ts-jest/dist/utils/testing';
 
@@ -7,51 +7,51 @@ jest.mock('../graph.service')
 
 describe('FareService', () => {
 
-    describe('getTravelRouteFromRouteSegments', () => {
-        const expectTravelRoute = (travelRoute: TravelRoute, routeSegments: RouteSegment[], totalFare: number) => {
+    describe('getJourneyFromRouteSegments', () => {
+        const expectJourney = (journey: Journey, routeSegments: RouteSegment[], fare: number) => {
             routeSegments.forEach((routeSegment, index) => {
-                expect(travelRoute.route[index].route).toBe(routeSegment.route);
+                expect(journey.route[index].route).toBe(routeSegment.route);
             })
-            expect(travelRoute.fare).toBe(totalFare);
+            expect(journey.fare).toBe(fare);
         }
 
         describe('MRT Blue line', () => {
-            it('should return 16 when source and destination are the same station', () => {
+            it('should return 16 when from-to station are the same', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO],
                     fareType: FareType.MRT_BLUE,
                 }];
-                const source = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                const destination = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const to = MRT_BLUE_STATION_ID.LAT_PHRAO;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
-                expectTravelRoute(travelRoute, routeSegments, 16);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
+                expectJourney(journey, routeSegments, 16);
             });
-            it('should return 16 when distance from source-destination is 1 hop', () => {
+            it('should return 16 when distance from from-to is 1 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.RATCHADAPHISEK],
                     fareType: FareType.MRT_BLUE,
                 }];
-                const source = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                const destination = MRT_BLUE_STATION_ID.RATCHADAPHISEK;
+                const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const to = MRT_BLUE_STATION_ID.RATCHADAPHISEK;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 16);
+                expectJourney(journey, routeSegments, 16);
             });
-            it('should return 16 when distance from source-destination is 1 hop', () => {
+            it('should return 16 when distance from from-to is 1 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.CHARAN_13, MRT_BLUE_STATION_ID.THAPHRA],
                     fareType: FareType.MRT_BLUE,
                 }];
-                const source = MRT_BLUE_STATION_ID.CHARAN_13;
-                const destination = MRT_BLUE_STATION_ID.THAPHRA;
+                const from = MRT_BLUE_STATION_ID.CHARAN_13;
+                const to = MRT_BLUE_STATION_ID.THAPHRA;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 16);
+                expectJourney(journey, routeSegments, 16);
             });
-            it('should return 19 when distance from source-destination is 2 hops', () => {
+            it('should return 19 when distance from from-to is 2 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -60,15 +60,15 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE
                 }];
-                const source = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                const destination = MRT_BLUE_STATION_ID.SUTTHISAN;
+                const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const to = MRT_BLUE_STATION_ID.SUTTHISAN;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 19);
+                expectJourney(journey, routeSegments, 19);
             });
 
-            it('should return 21 when distance from source-destination is 3 hops', () => {
+            it('should return 21 when distance from from-to is 3 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -78,14 +78,14 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE
                 }];
-                const source = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                const destination = MRT_BLUE_STATION_ID.HUAI_KHWANG;
+                const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const to = MRT_BLUE_STATION_ID.HUAI_KHWANG;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 21);
+                expectJourney(journey, routeSegments, 21);
             });
-            it('should return 23 when distance from source-destination is 4 hops', () => {
+            it('should return 23 when distance from from-to is 4 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -96,14 +96,14 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE
                 }];
-                const source = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                const destination = MRT_BLUE_STATION_ID.THAILAND_CULTURAL_CENTRE;
+                const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const to = MRT_BLUE_STATION_ID.THAILAND_CULTURAL_CENTRE;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 23);
+                expectJourney(journey, routeSegments, 23);
             });
-            it('should return 25 when distance from source-destination is 5 hops', () => {
+            it('should return 25 when distance from from-to is 5 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -115,14 +115,14 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE
                 }];
-                const source = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                const destination = MRT_BLUE_STATION_ID.PHRA_RAM_9;
+                const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const to = MRT_BLUE_STATION_ID.PHRA_RAM_9;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 25);
+                expectJourney(journey, routeSegments, 25);
             });
-            it('should return 42 when distance from source-destination is 13 hops', () => {
+            it('should return 42 when distance from from-to is 13 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -142,14 +142,14 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE
                 }];
-                const source = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                const destination = MRT_BLUE_STATION_ID.HUA_LAMPHONG;
+                const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const to = MRT_BLUE_STATION_ID.HUA_LAMPHONG;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 42);
+                expectJourney(journey, routeSegments, 42);
             });
-            it('should return 42 when distance from source-destination more than 13 hops', () => {
+            it('should return 42 when distance from from-to more than 13 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -171,26 +171,26 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE
                 }];
-                const source = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                const destination = MRT_BLUE_STATION_ID.SANAM_CHAI;
+                const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
+                const to = MRT_BLUE_STATION_ID.SANAM_CHAI;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 42);
+                expectJourney(journey, routeSegments, 42);
             });
         });
         describe('BTS Silom line', () => {
-            it('should return 16 when source and destination are the same station', () => {
+            it('should return 16 when from-to station are the same', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.CHONG_NONSI],
                     fareType: FareType.BTS,
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = BTS_SILOM_STATION_ID.CHONG_NONSI;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 16);
+                expectJourney(journey, routeSegments, 16);
             });
             it('should return 23 when travel from CHONG_NONSI to SURASUK (have one station in middle)', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -201,38 +201,38 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS,
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = BTS_SILOM_STATION_ID.SURASAK;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = BTS_SILOM_STATION_ID.SURASAK;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 23);
+                expectJourney(journey, routeSegments, 23);
             });
-            it('should return 16 when distance from source-destination is 1 hop', () => {
+            it('should return 16 when distance from from-to is 1 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.CHONG_NONSI, BTS_SILOM_STATION_ID.SALA_DAENG],
                     fareType: FareType.BTS,
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = BTS_SILOM_STATION_ID.SALA_DAENG;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = BTS_SILOM_STATION_ID.SALA_DAENG;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 16);
+                expectJourney(journey, routeSegments, 16);
             });
-            it('should return 23 when distance from source-destination is 2 hop', () => {
+            it('should return 23 when distance from from-to is 2 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.CHONG_NONSI, BTS_SILOM_STATION_ID.SALA_DAENG, BTS_SILOM_STATION_ID.RATCHADAMRI],
                     fareType: FareType.BTS,
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = BTS_SILOM_STATION_ID.RATCHADAMRI;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = BTS_SILOM_STATION_ID.RATCHADAMRI;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 23);
+                expectJourney(journey, routeSegments, 23);
             });
-            it('should return 37 when distance from source-destination is 6 hop', () => {
+            it('should return 37 when distance from from-to is 6 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         BTS_SILOM_STATION_ID.CHONG_NONSI,
@@ -245,12 +245,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS,
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = BTS_SILOM_STATION_ID.TALAT_PHLU;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = BTS_SILOM_STATION_ID.TALAT_PHLU;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 37);
+                expectJourney(journey, routeSegments, 37);
             });
             it('should return 15 when travel from Wongwian Yai to Pho Nimit', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -264,12 +264,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
                 }];
-                const source = BTS_SILOM_STATION_ID.WONGWIAN_YAI;
-                const destination = BTS_SILOM_STATION_ID.PHO_NIMIT;
+                const from = BTS_SILOM_STATION_ID.WONGWIAN_YAI;
+                const to = BTS_SILOM_STATION_ID.PHO_NIMIT;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 15);
+                expectJourney(journey, routeSegments, 15);
             });
             it('should return 31 when travel from Phra Khanong to Pho Nimit', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -284,29 +284,29 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
                 }];
-                const source = BTS_SILOM_STATION_ID.KRUNG_THON_BURI;
-                const destination = BTS_SILOM_STATION_ID.PHO_NIMIT;
+                const from = BTS_SILOM_STATION_ID.KRUNG_THON_BURI;
+                const to = BTS_SILOM_STATION_ID.PHO_NIMIT;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 31);
+                expectJourney(journey, routeSegments, 31);
             });
         });
 
         describe('BTS Sukhumvit line', () => {
-            it('should return 26 when distance from source-destination is 2 hop', () => {
+            it('should return 26 when distance from from-to is 2 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.RATCHADAMRI, BTS_SILOM_STATION_ID.SIAM, BTS_SUKHUMVIT_STATION_ID.CHIT_LOM],
                     fareType: FareType.BTS,
                 }];
-                const source = BTS_SILOM_STATION_ID.RATCHADAMRI;
-                const destination = BTS_SUKHUMVIT_STATION_ID.CHIT_LOM;
+                const from = BTS_SILOM_STATION_ID.RATCHADAMRI;
+                const to = BTS_SUKHUMVIT_STATION_ID.CHIT_LOM;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 23);
+                expectJourney(journey, routeSegments, 23);
             });
-            it('should return 30 when distance from source-destination is 4 hop', () => {
+            it('should return 30 when distance from from-to is 4 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         BTS_SILOM_STATION_ID.SALA_DAENG,
@@ -317,12 +317,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS,
                 }];
-                const source = BTS_SILOM_STATION_ID.SALA_DAENG;
-                const destination = BTS_SUKHUMVIT_STATION_ID.PHOLEN_CHIT;
+                const from = BTS_SILOM_STATION_ID.SALA_DAENG;
+                const to = BTS_SUKHUMVIT_STATION_ID.PHOLEN_CHIT;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 30);
+                expectJourney(journey, routeSegments, 30);
             });
             it('should return 15 when travel from On Nut to Bang chak', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -336,12 +336,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
                 }];
-                const source = BTS_SUKHUMVIT_STATION_ID.ON_NUT;
-                const destination = BTS_SUKHUMVIT_STATION_ID.BANG_CHAK;
+                const from = BTS_SUKHUMVIT_STATION_ID.ON_NUT;
+                const to = BTS_SUKHUMVIT_STATION_ID.BANG_CHAK;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 15);
+                expectJourney(journey, routeSegments, 15);
             });
             it('should return 31 when travel from Phra Khanong to Bang chak', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -356,12 +356,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15
                 }];
-                const source = BTS_SUKHUMVIT_STATION_ID.ON_NUT;
-                const destination = BTS_SUKHUMVIT_STATION_ID.BANG_CHAK;
+                const from = BTS_SUKHUMVIT_STATION_ID.ON_NUT;
+                const to = BTS_SUKHUMVIT_STATION_ID.BANG_CHAK;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 31);
+                expectJourney(journey, routeSegments, 31);
             });
             it('should return 15 when travel from Bang Na to Sam Rong', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -375,12 +375,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0
                 }];
-                const source = BTS_SUKHUMVIT_STATION_ID.BANG_NA;
-                const destination = BTS_SUKHUMVIT_STATION_ID.SAMRONG;
+                const from = BTS_SUKHUMVIT_STATION_ID.BANG_NA;
+                const to = BTS_SUKHUMVIT_STATION_ID.SAMRONG;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 15);
+                expectJourney(journey, routeSegments, 15);
             });
             it('should return 16 when travel from Saphan Khwai to Ha Yaek Lat Phrao', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -395,12 +395,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0
                 }];
-                const source = BTS_SUKHUMVIT_STATION_ID.SAPHAN_KHWAI;
-                const destination = BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO;
+                const from = BTS_SUKHUMVIT_STATION_ID.SAPHAN_KHWAI;
+                const to = BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 16);
+                expectJourney(journey, routeSegments, 16);
             });
             it('should return 23 when travel from Saphan Khwai to Ari', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -411,12 +411,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.BTS,
                 }];
-                const source = BTS_SUKHUMVIT_STATION_ID.SAPHAN_KHWAI;
-                const destination = BTS_SUKHUMVIT_STATION_ID.ARI;
+                const from = BTS_SUKHUMVIT_STATION_ID.SAPHAN_KHWAI;
+                const to = BTS_SUKHUMVIT_STATION_ID.ARI;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 23);
+                expectJourney(journey, routeSegments, 23);
             });
         });
         describe('MRT-BTS Silom', () => {
@@ -428,12 +428,12 @@ describe('FareService', () => {
                     route: [MRT_BLUE_STATION_ID.BANG_WA],
                     fareType: FareType.MRT_BLUE
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = MRT_BLUE_STATION_ID.LUMPHINI;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = MRT_BLUE_STATION_ID.LUMPHINI;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 0);
+                expectJourney(journey, routeSegments, 0);
             });
             it('should return 16 when 1 hops for BTS and stop at MRT without traverse', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -448,12 +448,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE,
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = MRT_BLUE_STATION_ID.LUMPHINI;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = MRT_BLUE_STATION_ID.LUMPHINI;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 16);
+                expectJourney(journey, routeSegments, 16);
             });
             it('should return 32 when 1 hops for BTS and 1 hops for MRT', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -469,12 +469,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE,
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = MRT_BLUE_STATION_ID.LUMPHINI;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = MRT_BLUE_STATION_ID.LUMPHINI;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 32);
+                expectJourney(journey, routeSegments, 32);
             });
             it('should return 56 when 6 hops for BTS and 2 hops for MRT', () => {
                 const routeSegments: RouteSegment[] = [{
@@ -496,12 +496,12 @@ describe('FareService', () => {
                     ],
                     fareType: FareType.MRT_BLUE,
                 }];
-                const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-                const destination = MRT_BLUE_STATION_ID.LUMPHINI;
+                const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+                const to = MRT_BLUE_STATION_ID.LUMPHINI;
 
-                const travelRoute = FareService.getTravelRouteFromRouteSegments(routeSegments, source, destination);
+                const journey = FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectTravelRoute(travelRoute, routeSegments, 56);
+                expectJourney(journey, routeSegments, 56);
             });
         });
     });
@@ -522,11 +522,11 @@ describe('FareService', () => {
             }];
             mocked(GraphService.findAllRoutes).mockReturnValue([routeSegments]);
             
-            const source = BTS_SILOM_STATION_ID.CHONG_NONSI;
-            const destination = MRT_BLUE_STATION_ID.LUMPHINI;
-            const travelRoutes = FareService.findAllRoutes(source, destination);
+            const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
+            const to = MRT_BLUE_STATION_ID.LUMPHINI;
+            const journeys = FareService.findAllRoutes(from, to);
 
-            const expectedTravelRoute: TravelRoute = {
+            const expectedJourney: Journey = {
                 route: [{
                     route: [BTS_SILOM_STATION_ID.CHONG_NONSI, BTS_SILOM_STATION_ID.SALA_DAENG],
                     lineType: LineType.BTS,
@@ -537,10 +537,10 @@ describe('FareService', () => {
                     fare: 16
                 }],
                 fare: 32,
-                source: BTS_SILOM_STATION_ID.CHONG_NONSI,
-                destination: MRT_BLUE_STATION_ID.LUMPHINI
+                from: BTS_SILOM_STATION_ID.CHONG_NONSI,
+                to: MRT_BLUE_STATION_ID.LUMPHINI
             };
-            expect(travelRoutes).toMatchObject([expectedTravelRoute])
+            expect(journeys).toMatchObject([expectedJourney])
         });
 
         it('should return a two route from MOCHIT to LUMPHINI', () => {
@@ -572,11 +572,11 @@ describe('FareService', () => {
             ];
             mocked(GraphService.findAllRoutes).mockReturnValue(routeSegmentslist);
             
-            const source = BTS_SUKHUMVIT_STATION_ID.MO_CHIT;
-            const destination = BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO;
-            const travelRoutes = FareService.findAllRoutes(source, destination);
+            const from = BTS_SUKHUMVIT_STATION_ID.MO_CHIT;
+            const to = BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO;
+            const journeys = FareService.findAllRoutes(from, to);
 
-            const expectedTravelRoutes: TravelRoute[] = [{
+            const expectedJourneys: Journey[] = [{
                 route: [{
                     route: [BTS_SUKHUMVIT_STATION_ID.MO_CHIT],
                     lineType: LineType.BTS,
@@ -591,8 +591,8 @@ describe('FareService', () => {
                     fare: 0
                 }],
                 fare: 16,
-                source: BTS_SUKHUMVIT_STATION_ID.MO_CHIT,
-                destination: BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO
+                from: BTS_SUKHUMVIT_STATION_ID.MO_CHIT,
+                to: BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO
             }, {
                 route: [{
                     route: [BTS_SUKHUMVIT_STATION_ID.MO_CHIT, BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO],
@@ -600,10 +600,10 @@ describe('FareService', () => {
                     fare: 16
                 }],
                 fare: 16,
-                source: BTS_SUKHUMVIT_STATION_ID.MO_CHIT,
-                destination: BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO
+                from: BTS_SUKHUMVIT_STATION_ID.MO_CHIT,
+                to: BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO
             }];
-            expect(travelRoutes).toMatchObject(expectedTravelRoutes)
+            expect(journeys).toMatchObject(expectedJourneys)
         });
     });
     describe('calculateFareFromRouteSegment', () => {

@@ -1,4 +1,4 @@
-import { FareType, Station, LineType, METRO_STATION_ID, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, TravelRoute, ARL_STATION_ID, BRT_STATION_ID, Intersection } from "../types";
+import { FareType, Station, LineType, METRO_STATION_ID, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, Journey, ARL_STATION_ID, BRT_STATION_ID, Intersection } from "../types";
 import { STATIONS } from "../data/Stations";
 import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
 import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BtsSukhumvitLine";
@@ -60,9 +60,9 @@ export const getStationName = (station: Station, lang: string = 'en') => {
     return lang === 'en' ? station.nameEN : station.nameTH;
 }
 
-export const getStationIdsFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION_ID[] => {
+export const getStationIdsFromJourney = (journey: Journey): METRO_STATION_ID[] => {
     let stationIds: METRO_STATION_ID[] = [];
-    travelRoute.route.forEach(route => {
+    journey.route.forEach(route => {
         stationIds.push(...route.route)
     });
     return stationIds;

@@ -11,7 +11,7 @@ import { TravelRouteLayer } from "./TravelRouteLayer";
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
   const { setShowMetroLayers } = useContext(MapContext);
-  const { travelRoute } = useContext(TripContext);
+  const { journey } = useContext(TripContext);
   
   useEffect(() => {
     if (!(mapCenter[0] === DEFAULT_MAP_CENTER[0] && mapCenter[1] === DEFAULT_MAP_CENTER[1])) {
@@ -20,7 +20,7 @@ export const MetroMap = () => {
   }, [mapCenter]);
 
   useEffect(() => {
-    const isVisible = travelRoute.route.length === 0;
+    const isVisible = journey.route.length === 0;
     setShowMetroLayers({
       mrtBlue: isVisible,
       btsSilom: isVisible,
@@ -28,7 +28,7 @@ export const MetroMap = () => {
       arl: isVisible,
       brt: isVisible
     });
-  }, [travelRoute, setShowMetroLayers])
+  }, [journey, setShowMetroLayers])
 
   return (
     <div className="width-100 height-100">
@@ -47,7 +47,7 @@ export const MetroMap = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <MetroLineLayers />
-          {travelRoute.route.length > 0 && <TravelRouteLayer />}
+          {journey.route.length > 0 && <TravelRouteLayer />}
         </Map>
     </div>
   );

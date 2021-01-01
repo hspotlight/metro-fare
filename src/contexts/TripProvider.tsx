@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { METRO_STATION_ID } from "../types/MetroStationId";
-import { TravelRoute } from "../types";
+import { Journey } from "../types";
 
 export type Trip = {
   source: METRO_STATION_ID;
@@ -12,72 +12,73 @@ export const unfilledTrip: Trip = {
   destination: "" as METRO_STATION_ID,
 };
 
-export const emptyTravelRoute: TravelRoute = {
+export const unfilledJourney: Journey = {
   route: [],
   fare: 0,
-  source: "" as METRO_STATION_ID,
-  destination: "" as METRO_STATION_ID,
+  from: "" as METRO_STATION_ID,
+  to: "" as METRO_STATION_ID,
 };
 
 const initialTripContext = {
   trip: unfilledTrip,
-  travelRoute: emptyTravelRoute,
-  setJourney: (a: METRO_STATION_ID, b: METRO_STATION_ID) => {},
+  journey: unfilledJourney,
+  setTrip: (a: METRO_STATION_ID, b: METRO_STATION_ID) => {},
   setSource: (_: METRO_STATION_ID) => {},
   setDestination: (_: METRO_STATION_ID) => {},
-  setTravelRoute: (_: TravelRoute) => {},
+  setJourney: (_: Journey) => {},
   resetTrip: () => {},
-  resetTravelRoute: () => {},
+  resetJourney: () => {},
 };
 
 export const TripContext = createContext(initialTripContext);
 
 export const useTripContext = () => useContext(TripContext);
 
+// TODO: refactor travelroute to journey
 const TripProvider = ({ children }: { children: any }) => {
-  const [trip, setTrip] = useState<Trip>(unfilledTrip);
-  const [travelRoute, setTravelRoute] = useState<TravelRoute>(emptyTravelRoute);
+  const [trip, setTripState] = useState<Trip>(unfilledTrip);
+  const [journey, setJourney] = useState<Journey>(unfilledJourney);
 
-  const setSource = (source: METRO_STATION_ID) => {
-    setTrip({
+  const setSource = (source: METRO_STATION_ID) => { // todo remove
+    setTripState({
       ...trip,
       source,
     });
   };
 
-  const setDestination = (destination: METRO_STATION_ID) => {
-    setTrip({
+  const setDestination = (destination: METRO_STATION_ID) => {  // todo remove
+    setTripState({
       ...trip,
       destination,
     });
   };
 
-  const setJourney = (departure: METRO_STATION_ID, arrival: METRO_STATION_ID) => {
-    setTrip({
+  const setTrip = (departure: METRO_STATION_ID, arrival: METRO_STATION_ID) => {
+    setTripState({
       source: departure,
       destination: arrival
     })
   }
 
   const resetTrip = () => {
-    setTrip(unfilledTrip);
+    setTripState(unfilledTrip);
   };
 
-  const resetTravelRoute = () => {
-    setTravelRoute(emptyTravelRoute);
+  const resetJourney = () => {
+    setJourney(unfilledJourney);
   };
 
   return (
     <TripContext.Provider
       value={{
         trip,
-        travelRoute,
-        setJourney,
+        journey,
+        setTrip,
         setSource,
         setDestination,
         resetTrip,
-        setTravelRoute,
-        resetTravelRoute,
+        setJourney,
+        resetJourney,
       }}
     >
       {children}
