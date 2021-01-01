@@ -1,10 +1,10 @@
 import { getStationName, getStation, getPolyLineFromStations, getLineTypeFromFareType, isInterchangeStation, isExtensionBorderStation, getStationKeysFromTravelRoute, getFareTypeFromStationId, getAllStations, calculateFareFromRouteSegment } from '../util.service';
-import { MRT_BLUE_STATION, LineType, BTS_SILOM_STATION, METRO_STATION, Station, FareType, BTS_SUKHUMVIT_STATION, TravelRoute, ARL_STATION, BRT_STATION, RouteSegment } from '../../types';
+import { MRT_BLUE_STATION_ID, LineType, BTS_SILOM_STATION_ID, METRO_STATION_ID, Station, FareType, BTS_SUKHUMVIT_STATION_ID, TravelRoute, ARL_STATION_ID, BRT_STATION_ID, RouteSegment } from '../../types';
 
 describe('Util Service', () => {
     const station: Station = {
         lineType: LineType.MRT_BLUE,
-        key: MRT_BLUE_STATION.BANG_WA,
+        key: MRT_BLUE_STATION_ID.BANG_WA,
         nameEN: 'english',
         nameTH: 'thai',
         isNotAvailable: false,
@@ -22,13 +22,13 @@ describe('Util Service', () => {
     });
     describe('getStation', () => {
         it('should return bts bangwa station', () => {
-            const station = getStation(BTS_SILOM_STATION.BANG_WA);
+            const station = getStation(BTS_SILOM_STATION_ID.BANG_WA);
 
             expect(station).not.toBeUndefined();
-            expect(station?.key).toBe(BTS_SILOM_STATION.BANG_WA);
+            expect(station?.key).toBe(BTS_SILOM_STATION_ID.BANG_WA);
         });
         it('should return null if station key is not in the list', () => {
-            const station = getStation('undefined' as METRO_STATION);
+            const station = getStation('undefined' as METRO_STATION_ID);
 
             expect(station).toBeUndefined()
         });
@@ -76,21 +76,21 @@ describe('Util Service', () => {
     });
     describe('isInterchangeStation', () => {
         it('should return true if station is interchange', () => {
-            const station = MRT_BLUE_STATION.SILOM;
+            const station = MRT_BLUE_STATION_ID.SILOM;
             expect(isInterchangeStation(station)).toBeTruthy();
         });
         it('should return false if station is not interchange', () => {
-            const station = MRT_BLUE_STATION.LUMPHINI;
+            const station = MRT_BLUE_STATION_ID.LUMPHINI;
             expect(isInterchangeStation(station)).toBeFalsy();
         });
     });
     describe('isExtensionBorderStation', () => {
         it('should return true if station is extension border', () => {
-            const station = BTS_SUKHUMVIT_STATION.MO_CHIT;
+            const station = BTS_SUKHUMVIT_STATION_ID.MO_CHIT;
             expect(isExtensionBorderStation(station)).toBeTruthy();
         });
         it('should return false if station is not extension border', () => {
-            const station = BTS_SUKHUMVIT_STATION.SIAM;
+            const station = BTS_SUKHUMVIT_STATION_ID.SIAM;
             expect(isExtensionBorderStation(station)).toBeFalsy();
         });
     });
@@ -98,33 +98,33 @@ describe('Util Service', () => {
         it('should return list of station keys from travel route', () => {
             const travelRoute: TravelRoute = {
                 route: [{
-                    route: [MRT_BLUE_STATION.SILOM, MRT_BLUE_STATION.LUMPHINI],
+                    route: [MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI],
                     lineType: LineType.MRT_BLUE,
                     fare: 0
                 }, {
-                    route: [BTS_SUKHUMVIT_STATION.ARI, BTS_SUKHUMVIT_STATION.ASOK],
+                    route: [BTS_SUKHUMVIT_STATION_ID.ARI, BTS_SUKHUMVIT_STATION_ID.ASOK],
                     lineType: LineType.BTS_SUKHUMVIT,
                     fare: 0
                 }],
                 fare: 0,
-                source: MRT_BLUE_STATION.SILOM,
-                destination: MRT_BLUE_STATION.LUMPHINI
+                source: MRT_BLUE_STATION_ID.SILOM,
+                destination: MRT_BLUE_STATION_ID.LUMPHINI
             };
 
             const stations = getStationKeysFromTravelRoute(travelRoute);
-            expect(stations).toMatchObject([MRT_BLUE_STATION.SILOM, MRT_BLUE_STATION.LUMPHINI, BTS_SUKHUMVIT_STATION.ARI, BTS_SUKHUMVIT_STATION.ASOK]);
+            expect(stations).toMatchObject([MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI, BTS_SUKHUMVIT_STATION_ID.ARI, BTS_SUKHUMVIT_STATION_ID.ASOK]);
         });
     });
     describe('getFareTypeFromStationId', () => {
         const mappingStationIdToFareType = [
-            { station: ARL_STATION.MAKKASAN, fareType: FareType.ARL },
-            { station: BRT_STATION.RATCHAPRUEK, fareType: FareType.BRT },
-            { station: BTS_SILOM_STATION.BANG_WA, fareType: FareType.BTS_SILOM_EXTENSION_15 },
-            { station: BTS_SUKHUMVIT_STATION.BANG_NA, fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15 },
-            { station: BTS_SUKHUMVIT_STATION.WAT_PHRA_SRI_MAHATHAT, fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0 },
-            { station: BTS_SILOM_STATION.SIAM, fareType: FareType.BTS },
-            { station: BTS_SUKHUMVIT_STATION.VICTORY_MONUMENT, fareType: FareType.BTS },
-            { station: MRT_BLUE_STATION.PHETKASEM_48, fareType: FareType.MRT_BLUE },
+            { station: ARL_STATION_ID.MAKKASAN, fareType: FareType.ARL },
+            { station: BRT_STATION_ID.RATCHAPRUEK, fareType: FareType.BRT },
+            { station: BTS_SILOM_STATION_ID.BANG_WA, fareType: FareType.BTS_SILOM_EXTENSION_15 },
+            { station: BTS_SUKHUMVIT_STATION_ID.BANG_NA, fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15 },
+            { station: BTS_SUKHUMVIT_STATION_ID.WAT_PHRA_SRI_MAHATHAT, fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0 },
+            { station: BTS_SILOM_STATION_ID.SIAM, fareType: FareType.BTS },
+            { station: BTS_SUKHUMVIT_STATION_ID.VICTORY_MONUMENT, fareType: FareType.BTS },
+            { station: MRT_BLUE_STATION_ID.PHETKASEM_48, fareType: FareType.MRT_BLUE },
         ];
         mappingStationIdToFareType.forEach(mapping => {
             it(`should return ${mapping.fareType} if station key is ${mapping.station}`, () => {
@@ -135,11 +135,11 @@ describe('Util Service', () => {
     });
     describe('getAllStations', () => {
         it('should return all stations from given staion id', () => {
-            const stationIds = [MRT_BLUE_STATION.LUMPHINI, MRT_BLUE_STATION.PHAHON_YOTHIN];
+            const stationIds = [MRT_BLUE_STATION_ID.LUMPHINI, MRT_BLUE_STATION_ID.PHAHON_YOTHIN];
             const stations = getAllStations(stationIds);
             expect(stations).toMatchObject([
-                { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.LUMPHINI, nameEN: "Lumphini", nameTH: "ลุมพินี", position: [13.725501,100.545714] },
-                { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION.PHAHON_YOTHIN, nameEN: "Phahon Yothin", nameTH: "พหลโยธิน", position: [13.812951,100.561568] },
+                { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION_ID.LUMPHINI, nameEN: "Lumphini", nameTH: "ลุมพินี", position: [13.725501,100.545714] },
+                { lineType: LineType.MRT_BLUE, key: MRT_BLUE_STATION_ID.PHAHON_YOTHIN, nameEN: "Phahon Yothin", nameTH: "พหลโยธิน", position: [13.812951,100.561568] },
             ]);
         });
     });

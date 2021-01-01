@@ -1,3 +1,3 @@
-import { METRO_STATION } from "./MetroStation";
+import { METRO_STATION_ID } from "./MetroStationId";
 
-export type Intersection = [METRO_STATION, METRO_STATION];
+export type Intersection = [METRO_STATION_ID, METRO_STATION_ID];

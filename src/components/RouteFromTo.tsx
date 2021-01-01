@@ -1,12 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { getLineTypeLabel, getStation, getStationName } from "../services/util.service";
-import { METRO_STATION } from "../types";
+import { METRO_STATION_ID } from "../types";
 import "../styles/RouteFromTo.scss";
 
 type RouteFromToProps = {
-  departure: METRO_STATION;
-  arrival: METRO_STATION;
+  departure: METRO_STATION_ID;
+  arrival: METRO_STATION_ID;
 };
 
 const RouteFromTo = ({

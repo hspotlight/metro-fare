@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useTripContext } from "../contexts/TripProvider";
 import FareService from "../services/fare.service";
-import { METRO_STATION, TravelRoute } from "../types";
+import { METRO_STATION_ID, TravelRoute } from "../types";
 import RouteFromTo from "./RouteFromTo";
 import RouteInfoCard from "./RouteInfoCard";
 import { useHistory, useLocation } from "react-router-dom";
@@ -18,8 +18,8 @@ const RoutesSearchResult = () => {
     Analytics.logCurrentScreen('route_search_result_screen');
     const source = query.get("source");
     const destination = query.get("destination");
-    if (getStation(source as METRO_STATION) && getStation(destination as METRO_STATION)) {
-      setJourney(source as METRO_STATION, destination as METRO_STATION);
+    if (getStation(source as METRO_STATION_ID) && getStation(destination as METRO_STATION_ID)) {
+      setJourney(source as METRO_STATION_ID, destination as METRO_STATION_ID);
     } else {
       history.replace('/')
     }

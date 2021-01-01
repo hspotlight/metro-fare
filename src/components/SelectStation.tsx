@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { useTripContext } from "../contexts/TripProvider";
 import { searchStation } from "../services/search.service";
-import { METRO_STATION, Station } from "../types";
+import { METRO_STATION_ID, Station } from "../types";
 import { SearchResultList } from "./SearchResultList";
 import "../styles/SelectStation.scss";
 import { useTranslation } from "react-i18next";
@@ -36,7 +36,7 @@ const SelectStation = () => {
     }
   }, [searchTerm]);
 
-  const handleOnItemClick = (stationId: METRO_STATION) => {
+  const handleOnItemClick = (stationId: METRO_STATION_ID) => {
     if (type === "source") {
       setSource(stationId);
       history.goBack();

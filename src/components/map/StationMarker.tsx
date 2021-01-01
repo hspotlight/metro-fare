@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
 import { TripContext } from "../../contexts/TripProvider";
 import { getStationName } from "../../services/util.service";
-import { METRO_STATION } from "../../types";
+import { METRO_STATION_ID } from "../../types";
 
 const StationMarker = (props: any) => {
   const { station, showPopup = true } = props;
@@ -34,7 +34,7 @@ const StationPopup = ({
   stationKey,
 }: {
   stationName: string;
-  stationKey: METRO_STATION;
+  stationKey: METRO_STATION_ID;
 }) => {
   const { t: translate } = useTranslation();
   const { setSource, setDestination } = useContext(TripContext);

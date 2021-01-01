@@ -1,12 +1,12 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { getLineTypeLabel, getStationName } from "../services/util.service";
-import { METRO_STATION, Station } from "../types";
+import { METRO_STATION_ID, Station } from "../types";
 import "../styles/SearchResultList.scss";
 
 type SearchResultListProps = {
   searchItems: Station[];
-  handleOnItemClick: (_: METRO_STATION) => void;
+  handleOnItemClick: (_: METRO_STATION_ID) => void;
 };
 
 export const SearchResultList = ({
@@ -26,7 +26,7 @@ export const SearchResultList = ({
 
 type SearchItemProps = {
   item: Station;
-  onClick: (_: METRO_STATION) => void;
+  onClick: (_: METRO_STATION_ID) => void;
 };
 
 const SearchItem = ({ item, onClick }: SearchItemProps) => {

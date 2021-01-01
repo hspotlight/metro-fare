@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FormControl, InputLabel, Select, FormHelperText } from "@material-ui/core";
 import { STATIONS } from "../data/Stations";
-import { LineType, Station, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, ARL_STATION, BRT_STATION } from "../types";
+import { LineType, Station, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, ARL_STATION_ID, BRT_STATION_ID } from "../types";
 import { getStationName } from "../services/util.service";
 import "../styles/StationSelect.scss";
 
@@ -28,13 +28,13 @@ const StationSelect = ({
   };
 
   useEffect(() => {
-    if (Object.values(BTS_SILOM_STATION).find((btsKey) => btsKey === value)) {
+    if (Object.values(BTS_SILOM_STATION_ID).find((btsKey) => btsKey === value)) {
       setLineType(LineType.BTS_SILOM);
-    } else if (Object.values(BTS_SUKHUMVIT_STATION).find((btsKey) => btsKey === value)) {
+    } else if (Object.values(BTS_SUKHUMVIT_STATION_ID).find((btsKey) => btsKey === value)) {
       setLineType(LineType.BTS_SUKHUMVIT);
-    } else if (Object.values(ARL_STATION).find((arlKey) => arlKey === value)) {
+    } else if (Object.values(ARL_STATION_ID).find((arlKey) => arlKey === value)) {
       setLineType(LineType.ARL);
-    } else if (Object.values(BRT_STATION).find((brtKey) => brtKey === value)) {
+    } else if (Object.values(BRT_STATION_ID).find((brtKey) => brtKey === value)) {
       setLineType(LineType.BRT);
     } else if (value.length !== 0) {
       setLineType(LineType.MRT_BLUE);

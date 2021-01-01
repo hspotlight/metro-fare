@@ -1,4 +1,4 @@
-export enum MRT_BLUE_STATION {
+export enum MRT_BLUE_STATION_ID {
     THAPHRA = "BL01",
     CHARAN_13 = "BL02",
     FAI_CHAI = "BL03",
@@ -39,7 +39,7 @@ export enum MRT_BLUE_STATION {
     LAK_SONG = "BL38"
 }
 
-export enum MRT_PURPLE_STATION {
+export enum MRT_PURPLE_STATION_ID {
     KHLONG_BANG_PHAI = "PP01",
     TALAD_BANG_YAI = "PP02",
     SAM_YAEK_BANG_YAI = "PP03",
@@ -58,7 +58,7 @@ export enum MRT_PURPLE_STATION {
     TAO_POON = "PP16"
 }
 
-export enum BTS_SILOM_STATION {
+export enum BTS_SILOM_STATION_ID {
     NATIONAL_STADIUM = "W1",
     SIAM = "CEN",
     RATCHADAMRI = "S1",
@@ -76,7 +76,7 @@ export enum BTS_SILOM_STATION {
     BANG_WA = "S12",
 }
 
-export enum BTS_SUKHUMVIT_STATION {
+export enum BTS_SUKHUMVIT_STATION_ID {
     WAT_PHRA_SRI_MAHATHAT = "N17",
     INFANTRY_REGIMENT_11 = "N16",
     BANG_BUA = "N15",
@@ -123,7 +123,7 @@ export enum BTS_SUKHUMVIT_STATION {
     KHEHA = "E23",
 }
 
-export enum ARL_STATION {
+export enum ARL_STATION_ID {
     SUVARNABHUMI = "A1",
     LAT_KRABANG = "A2",
     BAN_THAP_CHANG = "A3",
@@ -134,7 +134,7 @@ export enum ARL_STATION {
     PHAYA_THAI = "A8",
 }
 
-export enum BRT_STATION {
+export enum BRT_STATION_ID {
     SATHON = "B1",
     AKHAN_SONGKHRO = "B2",
     TECHNIC_KRUNGTHEP = "B3",
@@ -147,6 +147,12 @@ export enum BRT_STATION {
     CHAROENRAT = "B10",
     RAMA_III_BRIDGE = "B11",
     RATCHAPRUEK = "B12"
-  }
+}
 
-export type METRO_STATION = MRT_BLUE_STATION | MRT_PURPLE_STATION | BTS_SILOM_STATION | BTS_SUKHUMVIT_STATION | ARL_STATION | BRT_STATION;
+export type METRO_STATION_ID =
+    MRT_BLUE_STATION_ID |
+    MRT_PURPLE_STATION_ID |
+    BTS_SILOM_STATION_ID |
+    BTS_SUKHUMVIT_STATION_ID |
+    ARL_STATION_ID |
+    BRT_STATION_ID;
