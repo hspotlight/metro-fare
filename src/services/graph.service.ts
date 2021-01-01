@@ -1,7 +1,6 @@
 import PriorityQueue from "priorityqueue";
 import { getFareTypeFromStationId } from "./util.service";
 import { METRO_STATION_ID, Graph, RouteSegment, Line, Intersection } from "../types";
-import { METRO_GRAPH } from "../data/MetroGraph";
 import { StationHop } from "../types/StationHop";
 import cloneDeep from "lodash.clonedeep";
 
@@ -98,5 +97,3 @@ const GraphService = {
 }
 
 export default GraphService;
-
-export const metroGraph = createGraph(METRO_GRAPH);

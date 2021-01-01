@@ -1,8 +1,10 @@
-import GraphService, { metroGraph } from "./graph.service";
+import GraphService from "./graph.service";
 import { getLineTypeFromFareType, isExtensionBorderStation, isInterchangeStation } from "./util.service";
 import { FareType, METRO_STATION_ID, RouteSegment, TravelRoute } from "../types";
-import { MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
+import { METRO_GRAPH, MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
 import { METRO_FARE } from "../common/fare";
+
+const metroGraph = GraphService.createGraph(METRO_GRAPH);
 
 const findAllRoutes = (source: METRO_STATION_ID, destination: METRO_STATION_ID): TravelRoute[] => {
     const routeSegmentsList = GraphService.findAllRoutes(source, destination, metroGraph);
