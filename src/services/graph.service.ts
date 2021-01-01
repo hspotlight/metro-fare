@@ -1,6 +1,6 @@
 import PriorityQueue from "priorityqueue";
 import { getFareTypeFromStationId } from "./util.service";
-import { METRO_STATION, Graph, RouteSegment, Line, Intersection } from "../types";
+import { METRO_STATION_ID, Graph, RouteSegment, Line, Intersection } from "../types";
 import { METRO_GRAPH } from "../data/MetroGraph";
 import { StationHop } from "../types/StationHop";
 import cloneDeep from "lodash.clonedeep";
@@ -38,7 +38,7 @@ const addLineToGraph = (metroLine: Line, graph = Object.create(null)) => {
 }
 
 const addIntersectionsToGraph = (intersections: Intersection[], graph: any) => {
-    intersections.forEach((intersection: METRO_STATION[]) => {
+    intersections.forEach((intersection: METRO_STATION_ID[]) => {
         const firstStation = intersection[0];
         const secondStation = intersection[1];
         graph[firstStation].push(secondStation);
@@ -46,7 +46,7 @@ const addIntersectionsToGraph = (intersections: Intersection[], graph: any) => {
     });
 }
 
-const findAllRoutes = (source: METRO_STATION, destination: METRO_STATION, graph: any): RouteSegment[][] => {
+const findAllRoutes = (source: METRO_STATION_ID, destination: METRO_STATION_ID, graph: any): RouteSegment[][] => {
     const routeSegment: RouteSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
     
     const comparator = lowestHopsComparator;
@@ -61,7 +61,7 @@ const findAllRoutes = (source: METRO_STATION, destination: METRO_STATION, graph:
             allPossibleRoutes.push(currentStation.routeSegments);
         }
         
-        const nextStations: METRO_STATION[]  = graph[currentStation.station];
+        const nextStations: METRO_STATION_ID[]  = graph[currentStation.station];
         nextStations.forEach(nextStation => {
             
             if (!currentStation.isStationInPath(nextStation)) {
@@ -74,7 +74,7 @@ const findAllRoutes = (source: METRO_STATION, destination: METRO_STATION, graph:
     return allPossibleRoutes;
 }
 
-const getNextStationRouteSegments = (currentStation: StationHop, nextStation: METRO_STATION): RouteSegment[] => {
+const getNextStationRouteSegments = (currentStation: StationHop, nextStation: METRO_STATION_ID): RouteSegment[] => {
     const fareType = getFareTypeFromStationId(nextStation);
     const routeSegments: RouteSegment[] = cloneDeep(currentStation.routeSegments);
 
