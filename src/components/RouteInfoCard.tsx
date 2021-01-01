@@ -1,17 +1,17 @@
 import React from "react";
-import { TravelRoute } from "../types";
+import { Journey } from "../types";
 import "../styles/RouteInfoCard.scss";
-import { getStationIdsFromTravelRoute } from "../services/util.service";
+import { getStationIdsFromJourney } from "../services/util.service";
 import { useTranslation } from "react-i18next";
 type RouteInfoCardProps = {
-  travelRoute: TravelRoute;
+  journey: Journey;
   title: string;
   onClick: () => void;
 };
 
-const RouteInfoCard = ({ travelRoute, title, onClick }: RouteInfoCardProps) => {
+const RouteInfoCard = ({ journey, title, onClick }: RouteInfoCardProps) => {
   const { t: translate } = useTranslation();
-  const numberOfStations = getStationIdsFromTravelRoute(travelRoute).length;
+  const numberOfStations = getStationIdsFromJourney(journey).length;
   return (
     <div className="route-info-card" onClick={onClick}>
       <div className="route-info">
@@ -19,7 +19,7 @@ const RouteInfoCard = ({ travelRoute, title, onClick }: RouteInfoCardProps) => {
         <div className="row">
           <div className="col-2">{numberOfStations} {translate("station.station")}</div>
           <div className="col-2">
-            {travelRoute.fare} {translate("currency.baht")}
+            {journey.fare} {translate("currency.baht")}
           </div>
         </div>
       </div>

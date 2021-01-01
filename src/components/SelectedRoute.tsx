@@ -1,22 +1,22 @@
 import React from "react";
 import { getStation, getStationName } from "../services/util.service";
-import { TravelRoute, Station } from "../types";
+import { Journey, Station } from "../types";
 import "../styles/SelectedRoute.scss";
 import { useTranslation } from "react-i18next";
 import { getDottedLineStyle, getStationIconStyle, getInterChangeLine } from "../services/ui-style.service";
 
-const SelectedRoute = ({travelRoute}: {travelRoute: TravelRoute}) => {
+const SelectedRoute = ({journey}: {journey: Journey}) => {
   const {t: translate, i18n } = useTranslation();
   return (
     <div>
-      <div>{translate('route.fare')}: {travelRoute.fare}</div>
+      <div>{translate('route.fare')}: {journey.fare}</div>
       <div className="travel-route-container">
-        {travelRoute.route.map((routeSegment, segmentIndex) => {
+        {journey.route.map((routeSegment, segmentIndex) => {
           let interchangeDottedLineStyle = "";
           if (segmentIndex > 0) {
             interchangeDottedLineStyle = getInterChangeLine(
               routeSegment.lineType,
-              travelRoute.route[segmentIndex - 1].lineType
+              journey.route[segmentIndex - 1].lineType
             );
           }
           const route = routeSegment.route.map((stationId, index) => {

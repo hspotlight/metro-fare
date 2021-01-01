@@ -1,55 +1,55 @@
 import React, { useState, useEffect, useContext, ReactNode } from "react";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { TripContext, emptyTravelRoute } from "../contexts/TripProvider";
+import { TripContext, unfilledJourney } from "../contexts/TripProvider";
 import FareService from "../services/fare.service";
 import StationSelect from "./StationSelect";
 import SelectedRoute from "./SelectedRoute";
 import "../styles/RouteFinder.scss";
-import { TravelRoute } from "../types";
+import { Journey } from "../types";
 import Route from "./Route";
 
 const RouteFinder = () => {
   const { t: translate } = useTranslation();
   const {
     trip,
-    travelRoute,
+    journey,
     setSource,
     setDestination,
-    setTravelRoute,
+    setJourney,
     resetTrip,
-    resetTravelRoute,
+    resetJourney,
   } = useContext(TripContext);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
 
   const [showTripSelector, setShowTripSelector] = useState<boolean>(true);
-  const [showAllTravelRoutes, setShowAllTravelRoutes] = useState<boolean>(false);
+  const [showAllJourneys, setShowAllJourneys] = useState<boolean>(false);
   const [showSelectedRoute, setShowSelectedRoute] = useState<boolean>(false);
 
-  const [allTravelRoutes, setAllTravelRoutes] = useState<TravelRoute[]>([]);
+  const [allJourneys, setAllJourneys] = useState<Journey[]>([]);
 
-  const showTravelRoute =
-    travelRoute.route.length > 0 && trip.source && trip.destination;
+  const showJourney =
+    journey.route.length > 0 && trip.source && trip.destination;
 
   const calculateRoute = () => {
-    let travelRoutes = FareService.findAllRoutes(trip.source, trip.destination);
+    let journeys = FareService.findAllRoutes(trip.source, trip.destination);
     // sorted and get top 3
-    travelRoutes = travelRoutes.sort((a, b) => a.fare - b.fare);
-    travelRoutes = travelRoutes.slice(0, 3);
+    journeys = journeys.sort((a, b) => a.fare - b.fare);
+    journeys = journeys.slice(0, 3);
 
-    setAllTravelRoutes(travelRoutes);
-    setShowAllTravelRoutes(true);
+    setAllJourneys(journeys);
+    setShowAllJourneys(true);
     setShowSelectedRoute(false);
-    setTravelRoute(emptyTravelRoute); // why reset?
+    setJourney(unfilledJourney); // why reset?
   };
 
   const resetForm = () => {
-    resetTravelRoute();
+    resetJourney();
     resetTrip();
     setErrorMessage("");
-    setAllTravelRoutes([]);
-    setShowAllTravelRoutes(false);
+    setAllJourneys([]);
+    setShowAllJourneys(false);
     setShowSelectedRoute(false);
   };
 
@@ -95,15 +95,15 @@ const RouteFinder = () => {
           <ErrorMessage errorMessage={errorMessage} />
         )}
       </Section>
-      {allTravelRoutes.length > 0 && (
+      {allJourneys.length > 0 && (
         <Section
-          title={translate("tab.allRoutes", {count: allTravelRoutes.length})}
-          showDetail={showAllTravelRoutes}
-          setShowDetail={() => setShowAllTravelRoutes(!showAllTravelRoutes)}
+          title={translate("tab.allRoutes", {count: allJourneys.length})}
+          showDetail={showAllJourneys}
+          setShowDetail={() => setShowAllJourneys(!showAllJourneys)}
         >
-          {allTravelRoutes.map((route, index) => {
-            const onTravelRouteClick = () => {
-              setTravelRoute(route);
+          {allJourneys.map((route, index) => {
+            const onJourneyClick = () => {
+              setJourney(route);
               setShowSelectedRoute(true);
               setShowTripSelector(false);
             }
@@ -111,9 +111,9 @@ const RouteFinder = () => {
               <React.Fragment key={`travel-route-${index}`}>
                 {index > 0 && <div className="divider"></div>}
                 <Route
-                  travelRoute={route}
-                  isActive={travelRoute === route}
-                  onClick={onTravelRouteClick}
+                  journey={route}
+                  isActive={journey === route}
+                  onClick={onJourneyClick}
                 />
               </React.Fragment>
             );
@@ -121,13 +121,13 @@ const RouteFinder = () => {
           
         </Section>
       )}
-      {showTravelRoute && (
+      {showJourney && (
         <Section
           title={translate("tab.selectedRoute")}
           showDetail={showSelectedRoute}
           setShowDetail={() => setShowSelectedRoute(!showSelectedRoute)}
         >
-          <SelectedRoute travelRoute={travelRoute} />
+          <SelectedRoute journey={journey} />
         </Section>
       )}
     </section>

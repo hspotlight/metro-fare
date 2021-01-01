@@ -4,7 +4,7 @@ import StationMarker from "../map/StationMarker";
 import {
   getAllStations,
   getStation,
-  getStationIdsFromTravelRoute,
+  getStationIdsFromJourney,
 } from "../../services/util.service";
 import {
   getColorFromLineType,
@@ -15,19 +15,19 @@ import { Station } from "../../types";
 import { TripContext } from "../../contexts/TripProvider";
 
 export const TravelRouteLayer = () => {
-  const { travelRoute } = useContext(TripContext);
+  const { journey } = useContext(TripContext);
 
-  const source = getStation(travelRoute.source);
-  const destination = getStation(travelRoute.destination);
+  const from = getStation(journey.from);
+  const to = getStation(journey.to);
 
-  if (!(source && destination)) {
+  if (!(from && to)) {
     return null;
   }
-  const stationIds = getStationIdsFromTravelRoute(travelRoute);
+  const stationIds = getStationIdsFromJourney(journey);
   const allStationsInRoute = getAllStations(stationIds);
 
   const intermediateStations = allStationsInRoute.filter(
-    (station) => station.id !== source.id && station.id !== destination.id
+    (station) => station.id !== from.id && station.id !== to.id
   );
 
   return (
@@ -54,7 +54,7 @@ export const TravelRouteLayer = () => {
       </FeatureGroup>
       <FeatureGroup name="travel-route-station">
         <StationMarker
-          station={source as Station}
+          station={from as Station}
           fillColor={colors.sourceStation}
           showPopup={false}
           radius={12}
@@ -71,7 +71,7 @@ export const TravelRouteLayer = () => {
           );
         })}
         <StationMarker
-          station={destination as Station}
+          station={to as Station}
           fillColor={colors.destinationStation}
           showPopup={false}
           radius={12}

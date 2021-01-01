@@ -1,5 +1,5 @@
-import { getStationName, getStation, getPolyLineFromStations, getLineTypeFromFareType, isInterchangeStation, isExtensionBorderStation, getStationIdsFromTravelRoute, getFareTypeFromStationId, getAllStations, calculateFareFromRouteSegment } from '../util.service';
-import { MRT_BLUE_STATION_ID, LineType, BTS_SILOM_STATION_ID, METRO_STATION_ID, Station, FareType, BTS_SUKHUMVIT_STATION_ID, TravelRoute, ARL_STATION_ID, BRT_STATION_ID, RouteSegment } from '../../types';
+import { getStationName, getStation, getPolyLineFromStations, getLineTypeFromFareType, isInterchangeStation, isExtensionBorderStation, getStationIdsFromJourney, getFareTypeFromStationId, getAllStations, calculateFareFromRouteSegment } from '../util.service';
+import { MRT_BLUE_STATION_ID, LineType, BTS_SILOM_STATION_ID, METRO_STATION_ID, Station, FareType, BTS_SUKHUMVIT_STATION_ID, Journey, ARL_STATION_ID, BRT_STATION_ID } from '../../types';
 
 describe('Util Service', () => {
     const station: Station = {
@@ -94,9 +94,9 @@ describe('Util Service', () => {
             expect(isExtensionBorderStation(station)).toBeFalsy();
         });
     });
-    describe('getStationIdsFromTravelRoute', () => {
-        it('should return list of station id from travel route', () => {
-            const travelRoute: TravelRoute = {
+    describe('getStationIdsFromJourney', () => {
+        it('should return list of station id from journey', () => {
+            const journey: Journey = {
                 route: [{
                     route: [MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI],
                     lineType: LineType.MRT_BLUE,
@@ -107,11 +107,11 @@ describe('Util Service', () => {
                     fare: 0
                 }],
                 fare: 0,
-                source: MRT_BLUE_STATION_ID.SILOM,
-                destination: MRT_BLUE_STATION_ID.LUMPHINI
+                from: MRT_BLUE_STATION_ID.SILOM,
+                to: MRT_BLUE_STATION_ID.LUMPHINI
             };
 
-            const stationIds = getStationIdsFromTravelRoute(travelRoute);
+            const stationIds = getStationIdsFromJourney(journey);
             const expectedResult: METRO_STATION_ID[] = [MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI, BTS_SUKHUMVIT_STATION_ID.ARI, BTS_SUKHUMVIT_STATION_ID.ASOK];
             expect(stationIds).toMatchObject(expectedResult);
         });
