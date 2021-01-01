@@ -41,38 +41,37 @@ export const getLineTypeLabel = (lineType: LineType): string => {
     }
 };
 
-// TODO: rename either station id or station key
-export const getFareTypeFromStationId = (station: METRO_STATION_ID): FareType => {
-    if (Object.values(ARL_STATION_ID).includes(station as ARL_STATION_ID)) return FareType.ARL
-    if (Object.values(BRT_STATION_ID).includes(station as BRT_STATION_ID)) return FareType.BRT
-    if (BTS_SILOM_EXTENSION_15.includes(station as BTS_SILOM_STATION_ID)) return FareType.BTS_SILOM_EXTENSION_15
-    if (BTS_SUKHUMVIT_EXTENSION_15.includes(station as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS_SUKHUMVIT_EXTENSION_15
-    if (BTS_SUKHUMVIT_EXTENSION_0.includes(station as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS_SUKHUMVIT_EXTENSION_0
-    if (Object.values(BTS_SILOM_STATION_ID).includes(station as BTS_SILOM_STATION_ID) ||
-        Object.values(BTS_SUKHUMVIT_STATION_ID).includes(station as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS
+export const getFareTypeFromStationId = (stationId: METRO_STATION_ID): FareType => {
+    if (Object.values(ARL_STATION_ID).includes(stationId as ARL_STATION_ID)) return FareType.ARL
+    if (Object.values(BRT_STATION_ID).includes(stationId as BRT_STATION_ID)) return FareType.BRT
+    if (BTS_SILOM_EXTENSION_15.includes(stationId as BTS_SILOM_STATION_ID)) return FareType.BTS_SILOM_EXTENSION_15
+    if (BTS_SUKHUMVIT_EXTENSION_15.includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS_SUKHUMVIT_EXTENSION_15
+    if (BTS_SUKHUMVIT_EXTENSION_0.includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS_SUKHUMVIT_EXTENSION_0
+    if (Object.values(BTS_SILOM_STATION_ID).includes(stationId as BTS_SILOM_STATION_ID) ||
+        Object.values(BTS_SUKHUMVIT_STATION_ID).includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS
     return FareType.MRT_BLUE
 };
 
-export const getStation = (searchStation: METRO_STATION_ID): Station | undefined => {
-    return STATIONS.find(stationName => stationName.key === searchStation);
+export const getStation = (stationId: METRO_STATION_ID): Station | undefined => {
+    return STATIONS.find(stationName => stationName.id === stationId);
 };
 
 export const getStationName = (station: Station, lang: string = 'en') => {
     return lang === 'en' ? station.nameEN : station.nameTH;
 }
 
-export const getStationKeysFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION_ID[] => {
-    let stationKeys: METRO_STATION_ID[] = [];
+export const getStationIdsFromTravelRoute = (travelRoute: TravelRoute): METRO_STATION_ID[] => {
+    let stationIds: METRO_STATION_ID[] = [];
     travelRoute.route.forEach(route => {
-        stationKeys.push(...route.route)
+        stationIds.push(...route.route)
     });
-    return stationKeys;
+    return stationIds;
 }
 
-export const getAllStations = (stationKeys: METRO_STATION_ID[]): Station[] => {
+export const getAllStations = (stationIds: METRO_STATION_ID[]): Station[] => {
     const stations: Station[] = [];
-    stationKeys.forEach((stationKey: METRO_STATION_ID) => {
-        const station = getStation(stationKey);
+    stationIds.forEach((stationId: METRO_STATION_ID) => {
+        const station = getStation(stationId);
         if (station) {
             stations.push(station);
         }

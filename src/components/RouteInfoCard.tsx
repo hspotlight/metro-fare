@@ -1,7 +1,7 @@
 import React from "react";
 import { TravelRoute } from "../types";
 import "../styles/RouteInfoCard.scss";
-import { getStationKeysFromTravelRoute } from "../services/util.service";
+import { getStationIdsFromTravelRoute } from "../services/util.service";
 import { useTranslation } from "react-i18next";
 type RouteInfoCardProps = {
   travelRoute: TravelRoute;
@@ -11,7 +11,7 @@ type RouteInfoCardProps = {
 
 const RouteInfoCard = ({ travelRoute, title, onClick }: RouteInfoCardProps) => {
   const { t: translate } = useTranslation();
-  const numberOfStations = getStationKeysFromTravelRoute(travelRoute).length;
+  const numberOfStations = getStationIdsFromTravelRoute(travelRoute).length;
   return (
     <div className="route-info-card" onClick={onClick}>
       <div className="route-info">

@@ -101,7 +101,7 @@ export const MetroLineLayers = () => {
         <FeatureGroup name="mrt-blue-station">
           {stationLayer.stations.map((station) => (
             <StationMarker
-              key={station.key}
+              key={station.id}
               station={station}
               fillColor={stationLayer.color}
             />

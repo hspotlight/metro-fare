@@ -19,18 +19,18 @@ const SelectedRoute = ({travelRoute}: {travelRoute: TravelRoute}) => {
               travelRoute.route[segmentIndex - 1].lineType
             );
           }
-          const route = routeSegment.route.map((stationKey, index) => {
-            const station = getStation(stationKey) as Station;
+          const route = routeSegment.route.map((stationId, index) => {
+            const station = getStation(stationId) as Station;
             const dottedLineStyle = getDottedLineStyle(station.lineType);
             const stationIconStyle = getStationIconStyle(station.lineType);
             if (station.isNotAvailable) {
               return null;
             }
 
-            const stationName = `(${station.key}) ${getStationName(station as Station, i18n.language)}`;
+            const stationName = `(${station.id}) ${getStationName(station as Station, i18n.language)}`;
 
             return (
-              <section key={stationKey}>
+              <section key={stationId}>
                 {index > 0 && <div className={dottedLineStyle}></div>}
                 <section className="station-container">
                   {<div className={stationIconStyle}></div>}

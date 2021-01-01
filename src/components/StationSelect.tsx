@@ -28,13 +28,13 @@ const StationSelect = ({
   };
 
   useEffect(() => {
-    if (Object.values(BTS_SILOM_STATION_ID).find((btsKey) => btsKey === value)) {
+    if (Object.values(BTS_SILOM_STATION_ID).find((btsId) => btsId === value)) {
       setLineType(LineType.BTS_SILOM);
-    } else if (Object.values(BTS_SUKHUMVIT_STATION_ID).find((btsKey) => btsKey === value)) {
+    } else if (Object.values(BTS_SUKHUMVIT_STATION_ID).find((btsId) => btsId === value)) {
       setLineType(LineType.BTS_SUKHUMVIT);
-    } else if (Object.values(ARL_STATION_ID).find((arlKey) => arlKey === value)) {
+    } else if (Object.values(ARL_STATION_ID).find((arlId) => arlId === value)) {
       setLineType(LineType.ARL);
-    } else if (Object.values(BRT_STATION_ID).find((brtKey) => brtKey === value)) {
+    } else if (Object.values(BRT_STATION_ID).find((brtId) => brtId === value)) {
       setLineType(LineType.BRT);
     } else if (value.length !== 0) {
       setLineType(LineType.MRT_BLUE);
@@ -77,9 +77,9 @@ const StationSelect = ({
         >
           <option value="" disabled></option>
           {stationsName.map((station: Station) => {
-            const label = `(${station.key}) ${getStationName(station, i18n.language)}`;
+            const label = `(${station.id}) ${getStationName(station, i18n.language)}`;
             return (
-              <option key={station.key} value={station.key}>
+              <option key={station.id} value={station.id}>
                 {label}
               </option>
             );

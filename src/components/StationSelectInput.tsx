@@ -19,13 +19,13 @@ const StationSelectInput = ({
 }: StationSelectInputProps) => {
   const { i18n } = useTranslation();
   const stationElementId = `${title}-native-required`;
-  const station = STATIONS.find((station) => station.key === value);
+  const station = STATIONS.find((station) => station.id === value);
   const getStationLabel = (station: Station | undefined) => {
     if (!station) return "";
 
     const lineType = getLineTypeLabel(station.lineType);
     const stationName = getStationName(station, i18n.language);
-    return station ? `${lineType} [${station.key}] ${stationName}` : "";
+    return station ? `${lineType} [${station.id}] ${stationName}` : "";
   };
   const label = getStationLabel(station);
   return (

@@ -12,6 +12,6 @@ export const searchStation = (term: string, stations: Station[] = STATIONS): Sta
     })
 
     // TODO: clean up and remove duplicate siam
-    result = result.filter((item, idx) => result.findIndex(i => i.key === item.key) === idx)
+    result = result.filter((item, idx) => result.findIndex(i => i.id === item.id) === idx)
     return result
 }

@@ -4,7 +4,7 @@ import RouteDetailInsight from "./RouteDetailInsight";
 import RouteFromTo from "./RouteFromTo";
 import SelectedRoute from "./SelectedRoute";
 import "../styles/RouteDetail.scss";
-import { getStation, getStationKeysFromTravelRoute } from "../services/util.service";
+import { getStation, getStationIdsFromTravelRoute } from "../services/util.service";
 import { useHistory, useLocation } from "react-router-dom";
 import { METRO_STATION_ID } from "../types";
 import FareService from "../services/fare.service";
@@ -12,7 +12,7 @@ import Analytics from "../analytics/Analytics";
 
 const RouteDetail = () => {
   const { travelRoute, setTravelRoute } = useTripContext();
-  const nStations = getStationKeysFromTravelRoute(travelRoute).length;
+  const nStations = getStationIdsFromTravelRoute(travelRoute).length;
   const query = new URLSearchParams(useLocation().search);
   const history = useHistory();
 

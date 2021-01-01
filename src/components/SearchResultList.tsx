@@ -36,7 +36,7 @@ const SearchItem = ({ item, onClick }: SearchItemProps) => {
   return (
     <div
       className="search-item"
-      onClick={() => onClick(item.key)}
-    >{`${lineType} [${item.key}] ${stationName}`}</div>
+      onClick={() => onClick(item.id)}
+    >{`${lineType} [${item.id}] ${stationName}`}</div>
   );
 };

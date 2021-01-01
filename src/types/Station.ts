@@ -3,7 +3,7 @@ import { LatLngTuple } from "leaflet";
 
 export type Station = {
     lineType: LineType,
-    key: METRO_STATION_ID,
+    id: METRO_STATION_ID,
     nameEN: string,
     nameTH: string,
     position: LatLngTuple
