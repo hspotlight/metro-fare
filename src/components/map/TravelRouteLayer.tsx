@@ -4,7 +4,7 @@ import StationMarker from "../map/StationMarker";
 import {
   getAllStations,
   getStation,
-  getStationKeysFromTravelRoute,
+  getStationIdsFromTravelRoute,
 } from "../../services/util.service";
 import {
   getColorFromLineType,
@@ -23,11 +23,11 @@ export const TravelRouteLayer = () => {
   if (!(source && destination)) {
     return null;
   }
-  const stationKeys = getStationKeysFromTravelRoute(travelRoute);
-  const allStationsInRoute = getAllStations(stationKeys);
+  const stationIds = getStationIdsFromTravelRoute(travelRoute);
+  const allStationsInRoute = getAllStations(stationIds);
 
   const intermediateStations = allStationsInRoute.filter(
-    (station) => station.key !== source.key && station.key !== destination.key
+    (station) => station.id !== source.id && station.id !== destination.id
   );
 
   return (
@@ -44,7 +44,7 @@ export const TravelRouteLayer = () => {
 
           return (
             <Polyline
-              key={`travel-route-${prevStation.key}-${currentStation.key}`}
+              key={`travel-route-${prevStation.id}-${currentStation.id}`}
               positions={polyline}
               color={color}
               weight={7}
@@ -62,7 +62,7 @@ export const TravelRouteLayer = () => {
         {intermediateStations.map((station) => {
           return (
             <StationMarker
-              key={`intermediate-${station.key}`}
+              key={`intermediate-${station.id}`}
               station={station as Station}
               fillColor={getColorFromLineType(station.lineType)}
               showPopup={false}

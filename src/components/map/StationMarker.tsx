@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
 import { TripContext } from "../../contexts/TripProvider";
 import { getStationName } from "../../services/util.service";
-import { METRO_STATION_ID } from "../../types";
+import { METRO_STATION_ID, } from "../../types";
 
 const StationMarker = (props: any) => {
   const { station, showPopup = true } = props;
   const { i18n } = useTranslation();
-  const stationName = `(${station.key}) ${getStationName(
+  const stationName = `(${station.id}) ${getStationName(
     station,
     i18n.language
   )}`;
@@ -23,7 +23,7 @@ const StationMarker = (props: any) => {
       fillOpacity={1}
       {...props}
     >
-      {showPopup && <StationPopup stationName={stationName} stationKey={station.key} />}
+      {showPopup && <StationPopup stationName={stationName} stationId={station.id} />}
       <Tooltip>{stationName}</Tooltip>
     </CircleMarker>
   );
@@ -31,10 +31,10 @@ const StationMarker = (props: any) => {
 
 const StationPopup = ({
   stationName,
-  stationKey,
+  stationId,
 }: {
   stationName: string;
-  stationKey: METRO_STATION_ID;
+  stationId: METRO_STATION_ID;
 }) => {
   const { t: translate } = useTranslation();
   const { setSource, setDestination } = useContext(TripContext);
@@ -56,7 +56,7 @@ const StationPopup = ({
           variant="contained"
           color="primary"
           onClick={() => {
-            setSource(stationKey);
+            setSource(stationId);
             closePopupOnClick();
           }}
         >
@@ -66,7 +66,7 @@ const StationPopup = ({
           variant="contained"
           color="primary"
           onClick={() => {
-            setDestination(stationKey);
+            setDestination(stationId);
             closePopupOnClick();
           }}
         >

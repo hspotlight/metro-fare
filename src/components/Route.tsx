@@ -3,7 +3,7 @@ import { TravelRoute, Station, LineType } from "../types";
 import { useTranslation } from "react-i18next";
 import {
   getStation,
-  getStationKeysFromTravelRoute,
+  getStationIdsFromTravelRoute,
   getStationName,
 } from "../services/util.service";
 import "../styles/Route.scss";
@@ -22,10 +22,10 @@ const Route = ({
   const sourceStation = getStation(travelRoute.source);
   const destinationStation = getStation(travelRoute.destination);
 
-  const stationKeys = getStationKeysFromTravelRoute(travelRoute);
+  const stationIds = getStationIdsFromTravelRoute(travelRoute);
   
   const intermediateStationCount =
-  sourceStation?.key === destinationStation?.key ? 0 : stationKeys.length - 2;
+  sourceStation?.id === destinationStation?.id ? 0 : stationIds.length - 2;
 
   return (
     <div className={`route-block-container ${isActive ? "active": ""}`} onClick={onClick}>
@@ -57,7 +57,7 @@ const StationBlock = ({ station }: { station: Station }) => {
   return (
     <section className="station-container">
       {<div className={stationIconStyle}></div>}
-      <div>{`(${station.key}) ${stationName}`}</div>
+      <div>{`(${station.id}) ${stationName}`}</div>
     </section>
   );
 };
