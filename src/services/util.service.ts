@@ -5,16 +5,16 @@ import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/B
 import { LatLngTuple } from "leaflet";
 import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
 
-export const isInterchangeStation = (station: METRO_STATION_ID): boolean => {
-    const interChangeStations: METRO_STATION_ID[] = [];
+export const isInterchangeStation = (stationId: METRO_STATION_ID): boolean => {
+    const interchangeStations: METRO_STATION_ID[] = [];
     ALL_INTERSECTIONS.forEach((stationPair: Intersection) => {
-        interChangeStations.push(...stationPair);
+        interchangeStations.push(...stationPair);
     })
-    return interChangeStations.includes(station);
+    return interchangeStations.includes(stationId);
 };
 
-export const isExtensionBorderStation = (station: METRO_STATION_ID): boolean => {
-    return EXTENSION_BORDER_STATIONS.includes(station);
+export const isExtensionBorderStation = (stationId: METRO_STATION_ID): boolean => {
+    return EXTENSION_BORDER_STATIONS.includes(stationId);
 };
 
 export const getLineTypeFromFareType = (fareType: FareType): LineType => {
