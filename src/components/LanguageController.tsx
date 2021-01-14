@@ -10,10 +10,12 @@ const LanguageController = () => {
   return (
     <section style={{ display: "flex", alignItems: "center" }}>
       <div
+        data-testid="language-controller-th"
         className={"flag th " + languageActiveClass("th")}
         onClick={() => i18n.changeLanguage("th")}
       ></div>
       <div
+        data-testid="language-controller-en"
         className={"flag en " + languageActiveClass("en")}
         onClick={() => i18n.changeLanguage("en")}
       ></div>

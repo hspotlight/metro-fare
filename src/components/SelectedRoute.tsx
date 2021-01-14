@@ -9,8 +9,8 @@ const SelectedRoute = ({travelRoute}: {travelRoute: TravelRoute}) => {
   const {t: translate, i18n } = useTranslation();
   return (
     <div>
-      <div>{translate('route.fare')}: {travelRoute.fare}</div>
-      <div className="travel-route-container">
+      <div data-testid="selected-route-fare" >{translate('route.fare')}: {travelRoute.fare}</div>
+      <div data-testid="selected-route-container" className="travel-route-container">
         {travelRoute.route.map((routeSegment, segmentIndex) => {
           let interchangeDottedLineStyle = "";
           if (segmentIndex > 0) {
@@ -28,13 +28,12 @@ const SelectedRoute = ({travelRoute}: {travelRoute: TravelRoute}) => {
             }
 
             const stationName = `(${station.key}) ${getStationName(station as Station, i18n.language)}`;
-
             return (
-              <section key={stationKey}>
-                {index > 0 && <div className={dottedLineStyle}></div>}
+              <section data-testid="selected-route-station" key={stationKey}>
+                {index > 0 && <div data-testid="selected-route-station-dotted-line-style" className={dottedLineStyle}></div>}
                 <section className="station-container">
-                  {<div className={stationIconStyle}></div>}
-                  <div>{stationName}</div>
+                  <div data-testid="selected-route-station-icon-style" className={stationIconStyle}></div>
+                  <div data-testid="selected-route-station-name">{stationName}</div>
                 </section>
               </section>
             );
@@ -42,7 +41,7 @@ const SelectedRoute = ({travelRoute}: {travelRoute: TravelRoute}) => {
 
           return (
             <section key={routeSegment.lineType + "-" + segmentIndex}>
-              {<div className={interchangeDottedLineStyle}></div>}
+              <div data-testid="selected-route-interchange-dotted-line-style" className={interchangeDottedLineStyle}></div>
               {route}
             </section>
           );
