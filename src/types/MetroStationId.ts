@@ -64,7 +64,7 @@ export enum BTS_SILOM_STATION_ID {
     RATCHADAMRI = "S1",
     SALA_DAENG = "S2",
     CHONG_NONSI = "S3",
-    SUKSA_WITTHAYA = "S4",
+    SAINT_LOUIS = "S4",
     SURASAK = "S5",
     SAPHAN_TAKSIN = "S6",
     KRUNG_THON_BURI = "S7",

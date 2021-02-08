@@ -1,7 +1,7 @@
 import { METRO_STATION_ID } from "./MetroStationId";
-import { FareType } from "./FareType";
+import { LineType } from "./LineType";
 
 export type RouteSegment = {
     route: METRO_STATION_ID[],
-    fareType: FareType
+    lineType: LineType
 }

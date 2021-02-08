@@ -28,13 +28,19 @@ const RoutesSearchResult = () => {
 
   useEffect(() => {
     if (trip.source && trip.destination) {
-      const journeys = FareService.findAllRoutes(
-        trip.source,
-        trip.destination
-      )
-        .sort((a, b) => a.fare - b.fare)
-        .slice(0, 5);
-      setJourneys(journeys);
+      const fetchAllRoutes = async () => {
+        let journeys = await FareService.findAllRoutes(
+          trip.source,
+          trip.destination
+        )
+        
+        journeys = journeys
+          .sort((a, b) => a.fare - b.fare)
+          .slice(0, 5);
+        setJourneys(journeys);
+      }
+
+      fetchAllRoutes()
     }
   }, [trip]);
 

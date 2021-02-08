@@ -1,7 +1,5 @@
 import { FareType, Station, LineType, METRO_STATION_ID, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, Journey, ARL_STATION_ID, BRT_STATION_ID, Intersection } from "../types";
 import { STATIONS } from "../data/Stations";
-import { BTS_SILOM_EXTENSION_15 } from "../data/BtsSilomLine";
-import { BTS_SUKHUMVIT_EXTENSION_15, BTS_SUKHUMVIT_EXTENSION_0 } from "../data/BtsSukhumvitLine";
 import { LatLngTuple } from "leaflet";
 import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
 
@@ -20,9 +18,6 @@ export const isExtensionBorderStation = (stationId: METRO_STATION_ID): boolean =
 export const getLineTypeFromFareType = (fareType: FareType): LineType => {
     switch (fareType) {
         case FareType.BTS: return LineType.BTS;
-        case FareType.BTS_SILOM_EXTENSION_15: return LineType.BTS_SILOM;
-        case FareType.BTS_SUKHUMVIT_EXTENSION_15:
-        case FareType.BTS_SUKHUMVIT_EXTENSION_0: return LineType.BTS_SUKHUMVIT;
         case FareType.ARL: return LineType.ARL;
         case FareType.BRT: return LineType.BRT;
         default: return LineType.MRT_BLUE;
@@ -41,12 +36,17 @@ export const getLineTypeLabel = (lineType: LineType): string => {
     }
 };
 
+// TODO: refactor later
+export const getLineTypeFromStationId = (stationId: METRO_STATION_ID): LineType => {
+    const fareType = getFareTypeFromStationId(stationId);
+    return getLineTypeFromFareType(fareType);
+}
+
+
+// TODO: refactor later remove faretype
 export const getFareTypeFromStationId = (stationId: METRO_STATION_ID): FareType => {
     if (Object.values(ARL_STATION_ID).includes(stationId as ARL_STATION_ID)) return FareType.ARL
     if (Object.values(BRT_STATION_ID).includes(stationId as BRT_STATION_ID)) return FareType.BRT
-    if (BTS_SILOM_EXTENSION_15.includes(stationId as BTS_SILOM_STATION_ID)) return FareType.BTS_SILOM_EXTENSION_15
-    if (BTS_SUKHUMVIT_EXTENSION_15.includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS_SUKHUMVIT_EXTENSION_15
-    if (BTS_SUKHUMVIT_EXTENSION_0.includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS_SUKHUMVIT_EXTENSION_0
     if (Object.values(BTS_SILOM_STATION_ID).includes(stationId as BTS_SILOM_STATION_ID) ||
         Object.values(BTS_SUKHUMVIT_STATION_ID).includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS
     return FareType.MRT_BLUE

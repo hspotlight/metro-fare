@@ -32,8 +32,8 @@ const RouteFinder = () => {
   const showJourney =
     journey.route.length > 0 && trip.source && trip.destination;
 
-  const calculateRoute = () => {
-    let journeys = FareService.findAllRoutes(trip.source, trip.destination);
+  const calculateRoute = async () => {
+    let journeys = await FareService.findAllRoutes(trip.source, trip.destination);
     // sorted and get top 3
     journeys = journeys.sort((a, b) => a.fare - b.fare);
     journeys = journeys.slice(0, 3);
