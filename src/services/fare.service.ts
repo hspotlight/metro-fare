@@ -1,29 +1,34 @@
 import GraphService from "./graph.service";
-import { getLineTypeFromFareType, isExtensionBorderStation, isInterchangeStation } from "./util.service";
-import { FareType, METRO_STATION_ID, RouteSegment, Journey } from "../types";
+import { getFareTypeFromStationId, isExtensionBorderStation, isInterchangeStation } from "./util.service";
+import { METRO_STATION_ID, RouteSegment, Journey, LineType } from "../types";
 import { METRO_GRAPH, MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
 import { METRO_FARE } from "../common/fare";
+import { getBTSFareFromTable } from "./btsFare.service";
 
 const metroGraph = GraphService.createGraph(METRO_GRAPH);
 
-const findAllRoutes = (from: METRO_STATION_ID, to: METRO_STATION_ID): Journey[] => {
+// TODO: refactor fare service as producer
+const findAllRoutes = async (from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey[]> => {
     const routeSegmentsList = GraphService.findAllRoutes(from, to, metroGraph);
-    const journeys = routeSegmentsList.map(routeSegments => {
+    // TODO: refactor to reduce number of call to btsFare (if backend is implemented)
+    const journeys = await Promise.all(routeSegmentsList.map(routeSegments => {
         return FareService.getJourneyFromRouteSegments(routeSegments, from, to);
-    })
+    }))
     return journeys;
 }
 
-const getJourneyFromRouteSegments = (routeSegments: RouteSegment[], from: METRO_STATION_ID, to: METRO_STATION_ID): Journey => {
+const getJourneyFromRouteSegments = async (routeSegments: RouteSegment[], from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey> => {
     const isTravelToSelf = from === to;
     let totalFare = 0;
-    const route = routeSegments.map((routeSegment: RouteSegment) => {
-        const fare = calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
-        const lineType = getLineTypeFromFareType(routeSegment.fareType);
+    const fares = await Promise.all(routeSegments.map((routeSegment: RouteSegment) => {
+        return calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+    }));
+    const route = routeSegments.map((routeSegment: RouteSegment, routeIndex: number) => {
+        const fare = fares[routeIndex];
         totalFare += fare;
         return {
             route: routeSegment.route,
-            lineType,
+            lineType: routeSegment.lineType,
             fare
         };
     });
@@ -35,12 +40,21 @@ const getJourneyFromRouteSegments = (routeSegments: RouteSegment[], from: METRO_
     };
 }
 
-const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTravelToSelf: boolean): number => {
-    const fareTable: number[] = METRO_FARE[routeSegment.fareType];
+const calculateFareFromRouteSegment = async (routeSegment: RouteSegment, isTravelToSelf: boolean): Promise<number> => {
+    const stationId = routeSegment.route[0];
+    if (routeSegment.lineType === LineType.BTS) {
+        if (!isTravelToSelf && routeSegment.route.length === 1 && (isInterchangeStation(stationId) || isExtensionBorderStation(stationId))) {
+            return 0;
+        }
+
+        const fare = await getBTSFareFromTable(routeSegment.route[0], routeSegment.route[routeSegment.route.length - 1]);
+        return fare
+    }
+
+    const fareTable: number[] = METRO_FARE[getFareTypeFromStationId(routeSegment.route[0])];
 
     const hops = calculateHop(routeSegment);
 
-    const stationId = routeSegment.route[0];
     if (!isTravelToSelf && hops === 0 && (isInterchangeStation(stationId) || isExtensionBorderStation(stationId))) {
         return 0;
     }
@@ -53,7 +67,7 @@ const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTravelToSel
 }
 
 const calculateHop = (routeSegment: RouteSegment) => {
-    if (routeSegment.fareType !== FareType.MRT_BLUE) return routeSegment.route.length - 1;
+    if (routeSegment.lineType !== LineType.MRT_BLUE) return routeSegment.route.length - 1;
 
     let hops = routeSegment.route.length - 1;
     const stationId = routeSegment.route[0];

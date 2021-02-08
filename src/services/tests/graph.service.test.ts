@@ -1,8 +1,8 @@
 import GraphService from "../graph.service";
-import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, Line, Graph, RouteSegment, FareType, BTS_SUKHUMVIT_STATION_ID } from "../../types";
-import { StationHop } from "../../types/StationHop";
-import { getFareTypeFromStationId } from "../util.service";
+import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, Line, Graph, RouteSegment, FareType, BTS_SUKHUMVIT_STATION_ID, LineType } from "../../types";
+import { getLineTypeFromStationId } from "../util.service";
 import { MRT_BLUE_LINE } from "../../data";
+import { cloneDeep } from "lodash";
 
 describe('GraphService', () => {
     describe('CreateGraph', () => {
@@ -58,12 +58,12 @@ describe('GraphService', () => {
     });
     describe('getNextStationRouteSegments', () => {
         const source = MRT_BLUE_STATION_ID.CHATUCHAK_PARK;
-        const routeSegment = { route: [source], fareType: getFareTypeFromStationId(source) };
+        const routeSegment: RouteSegment = { route: [source], lineType: getLineTypeFromStationId(source) };
         it('should return MRT route segment with two stations (same fareType)', () => {
-            const currentStationHop = new StationHop(source, [routeSegment])
             const nextStation = MRT_BLUE_STATION_ID.FAI_CHAI;
+            const routeSegments = cloneDeep([routeSegment]);
 
-            const newRouteSegments = GraphService.getNextStationRouteSegments(currentStationHop, nextStation);
+            const newRouteSegments = GraphService.getNextStationRouteSegments(routeSegments, nextStation);
 
             expect(newRouteSegments).toMatchObject([{
                 ...routeSegment,
@@ -74,14 +74,14 @@ describe('GraphService', () => {
             }]);
         });
         it('should return MRT route segment and BTS route segment (different fareType)', () => {
-            const currentStationHop = new StationHop(source, [routeSegment])
             const nextStation = BTS_SUKHUMVIT_STATION_ID.NANA;
+            const routeSegments = cloneDeep([routeSegment]);
 
-            const newRouteSegments = GraphService.getNextStationRouteSegments(currentStationHop, nextStation);
+            const newRouteSegments = GraphService.getNextStationRouteSegments(routeSegments, nextStation);
 
             expect(newRouteSegments).toMatchObject([routeSegment, {
                 route: [BTS_SUKHUMVIT_STATION_ID.NANA],
-                fareType: FareType.BTS
+                lineType: LineType.BTS
             }]);
         });
     });
@@ -120,7 +120,7 @@ describe('GraphService', () => {
 
                 const expectedResult: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO],
-                    fareType: FareType.MRT_BLUE,
+                    lineType: LineType.MRT_BLUE,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -141,7 +141,7 @@ describe('GraphService', () => {
 
                 const expectedResult: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.RATCHADAPHISEK],
-                    fareType: FareType.MRT_BLUE,
+                    lineType: LineType.MRT_BLUE,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -163,7 +163,7 @@ describe('GraphService', () => {
 
                 const expectedResult: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.PHAHON_YOTHIN],
-                    fareType: FareType.MRT_BLUE,
+                    lineType: LineType.MRT_BLUE,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -189,7 +189,7 @@ describe('GraphService', () => {
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
                         MRT_BLUE_STATION_ID.RATCHADAPHISEK
                     ],
-                    fareType: FareType.MRT_BLUE,
+                    lineType: LineType.MRT_BLUE,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -217,7 +217,7 @@ describe('GraphService', () => {
                         MRT_BLUE_STATION_ID.RATCHADAPHISEK,
                         MRT_BLUE_STATION_ID.SUTTHISAN
                     ],
-                    fareType: FareType.MRT_BLUE,
+                    lineType: LineType.MRT_BLUE,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -243,7 +243,7 @@ describe('GraphService', () => {
 
                 const expectedResult: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.PHAHON_YOTHIN, MRT_BLUE_STATION_ID.SUTTHISAN],
-                    fareType: FareType.MRT_BLUE,
+                    lineType: LineType.MRT_BLUE,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -268,13 +268,9 @@ describe('GraphService', () => {
                 const expectedResult: RouteSegment[] = [{
                     route: [
                         BTS_SILOM_STATION_ID.PHO_NIMIT,
-                    ],
-                    fareType: FareType.BTS_SILOM_EXTENSION_15,
-                }, {
-                    route: [
                         BTS_SILOM_STATION_ID.WONGWIAN_YAI,
                     ],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -302,13 +298,9 @@ describe('GraphService', () => {
                         BTS_SILOM_STATION_ID.WUTTHAKAT,
                         BTS_SILOM_STATION_ID.TALAT_PHLU,
                         BTS_SILOM_STATION_ID.PHO_NIMIT,
-                    ],
-                    fareType: FareType.BTS_SILOM_EXTENSION_15,
-                }, {
-                    route: [
                         BTS_SILOM_STATION_ID.WONGWIAN_YAI,
                     ],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -339,16 +331,12 @@ describe('GraphService', () => {
                         BTS_SILOM_STATION_ID.WUTTHAKAT,
                         BTS_SILOM_STATION_ID.TALAT_PHLU,
                         BTS_SILOM_STATION_ID.PHO_NIMIT,
-                    ],
-                    fareType: FareType.BTS_SILOM_EXTENSION_15,
-                }, {
-                    route: [
                         BTS_SILOM_STATION_ID.WONGWIAN_YAI,
                         BTS_SILOM_STATION_ID.KRUNG_THON_BURI,
                         BTS_SILOM_STATION_ID.SAPHAN_TAKSIN,
                         BTS_SILOM_STATION_ID.SURASAK,
                     ],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -378,10 +366,10 @@ describe('GraphService', () => {
 
                 const expectedResult: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.BANG_WA],
-                    fareType: FareType.BTS_SILOM_EXTENSION_15
+                    lineType: LineType.BTS
                 }, {
                     route: [MRT_BLUE_STATION_ID.BANG_WA],
-                    fareType: FareType.MRT_BLUE
+                    lineType: LineType.MRT_BLUE
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -410,10 +398,10 @@ describe('GraphService', () => {
 
                 const expectedResult: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.CHONG_NONSI, BTS_SILOM_STATION_ID.SALA_DAENG,],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }, {
                     route: [MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI],
-                    fareType: FareType.MRT_BLUE
+                    lineType: LineType.MRT_BLUE
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -449,10 +437,6 @@ describe('GraphService', () => {
                 const expectedResult: RouteSegment[] = [{
                     route: [
                         BTS_SILOM_STATION_ID.PHO_NIMIT,
-                    ],
-                    fareType: FareType.BTS_SILOM_EXTENSION_15,
-                }, {
-                    route: [
                         BTS_SILOM_STATION_ID.WONGWIAN_YAI,
                         BTS_SILOM_STATION_ID.KRUNG_THON_BURI,
                         BTS_SILOM_STATION_ID.SAPHAN_TAKSIN,
@@ -460,57 +444,14 @@ describe('GraphService', () => {
                         BTS_SILOM_STATION_ID.CHONG_NONSI,
                         BTS_SILOM_STATION_ID.SALA_DAENG
                     ],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }, {
                     route: [
                         MRT_BLUE_STATION_ID.SILOM,
                         MRT_BLUE_STATION_ID.SAM_YAN,
                         MRT_BLUE_STATION_ID.HUA_LAMPHONG
                     ],
-                    fareType: FareType.MRT_BLUE
-                }]
-                expect(routeSegments[0]).toMatchObject(expectedResult);
-            });
-            // minimum fare logic is not correct
-            it.skip('should return the route that has minimum fare', () => {
-                const metroGraph: Graph = {
-                    lines: [{
-                        line: [
-                            BTS_SILOM_STATION_ID.SURASAK,
-                            BTS_SILOM_STATION_ID.CHONG_NONSI,
-                            BTS_SILOM_STATION_ID.SALA_DAENG,
-                        ],
-                    }, {
-                        line: [
-                            MRT_BLUE_STATION_ID.SILOM,
-                            MRT_BLUE_STATION_ID.SAM_YAN,
-                            MRT_BLUE_STATION_ID.HUA_LAMPHONG,
-                            MRT_BLUE_STATION_ID.WAT_MANGKON,
-                            MRT_BLUE_STATION_ID.SAM_YOT,
-                            MRT_BLUE_STATION_ID.SANAM_CHAI,
-                        ],
-                    }],
-                    intersections: [
-                        [BTS_SILOM_STATION_ID.SALA_DAENG, MRT_BLUE_STATION_ID.SILOM],
-                        [BTS_SILOM_STATION_ID.SURASAK, MRT_BLUE_STATION_ID.SANAM_CHAI],
-                    ]
-                }
-                const source = MRT_BLUE_STATION_ID.SILOM;
-                const destination = MRT_BLUE_STATION_ID.SANAM_CHAI;
-
-                const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
-
-                const expectedResult: RouteSegment[] = [{
-                    route: [
-                        MRT_BLUE_STATION_ID.SILOM,
-                        MRT_BLUE_STATION_ID.SAM_YAN,
-                        MRT_BLUE_STATION_ID.HUA_LAMPHONG,
-                        MRT_BLUE_STATION_ID.WAT_MANGKON,
-                        MRT_BLUE_STATION_ID.SAM_YOT,
-                        MRT_BLUE_STATION_ID.SANAM_CHAI,
-                    ],
-                    fareType: FareType.MRT_BLUE
+                    lineType: LineType.MRT_BLUE
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -547,19 +488,19 @@ describe('GraphService', () => {
                     route: [
                         MRT_BLUE_STATION_ID.SILOM,
                     ],
-                    fareType: FareType.MRT_BLUE
+                    lineType: LineType.MRT_BLUE
                 }, {
                     route: [
                         BTS_SILOM_STATION_ID.SALA_DAENG,
                         BTS_SILOM_STATION_ID.CHONG_NONSI,
                         BTS_SILOM_STATION_ID.SURASAK,
                     ],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }, {
                     route: [
                         MRT_BLUE_STATION_ID.SANAM_CHAI,
                     ],
-                    fareType: FareType.MRT_BLUE
+                    lineType: LineType.MRT_BLUE
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -587,7 +528,7 @@ describe('GraphService', () => {
 
                 const expectedResult: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.RATCHADAMRI, BTS_SILOM_STATION_ID.SIAM],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -613,7 +554,7 @@ describe('GraphService', () => {
 
                 const expectedResult: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.RATCHADAMRI, BTS_SILOM_STATION_ID.SIAM, BTS_SUKHUMVIT_STATION_ID.CHIT_LOM],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -647,7 +588,7 @@ describe('GraphService', () => {
                         BTS_SUKHUMVIT_STATION_ID.CHIT_LOM,
                         BTS_SUKHUMVIT_STATION_ID.PHOLEN_CHIT
                     ],
-                    fareType: FareType.BTS
+                    lineType: LineType.BTS
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -672,13 +613,9 @@ describe('GraphService', () => {
                 const expectedResult: RouteSegment[] = [{
                     route: [
                         BTS_SUKHUMVIT_STATION_ID.ON_NUT,
-                    ],
-                    fareType: FareType.BTS,
-                }, {
-                    route: [
                         BTS_SUKHUMVIT_STATION_ID.BANG_CHAK,
                     ],
-                    fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+                    lineType: LineType.BTS
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -700,13 +637,9 @@ describe('GraphService', () => {
                 const expectedResult: RouteSegment[] = [{
                     route: [
                         BTS_SUKHUMVIT_STATION_ID.BEARING,
-                    ],
-                    fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
-                }, {
-                    route: [
                         BTS_SUKHUMVIT_STATION_ID.SAMRONG,
                     ],
-                    fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0,
+                    lineType: LineType.BTS,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -728,13 +661,9 @@ describe('GraphService', () => {
                 const expectedResult: RouteSegment[] = [{
                     route: [
                         BTS_SUKHUMVIT_STATION_ID.MO_CHIT,
-                    ],
-                    fareType: FareType.BTS,
-                }, {
-                    route: [
                         BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO,
                     ],
-                    fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0,
+                    lineType: LineType.BTS,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -758,7 +687,7 @@ describe('GraphService', () => {
                         BTS_SUKHUMVIT_STATION_ID.BANG_CHAK,
                         BTS_SUKHUMVIT_STATION_ID.PUNNAWITHI,
                     ],
-                    fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+                    lineType: LineType.BTS,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -783,16 +712,12 @@ describe('GraphService', () => {
                 const expectedResult: RouteSegment[] = [{
                     route: [
                         BTS_SUKHUMVIT_STATION_ID.ON_NUT,
-                    ],
-                    fareType: FareType.BTS
-                }, {
-                    route: [
                         BTS_SUKHUMVIT_STATION_ID.BANG_CHAK,
                         BTS_SUKHUMVIT_STATION_ID.PUNNAWITHI,
                         BTS_SUKHUMVIT_STATION_ID.UDOM_SUK,
                         BTS_SUKHUMVIT_STATION_ID.BANG_NA,
                     ],
-                    fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
+                    lineType: LineType.BTS,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -824,10 +749,6 @@ describe('GraphService', () => {
                     route: [
                         BTS_SUKHUMVIT_STATION_ID.BANG_NA,
                         BTS_SUKHUMVIT_STATION_ID.BEARING,
-                    ],
-                    fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15,
-                }, {
-                    route: [
                         BTS_SUKHUMVIT_STATION_ID.SAMRONG,
                         BTS_SUKHUMVIT_STATION_ID.PU_CHAO,
                         BTS_SUKHUMVIT_STATION_ID.CHANG_ERAWAN,
@@ -838,7 +759,7 @@ describe('GraphService', () => {
                         BTS_SUKHUMVIT_STATION_ID.SAI_LUAT,
                         BTS_SUKHUMVIT_STATION_ID.KHEHA,
                     ],
-                    fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0,
+                    lineType: LineType.BTS,
                 }]
                 expect(routeSegments[0]).toMatchObject(expectedResult);
             });
@@ -855,7 +776,7 @@ describe('GraphService', () => {
                         MRT_BLUE_STATION_ID.CHARAN_13,
                         MRT_BLUE_STATION_ID.THAPHRA
                     ],
-                    fareType: FareType.MRT_BLUE,
+                    lineType: LineType.MRT_BLUE,
                 }],
                 [{
                     route: [
@@ -892,7 +813,7 @@ describe('GraphService', () => {
                         MRT_BLUE_STATION_ID.ITSARAPHAP,
                         MRT_BLUE_STATION_ID.THAPHRA
                     ],
-                    fareType: FareType.MRT_BLUE,
+                    lineType: LineType.MRT_BLUE,
                 }]];
 
             const routes = GraphService.findAllRoutes(source, destination, graph);

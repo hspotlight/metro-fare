@@ -1,0 +1,90 @@
+{
+    "TrafficUpDate": "",
+    "TravelIcon": [],
+    "MainLineStatus": [],
+    "FareRate": [
+        {
+            "FarePrice_Gold": "0",
+            "FareIcon": "https://btsapp1.bts.co.th/WebApplication//Warehouse/FareRate/OneCard1.png",
+            "FareDetail": "บัตรโดยสารเที่ยวเดียว",
+            "FarePrice": "16",
+            "FareDetail_ENG": "Single Journey Card",
+            "IsDetail": false,
+            "DetailImage": ""
+        },
+        {
+            "FarePrice_Gold": "0",
+            "FareIcon": "https://btsapp1.bts.co.th/WebApplication//Warehouse/FareRate/PrepaidCard1.png",
+            "FareDetail": "บัตรโดยสารสำหรับบุคคลทั่วไปแบบเติมเงิน",
+            "FarePrice": "16",
+            "FareDetail_ENG": "Stored-Value Pass For Adult",
+            "IsDetail": false,
+            "DetailImage": ""
+        },
+        {
+            "FarePrice_Gold": "0",
+            "FareIcon": "https://btsapp1.bts.co.th/WebApplication//Warehouse/FareRate/StudentCard1.png",
+            "FareDetail": "บัตรโดยสารสำหรับนักเรียน นักศึกษาแบบเติมเงิน",
+            "FarePrice": "16",
+            "FareDetail_ENG": "Stored-Value Pass For Student",
+            "IsDetail": false,
+            "DetailImage": ""
+        },
+        {
+            "FarePrice_Gold": "0",
+            "FareIcon": "https://btsapp1.bts.co.th/WebApplication//Warehouse/FareRate/OldCard1.png",
+            "FareDetail": "บัตรโดยสารสำหรับผู้สูงอายุ",
+            "FarePrice": "8",
+            "FareDetail_ENG": "Stored-Value Pass For Senior",
+            "IsDetail": false,
+            "DetailImage": ""
+        },
+        {
+            "FarePrice_Gold": "0",
+            "FareIcon": "https://btsapp1.bts.co.th/WebApplication//Warehouse/FareRate/CardDetail1.png",
+            "FareDetail": "เที่ยวเดินทาง 30 วัน",
+            "FarePrice": "0",
+            "FareDetail_ENG": "30-Day Trips",
+            "IsDetail": true,
+            "DetailImage": "https://btsapp1.bts.co.th/WebApplication//WareHouse/CardTravel/160718104355TRIPS.jpg"
+        }
+    ],
+    "TimeTable": {
+        "StationId": 0,
+        "StationName": "",
+        "StationKey": "",
+        "LineColor": "",
+        "BTSInterval": "",
+        "BTSIntervalWidth": 0,
+        "BTSIntervalHeight": 0,
+        "PlatformFirst": [],
+        "PlatformLast": [],
+        "PlatformExtra": []
+    },
+    "TrafficAlert": {
+        "TrAlertID": 0,
+        "TrPlanID": 0,
+        "TrTypeID": 1,
+        "LineID": 0,
+        "LineColor": "",
+        "LineName": "",
+        "AlertTime": "",
+        "PlanName": "",
+        "TypeName": "",
+        "Detail": "",
+        "Images": "",
+        "Url": ""
+    },
+    "OriginName": "เซนต์หลุยส์ | Saint Louis",
+    "TotalKm": "0 Km",
+    "TotalTime": "0 นาที",
+    "Routes": [],
+    "DestinationName": "ช่องนนทรี | Chong Nonsi",
+    "DestinationDetail": "ช่องนนทรี | Chong Nonsi",
+    "DestinationLat": "13.723727",
+    "DestinationLong": "100.52943",
+    "LocationNumber": "S00030",
+    "ErrCode": 0,
+    "IsSuccess": true,
+    "ErrMessage": "Success"
+}

@@ -50,7 +50,7 @@ export const BTS_SILOM: Station[] = [
     { lineType: LineType.BTS_SILOM, id: BTS_SILOM_STATION_ID.RATCHADAMRI, nameEN: "Ratchadamri", nameTH: "ราชดำริ", position: [13.739466,100.539472] },
     { lineType: LineType.BTS_SILOM, id: BTS_SILOM_STATION_ID.SALA_DAENG, nameEN: "Sala Deang", nameTH: "ศาลาแดง", position: [13.728581,100.534352] },
     { lineType: LineType.BTS_SILOM, id: BTS_SILOM_STATION_ID.CHONG_NONSI, nameEN: "Chong Nonsi", nameTH: "ช่องนนทรี", position: [13.723741,100.529329] },
-    { lineType: LineType.BTS_SILOM, id: BTS_SILOM_STATION_ID.SUKSA_WITTHAYA, nameEN: "Suksa Witthaya", nameTH: "ศึกษาวิทยา", position: [13.720719,100.526518], isNotAvailable: true },
+    { lineType: LineType.BTS_SILOM, id: BTS_SILOM_STATION_ID.SAINT_LOUIS, nameEN: "Saint Louis", nameTH: "เซนต์หลุยส์", position: [13.720719,100.526518] },
     { lineType: LineType.BTS_SILOM, id: BTS_SILOM_STATION_ID.SURASAK, nameEN: "Surasak", nameTH: "สุรศักดิ์", position: [13.719367,100.521556] },
     { lineType: LineType.BTS_SILOM, id: BTS_SILOM_STATION_ID.SAPHAN_TAKSIN, nameEN: "Sahpan Taksin", nameTH: "สะพานตากสิน", position: [13.718808,100.514227] },
     { lineType: LineType.BTS_SILOM, id: BTS_SILOM_STATION_ID.KRUNG_THON_BURI, nameEN: "Krung Thon Buri", nameTH: "กรุงธนบุรี", position: [13.720951,100.502868] },

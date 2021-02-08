@@ -1,4 +1,4 @@
-import { getStationName, getStation, getPolyLineFromStations, getLineTypeFromFareType, isInterchangeStation, isExtensionBorderStation, getStationIdsFromJourney, getFareTypeFromStationId, getAllStations, calculateFareFromRouteSegment } from '../util.service';
+import { getStationName, getStation, getPolyLineFromStations, getLineTypeFromFareType, isInterchangeStation, isExtensionBorderStation, getStationIdsFromJourney, getFareTypeFromStationId, getAllStations } from '../util.service';
 import { MRT_BLUE_STATION_ID, LineType, BTS_SILOM_STATION_ID, METRO_STATION_ID, Station, FareType, BTS_SUKHUMVIT_STATION_ID, Journey, ARL_STATION_ID, BRT_STATION_ID } from '../../types';
 
 describe('Util Service', () => {
@@ -60,9 +60,6 @@ describe('Util Service', () => {
     describe('getLineTypeFromFareType', () => {
         const mappingFareTypeToLineType = [
             { fareType: FareType.BTS, lineType: LineType.BTS },
-            { fareType: FareType.BTS_SILOM_EXTENSION_15, lineType: LineType.BTS_SILOM },
-            { fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15, lineType: LineType.BTS_SUKHUMVIT },
-            { fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0, lineType: LineType.BTS_SUKHUMVIT },
             { fareType: FareType.ARL, lineType: LineType.ARL },
             { fareType: FareType.BRT, lineType: LineType.BRT },
             { fareType: FareType.MRT_BLUE, lineType: LineType.MRT_BLUE },
@@ -120,9 +117,9 @@ describe('Util Service', () => {
         const mappingStationIdToFareType = [
             { station: ARL_STATION_ID.MAKKASAN, fareType: FareType.ARL },
             { station: BRT_STATION_ID.RATCHAPRUEK, fareType: FareType.BRT },
-            { station: BTS_SILOM_STATION_ID.BANG_WA, fareType: FareType.BTS_SILOM_EXTENSION_15 },
-            { station: BTS_SUKHUMVIT_STATION_ID.BANG_NA, fareType: FareType.BTS_SUKHUMVIT_EXTENSION_15 },
-            { station: BTS_SUKHUMVIT_STATION_ID.WAT_PHRA_SRI_MAHATHAT, fareType: FareType.BTS_SUKHUMVIT_EXTENSION_0 },
+            { station: BTS_SILOM_STATION_ID.BANG_WA, fareType: FareType.BTS },
+            { station: BTS_SUKHUMVIT_STATION_ID.BANG_NA, fareType: FareType.BTS },
+            { station: BTS_SUKHUMVIT_STATION_ID.WAT_PHRA_SRI_MAHATHAT, fareType: FareType.BTS },
             { station: BTS_SILOM_STATION_ID.SIAM, fareType: FareType.BTS },
             { station: BTS_SUKHUMVIT_STATION_ID.VICTORY_MONUMENT, fareType: FareType.BTS },
             { station: MRT_BLUE_STATION_ID.PHETKASEM_48, fareType: FareType.MRT_BLUE },
