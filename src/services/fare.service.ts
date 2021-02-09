@@ -1,5 +1,5 @@
 import GraphService from "./graph.service";
-import { getFareTypeFromStationId, isExtensionBorderStation, isInterchangeStation } from "./util.service";
+import { isExtensionBorderStation, isInterchangeStation } from "./util.service";
 import { METRO_STATION_ID, RouteSegment, Journey, LineType } from "../types";
 import { METRO_GRAPH, MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
 import { METRO_FARE } from "../common/fare";
@@ -42,7 +42,7 @@ const getJourneyFromRouteSegments = async (routeSegments: RouteSegment[], from: 
 
 const calculateFareFromRouteSegment = async (routeSegment: RouteSegment, isTravelToSelf: boolean): Promise<number> => {
     const stationId = routeSegment.route[0];
-    if (routeSegment.lineType === LineType.BTS) {
+    if (routeSegment.lineType === LineType.BTS || routeSegment.lineType === LineType.BTS_GOLD) {
         if (!isTravelToSelf && routeSegment.route.length === 1 && (isInterchangeStation(stationId) || isExtensionBorderStation(stationId))) {
             return 0;
         }
@@ -51,7 +51,7 @@ const calculateFareFromRouteSegment = async (routeSegment: RouteSegment, isTrave
         return fare
     }
 
-    const fareTable: number[] = METRO_FARE[getFareTypeFromStationId(routeSegment.route[0])];
+    const fareTable: number[] = METRO_FARE[routeSegment.lineType];
 
     const hops = calculateHop(routeSegment);
 

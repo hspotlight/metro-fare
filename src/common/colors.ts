@@ -3,6 +3,7 @@ export const colors = {
     mrtPurple: '#85348F',
     btsSukhumvit: '#79B828',
     btsSilom: '#00817D',
+    btsGold: '#A58701',
     arl: '#E30713',
     brt: '#DCDC00',
     sourceStation: '#3AAACF',

@@ -1,6 +1,13 @@
-import { Station, LineType, MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, ARL_STATION_ID, BRT_STATION_ID, MRT_PURPLE_STATION_ID } from "../types";
+import { Station, LineType, MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, ARL_STATION_ID, BRT_STATION_ID, MRT_PURPLE_STATION_ID, BTS_GOLD_ID } from "../types";
 
 export const BTS_SUKHUMVIT: Station[] = [
+    { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.KHU_KHOT, nameTH: "คูคต", nameEN: "Khu Khot", position: [13.932361,100.646522] },
+    { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.YAEK_KOR_POR_AOR, nameTH: "แยก คปอ.", nameEN: "Yaek Kor Por Aor", position: [13.925035,100.625877] },
+    { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.ROYAL_THAI_AIR_FORCE_MUSEUM, nameTH: "พิพิธภัณฑ์กองทัพอากาศ", nameEN: "Royal Thai Air Force Museum", position: [13.917906,100.621648] },
+    { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.BHUMIBOL_ADULYADEJ_HOSPITAL, nameTH: "โรงพยาบาลภูมิพลอดุลยเดช", nameEN: "Bhumibol Adulyadej Hospital", position: [13.910705,100.617398] },
+    { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.SAPHAN_MAI, nameTH: "สะพานใหม่", nameEN: "Saphan Mai", position: [13.896494,100.609038] },
+    { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.SAI_YUD, nameTH: "สายหยุด", nameEN: "Sai Yud", position: [13.888474, 100.604300] },
+    { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.PHAHON_YOTHIN_59, nameTH: "พหลโยธิน 59", nameEN: "Phahon Yothin 59", position: [13.882523, 100.600797] },
     { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.WAT_PHRA_SRI_MAHATHAT, nameEN: "Wat Phra Sri Mahathat", nameTH: "วัดพระศรีมหาธาตุ", position: [13.875241,100.596737] },
     { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.INFANTRY_REGIMENT_11, nameEN: "11th Infantry Regiment", nameTH: "กรมทหารราบที่ 11", position: [13.867671,100.592022] },
     { lineType: LineType.BTS_SUKHUMVIT, id: BTS_SUKHUMVIT_STATION_ID.BANG_BUA, nameEN: "Bang Bua", nameTH: "บางบัว", position: [13.855927,100.585095] },
@@ -147,10 +154,17 @@ export const MRT_PURPLE: Station[] = [
     { lineType: LineType.MRT_PURPLE, id: MRT_PURPLE_STATION_ID.TAO_POON, nameEN: "Tao Poon", nameTH: "เตาปูน", position: [13.806139,100.530752] }
 ]
 
+export const BTS_GOLD: Station[] = [
+    { lineType: LineType.BTS_GOLD, id: BTS_GOLD_ID.KRUNG_THON_BURI, nameTH: "กรุงธนบุรี" , nameEN: "Krung Thon Buri", position: [13.7210326,100.5030646] },
+    { lineType: LineType.BTS_GOLD, id: BTS_GOLD_ID.CHAROEN_NAKHON, nameTH: "เจริญนคร" , nameEN: "Charoen Nakhon", position: [13.7260318,100.5092894] },
+    { lineType: LineType.BTS_GOLD, id: BTS_GOLD_ID.KHLONG_SAN, nameTH: "คลองสาน" , nameEN: "Khlong San", position: [13.7299778,100.509002] },
+]
+
 export const STATIONS: Station[] = [
     ...BTS_SILOM,
     ...BTS_SUKHUMVIT,
+    ...BTS_GOLD,
     ...MRT_BLUE,
     ...ARL,
-    ...BRT
+    ...BRT,
 ];

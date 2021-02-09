@@ -25,6 +25,7 @@ export const MetroMap = () => {
       mrtBlue: isVisible,
       btsSilom: isVisible,
       btsSukhumvit: isVisible,
+      btsGold: isVisible,
       arl: isVisible,
       brt: isVisible
     });

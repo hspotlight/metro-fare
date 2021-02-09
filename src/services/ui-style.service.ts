@@ -19,6 +19,7 @@ export const getDottedLineStyle = (lineType: LineType): DottedLineStyle => {
     case LineType.MRT_BLUE: return "mrt-blue-dotted-line";
     case LineType.BTS_SILOM: return "bts-silom-dotted-line";
     case LineType.BTS_SUKHUMVIT: return "bts-sukhumvit-dotted-line";
+    case LineType.BTS_GOLD: return "bts-gold-dotted-line";
     case LineType.ARL: return "arl-dotted-line";
     case LineType.BRT: return "brt-dotted-line";
     default: return "bts-silom-dotted-line";
@@ -30,6 +31,7 @@ export const getStationIconStyle = (lineType: LineType): StationIconStyle => {
     case LineType.MRT_BLUE: return "mrt-blue-icon";
     case LineType.BTS_SILOM: return "bts-silom-icon";
     case LineType.BTS_SUKHUMVIT: return "bts-sukhumvit-icon";
+    case LineType.BTS_GOLD: return "bts-gold-icon";
     case LineType.ARL: return "arl-icon";
     case LineType.BRT: return "brt-icon";
     default: return "bts-silom-icon";

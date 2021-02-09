@@ -1,4 +1,4 @@
-import { FareType, Station, LineType, METRO_STATION_ID, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, Journey, ARL_STATION_ID, BRT_STATION_ID, Intersection } from "../types";
+import { FareType, Station, LineType, METRO_STATION_ID, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, Journey, ARL_STATION_ID, BRT_STATION_ID, Intersection, BTS_GOLD_ID } from "../types";
 import { STATIONS } from "../data/Stations";
 import { LatLngTuple } from "leaflet";
 import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
@@ -28,6 +28,7 @@ export const getLineTypeLabel = (lineType: LineType): string => {
         case LineType.BRT: return 'BRT';
         case LineType.ARL: return 'ARL';
         case LineType.BTS: return 'BTS';
+        case LineType.BTS_GOLD: return 'BTS';
         case LineType.BTS_SILOM: return 'BTS';
         case LineType.BTS_SUKHUMVIT: return 'BTS';
         case LineType.MRT_BLUE: return 'MRT';
@@ -36,21 +37,14 @@ export const getLineTypeLabel = (lineType: LineType): string => {
     }
 };
 
-// TODO: refactor later
 export const getLineTypeFromStationId = (stationId: METRO_STATION_ID): LineType => {
-    const fareType = getFareTypeFromStationId(stationId);
-    return getLineTypeFromFareType(fareType);
-}
-
-
-// TODO: refactor later remove faretype
-export const getFareTypeFromStationId = (stationId: METRO_STATION_ID): FareType => {
-    if (Object.values(ARL_STATION_ID).includes(stationId as ARL_STATION_ID)) return FareType.ARL
-    if (Object.values(BRT_STATION_ID).includes(stationId as BRT_STATION_ID)) return FareType.BRT
+    if (Object.values(BTS_GOLD_ID).includes(stationId as BTS_GOLD_ID)) return LineType.BTS_GOLD
+    if (Object.values(ARL_STATION_ID).includes(stationId as ARL_STATION_ID)) return LineType.ARL
+    if (Object.values(BRT_STATION_ID).includes(stationId as BRT_STATION_ID)) return LineType.BRT
     if (Object.values(BTS_SILOM_STATION_ID).includes(stationId as BTS_SILOM_STATION_ID) ||
-        Object.values(BTS_SUKHUMVIT_STATION_ID).includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return FareType.BTS
-    return FareType.MRT_BLUE
-};
+        Object.values(BTS_SUKHUMVIT_STATION_ID).includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return LineType.BTS
+    return LineType.MRT_BLUE
+}
 
 export const getStation = (stationId: METRO_STATION_ID): Station | undefined => {
     return STATIONS.find(stationName => stationName.id === stationId);
