@@ -506,7 +506,7 @@ describe('FareService', () => {
         });
     });
     describe('findAllRoutes', () => {
-        it('should return a single route from CHONG_NONSI to LUMPHINI', () => {
+        it('should return a single route from CHONG_NONSI to LUMPHINI', async () => {
             const routeSegments: RouteSegment[] = [{
                 route: [
                     BTS_SILOM_STATION_ID.CHONG_NONSI,
@@ -524,7 +524,7 @@ describe('FareService', () => {
             
             const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
             const to = MRT_BLUE_STATION_ID.LUMPHINI;
-            const journeys = FareService.findAllRoutes(from, to);
+            const journeys = await FareService.findAllRoutes(from, to);
 
             const expectedJourney: Journey = {
                 route: [{
@@ -543,7 +543,7 @@ describe('FareService', () => {
             expect(journeys).toMatchObject([expectedJourney])
         });
 
-        it('should return a two route from MOCHIT to LUMPHINI', () => {
+        it('should return a two route from MOCHIT to LUMPHINI', async () => {
             const routeSegmentslist: RouteSegment[][] = [
             [{
                 route: [
@@ -574,7 +574,7 @@ describe('FareService', () => {
             
             const from = BTS_SUKHUMVIT_STATION_ID.MO_CHIT;
             const to = BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO;
-            const journeys = FareService.findAllRoutes(from, to);
+            const journeys = await FareService.findAllRoutes(from, to);
 
             const expectedJourneys: Journey[] = [{
                 route: [{
@@ -597,9 +597,9 @@ describe('FareService', () => {
                 route: [{
                     route: [BTS_SUKHUMVIT_STATION_ID.MO_CHIT, BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO],
                     lineType: LineType.BTS,
-                    fare: 16
+                    fare: 0
                 }],
-                fare: 16,
+                fare: 0,
                 from: BTS_SUKHUMVIT_STATION_ID.MO_CHIT,
                 to: BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO
             }];
@@ -630,7 +630,7 @@ describe('FareService', () => {
             const fare = await FareService.calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
             expect(fare).toBe(16);
         });
-        it.only('should return 0 if the route segement has one station and it is interchange station  (BTS)', async () => {
+        it('should return 0 if the route segement has one station and it is interchange station  (BTS)', async () => {
             const routeSegment: RouteSegment = {
                 route: [
                     BTS_SUKHUMVIT_STATION_ID.ASOK,
