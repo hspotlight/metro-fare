@@ -2,6 +2,7 @@ const DottedLineStyle = {
     mrt: "mrt-blue-dotted-line",
     btsSilom: "bts-silom-dotted-line",
     btsSukhumvit: "bts-sukhumvit-dotted-line",
+    btsGold: "bts-gold-dotted-line",
     arl: "arl-dotted-line",
     brt: "brt-dotted-line",
     interchange: "interchange-dotted-line"
