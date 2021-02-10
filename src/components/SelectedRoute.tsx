@@ -31,9 +31,9 @@ const SelectedRoute = ({journey}: {journey: Journey}) => {
 
             return (
               <section key={stationId}>
-                {index > 0 && <div className={dottedLineStyle}></div>}
+                {index > 0 && <div className={"dotted-line " + dottedLineStyle}></div>}
                 <section className="station-container">
-                  {<div className={stationIconStyle}></div>}
+                  {<div className={"station-icon " + stationIconStyle}></div>}
                   <div>{stationName}</div>
                 </section>
               </section>
