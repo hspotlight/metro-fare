@@ -1,4 +1,5 @@
 import GraphService from "./graph.service";
+import NavigationService from "./navigation.service";
 import { isExtensionBorderStation, isInterchangeStation } from "./util.service";
 import { METRO_STATION_ID, RouteSegment, Journey, LineType } from "../types";
 import { METRO_GRAPH, MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
@@ -9,7 +10,7 @@ const metroGraph = GraphService.createGraph(METRO_GRAPH);
 
 // TODO: refactor fare service as producer
 const findAllRoutes = async (from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey[]> => {
-    const routeSegmentsList = GraphService.findAllRoutes(from, to, metroGraph);
+    const routeSegmentsList = NavigationService.findAllRoutes(from, to, metroGraph);
     // TODO: refactor to reduce number of call to btsFare (if backend is implemented)
     const journeys = await Promise.all(routeSegmentsList.map(routeSegments => {
         return FareService.getJourneyFromRouteSegments(routeSegments, from, to);
