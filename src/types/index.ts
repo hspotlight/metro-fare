@@ -8,3 +8,4 @@ export * from './MetroStationId';
 export * from './TravelRoute';
 export * from './Station';
 export * from './MetroLineVisibility';
+export * from './BTSFareResponse';
