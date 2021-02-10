@@ -1,67 +1,17 @@
-import GraphService from "../graph.service";
-import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, Line, Graph, RouteSegment, BTS_SUKHUMVIT_STATION_ID, LineType } from "../../types";
-import { MRT_BLUE_LINE } from "../../data";
+import NavigationService from "./navigation.service";
+import GraphService from "./graph.service";
+import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, Line, Graph, RouteSegment, BTS_SUKHUMVIT_STATION_ID, LineType } from "../types";
+import { MRT_BLUE_LINE } from "../data";
 import { cloneDeep } from "lodash";
 
-describe('GraphService', () => {
-    describe('CreateGraph', () => {
-        it('should create the graph of MRT line', () => {
-            const expectedResult = Object.create({});
-            expectedResult[MRT_BLUE_STATION_ID.LAT_PHRAO] = [MRT_BLUE_STATION_ID.RATCHADAPHISEK];
-            expectedResult[MRT_BLUE_STATION_ID.RATCHADAPHISEK] = [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.SUTTHISAN];
-            expectedResult[MRT_BLUE_STATION_ID.SUTTHISAN] = [MRT_BLUE_STATION_ID.RATCHADAPHISEK, MRT_BLUE_STATION_ID.HUAI_KHWANG];
-            expectedResult[MRT_BLUE_STATION_ID.HUAI_KHWANG] = [MRT_BLUE_STATION_ID.SUTTHISAN];
-
-            const metroLine: Line = {
-                line: [
-                    MRT_BLUE_STATION_ID.LAT_PHRAO,
-                    MRT_BLUE_STATION_ID.RATCHADAPHISEK,
-                    MRT_BLUE_STATION_ID.SUTTHISAN,
-                    MRT_BLUE_STATION_ID.HUAI_KHWANG,
-                ]
-            }
-            const metroGraph: Graph = {
-                lines: [metroLine]
-            }
-
-            const graph = GraphService.createGraph(metroGraph);
-
-            expect(graph).toMatchObject(expectedResult);
-        });
-        it('should create the graph with intersection', () => {
-            const expectedResult = Object.create({});
-            expectedResult[MRT_BLUE_STATION_ID.LAT_PHRAO] = [MRT_BLUE_STATION_ID.RATCHADAPHISEK, MRT_BLUE_STATION_ID.HUAI_KHWANG];
-            expectedResult[MRT_BLUE_STATION_ID.RATCHADAPHISEK] = [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.SUTTHISAN];
-            expectedResult[MRT_BLUE_STATION_ID.SUTTHISAN] = [MRT_BLUE_STATION_ID.RATCHADAPHISEK, MRT_BLUE_STATION_ID.HUAI_KHWANG];
-            expectedResult[MRT_BLUE_STATION_ID.HUAI_KHWANG] = [MRT_BLUE_STATION_ID.SUTTHISAN, MRT_BLUE_STATION_ID.LAT_PHRAO];
-
-            const metroLine: Line = {
-                line: [
-                    MRT_BLUE_STATION_ID.LAT_PHRAO,
-                    MRT_BLUE_STATION_ID.RATCHADAPHISEK,
-                    MRT_BLUE_STATION_ID.SUTTHISAN,
-                    MRT_BLUE_STATION_ID.HUAI_KHWANG,
-                ],
-                intersections: [
-                    [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.HUAI_KHWANG]
-                ]
-            }
-            const metroGraph: Graph = {
-                lines: [metroLine]
-            }
-
-            const graph = GraphService.createGraph(metroGraph);
-
-            expect(graph).toMatchObject(expectedResult);
-        });
-    });
+describe('NavigationService', () => {
     describe('getNextStationRouteSegments', () => {
         const routeSegment: RouteSegment = { route: [MRT_BLUE_STATION_ID.CHATUCHAK_PARK], lineType: LineType.MRT_BLUE };
         it('should return MRT route segment with two stations (same lineType)', () => {
             const nextStation = MRT_BLUE_STATION_ID.FAI_CHAI;
             const routeSegments = cloneDeep([routeSegment]);
 
-            const newRouteSegments = GraphService.getNextStationRouteSegments(routeSegments, nextStation);
+            const newRouteSegments = NavigationService.getNextStationRouteSegments(routeSegments, nextStation);
 
             expect(newRouteSegments).toMatchObject([{
                 ...routeSegment,
@@ -75,7 +25,7 @@ describe('GraphService', () => {
             const nextStation = BTS_SUKHUMVIT_STATION_ID.NANA;
             const routeSegments = cloneDeep([routeSegment]);
 
-            const newRouteSegments = GraphService.getNextStationRouteSegments(routeSegments, nextStation);
+            const newRouteSegments = NavigationService.getNextStationRouteSegments(routeSegments, nextStation);
 
             expect(newRouteSegments).toMatchObject([routeSegment, {
                 route: [BTS_SUKHUMVIT_STATION_ID.NANA],
@@ -98,7 +48,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.RATCHADAPHISEK;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 expect(routeSegments).toMatchObject([]);
             });
@@ -114,7 +64,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.LAT_PHRAO;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO],
@@ -135,7 +85,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.RATCHADAPHISEK;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.RATCHADAPHISEK],
@@ -157,7 +107,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.PHAHON_YOTHIN;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.PHAHON_YOTHIN],
@@ -179,7 +129,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.RATCHADAPHISEK;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -206,7 +156,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.SUTTHISAN;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -237,7 +187,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.SUTTHISAN;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.PHAHON_YOTHIN, MRT_BLUE_STATION_ID.SUTTHISAN],
@@ -261,7 +211,7 @@ describe('GraphService', () => {
                 const destination = BTS_SILOM_STATION_ID.WONGWIAN_YAI;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -288,7 +238,7 @@ describe('GraphService', () => {
                 const destination = BTS_SILOM_STATION_ID.WONGWIAN_YAI;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -321,7 +271,7 @@ describe('GraphService', () => {
                 const destination = BTS_SILOM_STATION_ID.SURASAK;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -360,7 +310,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.BANG_WA;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.BANG_WA],
@@ -392,7 +342,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.LUMPHINI;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.CHONG_NONSI, BTS_SILOM_STATION_ID.SALA_DAENG,],
@@ -430,7 +380,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.HUA_LAMPHONG;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -480,7 +430,7 @@ describe('GraphService', () => {
                 const destination = MRT_BLUE_STATION_ID.SANAM_CHAI;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -522,7 +472,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.SIAM;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.RATCHADAMRI, BTS_SILOM_STATION_ID.SIAM],
@@ -548,7 +498,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.CHIT_LOM;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.RATCHADAMRI, BTS_SILOM_STATION_ID.SIAM, BTS_SUKHUMVIT_STATION_ID.CHIT_LOM],
@@ -576,7 +526,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.PHOLEN_CHIT;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -606,7 +556,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.BANG_CHAK;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -630,7 +580,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.SAMRONG;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -654,7 +604,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -678,7 +628,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.PUNNAWITHI;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -705,7 +655,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.BANG_NA;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -741,7 +691,7 @@ describe('GraphService', () => {
                 const destination = BTS_SUKHUMVIT_STATION_ID.KHEHA;
 
                 const graph = GraphService.createGraph(metroGraph);
-                const routeSegments = GraphService.findAllRoutes(source, destination, graph);
+                const routeSegments = NavigationService.findAllRoutes(source, destination, graph);
 
                 const expectedResult: RouteSegment[] = [{
                     route: [
@@ -814,7 +764,7 @@ describe('GraphService', () => {
                     lineType: LineType.MRT_BLUE,
                 }]];
 
-            const routes = GraphService.findAllRoutes(source, destination, graph);
+            const routes = NavigationService.findAllRoutes(source, destination, graph);
 
             expect(routes).toMatchObject(routeSegmentslist);
         });

@@ -1,9 +1,9 @@
-import FareService from '../fare.service';
-import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, RouteSegment, BTS_SUKHUMVIT_STATION_ID, Journey, LineType } from '../../types';
-import GraphService from '../graph.service';
+import FareService from './fare.service';
+import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, RouteSegment, BTS_SUKHUMVIT_STATION_ID, Journey, LineType } from '../types';
+import NavigationService from './navigation.service';
 import { mocked } from 'ts-jest/dist/utils/testing';
 
-jest.mock('../graph.service')
+jest.mock('../navigation.service')
 
 describe('FareService', () => {
 
@@ -520,7 +520,7 @@ describe('FareService', () => {
                 ],
                 lineType: LineType.MRT_BLUE,
             }];
-            mocked(GraphService.findAllRoutes).mockReturnValue([routeSegments]);
+            mocked(NavigationService.findAllRoutes).mockReturnValue([routeSegments]);
             
             const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
             const to = MRT_BLUE_STATION_ID.LUMPHINI;
@@ -570,7 +570,7 @@ describe('FareService', () => {
                 lineType: LineType.BTS,
             }]
             ];
-            mocked(GraphService.findAllRoutes).mockReturnValue(routeSegmentslist);
+            mocked(NavigationService.findAllRoutes).mockReturnValue(routeSegmentslist);
             
             const from = BTS_SUKHUMVIT_STATION_ID.MO_CHIT;
             const to = BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO;
