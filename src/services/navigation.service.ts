@@ -1,12 +1,25 @@
 import PriorityQueue from "priorityqueue";
 import { getLineTypeFromStationId } from "./util.service";
-import { METRO_STATION_ID, RouteSegment } from "../types";
+import { Journey, METRO_STATION_ID, RouteSegment } from "../types";
 import { StationHop } from "../types/StationHop";
 import cloneDeep from "lodash.clonedeep";
+import GraphService from "./graph.service";
+import FareService from "./fare.service";
+import { METRO_GRAPH } from "../data";
 
 const lowestHopsComparator = (stationA: StationHop, stationB: StationHop) => stationB.getTotalHops() - stationA.getTotalHops();
 
-// TODO: create a new method to call this function and call fare service to add fare in the journey
+const  metroGraph = GraphService.createGraph(METRO_GRAPH);
+
+const findAllRoutesWithFare = async (from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey[]> => {
+    const routeSegmentsList = findAllRoutes(from, to, metroGraph);
+    // TODO: refactor to reduce number of call to btsFare (if backend is implemented)
+    const journeys = await Promise.all(routeSegmentsList.map(routeSegments => {
+        return getJourneyFromRouteSegments(routeSegments, from, to);
+    }))
+    return journeys;
+}
+
 const findAllRoutes = (source: METRO_STATION_ID, destination: METRO_STATION_ID, graph: any): RouteSegment[][] => {
     const routeSegment: RouteSegment = { route: [source], lineType: getLineTypeFromStationId(source) };
     
@@ -51,9 +64,33 @@ const getNextStationRouteSegments = (routeSegments: RouteSegment[], nextStation:
     return routeSegments;
 }
 
+const getJourneyFromRouteSegments = async (routeSegments: RouteSegment[], from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey> => {
+    const isTravelToSelf = from === to;
+    let totalFare = 0;
+    const fares = await Promise.all(routeSegments.map((routeSegment: RouteSegment) => {
+        return FareService.calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
+    }));
+    const routeSegmentsWithFare = routeSegments.map((routeSegment: RouteSegment, routeIndex: number) => {
+        const fare = fares[routeIndex];
+        totalFare += fare;
+        return {
+            ...routeSegment,
+            fare
+        };
+    });
+    return {
+        route: routeSegmentsWithFare,
+        fare: totalFare,
+        from: from,
+        to: to,
+    };
+}
+
 const NavigationService = {
+    findAllRoutesWithFare,
     findAllRoutes,
-    getNextStationRouteSegments
+    getNextStationRouteSegments,
+    getJourneyFromRouteSegments
 }
 
 export default NavigationService;

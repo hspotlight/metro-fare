@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, ReactNode } from "react";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { TripContext, unfilledJourney } from "../contexts/TripProvider";
-import FareService from "../services/fare.service";
+import NavigationService from "../services/navigation.service";
 import StationSelect from "./StationSelect";
 import SelectedRoute from "./SelectedRoute";
 import "../styles/RouteFinder.scss";
@@ -33,7 +33,7 @@ const RouteFinder = () => {
     journey.route.length > 0 && trip.source && trip.destination;
 
   const calculateRoute = async () => {
-    let journeys = await FareService.findAllRoutes(trip.source, trip.destination);
+    let journeys = await NavigationService.findAllRoutesWithFare(trip.source, trip.destination);
     // sorted and get top 3
     journeys = journeys.sort((a, b) => a.fare - b.fare);
     journeys = journeys.slice(0, 3);

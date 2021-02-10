@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useTripContext } from "../contexts/TripProvider";
-import FareService from "../services/fare.service";
 import { METRO_STATION_ID, Journey } from "../types";
 import RouteFromTo from "./RouteFromTo";
 import RouteInfoCard from "./RouteInfoCard";
 import { useHistory, useLocation } from "react-router-dom";
 import { getStation } from "../services/util.service";
 import Analytics from '../analytics/Analytics';
+import NavigationService from "../services/navigation.service";
 
 const RoutesSearchResult = () => {
   const history = useHistory();
@@ -29,7 +29,7 @@ const RoutesSearchResult = () => {
   useEffect(() => {
     if (trip.source && trip.destination) {
       const fetchAllRoutes = async () => {
-        let journeys = await FareService.findAllRoutes(
+        let journeys = await NavigationService.findAllRoutesWithFare(
           trip.source,
           trip.destination
         )
