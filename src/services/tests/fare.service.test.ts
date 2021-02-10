@@ -16,7 +16,7 @@ describe('FareService', () => {
         }
 
         describe('MRT Blue line', () => {
-            it('should return 16 when from-to station are the same', async () => {
+            it('should return 17 when from-to station are the same', async () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO],
                     lineType: LineType.MRT_BLUE,
@@ -25,9 +25,9 @@ describe('FareService', () => {
                 const to = MRT_BLUE_STATION_ID.LAT_PHRAO;
 
                 const journey = await FareService.getJourneyFromRouteSegments(routeSegments, from, to);
-                expectJourney(journey, routeSegments, 16);
+                expectJourney(journey, routeSegments, 17);
             });
-            it('should return 16 when distance from from-to is 1 hop', async () => {
+            it('should return 17 when distance from from-to is 1 hop', async () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.RATCHADAPHISEK],
                     lineType: LineType.MRT_BLUE,
@@ -37,9 +37,9 @@ describe('FareService', () => {
 
                 const journey = await FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectJourney(journey, routeSegments, 16);
+                expectJourney(journey, routeSegments, 17);
             });
-            it('should return 16 when distance from from-to is 1 hop', async () => {
+            it('should return 17 when distance from from-to is 1 hop', async () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.CHARAN_13, MRT_BLUE_STATION_ID.THAPHRA],
                     lineType: LineType.MRT_BLUE,
@@ -49,7 +49,7 @@ describe('FareService', () => {
 
                 const journey = await FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectJourney(journey, routeSegments, 16);
+                expectJourney(journey, routeSegments, 17);
             });
             it('should return 19 when distance from from-to is 2 hops', async () => {
                 const routeSegments: RouteSegment[] = [{
@@ -85,7 +85,7 @@ describe('FareService', () => {
 
                 expectJourney(journey, routeSegments, 21);
             });
-            it('should return 23 when distance from from-to is 4 hops', async () => {
+            it('should return 24 when distance from from-to is 4 hops', async () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -101,9 +101,9 @@ describe('FareService', () => {
 
                 const journey = await FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectJourney(journey, routeSegments, 23);
+                expectJourney(journey, routeSegments, 24);
             });
-            it('should return 25 when distance from from-to is 5 hops', async () => {
+            it('should return 26 when distance from from-to is 5 hops', async () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -120,7 +120,7 @@ describe('FareService', () => {
 
                 const journey = await FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectJourney(journey, routeSegments, 25);
+                expectJourney(journey, routeSegments, 26);
             });
             it('should return 42 when distance from from-to is 13 hops', async () => {
                 const routeSegments: RouteSegment[] = [{
@@ -455,7 +455,7 @@ describe('FareService', () => {
 
                 expectJourney(journey, routeSegments, 16);
             });
-            it('should return 32 when 1 hops for BTS and 1 hops for MRT', async () => {
+            it('should return 33 when 1 hops for BTS and 1 hops for MRT', async () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         BTS_SILOM_STATION_ID.CHONG_NONSI,
@@ -474,7 +474,7 @@ describe('FareService', () => {
 
                 const journey = await FareService.getJourneyFromRouteSegments(routeSegments, from, to);
 
-                expectJourney(journey, routeSegments, 32);
+                expectJourney(journey, routeSegments, 33);
             });
             it('should return 71 when 6 hops for BTS and 2 hops for MRT', async () => {
                 const routeSegments: RouteSegment[] = [{
@@ -534,9 +534,9 @@ describe('FareService', () => {
                 }, {
                     route: [MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI],
                     lineType: LineType.MRT_BLUE,
-                    fare: 16
+                    fare: 17
                 }],
-                fare: 32,
+                fare: 33,
                 from: BTS_SILOM_STATION_ID.CHONG_NONSI,
                 to: MRT_BLUE_STATION_ID.LUMPHINI
             };
@@ -584,13 +584,13 @@ describe('FareService', () => {
                 }, {
                     route: [MRT_BLUE_STATION_ID.CHATUCHAK_PARK, MRT_BLUE_STATION_ID.PHAHON_YOTHIN],
                     lineType: LineType.MRT_BLUE,
-                    fare: 16
+                    fare: 17
                 }, {
                     route: [BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO],
                     lineType: LineType.BTS,
                     fare: 0
                 }],
-                fare: 16,
+                fare: 17,
                 from: BTS_SUKHUMVIT_STATION_ID.MO_CHIT,
                 to: BTS_SUKHUMVIT_STATION_ID.HA_YEAK_LAT_PHRAO
             }, {
@@ -607,7 +607,7 @@ describe('FareService', () => {
         });
     });
     describe('calculateFareFromRouteSegment', () => {
-        it('should return 16 if travel to itself (MRT)', async () => {
+        it('should return 17 if travel to itself (MRT)', async () => {
             const routeSegment: RouteSegment = {
                 route: [
                     MRT_BLUE_STATION_ID.PHAHON_YOTHIN,
@@ -616,9 +616,9 @@ describe('FareService', () => {
             };
             const isTravelToSelf = true;
             const fare = await FareService.calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
-            expect(fare).toBe(16);
+            expect(fare).toBe(17);
         });
-        it('should return 16 if route has 1 hop (MRT)', async () => {
+        it('should return 17 if route has 1 hop (MRT)', async () => {
             const routeSegment: RouteSegment = {
                 route: [
                     MRT_BLUE_STATION_ID.PHAHON_YOTHIN,
@@ -628,7 +628,7 @@ describe('FareService', () => {
             };
             const isTravelToSelf = true;
             const fare = await FareService.calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
-            expect(fare).toBe(16);
+            expect(fare).toBe(17);
         });
         it('should return 0 if the route segement has one station and it is interchange station  (BTS)', async () => {
             const routeSegment: RouteSegment = {
