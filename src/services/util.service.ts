@@ -1,4 +1,4 @@
-import { FareType, Station, LineType, METRO_STATION_ID, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, Journey, ARL_STATION_ID, BRT_STATION_ID, Intersection, BTS_GOLD_ID } from "../types";
+import { Station, LineType, METRO_STATION_ID, Journey, Intersection } from "../types";
 import { STATIONS } from "../data/Stations";
 import { LatLngTuple } from "leaflet";
 import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
@@ -15,14 +15,6 @@ export const isExtensionBorderStation = (stationId: METRO_STATION_ID): boolean =
     return EXTENSION_BORDER_STATIONS.includes(stationId);
 };
 
-export const getLineTypeFromFareType = (fareType: FareType): LineType => {
-    switch (fareType) {
-        case FareType.BTS: return LineType.BTS;
-        case FareType.ARL: return LineType.ARL;
-        case FareType.BRT: return LineType.BRT;
-        default: return LineType.MRT_BLUE;
-    }
-};
 export const getLineTypeLabel = (lineType: LineType): string => {
     switch (lineType) {
         case LineType.BRT: return 'BRT';
@@ -38,11 +30,11 @@ export const getLineTypeLabel = (lineType: LineType): string => {
 };
 
 export const getLineTypeFromStationId = (stationId: METRO_STATION_ID): LineType => {
-    if (Object.values(BTS_GOLD_ID).includes(stationId as BTS_GOLD_ID)) return LineType.BTS_GOLD
-    if (Object.values(ARL_STATION_ID).includes(stationId as ARL_STATION_ID)) return LineType.ARL
-    if (Object.values(BRT_STATION_ID).includes(stationId as BRT_STATION_ID)) return LineType.BRT
-    if (Object.values(BTS_SILOM_STATION_ID).includes(stationId as BTS_SILOM_STATION_ID) ||
-        Object.values(BTS_SUKHUMVIT_STATION_ID).includes(stationId as BTS_SUKHUMVIT_STATION_ID)) return LineType.BTS
+    const station = STATIONS.find(station => station.id === stationId)
+    if (station) {
+        if (station.lineType === LineType.BTS_SILOM || station.lineType === LineType.BTS_SUKHUMVIT) return LineType.BTS
+        return station.lineType
+    }
     return LineType.MRT_BLUE
 }
 
