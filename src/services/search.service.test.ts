@@ -1,5 +1,5 @@
-import { LineType, BTS_SILOM_STATION_ID, Station, MRT_BLUE_STATION_ID } from "../../types";
-import { searchStation } from "../search.service";
+import { LineType, BTS_SILOM_STATION_ID, Station, MRT_BLUE_STATION_ID } from "../types";
+import { searchStation } from "./search.service";
 
 describe('SearchService', () => {
     describe('searchStation', () => {
