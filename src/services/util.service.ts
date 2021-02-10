@@ -30,7 +30,7 @@ export const getLineTypeLabel = (lineType: LineType): string => {
 };
 
 export const getLineTypeFromStationId = (stationId: METRO_STATION_ID): LineType => {
-    const station = STATIONS.find(station => station.id === stationId)
+    const station = getStation(stationId);
     if (station) {
         if (station.lineType === LineType.BTS_SILOM || station.lineType === LineType.BTS_SUKHUMVIT) return LineType.BTS
         return station.lineType
@@ -39,7 +39,7 @@ export const getLineTypeFromStationId = (stationId: METRO_STATION_ID): LineType 
 }
 
 export const getStation = (stationId: METRO_STATION_ID): Station | undefined => {
-    return STATIONS.find(stationName => stationName.id === stationId);
+    return STATIONS.find(station => station.id === stationId);
 };
 
 export const getStationName = (station: Station, lang: string = 'en') => {
@@ -66,7 +66,7 @@ export const getAllStations = (stationIds: METRO_STATION_ID[]): Station[] => {
 }
 
 // MAP UTIL
-// TODO: add polyline
+// TODO: get polyline from the real data
 export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
     return stations.map(station => station.position);
 };

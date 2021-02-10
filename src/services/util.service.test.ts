@@ -1,5 +1,5 @@
-import { getStationName, getStation, getPolyLineFromStations, isInterchangeStation, isExtensionBorderStation, getStationIdsFromJourney, getAllStations } from '../util.service';
-import { MRT_BLUE_STATION_ID, LineType, BTS_SILOM_STATION_ID, METRO_STATION_ID, Station, BTS_SUKHUMVIT_STATION_ID, Journey } from '../../types';
+import { getStationName, getStation, getPolyLineFromStations, isInterchangeStation, isExtensionBorderStation, getStationIdsFromJourney, getAllStations } from './util.service';
+import { MRT_BLUE_STATION_ID, LineType, BTS_SILOM_STATION_ID, METRO_STATION_ID, Station, BTS_SUKHUMVIT_STATION_ID, Journey } from '../types';
 
 describe('Util Service', () => {
     const station: Station = {
@@ -79,6 +79,7 @@ describe('Util Service', () => {
     });
     describe('getStationIdsFromJourney', () => {
         it('should return list of station id from journey', () => {
+            const expectedResult: METRO_STATION_ID[] = [MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI, BTS_SUKHUMVIT_STATION_ID.ARI, BTS_SUKHUMVIT_STATION_ID.ASOK];
             const journey: Journey = {
                 route: [{
                     route: [MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI],
@@ -95,18 +96,20 @@ describe('Util Service', () => {
             };
 
             const stationIds = getStationIdsFromJourney(journey);
-            const expectedResult: METRO_STATION_ID[] = [MRT_BLUE_STATION_ID.SILOM, MRT_BLUE_STATION_ID.LUMPHINI, BTS_SUKHUMVIT_STATION_ID.ARI, BTS_SUKHUMVIT_STATION_ID.ASOK];
+
             expect(stationIds).toMatchObject(expectedResult);
         });
     });
     describe('getAllStations', () => {
         it('should return all stations from given staion id', () => {
-            const stationIds = [MRT_BLUE_STATION_ID.LUMPHINI, MRT_BLUE_STATION_ID.PHAHON_YOTHIN];
-            const stations = getAllStations(stationIds);
             const expectedResult: Station[] = [
                 { lineType: LineType.MRT_BLUE, id: MRT_BLUE_STATION_ID.LUMPHINI, nameEN: "Lumphini", nameTH: "ลุมพินี", position: [13.725501, 100.545714] },
                 { lineType: LineType.MRT_BLUE, id: MRT_BLUE_STATION_ID.PHAHON_YOTHIN, nameEN: "Phahon Yothin", nameTH: "พหลโยธิน", position: [13.812951, 100.561568] },
             ];
+            const stationIds = [MRT_BLUE_STATION_ID.LUMPHINI, MRT_BLUE_STATION_ID.PHAHON_YOTHIN];
+
+            const stations = getAllStations(stationIds);
+
             expect(stations).toMatchObject(expectedResult);
         });
     });

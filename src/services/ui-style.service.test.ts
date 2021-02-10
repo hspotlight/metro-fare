@@ -1,6 +1,6 @@
-import { colors } from "../../common/colors";
-import { LineType } from "../../types";
-import { getColorFromLineType, getDottedLineStyle, getInterChangeLine, getInterChangeLineColor, getStationIconStyle } from "../ui-style.service";
+import { colors } from "../common/colors";
+import { LineType } from "../types";
+import { getColorFromLineType, getDottedLineStyle, getInterChangeLine, getInterChangeLineColor, getStationIconStyle } from "./ui-style.service";
 
 describe('ui-style service', () => {
     describe('getColorFromLineType', () => {
