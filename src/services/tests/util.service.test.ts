@@ -1,5 +1,5 @@
-import { getStationName, getStation, getPolyLineFromStations, getLineTypeFromFareType, isInterchangeStation, isExtensionBorderStation, getStationIdsFromJourney, getAllStations } from '../util.service';
-import { MRT_BLUE_STATION_ID, LineType, BTS_SILOM_STATION_ID, METRO_STATION_ID, Station, FareType, BTS_SUKHUMVIT_STATION_ID, Journey } from '../../types';
+import { getStationName, getStation, getPolyLineFromStations, isInterchangeStation, isExtensionBorderStation, getStationIdsFromJourney, getAllStations } from '../util.service';
+import { MRT_BLUE_STATION_ID, LineType, BTS_SILOM_STATION_ID, METRO_STATION_ID, Station, BTS_SUKHUMVIT_STATION_ID, Journey } from '../../types';
 
 describe('Util Service', () => {
     const station: Station = {
@@ -56,20 +56,6 @@ describe('Util Service', () => {
             const polyline = getPolyLineFromStations(stations);
             expect(polyline).toMatchObject([]);
         });
-    });
-    describe('getLineTypeFromFareType', () => {
-        const mappingFareTypeToLineType = [
-            { fareType: FareType.BTS, lineType: LineType.BTS },
-            { fareType: FareType.ARL, lineType: LineType.ARL },
-            { fareType: FareType.BRT, lineType: LineType.BRT },
-            { fareType: FareType.MRT_BLUE, lineType: LineType.MRT_BLUE },
-        ];
-        mappingFareTypeToLineType.forEach(mapping => {
-            it(`should return ${mapping.lineType} when fare type is ${mapping.fareType}`, () => {
-                const lineType = getLineTypeFromFareType(mapping.fareType);
-                expect(lineType).toBe(mapping.lineType);
-            });
-        })
     });
     describe('isInterchangeStation', () => {
         it('should return true if station is interchange', () => {

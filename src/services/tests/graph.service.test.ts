@@ -1,6 +1,5 @@
 import GraphService from "../graph.service";
-import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, Line, Graph, RouteSegment, FareType, BTS_SUKHUMVIT_STATION_ID, LineType } from "../../types";
-import { getLineTypeFromStationId } from "../util.service";
+import { MRT_BLUE_STATION_ID, BTS_SILOM_STATION_ID, Line, Graph, RouteSegment, BTS_SUKHUMVIT_STATION_ID, LineType } from "../../types";
 import { MRT_BLUE_LINE } from "../../data";
 import { cloneDeep } from "lodash";
 
@@ -57,9 +56,8 @@ describe('GraphService', () => {
         });
     });
     describe('getNextStationRouteSegments', () => {
-        const source = MRT_BLUE_STATION_ID.CHATUCHAK_PARK;
-        const routeSegment: RouteSegment = { route: [source], lineType: getLineTypeFromStationId(source) };
-        it('should return MRT route segment with two stations (same fareType)', () => {
+        const routeSegment: RouteSegment = { route: [MRT_BLUE_STATION_ID.CHATUCHAK_PARK], lineType: LineType.MRT_BLUE };
+        it('should return MRT route segment with two stations (same lineType)', () => {
             const nextStation = MRT_BLUE_STATION_ID.FAI_CHAI;
             const routeSegments = cloneDeep([routeSegment]);
 
@@ -73,7 +71,7 @@ describe('GraphService', () => {
                 ]
             }]);
         });
-        it('should return MRT route segment and BTS route segment (different fareType)', () => {
+        it('should return MRT route segment and BTS route segment (different lineType)', () => {
             const nextStation = BTS_SUKHUMVIT_STATION_ID.NANA;
             const routeSegments = cloneDeep([routeSegment]);
 
