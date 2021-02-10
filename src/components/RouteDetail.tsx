@@ -7,8 +7,8 @@ import "../styles/RouteDetail.scss";
 import { getStation, getStationIdsFromJourney } from "../services/util.service";
 import { useHistory, useLocation } from "react-router-dom";
 import { Journey, METRO_STATION_ID } from "../types";
-import FareService from "../services/fare.service";
 import Analytics from "../analytics/Analytics";
+import NavigationService from "../services/navigation.service";
 
 const RouteDetail = () => {
   const { journey, setJourney } = useTripContext();
@@ -23,7 +23,7 @@ const RouteDetail = () => {
     const routeIndex = query.get("route");
     if (getStation(source as METRO_STATION_ID) && getStation(destination as METRO_STATION_ID)) {
       const fetchAllRoute = async () => {
-        let localJourneys: Journey[] = await FareService.findAllRoutes(
+        let localJourneys: Journey[] = await NavigationService.findAllRoutesWithFare(
           source as METRO_STATION_ID,
           destination as METRO_STATION_ID
         )

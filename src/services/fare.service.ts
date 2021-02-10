@@ -1,45 +1,8 @@
-import GraphService from "./graph.service";
-import NavigationService from "./navigation.service";
 import { isExtensionBorderStation, isInterchangeStation } from "./util.service";
-import { METRO_STATION_ID, RouteSegment, Journey, LineType } from "../types";
-import { METRO_GRAPH, MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
+import { RouteSegment, LineType } from "../types";
+import { MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
 import { METRO_FARE } from "../common/fare";
 import { getBTSFareFromTable } from "./btsFare.service";
-
-const metroGraph = GraphService.createGraph(METRO_GRAPH);
-
-// TODO: refactor fare service as producer
-const findAllRoutes = async (from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey[]> => {
-    const routeSegmentsList = NavigationService.findAllRoutes(from, to, metroGraph);
-    // TODO: refactor to reduce number of call to btsFare (if backend is implemented)
-    const journeys = await Promise.all(routeSegmentsList.map(routeSegments => {
-        return FareService.getJourneyFromRouteSegments(routeSegments, from, to);
-    }))
-    return journeys;
-}
-
-const getJourneyFromRouteSegments = async (routeSegments: RouteSegment[], from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey> => {
-    const isTravelToSelf = from === to;
-    let totalFare = 0;
-    const fares = await Promise.all(routeSegments.map((routeSegment: RouteSegment) => {
-        return calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
-    }));
-    const route = routeSegments.map((routeSegment: RouteSegment, routeIndex: number) => {
-        const fare = fares[routeIndex];
-        totalFare += fare;
-        return {
-            route: routeSegment.route,
-            lineType: routeSegment.lineType,
-            fare
-        };
-    });
-    return {
-        route,
-        fare: totalFare,
-        from: from,
-        to: to,
-    };
-}
 
 const calculateFareFromRouteSegment = async (routeSegment: RouteSegment, isTravelToSelf: boolean): Promise<number> => {
     const stationId = routeSegment.route[0];
@@ -100,8 +63,6 @@ const calculateHop = (routeSegment: RouteSegment) => {
 }
 
 const FareService = {
-    findAllRoutes,
-    getJourneyFromRouteSegments,
     calculateFareFromRouteSegment
 }
 
