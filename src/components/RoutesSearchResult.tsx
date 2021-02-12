@@ -28,8 +28,8 @@ const RoutesSearchResult = () => {
 
   useEffect(() => {
     if (trip.source && trip.destination) {
-      const fetchAllRoutes = async () => {
-        let journeys = await NavigationService.findAllRoutesWithFare(
+      const fetchAllRoutes = () => {
+        let journeys = NavigationService.findAllRoutesWithFare(
           trip.source,
           trip.destination
         )

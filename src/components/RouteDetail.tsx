@@ -22,8 +22,8 @@ const RouteDetail = () => {
     const destination = query.get("destination");
     const routeIndex = query.get("route");
     if (getStation(source as METRO_STATION_ID) && getStation(destination as METRO_STATION_ID)) {
-      const fetchAllRoute = async () => {
-        let localJourneys: Journey[] = await NavigationService.findAllRoutesWithFare(
+      const fetchAllRoute = () => {
+        let localJourneys: Journey[] = NavigationService.findAllRoutesWithFare(
           source as METRO_STATION_ID,
           destination as METRO_STATION_ID
         )

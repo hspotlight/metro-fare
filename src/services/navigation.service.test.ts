@@ -782,45 +782,45 @@ describe('NavigationService', () => {
         }
 
         describe('MRT Blue line', () => {
-            it('should return 17 when from-to station are the same', async () => {
+            it('should return 17 when from-to station are the same', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO],
                     lineType: LineType.MRT_BLUE,
                 }];
                 const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
                 const to = MRT_BLUE_STATION_ID.LAT_PHRAO;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(17);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(17);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
                 expectJourney(journey, routeSegments, 17);
             });
-            it('should return 17 when distance from from-to is 1 hop', async () => {
+            it('should return 17 when distance from from-to is 1 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.LAT_PHRAO, MRT_BLUE_STATION_ID.RATCHADAPHISEK],
                     lineType: LineType.MRT_BLUE,
                 }];
                 const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
                 const to = MRT_BLUE_STATION_ID.RATCHADAPHISEK;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(17);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(17);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 17);
             });
-            it('should return 17 when distance from from-to is 1 hop', async () => {
+            it('should return 17 when distance from from-to is 1 hop', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [MRT_BLUE_STATION_ID.CHARAN_13, MRT_BLUE_STATION_ID.THAPHRA],
                     lineType: LineType.MRT_BLUE,
                 }];
                 const from = MRT_BLUE_STATION_ID.CHARAN_13;
                 const to = MRT_BLUE_STATION_ID.THAPHRA;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(17);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(17);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 17);
             });
-            it('should return 19 when distance from from-to is 2 hops', async () => {
+            it('should return 19 when distance from from-to is 2 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -831,14 +831,14 @@ describe('NavigationService', () => {
                 }];
                 const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
                 const to = MRT_BLUE_STATION_ID.SUTTHISAN;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(19);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(19);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 19);
             });
 
-            it('should return 21 when distance from from-to is 3 hops', async () => {
+            it('should return 21 when distance from from-to is 3 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -850,13 +850,13 @@ describe('NavigationService', () => {
                 }];
                 const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
                 const to = MRT_BLUE_STATION_ID.HUAI_KHWANG;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(21);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(21);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 21);
             });
-            it('should return 24 when distance from from-to is 4 hops', async () => {
+            it('should return 24 when distance from from-to is 4 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -869,13 +869,13 @@ describe('NavigationService', () => {
                 }];
                 const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
                 const to = MRT_BLUE_STATION_ID.THAILAND_CULTURAL_CENTRE;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(24);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(24);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 24);
             });
-            it('should return 26 when distance from from-to is 5 hops', async () => {
+            it('should return 26 when distance from from-to is 5 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -889,13 +889,13 @@ describe('NavigationService', () => {
                 }];
                 const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
                 const to = MRT_BLUE_STATION_ID.PHRA_RAM_9;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(26);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(26);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 26);
             });
-            it('should return 42 when distance from from-to is 13 hops', async () => {
+            it('should return 42 when distance from from-to is 13 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -917,13 +917,13 @@ describe('NavigationService', () => {
                 }];
                 const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
                 const to = MRT_BLUE_STATION_ID.HUA_LAMPHONG;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(42);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(42);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 42);
             });
-            it('should return 42 when distance from from-to more than 13 hops', async () => {
+            it('should return 42 when distance from from-to more than 13 hops', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         MRT_BLUE_STATION_ID.LAT_PHRAO,
@@ -947,15 +947,15 @@ describe('NavigationService', () => {
                 }];
                 const from = MRT_BLUE_STATION_ID.LAT_PHRAO;
                 const to = MRT_BLUE_STATION_ID.SANAM_CHAI;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValue(42);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValue(42);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 42);
             });
         });
         describe('MRT-BTS Silom', () => {
-            it('should return 0 when no hops for BTS and MRT (just walking)', async () => {
+            it('should return 0 when no hops for BTS and MRT (just walking)', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [BTS_SILOM_STATION_ID.BANG_WA],
                     lineType: LineType.BTS
@@ -965,14 +965,14 @@ describe('NavigationService', () => {
                 }];
                 const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
                 const to = MRT_BLUE_STATION_ID.LUMPHINI;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValueOnce(0);
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValueOnce(0);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValueOnce(0);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValueOnce(0);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 0);
             });
-            it('should return 16 when 1 hops for BTS and stop at MRT without traverse', async () => {
+            it('should return 16 when 1 hops for BTS and stop at MRT without traverse', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         BTS_SILOM_STATION_ID.CHONG_NONSI,
@@ -987,14 +987,14 @@ describe('NavigationService', () => {
                 }];
                 const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
                 const to = MRT_BLUE_STATION_ID.LUMPHINI;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValueOnce(16);
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValueOnce(0);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValueOnce(16);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValueOnce(0);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 16);
             });
-            it('should return 33 when 1 hops for BTS and 1 hops for MRT', async () => {
+            it('should return 33 when 1 hops for BTS and 1 hops for MRT', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         BTS_SILOM_STATION_ID.CHONG_NONSI,
@@ -1010,14 +1010,14 @@ describe('NavigationService', () => {
                 }];
                 const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
                 const to = MRT_BLUE_STATION_ID.LUMPHINI;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValueOnce(16);
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValueOnce(17);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValueOnce(16);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValueOnce(17);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 33);
             });
-            it('should return 71 when 6 hops for BTS and 2 hops for MRT', async () => {
+            it('should return 71 when 6 hops for BTS and 2 hops for MRT', () => {
                 const routeSegments: RouteSegment[] = [{
                     route: [
                         BTS_SILOM_STATION_ID.PHO_NIMIT,
@@ -1039,10 +1039,10 @@ describe('NavigationService', () => {
                 }];
                 const from = BTS_SILOM_STATION_ID.CHONG_NONSI;
                 const to = MRT_BLUE_STATION_ID.LUMPHINI;
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValueOnce(50);
-                mocked(FareService.calculateFareFromRouteSegment).mockResolvedValueOnce(21);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValueOnce(50);
+                mocked(FareService.calculateFareFromRouteSegment).mockReturnValueOnce(21);
 
-                const journey = await NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
+                const journey = NavigationService.getJourneyFromRouteSegments(routeSegments, from, to);
 
                 expectJourney(journey, routeSegments, 71);
             });
