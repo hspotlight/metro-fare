@@ -11,6 +11,7 @@ import { WebRouter } from "./routes/WebRouter";
 import { BrowserRouter } from "react-router-dom";
 import "./config/firebaseConfig";
 import SettingButton from "./components/SettingButton/SettingButton";
+import { isMobile } from "./services/util.service";
 
 const App = () => {
   return (
@@ -25,7 +26,7 @@ const App = () => {
                 ) : (
                   <>
                     <RouteFinder />
-                    <SettingButton />
+                    {isMobile() && <SettingButton />}
                     <MetroMap />
                   </>
                 )}

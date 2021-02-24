@@ -70,3 +70,16 @@ export const getAllStations = (stationIds: METRO_STATION_ID[]): Station[] => {
 export const getPolyLineFromStations = (stations: Station[]): LatLngTuple[] => {
     return stations.map(station => station.position);
 };
+
+export const getWindowDimensions = () => {
+    const { innerWidth: width, innerHeight: height } = window;
+    return {
+        width,
+        height
+    };
+}
+
+export const isMobile = () => {
+    const { width } = getWindowDimensions()
+    return width <= 768
+}
