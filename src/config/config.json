@@ -1,5 +1,6 @@
 {
   "feature_toggles": {
-    "can_show_mobile_ui": true
+    "can_show_mobile_ui": true,
+    "show_side_menu": false
   }
 }
