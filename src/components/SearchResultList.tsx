@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getLineTypeLabel, getStationName } from "../services/util.service";
 import { METRO_STATION_ID, Station } from "../types";
 import "../styles/SearchResultList.scss";
-import { List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  makeStyles,
+} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
   listItem: {
@@ -17,17 +23,43 @@ type SearchResultListProps = {
   handleOnItemClick: (_: METRO_STATION_ID) => void;
 };
 
+const limit = 10;
+
 export const SearchResultList = ({
   searchItems,
   handleOnItemClick,
 }: SearchResultListProps) => {
+  const searchItemLength = searchItems.length;
+  const [showMoreButton, setShowMoreButton] = useState<boolean>(false);
+
+  const [showMoreItems, setShowMoreItems] = useState<boolean>(false);
+
+  const topTenItems = searchItems.slice(0, limit);
+  const moreItems = searchItems.slice(limit);
+
+  const handleClickShowMore = () => {
+    setShowMoreButton(false);
+    setShowMoreItems(true);
+  };
+
+  useEffect(() => {
+    setShowMoreButton(searchItemLength > limit);
+  }, [searchItemLength]);
+
   return (
     <div className="search-result-list">
       <List>
-        {searchItems.map((item, index) => (
+        {topTenItems.map((item, index) => (
           <SearchItem key={index} item={item} onClick={handleOnItemClick} />
         ))}
+        {showMoreItems &&
+          moreItems.map((item, index) => (
+            <SearchItem key={index} item={item} onClick={handleOnItemClick} />
+          ))}
       </List>
+      {showMoreButton && (
+        <Button onClick={handleClickShowMore}>Show More</Button>
+      )}
     </div>
   );
 };
