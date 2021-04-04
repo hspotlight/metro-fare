@@ -72,6 +72,7 @@ export const RoutingDrawer = () => {
     } else {
       setTrip(trip.source, station);
     }
+    handleDrawerClose();
   };
 
   return (
@@ -116,6 +117,7 @@ export const RoutingDrawer = () => {
           onClose={handleDrawerClose}
           stationId={drawerType === "from" ? trip.source : trip.destination}
           onSelect={onSelectStation}
+          placeHolder={drawerType}
         />
       )}
     </Paper>

@@ -3,6 +3,14 @@ import { useTranslation } from "react-i18next";
 import { getLineTypeLabel, getStationName } from "../services/util.service";
 import { METRO_STATION_ID, Station } from "../types";
 import "../styles/SearchResultList.scss";
+import { List, ListItem, ListItemText, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+  listItem: {
+    paddingLeft: "8px",
+    paddingRight: "8px",
+  },
+}));
 
 type SearchResultListProps = {
   searchItems: Station[];
@@ -15,11 +23,11 @@ export const SearchResultList = ({
 }: SearchResultListProps) => {
   return (
     <div className="search-result-list">
-      <div>
+      <List>
         {searchItems.map((item, index) => (
           <SearchItem key={index} item={item} onClick={handleOnItemClick} />
         ))}
-      </div>
+      </List>
     </div>
   );
 };
@@ -30,13 +38,13 @@ type SearchItemProps = {
 };
 
 const SearchItem = ({ item, onClick }: SearchItemProps) => {
+  const classes = useStyles();
   const { i18n } = useTranslation();
   const lineType = getLineTypeLabel(item.lineType);
   const stationName = getStationName(item, i18n.language);
   return (
-    <div
-      className="search-item"
-      onClick={() => onClick(item.id)}
-    >{`${lineType} [${item.id}] ${stationName}`}</div>
+    <ListItem className={classes.listItem} onClick={() => onClick(item.id)}>
+      <ListItemText primary={`${lineType} [${item.id}] ${stationName}`} />
+    </ListItem>
   );
 };
