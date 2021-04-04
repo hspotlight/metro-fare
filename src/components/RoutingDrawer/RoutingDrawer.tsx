@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/styles";
-import { Grid, IconButton, Paper, Typography } from "@material-ui/core";
+import { Grid, IconButton, Paper } from "@material-ui/core";
 import SyncAltIcon from "@material-ui/icons/SyncAlt";
-import CloseIcon from "@material-ui/icons/Close";
 import { useTripContext } from "../../contexts/TripProvider";
 import { METRO_STATION_ID } from "../../types";
-import { useTranslation } from "react-i18next";
-import { getStation, getStationName } from "../../services/util.service";
+import { useDrawerContext } from "../../contexts/DrawerProvider";
+import { FromToButton } from "./FromToButton";
+import { RouteDrawer } from "./RouteDrawer";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -32,14 +32,14 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  button: {
-    width: "70%",
-    borderRadius: "0px",
-  },
 }));
+
+type DrawerType = "from" | "to" | null;
 
 export const RoutingDrawer = () => {
   const { trip, setTrip } = useTripContext();
+  const { showRouteSearchDrawer, setRouteSearchDrawer } = useDrawerContext();
+  const [drawerType, setDrawerType] = useState<DrawerType>(null);
   const classes = useStyles();
 
   const handleUnselectFrom = () => {
@@ -50,6 +50,28 @@ export const RoutingDrawer = () => {
   };
   const handleSwapLocation = () => {
     setTrip(trip.destination, trip.source);
+  };
+
+  const handleFromClick = () => {
+    setDrawerType("from");
+    setRouteSearchDrawer(true);
+  };
+  const handleToClick = () => {
+    setDrawerType("to");
+    setRouteSearchDrawer(true);
+  };
+
+  const handleDrawerClose = () => {
+    setDrawerType(null);
+    setRouteSearchDrawer(false);
+  };
+
+  const onSelectStation = (station: METRO_STATION_ID) => {
+    if (drawerType === "from") {
+      setTrip(station, trip.destination);
+    } else {
+      setTrip(trip.source, station);
+    }
   };
 
   return (
@@ -70,6 +92,7 @@ export const RoutingDrawer = () => {
               stationId={trip.source}
               handleUnselect={handleUnselectFrom}
               placeHolder="From"
+              onClick={handleFromClick}
             />
           </Grid>
           <Grid item xs={6}>
@@ -77,6 +100,7 @@ export const RoutingDrawer = () => {
               stationId={trip.destination}
               handleUnselect={handleUnselectTo}
               placeHolder="To"
+              onClick={handleToClick}
             />
           </Grid>
         </Grid>
@@ -86,36 +110,14 @@ export const RoutingDrawer = () => {
           </IconButton>
         </Grid>
       </Grid>
-    </Paper>
-  );
-};
-
-type FromToButton = {
-  stationId: METRO_STATION_ID;
-  handleUnselect: () => void;
-  placeHolder: string;
-};
-
-const FromToButton = ({
-  stationId,
-  handleUnselect,
-  placeHolder,
-}: FromToButton) => {
-  const { i18n } = useTranslation();
-  const classes = useStyles();
-  const station = getStation(stationId);
-  return (
-    <>
-      <IconButton className={classes.button} size="small">
-        <Typography variant="button" noWrap>
-          {station ? getStationName(station, i18n.language) : placeHolder}
-        </Typography>
-      </IconButton>
-      {station && (
-        <IconButton onClick={handleUnselect} size="small">
-          <CloseIcon />
-        </IconButton>
+      {drawerType && (
+        <RouteDrawer
+          showRouteSearchDrawer={showRouteSearchDrawer}
+          onClose={handleDrawerClose}
+          stationId={drawerType === "from" ? trip.source : trip.destination}
+          onSelect={onSelectStation}
+        />
       )}
-    </>
+    </Paper>
   );
 };

@@ -7,7 +7,7 @@ import {
   SwipeableDrawer,
   Typography,
 } from "@material-ui/core";
-import { useDrawerCtx } from "../../contexts/DrawerProvider";
+import { useDrawerContext } from "../../contexts/DrawerProvider";
 import CloseIcon from "@material-ui/icons/Close";
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
 }));
 // TODO: update sidemenu, change to drawer
 export const SideMenu = () => {
-  const { showSideMenu, setSideMenu } = useDrawerCtx();
+  const { showSideMenu, setSideMenu } = useDrawerContext();
   const classes = useStyles();
   return (
     <SwipeableDrawer

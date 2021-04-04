@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import { useDrawerCtx } from "../../contexts/DrawerProvider";
+import { useDrawerContext } from "../../contexts/DrawerProvider";
 import { canShowSideMenu } from "../../config/featureToggle";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const AppHeaderBar = () => {
   const classes = useStyles();
-  const { setSideMenu } = useDrawerCtx();
+  const { setSideMenu } = useDrawerContext();
 
   return (
     <AppBar position="static">
