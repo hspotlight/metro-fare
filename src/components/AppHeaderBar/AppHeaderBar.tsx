@@ -16,8 +16,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     marginLeft: theme.spacing(1),
   },
-  appbar: {
-    alignItems: "center",
+  toolbar: {
+    [theme.breakpoints.up("xs")]: {
+      minHeight: "56px",
+    },
   },
 }));
 
@@ -27,7 +29,11 @@ export const AppHeaderBar = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar>
+      <Toolbar
+        classes={{
+          root: classes.toolbar,
+        }}
+      >
         <Grid container justify="space-between" alignItems="center">
           <img
             height="32"

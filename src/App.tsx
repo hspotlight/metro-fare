@@ -21,7 +21,7 @@ const App = () => {
             <MapProvider>
               <DrawerProvider>
                 <AppHeaderBar />
-                <div style={{ height: "calc(100% - 64px)" }}>
+                <div style={{ height: "calc(100% - 56px)" }}>
                   <MetroMap />
                   {canShowSideMenu() && <SideMenu />}
                 </div>
