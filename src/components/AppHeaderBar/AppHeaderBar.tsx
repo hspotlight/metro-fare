@@ -8,6 +8,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import { useDrawerCtx } from "../../contexts/DrawerProvider";
+import { canShowSideMenu } from "../../config/featureToggle";
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -21,6 +23,8 @@ const useStyles = makeStyles((theme) => ({
 
 export const AppHeaderBar = () => {
   const classes = useStyles();
+  const { setSideMenu } = useDrawerCtx();
+
   return (
     <AppBar position="static">
       <Toolbar>
@@ -34,9 +38,11 @@ export const AppHeaderBar = () => {
           <Typography variant="h6" className={classes.title}>
             MetroFare
           </Typography>
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
+          {canShowSideMenu() && (
+            <IconButton edge="start" color="inherit" aria-label="menu">
+              <MenuIcon onClick={() => setSideMenu(true)} />
+            </IconButton>
+          )}
         </Grid>
       </Toolbar>
     </AppBar>

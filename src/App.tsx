@@ -8,6 +8,9 @@ import MapProvider from "./contexts/MapProvider";
 import { BrowserRouter } from "react-router-dom";
 import "./config/firebaseConfig";
 import { AppHeaderBar } from "./components/AppHeaderBar/AppHeaderBar";
+import DrawerProvider from "./contexts/DrawerProvider";
+import { SideMenu } from "./components/SideMenu/SideMenu";
+import { canShowSideMenu } from "./config/featureToggle";
 
 const App = () => {
   return (
@@ -16,10 +19,13 @@ const App = () => {
         <BrowserRouter>
           <TripProvider>
             <MapProvider>
-              <AppHeaderBar />
-              <div style={{ height: "calc(100% - 64px)" }}>
-                <MetroMap />
-              </div>
+              <DrawerProvider>
+                <AppHeaderBar />
+                <div style={{ height: "calc(100% - 64px)" }}>
+                  <MetroMap />
+                  {canShowSideMenu() && <SideMenu />}
+                </div>
+              </DrawerProvider>
             </MapProvider>
           </TripProvider>
         </BrowserRouter>
