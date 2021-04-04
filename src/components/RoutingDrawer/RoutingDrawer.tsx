@@ -3,6 +3,10 @@ import { makeStyles } from "@material-ui/styles";
 import { Grid, IconButton, Paper, Typography } from "@material-ui/core";
 import SyncAltIcon from "@material-ui/icons/SyncAlt";
 import CloseIcon from "@material-ui/icons/Close";
+import { useTripContext } from "../../contexts/TripProvider";
+import { METRO_STATION_ID } from "../../types";
+import { useTranslation } from "react-i18next";
+import { getStation, getStationName } from "../../services/util.service";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -29,23 +33,25 @@ const useStyles = makeStyles(() => ({
     alignItems: "center",
   },
   button: {
-    width: "60%",
+    width: "70%",
     borderRadius: "0px",
   },
 }));
 
 export const RoutingDrawer = () => {
+  const { trip, setTrip } = useTripContext();
   const classes = useStyles();
 
   const handleUnselectFrom = () => {
-    console.log("handleUnselectFrom");
+    setTrip("" as METRO_STATION_ID, trip.destination);
   };
   const handleUnselectTo = () => {
-    console.log("handleUnselectTo");
+    setTrip(trip.source, "" as METRO_STATION_ID);
   };
   const handleSwapLocation = () => {
-    console.log("handleSwapLocation");
+    setTrip(trip.destination, trip.source);
   };
+
   return (
     <Paper
       classes={{
@@ -60,20 +66,18 @@ export const RoutingDrawer = () => {
       >
         <Grid container className={classes.buttonGroup} xs={11}>
           <Grid item xs={6}>
-            <IconButton className={classes.button} size="small">
-              <Typography variant="button">From</Typography>
-            </IconButton>
-            <IconButton onClick={handleUnselectFrom} size="small">
-              <CloseIcon />
-            </IconButton>
+            <FromToButton
+              stationId={trip.source}
+              handleUnselect={handleUnselectFrom}
+              placeHolder="From"
+            />
           </Grid>
           <Grid item xs={6}>
-            <IconButton className={classes.button} size="small">
-              <Typography variant="button">To</Typography>
-            </IconButton>
-            <IconButton onClick={handleUnselectTo} size="small">
-              <CloseIcon />
-            </IconButton>
+            <FromToButton
+              stationId={trip.destination}
+              handleUnselect={handleUnselectTo}
+              placeHolder="To"
+            />
           </Grid>
         </Grid>
         <Grid container xs={1}>
@@ -83,5 +87,35 @@ export const RoutingDrawer = () => {
         </Grid>
       </Grid>
     </Paper>
+  );
+};
+
+type FromToButton = {
+  stationId: METRO_STATION_ID;
+  handleUnselect: () => void;
+  placeHolder: string;
+};
+
+const FromToButton = ({
+  stationId,
+  handleUnselect,
+  placeHolder,
+}: FromToButton) => {
+  const { i18n } = useTranslation();
+  const classes = useStyles();
+  const station = getStation(stationId);
+  return (
+    <>
+      <IconButton className={classes.button} size="small">
+        <Typography variant="button" noWrap>
+          {station ? getStationName(station, i18n.language) : placeHolder}
+        </Typography>
+      </IconButton>
+      {station && (
+        <IconButton onClick={handleUnselect} size="small">
+          <CloseIcon />
+        </IconButton>
+      )}
+    </>
   );
 };
