@@ -23,7 +23,7 @@ const useStyles = makeStyles(() => ({
     marginBottom: "2px",
   },
 }));
-// TODO: update sidemenu
+// TODO: update sidemenu, change to drawer
 export const SideMenu = () => {
   const { showSideMenu, setSideMenu } = useDrawerCtx();
   const classes = useStyles();

@@ -10,7 +10,8 @@ import "./config/firebaseConfig";
 import { AppHeaderBar } from "./components/AppHeaderBar/AppHeaderBar";
 import DrawerProvider from "./contexts/DrawerProvider";
 import { SideMenu } from "./components/SideMenu/SideMenu";
-import { canShowSideMenu } from "./config/featureToggle";
+import { canShowRoutingDrawer, canShowSideMenu } from "./config/featureToggle";
+import { RoutingDrawer } from "./components/RoutingDrawer/RoutingDrawer";
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
                 <div style={{ height: "calc(100% - 56px)" }}>
                   <MetroMap />
                   {canShowSideMenu() && <SideMenu />}
+                  {canShowRoutingDrawer() && <RoutingDrawer />}
                 </div>
               </DrawerProvider>
             </MapProvider>
