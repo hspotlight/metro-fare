@@ -33,6 +33,10 @@ const useStyles = makeStyles(() => ({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  fromToContainer: {
+    display: "flex",
+    justifyContent: "center",
+  },
 }));
 
 type DrawerType = "from" | "to" | null;
@@ -90,7 +94,7 @@ export const RoutingDrawer = () => {
         justify="space-between"
       >
         <Grid container className={classes.buttonGroup} xs={11}>
-          <Grid item xs={6}>
+          <Grid item xs={6} className={classes.fromToContainer}>
             <FromToButton
               stationId={trip.source}
               handleUnselect={handleUnselectFrom}
@@ -98,7 +102,7 @@ export const RoutingDrawer = () => {
               onClick={handleFromClick}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} className={classes.fromToContainer}>
             <FromToButton
               stationId={trip.destination}
               handleUnselect={handleUnselectTo}

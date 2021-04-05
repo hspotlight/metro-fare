@@ -7,8 +7,10 @@ import { METRO_STATION_ID } from "../../types";
 
 const useStyles = makeStyles(() => ({
   button: {
-    width: "70%",
     borderRadius: "0px",
+  },
+  buttonWith70: {
+    width: "70%",
   },
 }));
 
@@ -30,7 +32,11 @@ export const FromToButton = ({
   const station = getStation(stationId);
   return (
     <>
-      <IconButton className={classes.button} size="small" onClick={onClick}>
+      <IconButton
+        className={`${classes.button} ${station ? classes.buttonWith70 : ""}`}
+        size="small"
+        onClick={onClick}
+      >
         <Typography variant="button" noWrap>
           {station ? getStationName(station, i18n.language) : placeHolder}
         </Typography>
