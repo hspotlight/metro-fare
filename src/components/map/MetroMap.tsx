@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
+import { FeatureGroup } from "react-leaflet";
 import {
   DEFAULT_MAP_CENTER,
   DUMMY_MAP_POSITION,
 } from "../../common/mapConstants";
 import MapControl from "./MapControl";
-import { useTripContext } from "../../contexts/TripProvider";
+import { Trip, useTripContext } from "../../contexts/TripProvider";
 import { useMapContext } from "../../contexts/MapProvider";
 import { MetroLineLayers } from "./MetroLineLayers";
 import { TravelRouteLayer } from "./TravelRouteLayer";
+import FromToMarker from "./Marker/Marker";
+import { getStation } from "../../services/util.service";
 
 export const MetroMap = () => {
   const [mapCenter, setMapCenter] = useState<LatLngTuple>(DEFAULT_MAP_CENTER);
   const { setShowMetroLayers } = useMapContext();
-  const { journey } = useTripContext();
+  const { trip, journey } = useTripContext();
 
   useEffect(() => {
     if (
@@ -56,7 +59,22 @@ export const MetroMap = () => {
         />
         <MetroLineLayers />
         {journey.route.length > 0 && <TravelRouteLayer />}
+        <FromToStationLayer trip={trip} />
       </Map>
     </div>
+  );
+};
+
+const FromToStationLayer = ({ trip }: { trip: Trip }) => {
+  const fromStation = getStation(trip.source);
+  const toStation = getStation(trip.destination);
+  // TODO: add popover to show station name and unselect option
+  return (
+    <FeatureGroup name="from-to-station">
+      {fromStation && (
+        <FromToMarker position={fromStation.position} type={"from"} />
+      )}
+      {toStation && <FromToMarker position={toStation.position} type={"to"} />}
+    </FeatureGroup>
   );
 };
