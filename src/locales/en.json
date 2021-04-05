@@ -5,8 +5,8 @@
     "selectedRoute": "Selected Route"
   },
   "route": {
-    "source": "Source station",
-    "destination": "Destination station",
+    "from": "From",
+    "to": "To",
     "fare": "Fare",
     "intermediateStationText": "{{count}} stations"
   },
@@ -39,8 +39,8 @@
   },
   "map": {
     "popup": {
-      "setSource": "From",
-      "setDestination": "To"
+      "setFrom": "From",
+      "setTo": "To"
     },
     "legend": {
       "legend": "Legend",

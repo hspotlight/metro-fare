@@ -5,7 +5,7 @@ import { useTripContext } from "../contexts/TripProvider";
 import "../styles/RouteNavigation.scss";
 import StationSelectInput from "./StationSelectInput";
 import { Link, useHistory } from "react-router-dom";
-import Analytics from '../analytics/Analytics';
+import Analytics from "../analytics/Analytics";
 
 const RouteNavigation = () => {
   const { t: translate } = useTranslation();
@@ -14,7 +14,7 @@ const RouteNavigation = () => {
   const history = useHistory();
 
   useEffect(() => {
-    Analytics.logCurrentScreen('route_navigation_screen');
+    Analytics.logCurrentScreen("route_navigation_screen");
   }, []);
 
   useEffect(() => {
@@ -23,13 +23,13 @@ const RouteNavigation = () => {
     setFormInValid(isFormValid);
   }, [trip]);
 
-  const handleOnFocus = (selectStationType: 'source' | 'destination') => {
-    history.push(`/select-station?type=${selectStationType}`)
-  }
+  const handleOnFocus = (selectStationType: "source" | "destination") => {
+    history.push(`/select-station?type=${selectStationType}`);
+  };
 
   const onSearchClick = () => {
-    Analytics.logEvent('station_search_pair', trip)
-  }
+    Analytics.logEvent("station_search_pair", trip);
+  };
 
   return (
     <div className="route-navigation">
@@ -43,14 +43,14 @@ const RouteNavigation = () => {
       </div>
       <div>
         <StationSelectInput
-          title={translate("route.source")}
+          title={translate("route.from")}
           value={trip.source}
-          onFocus={() => handleOnFocus('source')}
+          onFocus={() => handleOnFocus("source")}
         />
         <StationSelectInput
-          title={translate("route.destination")}
+          title={translate("route.to")}
           value={trip.destination}
-          onFocus={() => handleOnFocus('destination')}
+          onFocus={() => handleOnFocus("destination")}
         />
       </div>
 
@@ -69,7 +69,9 @@ const RouteNavigation = () => {
             {translate("common.search")}
           </Button>
         ) : (
-          <Link to={`/routes?source=${trip.source}&destination=${trip.destination}`}>
+          <Link
+            to={`/routes?source=${trip.source}&destination=${trip.destination}`}
+          >
             <Button
               variant="contained"
               color="primary"

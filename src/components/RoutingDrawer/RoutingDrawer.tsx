@@ -7,6 +7,7 @@ import { METRO_STATION_ID } from "../../types";
 import { useDrawerContext } from "../../contexts/DrawerProvider";
 import { FromToButton } from "./FromToButton";
 import { RouteDrawer } from "./RouteDrawer";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -37,6 +38,7 @@ const useStyles = makeStyles(() => ({
 type DrawerType = "from" | "to" | null;
 
 export const RoutingDrawer = () => {
+  const { t: translation } = useTranslation();
   const { trip, setTrip } = useTripContext();
   const { showRouteSearchDrawer, setRouteSearchDrawer } = useDrawerContext();
   const [drawerType, setDrawerType] = useState<DrawerType>(null);
@@ -92,7 +94,7 @@ export const RoutingDrawer = () => {
             <FromToButton
               stationId={trip.source}
               handleUnselect={handleUnselectFrom}
-              placeHolder="From"
+              placeHolder={translation("route.from")}
               onClick={handleFromClick}
             />
           </Grid>
@@ -100,7 +102,7 @@ export const RoutingDrawer = () => {
             <FromToButton
               stationId={trip.destination}
               handleUnselect={handleUnselectTo}
-              placeHolder="To"
+              placeHolder={translation("route.to")}
               onClick={handleToClick}
             />
           </Grid>
@@ -117,7 +119,11 @@ export const RoutingDrawer = () => {
           onClose={handleDrawerClose}
           stationId={drawerType === "from" ? trip.source : trip.destination}
           onSelect={onSelectStation}
-          placeHolder={drawerType}
+          placeHolder={
+            drawerType === "from"
+              ? translation("route.from")
+              : translation("route.to")
+          }
         />
       )}
     </Paper>

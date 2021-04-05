@@ -63,7 +63,7 @@ const StationPopup = ({
             closePopupOnClick();
           }}
         >
-          {translate("map.popup.setSource")}
+          {translate("map.popup.setFrom")}
         </Button>
         <Button
           variant="contained"
@@ -74,7 +74,7 @@ const StationPopup = ({
             closePopupOnClick();
           }}
         >
-          {translate("map.popup.setDestination")}
+          {translate("map.popup.setTo")}
         </Button>
       </section>
     </Popup>

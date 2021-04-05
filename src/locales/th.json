@@ -5,8 +5,8 @@
     "selectedRoute": "เส้นทางที่เลือก"
   },
   "route": {
-    "source": "สถานีต้นทาง",
-    "destination": "สถานีปลายทาง",
+    "from": "สถานีต้นทาง",
+    "to": "สถานีปลายทาง",
     "fare": "ค่าโดยสาร",
     "intermediateStationText": "{{count}} สถานี"
   },
@@ -39,8 +39,8 @@
   },
   "map": {
     "popup": {
-      "setSource": "เลือกสถานีต้นทาง",
-      "setDestination": "เลือกสถานีปลายทาง"
+      "setFrom": "เลือกสถานีต้นทาง",
+      "setTo": "เลือกสถานีปลายทาง"
     },
     "legend": {
       "legend": "สัญลักษณ์",

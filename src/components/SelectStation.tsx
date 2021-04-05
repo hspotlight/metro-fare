@@ -15,17 +15,17 @@ const SelectStation = () => {
   const [searchResult, setSearchResult] = useState<Station[]>([]);
   const { setSource, setDestination } = useTripContext();
   const history = useHistory();
-  const {t: translate } = useTranslation();
+  const { t: translate } = useTranslation();
   const query = new URLSearchParams(useLocation().search);
-  const type = query.get('type');
-  
+  const type = query.get("type");
+
   const textFieldLabel = () => {
-    return type === 'source' ? translate('route.source') : translate('route.destination');
-  }
+    return type === "source" ? translate("route.from") : translate("route.to");
+  };
 
   useEffect(() => {
-    Analytics.logCurrentScreen('select_station_screen');
-  }, [])
+    Analytics.logCurrentScreen("select_station_screen");
+  }, []);
 
   useEffect(() => {
     if (searchTerm.length > 2) {
@@ -50,7 +50,7 @@ const SelectStation = () => {
     if (searchTermLength === 0) return translate("selectStation.startText");
     if (searchTermLength < 2) return translate("selectStation.tooShort");
     return translate("selectStation.notFound");
-  }
+  };
 
   return (
     <div className="select-station">
@@ -67,7 +67,9 @@ const SelectStation = () => {
       </div>
 
       {searchResult.length === 0 && (
-        <div className="display-message">{getDisplayMessage(searchTermLength)}</div>
+        <div className="display-message">
+          {getDisplayMessage(searchTermLength)}
+        </div>
       )}
       {searchResult.length > 0 && (
         <div className="search-result">
