@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
 import { FeatureGroup } from "react-leaflet";
-import {
-  DEFAULT_MAP_CENTER,
-  DUMMY_MAP_POSITION,
-} from "../../common/mapConstants";
+import { DEFAULT_MAP_CENTER } from "../../common/mapConstants";
 import MapControl from "./MapControl";
 import { Trip, useTripContext } from "../../contexts/TripProvider";
 import { useMapContext } from "../../contexts/MapProvider";
@@ -52,7 +49,7 @@ export const MetroMap = () => {
         maxZoom={17}
         zoomControl={false}
       >
-        <MapControl onResetViewClick={() => setMapCenter(DUMMY_MAP_POSITION)} />
+        <MapControl />
         <TileLayer
           attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
