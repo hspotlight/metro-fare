@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Map, TileLayer } from "react-leaflet";
 import { LatLngTuple } from "leaflet";
 import {
