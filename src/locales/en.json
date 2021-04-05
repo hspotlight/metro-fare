@@ -39,8 +39,8 @@
   },
   "map": {
     "popup": {
-      "setSource": "Set Source",
-      "setDestination": "Set Destination"
+      "setSource": "From",
+      "setDestination": "To"
     },
     "legend": {
       "legend": "Legend",
