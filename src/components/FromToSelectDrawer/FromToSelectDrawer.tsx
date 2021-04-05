@@ -47,7 +47,7 @@ type RouteDrawer = {
   placeHolder: string;
 };
 
-export const RouteDrawer = ({
+export const FromToSelectDrawer = ({
   showRouteSearchDrawer,
   onClose,
   stationId,

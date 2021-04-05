@@ -6,7 +6,7 @@ import { useTripContext } from "../../contexts/TripProvider";
 import { METRO_STATION_ID } from "../../types";
 import { useDrawerContext } from "../../contexts/DrawerProvider";
 import { FromToButton } from "./FromToButton";
-import { RouteDrawer } from "./RouteDrawer";
+import { FromToSelectDrawer } from "./FromToSelectDrawer";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
@@ -41,7 +41,7 @@ const useStyles = makeStyles(() => ({
 
 type DrawerType = "from" | "to" | null;
 
-export const RoutingDrawer = () => {
+export const FromToSelectPanel = () => {
   const { t: translation } = useTranslation();
   const { trip, setTrip } = useTripContext();
   const { showRouteSearchDrawer, setRouteSearchDrawer } = useDrawerContext();
@@ -118,7 +118,7 @@ export const RoutingDrawer = () => {
         </Grid>
       </Grid>
       {drawerType && (
-        <RouteDrawer
+        <FromToSelectDrawer
           showRouteSearchDrawer={showRouteSearchDrawer}
           onClose={handleDrawerClose}
           stationId={drawerType === "from" ? trip.source : trip.destination}
