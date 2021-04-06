@@ -91,7 +91,6 @@ export const FromToSelectPanel = () => {
   };
 
   const handleShowRouteDetail = () => {
-    console.log("handleShowRouteDetail", showRouteDetailDrawer);
     setShowRouteDetailDrawer(true);
   };
   return (
@@ -155,27 +154,23 @@ export const FromToSelectPanel = () => {
           <FromToSelect setDrawerType={setDrawerType} />
         </Grid>
       </Grid>
-      {drawerType && (
-        <FromToSelectDrawer
-          showRouteSearchDrawer={showRouteSearchDrawer}
-          onClose={handleDrawerClose}
-          stationId={drawerType === "from" ? trip.source : trip.destination}
-          onSelect={onSelectStation}
-          placeHolder={
-            drawerType === "from"
-              ? translation("route.from")
-              : translation("route.to")
-          }
-        />
-      )}
-      {showRouteDetailDrawer && (
-        <RouteDetailDrawer
-          showRouteDetailDrawer={showRouteDetailDrawer}
-          routeNumber={journeyIndex + 1}
-          journey={journey}
-          onClose={() => setShowRouteDetailDrawer(false)}
-        />
-      )}
+      <FromToSelectDrawer
+        showRouteSearchDrawer={showRouteSearchDrawer}
+        onClose={handleDrawerClose}
+        stationId={drawerType === "from" ? trip.source : trip.destination}
+        onSelect={onSelectStation}
+        placeHolder={
+          drawerType === "from"
+            ? translation("route.from")
+            : translation("route.to")
+        }
+      />
+      <RouteDetailDrawer
+        showRouteDetailDrawer={showRouteDetailDrawer}
+        routeNumber={journeyIndex + 1}
+        journey={journey}
+        onClose={() => setShowRouteDetailDrawer(false)}
+      />
     </Paper>
   );
 };
