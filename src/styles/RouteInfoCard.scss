@@ -2,7 +2,6 @@
   display: flex;
   align-items: center;
   width: calc(100% - 40px);
-  margin: 20px 10px 0 10px;
   padding: 10px 10px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 8px;
@@ -10,10 +9,6 @@
 
   .route-info {
     width: 100%;
-    .title {
-      font-size: 20px;
-      padding-bottom: 5px;
-    }
   }
 
   .next-button {

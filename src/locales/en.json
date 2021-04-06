@@ -5,6 +5,8 @@
     "selectedRoute": "Selected Route"
   },
   "route": {
+    "route": "Route",
+    "of": "of",
     "from": "From",
     "to": "To",
     "fare": "Fare",
