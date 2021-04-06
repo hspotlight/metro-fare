@@ -69,7 +69,6 @@ export const FromToSelectPanel = () => {
         trip.source,
         trip.destination
       );
-      // sorted and get top 3
       journeys = journeys.sort((a, b) => a.fare - b.fare);
       journeys = journeys.slice(0, 3);
       setJourneys(journeys);
@@ -80,13 +79,8 @@ export const FromToSelectPanel = () => {
       resetJourney();
       setJourneyIndex(-1);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trip]);
-
-  // consider move above useeffect to another component in FromToSelectPanel
-  // when click route, show it in the map
-  // when user click show detail or pull up, show detail
-
-  // to learn - how to slide to move [] right to left as yandex app
 
   const handleDrawerClose = () => {
     setDrawerType(null);
