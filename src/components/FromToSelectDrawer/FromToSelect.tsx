@@ -62,8 +62,14 @@ export const FromToSelect = ({ setDrawerType }: FromToSelectProps) => {
   };
 
   return (
-    <Grid container className={classes.drawer} xs={11} justify="space-between">
-      <Grid container className={classes.buttonGroup} xs={11}>
+    <Grid
+      container
+      className={classes.drawer}
+      item
+      xs={11}
+      justify="space-between"
+    >
+      <Grid container className={classes.buttonGroup} item xs={11}>
         <Grid item xs={6} className={classes.fromToContainer}>
           <FromToButton
             stationId={trip.source}
@@ -81,7 +87,7 @@ export const FromToSelect = ({ setDrawerType }: FromToSelectProps) => {
           />
         </Grid>
       </Grid>
-      <Grid container xs={1}>
+      <Grid container item xs={1}>
         <IconButton onClick={handleSwapLocation} size="small">
           <SyncAltIcon />
         </IconButton>
