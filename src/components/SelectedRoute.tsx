@@ -3,13 +3,16 @@ import { getStation, getStationName } from "../services/util.service";
 import { Journey, Station } from "../types";
 import "../styles/SelectedRoute.scss";
 import { useTranslation } from "react-i18next";
-import { getDottedLineStyle, getStationIconStyle, getInterChangeLine } from "../services/ui-style.service";
+import {
+  getDottedLineStyle,
+  getStationIconStyle,
+  getInterChangeLine,
+} from "../services/ui-style.service";
 
-const SelectedRoute = ({journey}: {journey: Journey}) => {
-  const {t: translate, i18n } = useTranslation();
+const SelectedRoute = ({ journey }: { journey: Journey }) => {
+  const { i18n } = useTranslation();
   return (
     <div>
-      <div>{translate('route.fare')}: {journey.fare}</div>
       <div className="travel-route-container">
         {journey.route.map((routeSegment, segmentIndex) => {
           let interchangeDottedLineStyle = "";
@@ -27,11 +30,16 @@ const SelectedRoute = ({journey}: {journey: Journey}) => {
               return null;
             }
 
-            const stationName = `(${station.id}) ${getStationName(station as Station, i18n.language)}`;
+            const stationName = `(${station.id}) ${getStationName(
+              station as Station,
+              i18n.language
+            )}`;
 
             return (
               <section key={stationId}>
-                {index > 0 && <div className={"dotted-line " + dottedLineStyle}></div>}
+                {index > 0 && (
+                  <div className={"dotted-line " + dottedLineStyle}></div>
+                )}
                 <section className="station-container">
                   {<div className={"station-icon " + stationIconStyle}></div>}
                   <div>{stationName}</div>

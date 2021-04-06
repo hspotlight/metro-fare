@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import '../styles/RouteDetailInsight.scss';
+import "../styles/RouteDetailInsight.scss";
 
 type RouteDetailInsightProps = {
   nStations: number;
@@ -15,8 +15,8 @@ export const RouteDetailInsight = ({
   return (
     <div className="route-detail-insight">
       <div className="row">
-        <div className="col-2">Total stations</div>
-        <div className="col-2">Total fare</div>
+        <div className="col-2">{translate("station.totalStation")}</div>
+        <div className="col-2">{translate("station.totalFare")}</div>
       </div>
       <div className="row">
         <div className="col-2">

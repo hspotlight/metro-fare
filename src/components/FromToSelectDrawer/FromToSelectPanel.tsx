@@ -12,6 +12,7 @@ import RouteInfoCard from "../RouteInfoCard";
 import CloseIcon from "@material-ui/icons/Close";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import { RouteDetailDrawer } from "../RouteDetailDrawer/RouteDetailDrawer";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -51,6 +52,9 @@ export const FromToSelectPanel = () => {
   const { showRouteSearchDrawer, setRouteSearchDrawer } = useDrawerContext();
   const { trip, journey, setTrip, setJourney, resetJourney } = useTripContext();
   const [drawerType, setDrawerType] = useState<DrawerType>(null);
+  const [showRouteDetailDrawer, setShowRouteDetailDrawer] = useState<boolean>(
+    false
+  );
   const [journeys, setJourneys] = useState<Journey[]>([]);
   const [journeyIndex, setJourneyIndex] = useState<number>(-1);
 
@@ -98,6 +102,10 @@ export const FromToSelectPanel = () => {
     handleDrawerClose();
   };
 
+  const handleShowRouteDetail = () => {
+    console.log("handleShowRouteDetail", showRouteDetailDrawer);
+    setShowRouteDetailDrawer(true);
+  };
   return (
     <Paper
       classes={{
@@ -140,7 +148,10 @@ export const FromToSelectPanel = () => {
                 )}
               </Grid>
               <Grid xs={10} container justify="center" alignItems="center">
-                <RouteInfoCard journey={journey} onClick={() => {}} />
+                <RouteInfoCard
+                  journey={journey}
+                  onClick={handleShowRouteDetail}
+                />
               </Grid>
               <Grid xs={1} container justify="center" alignItems="center">
                 {journeyIndex < journeys.length - 1 && (
@@ -170,6 +181,14 @@ export const FromToSelectPanel = () => {
               ? translation("route.from")
               : translation("route.to")
           }
+        />
+      )}
+      {showRouteDetailDrawer && (
+        <RouteDetailDrawer
+          showRouteDetailDrawer={showRouteDetailDrawer}
+          routeNumber={journeyIndex + 1}
+          journey={journey}
+          onClose={() => setShowRouteDetailDrawer(false)}
         />
       )}
     </Paper>

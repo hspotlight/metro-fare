@@ -14,7 +14,9 @@
     "intermediateStationText": "{{count}} สถานี"
   },
   "station": {
-    "station": "สถานี"
+    "station": "สถานี",
+    "totalStation": "สถานี",
+    "totalFare": "ค่าโดยสาร"
   },
   "priceSymbol": {
     "baht": "฿"
