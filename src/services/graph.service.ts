@@ -1,6 +1,10 @@
 import { METRO_STATION_ID, Graph, Line, Intersection } from "../types";
 
-const createGraph = (metroGraph: Graph, graph = Object.create(null)) => {
+type AdjacencyList = {
+    [key in METRO_STATION_ID]?: METRO_STATION_ID[];
+}
+
+const createGraph = (metroGraph: Graph, graph = Object.create(null)): AdjacencyList => {
     metroGraph.lines.forEach((line: Line) => {
         addLineToGraph(line, graph);
     })
@@ -12,16 +16,18 @@ const createGraph = (metroGraph: Graph, graph = Object.create(null)) => {
 
 const addLineToGraph = (metroLine: Line, graph = Object.create(null)) => {
     metroLine.line.forEach((station, index) => {
-        if (!Object.keys(graph).includes(station)) {
+        if (!graph[station]) {
             graph[station] = [];
         }
-        if (index > 0) {
-            const prevStation = metroLine.line[index - 1];
-            graph[station].push(prevStation);
-        }
-        if (index + 1 < metroLine.line.length) {
-            const nextStation = metroLine.line[index + 1];
-            graph[station].push(nextStation);
+        if (graph[station]) {
+            if (index > 0) {
+                const prevStation = metroLine.line[index - 1];
+                graph[station].push(prevStation);
+            }
+            if (index + 1 < metroLine.line.length) {
+                const nextStation = metroLine.line[index + 1];
+                graph[station].push(nextStation);
+            }
         }
     });
     if (metroLine.intersections) {

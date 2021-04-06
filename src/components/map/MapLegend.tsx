@@ -15,7 +15,7 @@ const MapLegend = () => {
     };
     newState[key] = !newState[key];
     setShowMetroLayers(newState);
-  }
+  };
 
   return (
     <div className="map-legend">
@@ -25,38 +25,54 @@ const MapLegend = () => {
           line="mrt-blue-line"
           title={translate("map.legend.mrtBlueLine")}
           status={showMetroLineLayers.mrtBlue}
-          onChange={() => handleChange('mrtBlue')}
+          onChange={() => handleChange("mrtBlue")}
         />
         <LegendLabel
           line="bts-silom-line"
           title={translate("map.legend.btsSilomLine")}
           status={showMetroLineLayers.btsSilom}
-          onChange={() => handleChange('btsSilom')}
+          onChange={() => handleChange("btsSilom")}
         />
         <LegendLabel
           line="bts-sukhumvit-line"
           title={translate("map.legend.btsSukhumvitLine")}
           status={showMetroLineLayers.btsSukhumvit}
-          onChange={() => handleChange('btsSukhumvit')}
+          onChange={() => handleChange("btsSukhumvit")}
+        />
+        <LegendLabel
+          line="bts-gold-line"
+          title={translate("map.legend.btsGoldLine")}
+          status={showMetroLineLayers.btsGold}
+          onChange={() => handleChange("btsGold")}
         />
         <LegendLabel
           line="arl-line"
           title={translate("map.legend.arlLine")}
           status={showMetroLineLayers.arl}
-          onChange={() => handleChange('arl')}
+          onChange={() => handleChange("arl")}
         />
         <LegendLabel
           line="brt-line"
           title={translate("map.legend.brtLine")}
           status={showMetroLineLayers.brt}
-          onChange={() => handleChange('brt')}
+          onChange={() => handleChange("brt")}
         />
       </div>
     </div>
   );
 };
 
-const LegendLabel = ({ line, title, status, onChange }: { line: string; title: string, status: boolean, onChange: any }) => {
+const LegendLabel = ({
+  line,
+  title,
+  status,
+  onChange,
+}: {
+  line: string;
+  title: string;
+  status: boolean;
+  onChange: any;
+}) => {
   return (
     <div className="legend-key-value">
       <Checkbox

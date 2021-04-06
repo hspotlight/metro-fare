@@ -5,13 +5,18 @@
     "selectedRoute": "Selected Route"
   },
   "route": {
-    "source": "Source station",
-    "destination": "Destination station",
+    "routeDetails": "Route Details",
+    "route": "Route",
+    "of": "of",
+    "from": "From",
+    "to": "To",
     "fare": "Fare",
     "intermediateStationText": "{{count}} stations"
   },
   "station": {
-    "station": "station(s)"
+    "station": "station(s)",
+    "totalStation": "Total stations",
+    "totalFare": "Total fare"
   },
   "priceSymbol": {
     "baht": "฿"
@@ -39,13 +44,14 @@
   },
   "map": {
     "popup": {
-      "setSource": "Set Source",
-      "setDestination": "Set Destination"
+      "setFrom": "From",
+      "setTo": "To"
     },
     "legend": {
       "legend": "Legend",
       "btsSilomLine": "BTS SkyTrain Silom Line",
       "btsSukhumvitLine": "BTS SkyTrain Sukhumvit Line",
+      "btsGoldLine": "Gold Line",
       "mrtBlueLine": "MRT Blue Line",
       "arlLine": "ARL Airport Rail Link Line",
       "brtLine": "BRT Bus Rapid Transit"

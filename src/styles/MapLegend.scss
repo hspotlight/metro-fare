@@ -5,8 +5,7 @@
   position: absolute;
   top: 0px;
   right: 40px;
-  width: 300px;
-  height: 150px;
+  width: 260px;
   padding: 10px;
 
   .title {
@@ -42,48 +41,57 @@
     }
 
     .key.mrt-blue-line .circle {
-      background-color: #1E3A8D;
+      background-color: #1e3a8d;
     }
 
     .key.bts-silom-line .circle {
-      background-color: #00817D;
+      background-color: #00817d;
     }
 
     .key.bts-sukhumvit-line .circle {
-      background-color: #79B828;
+      background-color: #79b828;
+    }
+
+    .key.bts-gold-line .circle {
+      background-color: #a58701;
     }
 
     .key.arl-line .circle {
-      background-color: #E30713;
+      background-color: #e30713;
     }
 
     .key.brt-line .circle {
-      background-color: #DCDC00;
+      background-color: #dcdc00;
     }
 
     .key.mrt-blue-line .line {
       width: 100%;
-      border-top: 5px solid #1E3A8D;
+      border-top: 5px solid #1e3a8d;
     }
 
     .key.bts-silom-line .line {
       width: 100%;
-      border-top: 5px solid #00817D;
+      border-top: 5px solid #00817d;
     }
 
     .key.bts-sukhumvit-line .line {
       width: 100%;
-      border-top: 5px solid #79B828;
+      border-top: 5px solid #79b828;
+    }
+
+    .key.bts-gold-line .line {
+      width: 100%;
+      border-top: 5px solid #a58701;
     }
 
     .key.arl-line .line {
       width: 100%;
-      border-top: 5px solid #E30713;
+      border-top: 5px solid #e30713;
     }
 
     .key.brt-line .line {
       width: 100%;
-      border-top: 5px solid #DCDC00;
+      border-top: 5px solid #dcdc00;
     }
   }
 }

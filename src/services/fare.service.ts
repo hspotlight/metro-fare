@@ -1,27 +1,22 @@
-import { isExtensionBorderStation, isInterchangeStation } from "./util.service";
+import { isInterchangeStation } from "./util.service";
 import { RouteSegment, LineType } from "../types";
 import { MRT_BLUE_CYCLE, MRT_BLUE_TAIL } from "../data";
 import { METRO_FARE } from "../common/fare";
 import { getBTSFareFromTable } from "./btsFare.service";
 
-const calculateFareFromRouteSegment = async (routeSegment: RouteSegment, isTravelToSelf: boolean): Promise<number> => {
+const calculateFareFromRouteSegment = (routeSegment: RouteSegment, isTravelToSelf: boolean): number => {
     const stationId = routeSegment.route[0];
-    if (routeSegment.lineType === LineType.BTS || routeSegment.lineType === LineType.BTS_GOLD) {
-        if (!isTravelToSelf && routeSegment.route.length === 1 && (isInterchangeStation(stationId) || isExtensionBorderStation(stationId))) {
-            return 0;
-        }
+    const hops = calculateHop(routeSegment);
 
-        const fare = await getBTSFareFromTable(routeSegment.route[0], routeSegment.route[routeSegment.route.length - 1]);
-        return fare
+    if (!isTravelToSelf && hops === 0 && isInterchangeStation(stationId)) {
+        return 0;
+    }
+
+    if (routeSegment.lineType === LineType.BTS || routeSegment.lineType === LineType.BTS_GOLD) {
+        return getBTSFareFromTable(routeSegment.route[0], routeSegment.route[routeSegment.route.length - 1]);
     }
 
     const fareTable: number[] = METRO_FARE[routeSegment.lineType];
-
-    const hops = calculateHop(routeSegment);
-
-    if (!isTravelToSelf && hops === 0 && (isInterchangeStation(stationId) || isExtensionBorderStation(stationId))) {
-        return 0;
-    }
 
     if (hops > fareTable.length - 1) {
         return fareTable[fareTable.length - 1];

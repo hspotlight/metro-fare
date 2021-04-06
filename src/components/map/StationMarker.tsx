@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
 import { TripContext } from "../../contexts/TripProvider";
 import { getStationName } from "../../services/util.service";
-import { METRO_STATION_ID, } from "../../types";
+import { METRO_STATION_ID } from "../../types";
 
 const StationMarker = (props: any) => {
   const { station, showPopup = true } = props;
@@ -23,7 +23,9 @@ const StationMarker = (props: any) => {
       fillOpacity={1}
       {...props}
     >
-      {showPopup && <StationPopup stationName={stationName} stationId={station.id} />}
+      {showPopup && (
+        <StationPopup stationName={stationName} stationId={station.id} />
+      )}
       <Tooltip>{stationName}</Tooltip>
     </CircleMarker>
   );
@@ -47,7 +49,7 @@ const StationPopup = ({
   };
 
   return (
-    <Popup ref={popupRef}>
+    <Popup ref={popupRef} closeButton={false}>
       <section
         style={{ display: "flex", flexDirection: "column", width: "170px" }}
       >
@@ -55,22 +57,24 @@ const StationPopup = ({
         <Button
           variant="contained"
           color="primary"
+          size="small"
           onClick={() => {
             setSource(stationId);
             closePopupOnClick();
           }}
         >
-          {translate("map.popup.setSource")}
+          {translate("map.popup.setFrom")}
         </Button>
         <Button
           variant="contained"
           color="primary"
+          size="small"
           onClick={() => {
             setDestination(stationId);
             closePopupOnClick();
           }}
         >
-          {translate("map.popup.setDestination")}
+          {translate("map.popup.setTo")}
         </Button>
       </section>
     </Popup>

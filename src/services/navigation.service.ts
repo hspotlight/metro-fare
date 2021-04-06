@@ -11,12 +11,12 @@ const lowestHopsComparator = (stationA: StationHop, stationB: StationHop) => sta
 
 const  metroGraph = GraphService.createGraph(METRO_GRAPH);
 
-const findAllRoutesWithFare = async (from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey[]> => {
+const findAllRoutesWithFare = (from: METRO_STATION_ID, to: METRO_STATION_ID): Journey[] => {
     const routeSegmentsList = findAllRoutes(from, to, metroGraph);
     // TODO: refactor to reduce number of call to btsFare (if backend is implemented)
-    const journeys = await Promise.all(routeSegmentsList.map(routeSegments => {
+    const journeys = routeSegmentsList.map(routeSegments => {
         return getJourneyFromRouteSegments(routeSegments, from, to);
-    }))
+    })
     return journeys;
 }
 
@@ -64,12 +64,12 @@ const getNextStationRouteSegments = (routeSegments: RouteSegment[], nextStation:
     return routeSegments;
 }
 
-const getJourneyFromRouteSegments = async (routeSegments: RouteSegment[], from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<Journey> => {
+const getJourneyFromRouteSegments = (routeSegments: RouteSegment[], from: METRO_STATION_ID, to: METRO_STATION_ID): Journey => {
     const isTravelToSelf = from === to;
     let totalFare = 0;
-    const fares = await Promise.all(routeSegments.map((routeSegment: RouteSegment) => {
+    const fares = routeSegments.map((routeSegment: RouteSegment) => {
         return FareService.calculateFareFromRouteSegment(routeSegment, isTravelToSelf);
-    }));
+    });
     const routeSegmentsWithFare = routeSegments.map((routeSegment: RouteSegment, routeIndex: number) => {
         const fare = fares[routeIndex];
         totalFare += fare;

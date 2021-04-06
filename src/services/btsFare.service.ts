@@ -15,7 +15,7 @@ const api = axios.create({
     }
 })
 
-export const getBTSFareFromTable = async (from: METRO_STATION_ID, to: METRO_STATION_ID): Promise<number> => {
+export const getBTSFareFromTable = (from: METRO_STATION_ID, to: METRO_STATION_ID): number => {
     // NOTE: order of the btsID objects must not change
     const fromIndex = BTS_ID.findIndex(btsStation => btsStation.id === from)
     const toIndex = BTS_ID.findIndex(btsStation => btsStation.id === to)

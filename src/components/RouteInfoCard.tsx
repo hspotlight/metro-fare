@@ -1,32 +1,41 @@
 import React from "react";
 import { Journey } from "../types";
-import "../styles/RouteInfoCard.scss";
 import { getStationIdsFromJourney } from "../services/util.service";
 import { useTranslation } from "react-i18next";
+import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+
+const useStyle = makeStyles(() => ({
+  container: {
+    width: "calc(100% - 40px)",
+    padding: "10px 10px",
+  },
+}));
+
 type RouteInfoCardProps = {
   journey: Journey;
-  title: string;
   onClick: () => void;
 };
 
-const RouteInfoCard = ({ journey, title, onClick }: RouteInfoCardProps) => {
+const RouteInfoCard = ({ journey, onClick }: RouteInfoCardProps) => {
+  const classes = useStyle();
   const { t: translate } = useTranslation();
   const numberOfStations = getStationIdsFromJourney(journey).length;
   return (
-    <div className="route-info-card" onClick={onClick}>
-      <div className="route-info">
-        <div className="title">{title}</div>
-        <div className="row">
-          <div className="col-2">{numberOfStations} {translate("station.station")}</div>
-          <div className="col-2">
+    <Paper className={classes.container}>
+      <Grid container direction="column">
+        <Grid container item>
+          <Grid item xs={6}>
+            {numberOfStations} {translate("station.station")}
+          </Grid>
+          <Grid item xs={6}>
             {journey.fare} {translate("currency.baht")}
-          </div>
-        </div>
-      </div>
-      <div className="next-button">
-        <i className="fa fa-chevron-right" aria-hidden="true" />
-      </div>
-    </div>
+          </Grid>
+        </Grid>
+        <Typography onClick={onClick} color="primary">
+          {translate("route.routeDetails")}
+        </Typography>
+      </Grid>
+    </Paper>
   );
 };
 

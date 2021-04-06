@@ -32,8 +32,11 @@ const RouteFinder = () => {
   const showJourney =
     journey.route.length > 0 && trip.source && trip.destination;
 
-  const calculateRoute = async () => {
-    let journeys = await NavigationService.findAllRoutesWithFare(trip.source, trip.destination);
+  const calculateRoute = () => {
+    let journeys = NavigationService.findAllRoutesWithFare(
+      trip.source,
+      trip.destination
+    );
     // sorted and get top 3
     journeys = journeys.sort((a, b) => a.fare - b.fare);
     journeys = journeys.slice(0, 3);
@@ -67,12 +70,12 @@ const RouteFinder = () => {
         setShowDetail={() => setShowTripSelector(!showTripSelector)}
       >
         <StationSelect
-          title={translate("route.source")}
+          title={translate("route.from")}
           value={trip.source}
           onChange={setSource}
         />
         <StationSelect
-          title={translate("route.destination")}
+          title={translate("route.to")}
           value={trip.destination}
           onChange={setDestination}
         />
@@ -97,7 +100,7 @@ const RouteFinder = () => {
       </Section>
       {allJourneys.length > 0 && (
         <Section
-          title={translate("tab.allRoutes", {count: allJourneys.length})}
+          title={translate("tab.allRoutes", { count: allJourneys.length })}
           showDetail={showAllJourneys}
           setShowDetail={() => setShowAllJourneys(!showAllJourneys)}
         >
@@ -106,7 +109,7 @@ const RouteFinder = () => {
               setJourney(route);
               setShowSelectedRoute(true);
               setShowTripSelector(false);
-            }
+            };
             return (
               <React.Fragment key={`travel-route-${index}`}>
                 {index > 0 && <div className="divider"></div>}
@@ -118,7 +121,6 @@ const RouteFinder = () => {
               </React.Fragment>
             );
           })}
-          
         </Section>
       )}
       {showJourney && (
