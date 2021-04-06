@@ -5,6 +5,7 @@
     "selectedRoute": "Selected Route"
   },
   "route": {
+    "routeDetails": "Route Details",
     "route": "Route",
     "of": "of",
     "from": "From",

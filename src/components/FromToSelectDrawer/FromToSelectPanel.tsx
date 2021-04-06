@@ -140,11 +140,7 @@ export const FromToSelectPanel = () => {
                 )}
               </Grid>
               <Grid xs={10} container justify="center" alignItems="center">
-                <RouteInfoCard
-                  journey={journey}
-                  title={""}
-                  onClick={() => {}}
-                />
+                <RouteInfoCard journey={journey} onClick={() => {}} />
               </Grid>
               <Grid xs={1} container justify="center" alignItems="center">
                 {journeyIndex < journeys.length - 1 && (
