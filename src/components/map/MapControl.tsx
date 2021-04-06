@@ -5,18 +5,11 @@ import "../../styles/MapControl.scss";
 import { useTranslation } from "react-i18next";
 import LayersIcon from "@material-ui/icons/Layers";
 import TranslateIcon from "@material-ui/icons/Translate";
-import { IconButton, makeStyles, Paper } from "@material-ui/core";
+import { IconButton, Paper } from "@material-ui/core";
 
-const useStyle = makeStyles(() => ({
-  iconRoot: {
-    color: "#000000",
-    padding: "3px",
-    borderRadius: "0px",
-  },
-}));
+const butonStyle = { color: "black", padding: "8px", borderRadius: "0px" };
 
 const MapControl = (props: any) => {
-  const classes = useStyle();
   const { i18n } = useTranslation();
   const [legendToggleStatus, setLegendToggleStatus] = useState(false);
   // TODO: check if we need reset view feature
@@ -29,14 +22,14 @@ const MapControl = (props: any) => {
       <Control {...props}>
         <Paper className="map-control">
           <IconButton
-            classes={{ root: classes.iconRoot }}
             onClick={() => setLegendToggleStatus(!legendToggleStatus)}
+            style={butonStyle}
           >
             <LayersIcon />
           </IconButton>
           <IconButton
-            classes={{ root: classes.iconRoot }}
             onClick={() => i18n.changeLanguage(toggleLanguage)}
+            style={butonStyle}
           >
             <TranslateIcon />
           </IconButton>

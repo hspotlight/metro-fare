@@ -3,7 +3,6 @@ import {
   AppBar,
   Grid,
   IconButton,
-  makeStyles,
   Toolbar,
   Typography,
 } from "@material-ui/core";
@@ -11,29 +10,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { useDrawerContext } from "../../contexts/DrawerProvider";
 import { canShowSideMenu } from "../../config/featureToggle";
 
-const useStyles = makeStyles((theme) => ({
-  title: {
-    flexGrow: 1,
-    marginLeft: theme.spacing(1),
-  },
-  toolbar: {
-    [theme.breakpoints.up("xs")]: {
-      minHeight: "56px",
-    },
-  },
-}));
-
 export const AppHeaderBar = () => {
-  const classes = useStyles();
   const { setSideMenu } = useDrawerContext();
 
   return (
     <AppBar position="static">
-      <Toolbar
-        classes={{
-          root: classes.toolbar,
-        }}
-      >
+      <Toolbar className={"toolbar"}>
         <Grid container justify="space-between" alignItems="center">
           <img
             height="32"
@@ -41,7 +23,7 @@ export const AppHeaderBar = () => {
             src="metro-fare-logo.jpg"
             alt="Metro Fare logo"
           />
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant="h6" style={{ marginLeft: "8px", flexGrow: 1 }}>
             MetroFare
           </Typography>
           {canShowSideMenu() && (

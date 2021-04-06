@@ -21,12 +21,6 @@ const useStyles = makeStyles(() => ({
     zIndex: 1001,
     width: "100%",
   },
-  containerWithJourneys: {
-    bottom: "0px",
-    position: "absolute",
-    zIndex: 1001,
-    width: "100%",
-  },
   height50px: {
     height: "50px",
   },
@@ -103,10 +97,7 @@ export const FromToSelectPanel = () => {
   return (
     <Paper
       classes={{
-        root:
-          journeyIndex !== -1
-            ? classes.containerWithJourneys
-            : classes.container,
+        root: classes.container,
       }}
     >
       <Grid container direction="column">
