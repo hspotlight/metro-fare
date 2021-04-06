@@ -1,5 +1,12 @@
 import React from "react";
-import { Drawer, Grid, IconButton, makeStyles, Paper } from "@material-ui/core";
+import {
+  Drawer,
+  Grid,
+  IconButton,
+  makeStyles,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { Journey } from "../../types";
 import { useTranslation } from "react-i18next";
@@ -64,7 +71,9 @@ export const RouteDetailDrawer = ({
           className={classes.paddingVertical16px}
         >
           <Grid item>
-            {translation("route.route")} {routeNumber}
+            <Typography variant="h6">
+              {translation("route.route")} {routeNumber}
+            </Typography>
           </Grid>
           <Grid item>
             <IconButton onClick={() => onClose(false)}>

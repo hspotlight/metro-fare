@@ -1,15 +1,3 @@
-.travel-route-container {
-  overflow-y: auto;
-  max-height: 470px;
-}
-
-@media only screen and (max-width: 768px) {
-  .travel-route-container {
-    overflow-y: auto;
-    max-height: 280px;
-  }
-}
-
 .station-container {
   display: flex;
   padding: 5px;
@@ -30,53 +18,53 @@
 }
 
 .mrt-blue-icon {
-  background-color: #1E3A8D;
+  background-color: #1e3a8d;
 }
 
 .mrt-blue-dotted-line {
-  border-left: 5px dotted #1E3A8D;
+  border-left: 5px dotted #1e3a8d;
 }
 
 .bts-silom-icon {
-  background-color: #00817D;
+  background-color: #00817d;
 }
 
 .bts-silom-dotted-line {
-  border-left: 5px dotted #00817D;
+  border-left: 5px dotted #00817d;
 }
 
 .bts-sukhumvit-icon {
-  background-color: #79B828;
+  background-color: #79b828;
 }
 
 .bts-sukhumvit-dotted-line {
-  border-left: 5px dotted #79B828;
+  border-left: 5px dotted #79b828;
 }
 
 .bts-gold-icon {
-  background-color: #A58701;
+  background-color: #a58701;
 }
 
 .bts-gold-dotted-line {
-  border-left: 5px dotted #A58701;
+  border-left: 5px dotted #a58701;
 }
 
 .arl-icon {
-  background-color: #E30713;
+  background-color: #e30713;
 }
 
 .arl-dotted-line {
-  border-left: 5px dotted #E30713;
+  border-left: 5px dotted #e30713;
 }
 
 .brt-icon {
-  background-color: #DCDC00;
+  background-color: #dcdc00;
 }
 
 .brt-dotted-line {
-  border-left: 5px dotted #DCDC00;
+  border-left: 5px dotted #dcdc00;
 }
 
 .interchange-dotted-line {
-  border-left: 5px dotted #AAAAAA;
+  border-left: 5px dotted #aaaaaa;
 }
