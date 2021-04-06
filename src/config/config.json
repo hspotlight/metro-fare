@@ -2,6 +2,6 @@
   "feature_toggles": {
     "can_show_mobile_ui": true,
     "show_side_menu": false,
-    "show_routing_drawer": false
+    "show_routing_drawer": true
   }
 }
