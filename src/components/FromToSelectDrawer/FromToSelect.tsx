@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Grid, IconButton } from "@material-ui/core";
 import SyncAltIcon from "@material-ui/icons/SyncAlt";
 import { useTripContext } from "../../contexts/TripProvider";
