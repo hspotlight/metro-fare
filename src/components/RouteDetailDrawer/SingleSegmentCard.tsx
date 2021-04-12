@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent, Typography, Grid, Chip } from "@material-ui/core";
+import {
+  IconButton,
+  Card,
+  CardContent,
+  Typography,
+  Grid,
+  Chip,
+} from "@material-ui/core";
 import "../../styles/SelectedRoute.scss";
 import { METRO_STATION_ID, Segment } from "../../types";
 import {
@@ -64,15 +71,25 @@ export const SingleSegmentCard = ({ segment }: SingleSegmentCardProps) => {
                 }}
               ></div>
               <Grid item>
-                {/* <Chip label="BTS Nation Stadium" /> */}
+                {/* <Grid xs={12}>
+                  <Chip label="BTS Nation Stadium" />
+                </Grid> */}
                 {showExpandButton ? (
-                  <Typography variant="body1" onClick={handleExpandButtonClick}>
-                    {translate("route.intermediateStationText", {
-                      count: intermediateStations.length,
-                    })}
-                  </Typography>
+                  <IconButton>
+                    <Typography
+                      variant="body1"
+                      onClick={handleExpandButtonClick}
+                    >
+                      {translate("route.intermediateStationText", {
+                        count: intermediateStations.length,
+                      })}
+                    </Typography>
+                  </IconButton>
                 ) : (
-                  <Typography variant="body1">
+                  <Typography
+                    variant="body1"
+                    style={{ padding: "12px", color: "rgba(0, 0, 0, 0.54)" }}
+                  >
                     {intermediateStations.map(
                       (stationId: METRO_STATION_ID, index: number) => {
                         const showNewLine = index < segment.route.length - 1;

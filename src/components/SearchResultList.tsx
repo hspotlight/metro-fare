@@ -36,6 +36,7 @@ export const SearchResultList = ({
   handleOnItemClick,
 }: SearchResultListProps) => {
   const classes = useStyles();
+  const { t: translate } = useTranslation();
   const searchItemLength = searchItems.length;
   const [showMoreButton, setShowMoreButton] = useState<boolean>(false);
   const [showMoreItems, setShowMoreItems] = useState<boolean>(false);
@@ -51,6 +52,10 @@ export const SearchResultList = ({
   useEffect(() => {
     setShowMoreButton(searchItemLength > limit);
   }, [searchItemLength]);
+
+  if (searchItems.length === 0) {
+    return null;
+  }
 
   return (
     <>
@@ -68,7 +73,9 @@ export const SearchResultList = ({
       {showMoreButton && (
         <div className={classes.showMoreContainer}>
           <Button onClick={handleClickShowMore}>
-            <Typography variant="button">Show More</Typography>
+            <Typography variant="button">
+              {translate("common.showMore")}
+            </Typography>
           </Button>
         </div>
       )}

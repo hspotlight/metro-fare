@@ -40,7 +40,8 @@
   "common": {
     "required": "จำเป็น",
     "search": "ค้นหา",
-    "reset": "ล้างค่า"
+    "reset": "ล้างค่า",
+    "showMore": "ดูเพิ่มเติม"
   },
   "map": {
     "popup": {
