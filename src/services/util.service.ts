@@ -1,7 +1,8 @@
-import { Station, LineType, METRO_STATION_ID, Journey, Intersection, BTS_SILOM_STATION_ID, MRT_BLUE_STATION_ID, Segment, Train } from "../types";
+import { Station, LineType, METRO_STATION_ID, Journey, Intersection, BTS_SILOM_STATION_ID, MRT_BLUE_STATION_ID, Segment, Train, Line } from "../types";
 import { STATIONS } from "../data/Stations";
 import { LatLngTuple } from "leaflet";
 import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
+import { ARL_LINE, BRT_LINE, BTS_GOLD_LINE, BTS_SILOM_LINE, BTS_SUKHUMVIT_LINE, MRT_BLUE_LINE } from "../data";
 
 export const isInterchangeStation = (stationId: METRO_STATION_ID): boolean => {
     const interchangeStations: METRO_STATION_ID[] = [];
@@ -129,3 +130,76 @@ export const getTrainsFromSegment = (segment: Segment): Train[] => {
         },
     ];
 };
+
+export const getHeadingDirectionId = (train: Train): METRO_STATION_ID => {
+    const line = LineFromTrain(train);
+
+    const firstStationId = train.stations[0];
+    const lastStationId = train.stations[train.stations.length - 1];
+
+    let firstIndex = getStationIndex(line, firstStationId);
+    let lastIndex = getStationIndex(line, lastStationId);
+    if (train.lineType === LineType.MRT_BLUE) {
+        const thaphraIndex = train.stations.indexOf(MRT_BLUE_STATION_ID.THAPHRA);
+        if (thaphraIndex === -1) {
+            return (firstIndex < lastIndex) ? line.line[line.line.length - 1] : MRT_BLUE_STATION_ID.THAPHRA;
+        } else if (0 < thaphraIndex && thaphraIndex < train.stations.length - 1) {
+            return (firstIndex < lastIndex) ? line.line[line.line.length - 1] : MRT_BLUE_STATION_ID.THAPHRA;
+        } else if (thaphraIndex === 0 && train.stations.length > 1) {
+            if (train.stations[1] === MRT_BLUE_STATION_ID.CHARAN_13 || train.stations[1] === MRT_BLUE_STATION_ID.BANG_PHAI) {
+                return line.line[line.line.length - 1];
+            }
+            return MRT_BLUE_STATION_ID.THAPHRA;
+        } else if (thaphraIndex === train.stations.length - 1 && train.stations.length > 1) {
+            if (train.stations[train.stations.length - 2] === MRT_BLUE_STATION_ID.CHARAN_13 || train.stations[train.stations.length - 2] === MRT_BLUE_STATION_ID.BANG_PHAI) {
+                return MRT_BLUE_STATION_ID.THAPHRA;
+            }
+            return line.line[line.line.length - 1];
+        }
+    }
+    const headingStation = (firstIndex < lastIndex) ? line.line[line.line.length - 1] : line.line[0];
+    return headingStation;
+
+}
+
+const LineFromTrain = (train: Train): Line => {
+    const firstStationId = train.stations[0];
+    const lastStationId = train.stations[train.stations.length - 1];
+    const firstStation = getStation(firstStationId);
+    const lastStation = getStation(lastStationId);
+
+    if (firstStation && lastStation) {
+        if (firstStation?.id === BTS_SILOM_STATION_ID.SIAM) {
+            return getLineFromLineType(lastStation.lineType);
+        }
+        else if (lastStation?.id === BTS_SILOM_STATION_ID.SIAM) {
+            return getLineFromLineType(firstStation.lineType);
+        }
+        return getLineFromLineType(firstStation.lineType);
+    }
+    return getLineFromLineType(train.lineType);
+}
+
+
+const getLineFromLineType = (lineType: LineType): Line => {
+    if (lineType === LineType.BRT) {
+        return BRT_LINE
+    }
+    if (lineType === LineType.ARL) {
+        return ARL_LINE
+    }
+    if (lineType === LineType.BTS_SUKHUMVIT) {
+        return BTS_SUKHUMVIT_LINE
+    }
+    if (lineType === LineType.BTS_SILOM) {
+        return BTS_SILOM_LINE
+    }
+    if (lineType === LineType.BTS_GOLD) {
+        return BTS_GOLD_LINE
+    }
+    return MRT_BLUE_LINE
+}
+
+const getStationIndex = (line: Line, stationId: METRO_STATION_ID) => {
+    return line.line.indexOf(stationId);
+}

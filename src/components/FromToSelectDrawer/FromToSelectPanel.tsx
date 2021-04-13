@@ -91,7 +91,6 @@ export const FromToSelectPanel = () => {
   };
 
   const handleShowRouteDetail = () => {
-    console.log("handleShowRouteDetail", showRouteDetailDrawer);
     setShowRouteDetailDrawer(true);
   };
   return (

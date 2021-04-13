@@ -16,6 +16,7 @@ import {
   Train as TrainType,
 } from "../../types";
 import {
+  getHeadingDirectionId,
   getLineTypeLabel,
   getStation,
   getStationName,
@@ -24,9 +25,7 @@ import {
 import { getStationIconStyle } from "../../services/ui-style.service";
 import { SegmentCardHeader } from "./SegmentCardHeader";
 
-// TODO: ignore case change train with same line for now
 // TODO: change siam icon
-// TODO: ignore heading direction
 
 type SingleSegmentCardProps = {
   segment: Segment;
@@ -35,7 +34,6 @@ type SingleSegmentCardProps = {
 export const SingleSegmentCard = ({ segment }: SingleSegmentCardProps) => {
   const { t: translate } = useTranslation();
   const lineTypeLabel = getLineTypeLabel(segment.lineType);
-  console.log(segment);
   const trains = getTrainsFromSegment(segment);
 
   return (
@@ -48,7 +46,6 @@ export const SingleSegmentCard = ({ segment }: SingleSegmentCardProps) => {
           />
           {/* TODO: handle convert segments to train */}
           {trains.map((train, index) => {
-            console.log(train);
             return (
               <Train
                 train={train}
@@ -69,7 +66,10 @@ type TrainProps = {
 };
 
 const Train = ({ train, showLastStation }: TrainProps) => {
-  const { t: translate } = useTranslation();
+  const {
+    t: translate,
+    i18n: { language },
+  } = useTranslation();
   const intermediateStations = train.stations.slice(
     1,
     train.stations.length - 1
@@ -79,6 +79,8 @@ const Train = ({ train, showLastStation }: TrainProps) => {
   );
   const firstStation = getStation(train.stations[0]);
   const lastStation = getStation(train.stations[train.stations.length - 1]);
+  const headingStationId = getHeadingDirectionId(train);
+  const headingStation = getStation(headingStationId);
 
   const handleExpandButtonClick = () => {
     setShowExpandButton(false);
@@ -99,9 +101,15 @@ const Train = ({ train, showLastStation }: TrainProps) => {
             }}
           ></div>
           <Grid item>
-            {/* <Grid xs={12}>
-                  <Chip label="BTS Nation Stadium" />
-                </Grid> */}
+            {headingStation && (
+              <Grid xs={12}>
+                <Chip
+                  label={`${getLineTypeLabel(
+                    headingStation.lineType
+                  )} ${getStationName(headingStation, language)}`}
+                />
+              </Grid>
+            )}
             {showExpandButton ? (
               <IconButton>
                 <Typography variant="body1" onClick={handleExpandButtonClick}>
