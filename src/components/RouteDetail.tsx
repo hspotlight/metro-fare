@@ -49,10 +49,7 @@ const RouteDetail = () => {
 
   return (
     <div className="route-detail">
-      <RouteFromTo
-        departure={journey.from}
-        arrival={journey.to}
-      />
+      <RouteFromTo from={journey.from} to={journey.to} />
       <RouteDetailInsight nStations={nStations} fare={journey.fare} />
 
       <div className="selected-route">

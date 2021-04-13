@@ -54,7 +54,7 @@ const RoutesSearchResult = () => {
 
   return (
     <div>
-      <RouteFromTo departure={trip.source} arrival={trip.destination} />
+      <RouteFromTo from={trip.source} to={trip.destination} />
       {journeys.length > 0 &&
         journeys.map((journey, index) => {
           return (
