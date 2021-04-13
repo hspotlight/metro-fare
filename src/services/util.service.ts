@@ -1,4 +1,4 @@
-import { Station, LineType, METRO_STATION_ID, Journey, Intersection } from "../types";
+import { Station, LineType, METRO_STATION_ID, Journey, Intersection, BTS_SILOM_STATION_ID, MRT_BLUE_STATION_ID, Segment, Train } from "../types";
 import { STATIONS } from "../data/Stations";
 import { LatLngTuple } from "leaflet";
 import { ALL_INTERSECTIONS, EXTENSION_BORDER_STATIONS } from "../data/MetroGraph";
@@ -83,3 +83,49 @@ export const isMobile = () => {
     const { width } = getWindowDimensions()
     return width <= 768
 }
+
+export const getTrainsFromSegment = (segment: Segment): Train[] => {
+    if (segment.lineType === LineType.MRT_BLUE) {
+        const thaphraIndex = segment.route.indexOf(MRT_BLUE_STATION_ID.THAPHRA);
+        if (0 < thaphraIndex && thaphraIndex < segment.route.length - 1) {
+            const beforeThaphraStationId = segment.route[thaphraIndex - 1];
+            const afterThaphraStationId = segment.route[thaphraIndex + 1];
+            if (
+                beforeThaphraStationId === MRT_BLUE_STATION_ID.CHARAN_13 ||
+                afterThaphraStationId === MRT_BLUE_STATION_ID.CHARAN_13
+            ) {
+                const firstHalf = segment.route.slice(0, thaphraIndex + 1);
+                const secondHalf = segment.route.slice(thaphraIndex);
+                return [
+                    { lineType: segment.lineType, stations: firstHalf },
+                    { lineType: segment.lineType, stations: secondHalf },
+                ];
+            }
+        }
+    } else if (segment.lineType === LineType.BTS) {
+        const siamIndex = segment.route.indexOf(BTS_SILOM_STATION_ID.SIAM);
+        if (0 < siamIndex && siamIndex < segment.route.length - 1) {
+            const firstStation = getStation(segment.route[0]);
+            const lastStation = getStation(segment.route[segment.route.length - 1]);
+
+            const firstHalf = segment.route.slice(0, siamIndex + 1);
+            const secondHalf = segment.route.slice(siamIndex);
+            if (
+                firstStation &&
+                lastStation &&
+                firstStation.lineType !== lastStation.lineType
+            ) {
+                return [
+                    { lineType: segment.lineType, stations: firstHalf },
+                    { lineType: segment.lineType, stations: secondHalf },
+                ];
+            }
+        }
+    }
+    return [
+        {
+            lineType: segment.lineType,
+            stations: segment.route,
+        },
+    ];
+};

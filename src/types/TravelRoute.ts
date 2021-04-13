@@ -12,3 +12,8 @@ export type Segment = {
     lineType: LineType,
     fare: number
 }
+
+export type Train = {
+    stations: METRO_STATION_ID[],
+    lineType: LineType,
+}

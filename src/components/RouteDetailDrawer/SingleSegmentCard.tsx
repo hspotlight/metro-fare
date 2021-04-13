@@ -9,16 +9,23 @@ import {
   Chip,
 } from "@material-ui/core";
 import "../../styles/SelectedRoute.scss";
-import { METRO_STATION_ID, Segment, Station } from "../../types";
+import {
+  METRO_STATION_ID,
+  Segment,
+  Station,
+  Train as TrainType,
+} from "../../types";
 import {
   getLineTypeLabel,
   getStation,
   getStationName,
+  getTrainsFromSegment,
 } from "../../services/util.service";
 import { getStationIconStyle } from "../../services/ui-style.service";
 import { SegmentCardHeader } from "./SegmentCardHeader";
 
 // TODO: ignore case change train with same line for now
+// TODO: change siam icon
 // TODO: ignore heading direction
 
 type SingleSegmentCardProps = {
@@ -28,6 +35,8 @@ type SingleSegmentCardProps = {
 export const SingleSegmentCard = ({ segment }: SingleSegmentCardProps) => {
   const { t: translate } = useTranslation();
   const lineTypeLabel = getLineTypeLabel(segment.lineType);
+  console.log(segment);
+  const trains = getTrainsFromSegment(segment);
 
   return (
     <Card>
@@ -37,7 +46,17 @@ export const SingleSegmentCard = ({ segment }: SingleSegmentCardProps) => {
             label={lineTypeLabel}
             fareLabel={`${segment.fare} ${translate("currency.baht")}`}
           />
-          <Train segment={segment} showLastStation={true} />
+          {/* TODO: handle convert segments to train */}
+          {trains.map((train, index) => {
+            console.log(train);
+            return (
+              <Train
+                train={train}
+                showLastStation={trains.length === 1 || index !== 0}
+                key={"train" + index}
+              />
+            );
+          })}
         </Grid>
       </CardContent>
     </Card>
@@ -45,18 +64,21 @@ export const SingleSegmentCard = ({ segment }: SingleSegmentCardProps) => {
 };
 
 type TrainProps = {
-  segment: Segment;
+  train: TrainType;
   showLastStation?: boolean;
 };
 
-const Train = ({ segment, showLastStation }: TrainProps) => {
+const Train = ({ train, showLastStation }: TrainProps) => {
   const { t: translate } = useTranslation();
-  const intermediateStations = segment.route.slice(1, segment.route.length - 1);
+  const intermediateStations = train.stations.slice(
+    1,
+    train.stations.length - 1
+  );
   const [showExpandButton, setShowExpandButton] = useState<boolean>(
     intermediateStations.length > 1
   );
-  const firstStation = getStation(segment.route[0]);
-  const lastStation = getStation(segment.route[segment.route.length - 1]);
+  const firstStation = getStation(train.stations[0]);
+  const lastStation = getStation(train.stations[train.stations.length - 1]);
 
   const handleExpandButtonClick = () => {
     setShowExpandButton(false);
@@ -95,7 +117,7 @@ const Train = ({ segment, showLastStation }: TrainProps) => {
               >
                 {intermediateStations.map(
                   (stationId: METRO_STATION_ID, index: number) => {
-                    const showNewLine = index < segment.route.length - 1;
+                    const showNewLine = index < train.stations.length - 1;
                     const station = getStation(stationId);
                     return (
                       <>
