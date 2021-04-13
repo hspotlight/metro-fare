@@ -1,12 +1,19 @@
 import { METRO_STATION_ID, LineType } from ".";
 
 export type Journey = {
-    route: {
-        route: METRO_STATION_ID[],
-        lineType: LineType,
-        fare: number
-    }[],
+    route: Segment[],
     fare: number,
     from: METRO_STATION_ID,
     to: METRO_STATION_ID,
+}
+
+export type Segment = {
+    route: METRO_STATION_ID[],
+    lineType: LineType,
+    fare: number
+}
+
+export type Train = {
+    stations: METRO_STATION_ID[],
+    lineType: LineType,
 }

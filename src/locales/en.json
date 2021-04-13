@@ -40,7 +40,8 @@
   "common": {
     "required": "Required",
     "search": "Search",
-    "reset": "Reset"
+    "reset": "Reset",
+    "showMore": "Show More"
   },
   "map": {
     "popup": {

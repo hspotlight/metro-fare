@@ -15,6 +15,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import { searchStation } from "../../services/search.service";
 import { STATIONS } from "../../data";
 import { SearchResultList } from "../SearchResultList";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
   drawerRoot: {
@@ -56,7 +57,10 @@ export const FromToSelectDrawer = ({
 }: RouteDrawer) => {
   const classes = useStyles();
   const station = getStation(stationId);
-  const stationName = station ? getStationName(station) : "";
+  const {
+    i18n: { language },
+  } = useTranslation();
+  const stationName = station ? getStationName(station, language) : "";
   const [searchTerm, setSearchTerm] = useState<string>(stationName);
   const [searchResult, setSearchResult] = useState<Station[]>(STATIONS);
 
