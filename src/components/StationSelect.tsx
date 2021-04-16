@@ -6,6 +6,7 @@ import { LineType, Station, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, ARL_
 import { getStationName } from "../services/util.service";
 import "../styles/StationSelect.scss";
 
+// TODO: Remove Legacy code
 const StationSelect = ({
   title,
   value,

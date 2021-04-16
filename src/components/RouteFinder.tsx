@@ -7,7 +7,7 @@ import SelectedRoute from "./SelectedRoute";
 import "../styles/RouteFinder.scss";
 import { Journey } from "../types";
 import Route from "./Route";
-import { UNFILLED_JOURNEY } from "../common/constants";
+import { EMPTY_STATION_ID, UNFILLED_JOURNEY } from "../common/constants";
 
 const RouteFinder = () => {
   const { t: translate } = useTranslation();
@@ -50,7 +50,8 @@ const RouteFinder = () => {
   };
 
   useEffect(() => {
-    const isFormValid = trip.fromId.length === 0 || trip.toId.length === 0;
+    const isFormValid =
+      trip.fromId === EMPTY_STATION_ID || trip.toId === EMPTY_STATION_ID;
     setFormInValid(isFormValid);
   }, [trip]);
 

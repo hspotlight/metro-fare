@@ -6,6 +6,7 @@ import { Station } from "../types";
 import { getLineTypeLabel, getStationName } from "../services/util.service";
 import "../styles/StationSelectInput.scss";
 
+// TODO: Remove Legacy code
 export type StationSelectInputProps = {
   title: string;
   value: string;
