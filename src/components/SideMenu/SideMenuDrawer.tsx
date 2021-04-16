@@ -13,6 +13,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useTranslation } from "react-i18next";
 import { SettingsMenu } from "./SettingsMenu";
 import { LanguageMenu } from "./LanguageMenu";
+import { ContactMenu } from "./ContactMenu";
 
 const useStyles = makeStyles(() => ({
   drawerRoot: {
@@ -28,7 +29,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export type SideMenu = "settings" | "language";
+export type SideMenu = "settings" | "language" | "contact";
 
 export const SideMenuDrawer = () => {
   const { showSideMenu, setSideMenu } = useDrawerContext();
@@ -40,6 +41,8 @@ export const SideMenuDrawer = () => {
     switch (currentMenu) {
       case "language":
         return translate("sidemenuDrawer.language");
+      case "contact":
+        return translate("sidemenuDrawer.contact");
       default:
         return translate("sidemenuDrawer.settings");
     }
@@ -49,6 +52,8 @@ export const SideMenuDrawer = () => {
     switch (currentMenu) {
       case "language":
         return <LanguageMenu />;
+      case "contact":
+        return <ContactMenu />;
       default:
         return <SettingsMenu setCurrentMenu={setCurrentMenu} />;
     }

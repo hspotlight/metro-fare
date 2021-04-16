@@ -2,8 +2,8 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import TranslateIcon from "@material-ui/icons/Translate";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import FeedbackOutlinedIcon from "@material-ui/icons/FeedbackOutlined";
-import { SideMenu } from "./SideMenuDrawer";
+// import FeedbackOutlinedIcon from "@material-ui/icons/FeedbackOutlined";
+import { SideMenu as SideMenuType } from "./SideMenuDrawer";
 import {
   makeStyles,
   List,
@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 type SettingsMenuProps = {
-  setCurrentMenu: (_: SideMenu) => void;
+  setCurrentMenu: (_: SideMenuType) => void;
 };
 
 export const SettingsMenu = ({ setCurrentMenu }: SettingsMenuProps) => {
@@ -42,18 +42,18 @@ export const SettingsMenu = ({ setCurrentMenu }: SettingsMenuProps) => {
           {languageLabel}
         </Typography>
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={() => setCurrentMenu("contact")}>
         <ListItemIcon>
           <InfoOutlinedIcon />
         </ListItemIcon>
         <ListItemText primary={translate("sidemenuDrawer.contact")} />
       </ListItem>
-      <ListItem button>
+      {/* <ListItem button>
         <ListItemIcon>
           <FeedbackOutlinedIcon />
         </ListItemIcon>
         <ListItemText primary={translate("sidemenuDrawer.feedback")} />
-      </ListItem>
+      </ListItem> */}
     </List>
   );
 };

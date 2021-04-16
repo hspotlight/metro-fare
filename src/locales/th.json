@@ -74,5 +74,8 @@
   "language": {
     "th": "ไทย",
     "en": "English"
+  },
+  "contact": {
+    "developedBy": "พัฒนาโดย"
   }
 }
