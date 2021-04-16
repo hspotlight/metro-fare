@@ -16,7 +16,9 @@
   "station": {
     "station": "station(s)",
     "totalStation": "Total stations",
-    "totalFare": "Total fare"
+    "totalFare": "Total fare",
+    "from": "From",
+    "to": "To"
   },
   "priceSymbol": {
     "baht": "฿"
@@ -62,5 +64,18 @@
     "startText": "Please enter station name",
     "notFound": "Results not found",
     "tooShort": "Keyword too short!"
+  },
+  "sidemenuDrawer": {
+    "settings": "Settings",
+    "language": "Language",
+    "contact": "Contact us",
+    "feedback": "Feedback"
+  },
+  "language": {
+    "th": "ไทย",
+    "en": "English"
+  },
+  "contact": {
+    "developedBy": "Developed by"
   }
 }

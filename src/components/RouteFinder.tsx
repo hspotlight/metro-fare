@@ -1,25 +1,19 @@
 import React, { useState, useEffect, useContext, ReactNode } from "react";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { TripContext, unfilledJourney } from "../contexts/TripProvider";
+import { TripContext } from "../contexts/TripProvider";
 import NavigationService from "../services/navigation.service";
-import StationSelect from "./StationSelect";
 import SelectedRoute from "./SelectedRoute";
 import "../styles/RouteFinder.scss";
 import { Journey } from "../types";
 import Route from "./Route";
+import { EMPTY_STATION_ID, UNFILLED_JOURNEY } from "../common/constants";
 
 const RouteFinder = () => {
   const { t: translate } = useTranslation();
-  const {
-    trip,
-    journey,
-    setSource,
-    setDestination,
-    setJourney,
-    resetTrip,
-    resetJourney,
-  } = useContext(TripContext);
+  const { trip, journey, setJourney, resetTrip, resetJourney } = useContext(
+    TripContext
+  );
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
 
@@ -29,13 +23,12 @@ const RouteFinder = () => {
 
   const [allJourneys, setAllJourneys] = useState<Journey[]>([]);
 
-  const showJourney =
-    journey.route.length > 0 && trip.source && trip.destination;
+  const showJourney = journey.route.length > 0 && trip.fromId && trip.toId;
 
   const calculateRoute = () => {
     let journeys = NavigationService.findAllRoutesWithFare(
-      trip.source,
-      trip.destination
+      trip.fromId,
+      trip.toId
     );
     // sorted and get top 3
     journeys = journeys.sort((a, b) => a.fare - b.fare);
@@ -44,7 +37,7 @@ const RouteFinder = () => {
     setAllJourneys(journeys);
     setShowAllJourneys(true);
     setShowSelectedRoute(false);
-    setJourney(unfilledJourney); // why reset?
+    setJourney(UNFILLED_JOURNEY); // why reset?
   };
 
   const resetForm = () => {
@@ -58,7 +51,7 @@ const RouteFinder = () => {
 
   useEffect(() => {
     const isFormValid =
-      trip.source.length === 0 || trip.destination.length === 0;
+      trip.fromId === EMPTY_STATION_ID || trip.toId === EMPTY_STATION_ID;
     setFormInValid(isFormValid);
   }, [trip]);
 
@@ -69,17 +62,6 @@ const RouteFinder = () => {
         showDetail={showTripSelector}
         setShowDetail={() => setShowTripSelector(!showTripSelector)}
       >
-        <StationSelect
-          title={translate("route.from")}
-          value={trip.source}
-          onChange={setSource}
-        />
-        <StationSelect
-          title={translate("route.to")}
-          value={trip.destination}
-          onChange={setDestination}
-        />
-
         <section className="form-button-group">
           <Button variant="contained" color="secondary" onClick={resetForm}>
             {translate("common.reset")}

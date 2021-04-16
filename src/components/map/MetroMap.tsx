@@ -63,8 +63,8 @@ export const MetroMap = () => {
 };
 
 const FromToStationLayer = ({ trip }: { trip: Trip }) => {
-  const fromStation = getStation(trip.source);
-  const toStation = getStation(trip.destination);
+  const fromStation = getStation(trip.fromId);
+  const toStation = getStation(trip.toId);
   // TODO: add popover to show station name and unselect option
   return (
     <FeatureGroup name="from-to-station">

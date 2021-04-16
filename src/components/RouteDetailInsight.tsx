@@ -1,6 +1,14 @@
+import { Grid, Paper, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import React from "react";
 import { useTranslation } from "react-i18next";
-import "../styles/RouteDetailInsight.scss";
+
+const useStyles = makeStyles(() => ({
+  paper: {
+    padding: "12px",
+    margin: "12px",
+  },
+}));
 
 type RouteDetailInsightProps = {
   nStations: number;
@@ -11,22 +19,37 @@ export const RouteDetailInsight = ({
   nStations,
   fare,
 }: RouteDetailInsightProps) => {
+  const classes = useStyles();
   const { t: translate } = useTranslation();
   return (
-    <div className="route-detail-insight">
-      <div className="row">
-        <div className="col-2">{translate("station.totalStation")}</div>
-        <div className="col-2">{translate("station.totalFare")}</div>
-      </div>
-      <div className="row">
-        <div className="col-2">
-          {nStations} {translate("station.station")}
-        </div>
-        <div className="col-2">
-          {fare} {translate("currency.baht")}
-        </div>
-      </div>
-    </div>
+    <Paper className={classes.paper}>
+      <Grid container>
+        <Grid container justify="space-between">
+          <Grid xs={6}>
+            <Typography variant="h6">
+              {translate("station.totalStation")}
+            </Typography>
+          </Grid>
+          <Grid xs={6}>
+            <Typography variant="h6">
+              {translate("station.totalFare")}
+            </Typography>
+          </Grid>
+        </Grid>
+        <Grid container justify="space-between">
+          <Grid xs={6}>
+            <Typography variant="body1">
+              {nStations} {translate("station.station")}
+            </Typography>
+          </Grid>
+          <Grid xs={6}>
+            <Typography variant="body1">
+              {fare} {translate("currency.baht")}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 

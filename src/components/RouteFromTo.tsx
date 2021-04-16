@@ -1,31 +1,61 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { getLineTypeLabel, getStation, getStationName } from "../services/util.service";
+import {
+  getLineTypeLabel,
+  getStation,
+  getStationName,
+} from "../services/util.service";
 import { METRO_STATION_ID } from "../types";
-import "../styles/RouteFromTo.scss";
+import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+
+const useStyles = makeStyles(() => ({
+  paper: {
+    padding: "12px",
+    margin: "12px",
+  },
+}));
 
 type RouteFromToProps = {
-  departure: METRO_STATION_ID;
-  arrival: METRO_STATION_ID;
+  from: METRO_STATION_ID;
+  to: METRO_STATION_ID;
 };
 
-const RouteFromTo = ({
-  departure,
-  arrival,
-}: RouteFromToProps) => {
-  const { i18n } = useTranslation();
-  const departureStation = getStation(departure);
-  const arrivalStation = getStation(arrival);
-  if (!departureStation || !arrivalStation) return null;
+const RouteFromTo = ({ from, to }: RouteFromToProps) => {
+  const classes = useStyles();
+  const { t: translate, i18n } = useTranslation();
+  const fromStation = getStation(from);
+  const toStation = getStation(to);
+  if (!fromStation || !toStation) return null;
 
-  const departureStationName = `${getLineTypeLabel(departureStation.lineType)} ${getStationName(departureStation, i18n.language)}`;
-  const arrivalStationName = `${getLineTypeLabel(arrivalStation.lineType)} ${getStationName(arrivalStation, i18n.language)}`;
+  const fromStationName = `${getLineTypeLabel(
+    fromStation.lineType
+  )} ${getStationName(fromStation, i18n.language)}`;
+
+  const toStationName = `${getLineTypeLabel(
+    toStation.lineType
+  )} ${getStationName(toStation, i18n.language)}`;
+
   return (
-    <div className="route-from-to">
-      <div className="station">{departureStationName}</div>
-      <div className="arrow"><i className="fa fa-chevron-right" aria-hidden="true" /></div>
-      <div className="station">{arrivalStationName}</div>
-    </div>
+    <Paper className={classes.paper}>
+      <Grid container alignItems="center">
+        <Grid container>
+          <Grid xs={2}>
+            <Typography variant="h6">{translate("station.from")}</Typography>
+          </Grid>
+          <Grid xs={10}>
+            <Typography variant="h6">: {fromStationName}</Typography>
+          </Grid>
+        </Grid>
+        <Grid container>
+          <Grid xs={2}>
+            <Typography variant="h6">{translate("station.to")}</Typography>
+          </Grid>
+          <Grid xs={10}>
+            <Typography variant="h6">: {toStationName}</Typography>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Paper>
   );
 };
 

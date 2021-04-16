@@ -83,7 +83,7 @@ export const RouteDetailDrawer = ({
         </Grid>
       </Paper>
       <Grid className={classes.drawerContent} container direction="column">
-        <RouteFromTo departure={journey.from} arrival={journey.to} />
+        <RouteFromTo from={journey.from} to={journey.to} />
         <RouteDetailInsight nStations={nStations} fare={journey.fare} />
         <Grid item className={classes.paddingVertical16px}>
           <SelectedRoute journey={journey} />

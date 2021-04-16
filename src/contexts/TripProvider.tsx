@@ -1,30 +1,17 @@
 import React, { createContext, useContext, useState } from "react";
 import { METRO_STATION_ID } from "../types/MetroStationId";
 import { Journey } from "../types";
+import { UNFILLED_JOURNEY, UNFILLED_TRIP } from "../common/constants";
 
 export type Trip = {
-  source: METRO_STATION_ID;
-  destination: METRO_STATION_ID;
-};
-
-export const unfilledTrip: Trip = {
-  source: "" as METRO_STATION_ID,
-  destination: "" as METRO_STATION_ID,
-};
-
-export const unfilledJourney: Journey = {
-  route: [],
-  fare: 0,
-  from: "" as METRO_STATION_ID,
-  to: "" as METRO_STATION_ID,
+  fromId: METRO_STATION_ID;
+  toId: METRO_STATION_ID;
 };
 
 const initialTripContext = {
-  trip: unfilledTrip,
-  journey: unfilledJourney,
+  trip: UNFILLED_TRIP,
+  journey: UNFILLED_JOURNEY,
   setTrip: (a: METRO_STATION_ID, b: METRO_STATION_ID) => {},
-  setSource: (_: METRO_STATION_ID) => {},
-  setDestination: (_: METRO_STATION_ID) => {},
   setJourney: (_: Journey) => {},
   resetTrip: () => {},
   resetJourney: () => {},
@@ -36,36 +23,22 @@ export const useTripContext = () => useContext(TripContext);
 
 // TODO: refactor travelroute to journey
 const TripProvider = ({ children }: { children: any }) => {
-  const [trip, setTripState] = useState<Trip>(unfilledTrip);
-  const [journey, setJourney] = useState<Journey>(unfilledJourney);
+  const [trip, setTripState] = useState<Trip>(UNFILLED_TRIP);
+  const [journey, setJourney] = useState<Journey>(UNFILLED_JOURNEY);
 
-  const setSource = (source: METRO_STATION_ID) => { // todo remove
+  const setTrip = (fromId: METRO_STATION_ID, toId: METRO_STATION_ID) => {
     setTripState({
-      ...trip,
-      source,
+      fromId: fromId,
+      toId: toId,
     });
   };
-
-  const setDestination = (destination: METRO_STATION_ID) => {  // todo remove
-    setTripState({
-      ...trip,
-      destination,
-    });
-  };
-
-  const setTrip = (departure: METRO_STATION_ID, arrival: METRO_STATION_ID) => {
-    setTripState({
-      source: departure,
-      destination: arrival
-    })
-  }
 
   const resetTrip = () => {
-    setTripState(unfilledTrip);
+    setTripState(UNFILLED_TRIP);
   };
 
   const resetJourney = () => {
-    setJourney(unfilledJourney);
+    setJourney(UNFILLED_JOURNEY);
   };
 
   return (
@@ -74,8 +47,6 @@ const TripProvider = ({ children }: { children: any }) => {
         trip,
         journey,
         setTrip,
-        setSource,
-        setDestination,
         resetTrip,
         setJourney,
         resetJourney,

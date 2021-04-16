@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useDrawerContext } from "../../contexts/DrawerProvider";
-import { canShowSideMenu } from "../../config/featureToggle";
+import { canShowSideMenuDrawer } from "../../config/featureToggle";
 
 export const AppHeaderBar = () => {
   const { setSideMenu } = useDrawerContext();
@@ -26,7 +26,7 @@ export const AppHeaderBar = () => {
           <Typography variant="h6" style={{ marginLeft: "8px", flexGrow: 1 }}>
             MetroFare
           </Typography>
-          {canShowSideMenu() && (
+          {canShowSideMenuDrawer() && (
             <IconButton edge="start" color="inherit" aria-label="menu">
               <MenuIcon onClick={() => setSideMenu(true)} />
             </IconButton>

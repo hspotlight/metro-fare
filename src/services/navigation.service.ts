@@ -9,7 +9,7 @@ import { METRO_GRAPH } from "../data";
 
 const lowestHopsComparator = (stationA: StationHop, stationB: StationHop) => stationB.getTotalHops() - stationA.getTotalHops();
 
-const  metroGraph = GraphService.createGraph(METRO_GRAPH);
+const metroGraph = GraphService.createGraph(METRO_GRAPH);
 
 const findAllRoutesWithFare = (from: METRO_STATION_ID, to: METRO_STATION_ID): Journey[] => {
     const routeSegmentsList = findAllRoutes(from, to, metroGraph);
@@ -20,24 +20,24 @@ const findAllRoutesWithFare = (from: METRO_STATION_ID, to: METRO_STATION_ID): Jo
     return journeys;
 }
 
-const findAllRoutes = (source: METRO_STATION_ID, destination: METRO_STATION_ID, graph: any): RouteSegment[][] => {
-    const routeSegment: RouteSegment = { route: [source], lineType: getLineTypeFromStationId(source) };
-    
+const findAllRoutes = (fromId: METRO_STATION_ID, toId: METRO_STATION_ID, graph: any): RouteSegment[][] => {
+    const routeSegment: RouteSegment = { route: [fromId], lineType: getLineTypeFromStationId(fromId) };
+
     const comparator = lowestHopsComparator;
     const stationsToBeVisited = new PriorityQueue({ comparator });
-    stationsToBeVisited.push(new StationHop(source, [routeSegment]));
+    stationsToBeVisited.push(new StationHop(fromId, [routeSegment]));
 
     const allPossibleRoutes: RouteSegment[][] = [];
     while (stationsToBeVisited.length > 0) {
         const currentStation = stationsToBeVisited.pop() as StationHop;
-        
-        if (currentStation.station === destination) {
+
+        if (currentStation.station === toId) {
             allPossibleRoutes.push(currentStation.routeSegments);
         }
-        
-        const nextStations: METRO_STATION_ID[]  = graph[currentStation.station];
-        nextStations.forEach(nextStation => {
-            
+
+        const nextStationIds: METRO_STATION_ID[] = graph[currentStation.station];
+        nextStationIds.forEach(nextStation => {
+
             if (!currentStation.isStationInPath(nextStation)) {
                 const routeSegments: RouteSegment[] = getNextStationRouteSegments(cloneDeep(currentStation.routeSegments), nextStation);
                 const nextStationHop = new StationHop(nextStation, routeSegments);

@@ -55,7 +55,7 @@ export const TravelRouteLayer = () => {
       <FeatureGroup name="travel-route-station">
         <StationMarker
           station={from as Station}
-          fillColor={colors.sourceStation}
+          fillColor={colors.fromStation}
           showPopup={false}
           radius={12}
         />
@@ -72,7 +72,7 @@ export const TravelRouteLayer = () => {
         })}
         <StationMarker
           station={to as Station}
-          fillColor={colors.destinationStation}
+          fillColor={colors.toStation}
           showPopup={false}
           radius={12}
         />

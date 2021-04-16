@@ -6,8 +6,8 @@ export const colors = {
     btsGold: '#A58701',
     arl: '#E30713',
     brt: '#DCDC00',
-    sourceStation: '#3AAACF',
-    destinationStation: '#F80012',
+    fromStation: '#3AAACF',
+    toStation: '#F80012',
     interchangeStation: '#AAAAAA',
 } as const;
 
