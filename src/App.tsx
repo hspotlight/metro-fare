@@ -8,7 +8,7 @@ import MapProvider from "./contexts/MapProvider";
 import { BrowserRouter } from "react-router-dom";
 import "./config/firebaseConfig";
 import { AppHeaderBar } from "./components/AppHeaderBar/AppHeaderBar";
-import DrawerProvider, { useDrawerContext } from "./contexts/DrawerProvider";
+import DrawerProvider from "./contexts/DrawerProvider";
 import { SideMenuDrawer } from "./components/SideMenu/SideMenuDrawer";
 import { canShowSideMenuDrawer } from "./config/featureToggle";
 import { BottomPanel } from "./components/BottomPanel/BottomPanel";

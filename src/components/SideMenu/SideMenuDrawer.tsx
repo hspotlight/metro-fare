@@ -1,22 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Drawer,
   Grid,
   IconButton,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   makeStyles,
   Paper,
   Typography,
 } from "@material-ui/core";
 import { useDrawerContext } from "../../contexts/DrawerProvider";
 import CloseIcon from "@material-ui/icons/Close";
-import TranslateIcon from "@material-ui/icons/Translate";
-import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
-import FeedbackOutlinedIcon from "@material-ui/icons/FeedbackOutlined";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { useTranslation } from "react-i18next";
+import { SettingsMenu } from "./SettingsMenu";
+import { LanguageMenu } from "./LanguageMenu";
 
 const useStyles = makeStyles(() => ({
   drawerRoot: {
@@ -30,22 +26,32 @@ const useStyles = makeStyles(() => ({
     paddingRight: "16px",
     marginBottom: "2px",
   },
-  menuRightIcon: {
-    paddingRight: "16px",
-  },
 }));
+
+export type SideMenu = "settings" | "language";
 
 export const SideMenuDrawer = () => {
   const { showSideMenu, setSideMenu } = useDrawerContext();
+  const [currentMenu, setCurrentMenu] = useState<SideMenu>("settings");
   const { t: translate } = useTranslation();
   const classes = useStyles();
 
   const getCurrentMenuLabel = () => {
-    return translate("sidemenuDrawer.settings");
+    switch (currentMenu) {
+      case "language":
+        return translate("sidemenuDrawer.language");
+      default:
+        return translate("sidemenuDrawer.settings");
+    }
   };
 
   const getCurrentMenu = () => {
-    return <SettingsMenu />;
+    switch (currentMenu) {
+      case "language":
+        return <LanguageMenu />;
+      default:
+        return <SettingsMenu setCurrentMenu={setCurrentMenu} />;
+    }
   };
 
   return (
@@ -59,48 +65,22 @@ export const SideMenuDrawer = () => {
     >
       <Paper className={classes.sideMenuHeader}>
         <Grid container justify="space-between" alignItems="center">
-          <Typography variant="h6">{getCurrentMenuLabel()}</Typography>
-          <IconButton onClick={() => setSideMenu(false)}>
-            <CloseIcon />
-          </IconButton>
+          <Grid item container alignItems="center" xs={10}>
+            {currentMenu !== "settings" && (
+              <IconButton onClick={() => setCurrentMenu("settings")}>
+                <ArrowBackIcon />
+              </IconButton>
+            )}
+            <Typography variant="h6">{getCurrentMenuLabel()}</Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <IconButton onClick={() => setSideMenu(false)}>
+              <CloseIcon />
+            </IconButton>
+          </Grid>
         </Grid>
       </Paper>
       {getCurrentMenu()}
     </Drawer>
-  );
-};
-
-const SettingsMenu = () => {
-  const {
-    t: translate,
-    i18n: { language },
-  } = useTranslation();
-  const classes = useStyles();
-  const languageLabel =
-    language === "en" ? translate("language.en") : translate("language.th");
-  return (
-    <List component="nav" aria-label="sidemenu">
-      <ListItem button>
-        <ListItemIcon>
-          <TranslateIcon />
-        </ListItemIcon>
-        <ListItemText primary={translate("sidemenuDrawer.language")} />
-        <Typography variant="body1" className={classes.menuRightIcon}>
-          {languageLabel}
-        </Typography>
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <InfoOutlinedIcon />
-        </ListItemIcon>
-        <ListItemText primary={translate("sidemenuDrawer.contact")} />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon>
-          <FeedbackOutlinedIcon />
-        </ListItemIcon>
-        <ListItemText primary={translate("sidemenuDrawer.feedback")} />
-      </ListItem>
-    </List>
   );
 };
