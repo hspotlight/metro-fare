@@ -39,13 +39,24 @@ const StationPopup = ({
   stationId: METRO_STATION_ID;
 }) => {
   const { t: translate } = useTranslation();
-  const { setSource, setDestination } = useContext(TripContext);
+  const { trip, setTrip } = useContext(TripContext);
 
   const popupRef = React.useRef(null);
 
   const closePopupOnClick = () => {
     // @ts-ignore
     popupRef.current.leafletElement.options.leaflet.map.closePopup();
+  };
+
+  const handleSetFromTo = (
+    type: "from" | "to",
+    stationId: METRO_STATION_ID
+  ) => {
+    if (type === "from") {
+      setTrip(stationId, trip.destination);
+    } else {
+      setTrip(trip.source, stationId);
+    }
   };
 
   return (
@@ -59,7 +70,7 @@ const StationPopup = ({
           color="primary"
           size="small"
           onClick={() => {
-            setSource(stationId);
+            handleSetFromTo("from", stationId);
             closePopupOnClick();
           }}
         >
@@ -70,7 +81,7 @@ const StationPopup = ({
           color="primary"
           size="small"
           onClick={() => {
-            setDestination(stationId);
+            handleSetFromTo("to", stationId);
             closePopupOnClick();
           }}
         >

@@ -23,8 +23,6 @@ const initialTripContext = {
   trip: unfilledTrip,
   journey: unfilledJourney,
   setTrip: (a: METRO_STATION_ID, b: METRO_STATION_ID) => {},
-  setSource: (_: METRO_STATION_ID) => {},
-  setDestination: (_: METRO_STATION_ID) => {},
   setJourney: (_: Journey) => {},
   resetTrip: () => {},
   resetJourney: () => {},
@@ -39,26 +37,12 @@ const TripProvider = ({ children }: { children: any }) => {
   const [trip, setTripState] = useState<Trip>(unfilledTrip);
   const [journey, setJourney] = useState<Journey>(unfilledJourney);
 
-  const setSource = (source: METRO_STATION_ID) => { // todo remove
+  const setTrip = (fromId: METRO_STATION_ID, toId: METRO_STATION_ID) => {
     setTripState({
-      ...trip,
-      source,
+      source: fromId,
+      destination: toId,
     });
   };
-
-  const setDestination = (destination: METRO_STATION_ID) => {  // todo remove
-    setTripState({
-      ...trip,
-      destination,
-    });
-  };
-
-  const setTrip = (departure: METRO_STATION_ID, arrival: METRO_STATION_ID) => {
-    setTripState({
-      source: departure,
-      destination: arrival
-    })
-  }
 
   const resetTrip = () => {
     setTripState(unfilledTrip);
@@ -74,8 +58,6 @@ const TripProvider = ({ children }: { children: any }) => {
         trip,
         journey,
         setTrip,
-        setSource,
-        setDestination,
         resetTrip,
         setJourney,
         resetJourney,

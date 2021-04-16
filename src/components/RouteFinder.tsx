@@ -3,7 +3,6 @@ import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
 import { TripContext, unfilledJourney } from "../contexts/TripProvider";
 import NavigationService from "../services/navigation.service";
-import StationSelect from "./StationSelect";
 import SelectedRoute from "./SelectedRoute";
 import "../styles/RouteFinder.scss";
 import { Journey } from "../types";
@@ -11,15 +10,9 @@ import Route from "./Route";
 
 const RouteFinder = () => {
   const { t: translate } = useTranslation();
-  const {
-    trip,
-    journey,
-    setSource,
-    setDestination,
-    setJourney,
-    resetTrip,
-    resetJourney,
-  } = useContext(TripContext);
+  const { trip, journey, setJourney, resetTrip, resetJourney } = useContext(
+    TripContext
+  );
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
 
@@ -69,17 +62,6 @@ const RouteFinder = () => {
         showDetail={showTripSelector}
         setShowDetail={() => setShowTripSelector(!showTripSelector)}
       >
-        <StationSelect
-          title={translate("route.from")}
-          value={trip.source}
-          onChange={setSource}
-        />
-        <StationSelect
-          title={translate("route.to")}
-          value={trip.destination}
-          onChange={setDestination}
-        />
-
         <section className="form-button-group">
           <Button variant="contained" color="secondary" onClick={resetForm}>
             {translate("common.reset")}

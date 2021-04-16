@@ -13,7 +13,6 @@ const SelectStation = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const searchTermLength = (searchTerm || "").length;
   const [searchResult, setSearchResult] = useState<Station[]>([]);
-  const { setSource, setDestination } = useTripContext();
   const history = useHistory();
   const { t: translate } = useTranslation();
   const query = new URLSearchParams(useLocation().search);
@@ -38,10 +37,8 @@ const SelectStation = () => {
 
   const handleOnItemClick = (stationId: METRO_STATION_ID) => {
     if (type === "source") {
-      setSource(stationId);
       history.goBack();
     } else if (type === "destination") {
-      setDestination(stationId);
       history.goBack();
     }
   };
