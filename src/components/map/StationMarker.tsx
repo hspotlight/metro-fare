@@ -53,9 +53,9 @@ const StationPopup = ({
     stationId: METRO_STATION_ID
   ) => {
     if (type === "from") {
-      setTrip(stationId, trip.destination);
+      setTrip(stationId, trip.toId);
     } else {
-      setTrip(trip.source, stationId);
+      setTrip(trip.fromId, stationId);
     }
   };
 

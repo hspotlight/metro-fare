@@ -59,10 +59,10 @@ export const FromToSelectPanel = () => {
   };
 
   useEffect(() => {
-    if (trip.source && trip.destination) {
+    if (trip.fromId && trip.toId) {
       let journeys = NavigationService.findAllRoutesWithFare(
-        trip.source,
-        trip.destination
+        trip.fromId,
+        trip.toId
       );
       journeys = journeys.sort((a, b) => a.fare - b.fare);
       journeys = journeys.slice(0, 3);
@@ -82,11 +82,11 @@ export const FromToSelectPanel = () => {
     setRouteSearchDrawer(false);
   };
 
-  const onSelectStation = (station: METRO_STATION_ID) => {
+  const onSelectStation = (stationId: METRO_STATION_ID) => {
     if (drawerType === "from") {
-      setTrip(station, trip.destination);
+      setTrip(stationId, trip.toId);
     } else {
-      setTrip(trip.source, station);
+      setTrip(trip.fromId, stationId);
     }
     handleDrawerClose();
   };
@@ -116,7 +116,7 @@ export const FromToSelectPanel = () => {
               </Typography>
               <IconButton
                 className={classes.black}
-                onClick={() => setTrip(trip.source, EMPTY_STATION_ID)}
+                onClick={() => setTrip(trip.fromId, EMPTY_STATION_ID)}
               >
                 <CloseIcon />
               </IconButton>
@@ -159,7 +159,7 @@ export const FromToSelectPanel = () => {
         <FromToSelectDrawer
           showRouteSearchDrawer={showRouteSearchDrawer}
           onClose={handleDrawerClose}
-          stationId={drawerType === "from" ? trip.source : trip.destination}
+          stationId={drawerType === "from" ? trip.fromId : trip.toId}
           onSelect={onSelectStation}
           placeHolder={
             drawerType === "from"

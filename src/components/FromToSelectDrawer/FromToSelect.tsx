@@ -43,13 +43,13 @@ export const FromToSelect = ({ setDrawerType }: FromToSelectProps) => {
   const { setRouteSearchDrawer } = useDrawerContext();
 
   const handleUnselectFrom = () => {
-    setTrip(EMPTY_STATION_ID, trip.destination);
+    setTrip(EMPTY_STATION_ID, trip.toId);
   };
   const handleUnselectTo = () => {
-    setTrip(trip.source, EMPTY_STATION_ID);
+    setTrip(trip.fromId, EMPTY_STATION_ID);
   };
   const handleSwapLocation = () => {
-    setTrip(trip.destination, trip.source);
+    setTrip(trip.toId, trip.fromId);
   };
 
   const handleFromClick = () => {
@@ -72,7 +72,7 @@ export const FromToSelect = ({ setDrawerType }: FromToSelectProps) => {
       <Grid container className={classes.buttonGroup} item xs={11}>
         <Grid item xs={6} className={classes.fromToContainer}>
           <FromToButton
-            stationId={trip.source}
+            stationId={trip.fromId}
             handleUnselect={handleUnselectFrom}
             placeHolder={translation("route.from")}
             onClick={handleFromClick}
@@ -80,7 +80,7 @@ export const FromToSelect = ({ setDrawerType }: FromToSelectProps) => {
         </Grid>
         <Grid item xs={6} className={classes.fromToContainer}>
           <FromToButton
-            stationId={trip.destination}
+            stationId={trip.toId}
             handleUnselect={handleUnselectTo}
             placeHolder={translation("route.to")}
             onClick={handleToClick}

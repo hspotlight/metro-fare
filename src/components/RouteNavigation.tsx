@@ -18,8 +18,7 @@ const RouteNavigation = () => {
   }, []);
 
   useEffect(() => {
-    const isFormValid =
-      trip.source.length === 0 || trip.destination.length === 0;
+    const isFormValid = trip.fromId.length === 0 || trip.toId.length === 0;
     setFormInValid(isFormValid);
   }, [trip]);
 
@@ -44,12 +43,12 @@ const RouteNavigation = () => {
       <div>
         <StationSelectInput
           title={translate("route.from")}
-          value={trip.source}
+          value={trip.fromId}
           onFocus={() => handleOnFocus("source")}
         />
         <StationSelectInput
           title={translate("route.to")}
-          value={trip.destination}
+          value={trip.toId}
           onFocus={() => handleOnFocus("destination")}
         />
       </div>
@@ -69,9 +68,7 @@ const RouteNavigation = () => {
             {translate("common.search")}
           </Button>
         ) : (
-          <Link
-            to={`/routes?source=${trip.source}&destination=${trip.destination}`}
-          >
+          <Link to={`/routes?source=${trip.fromId}&destination=${trip.toId}`}>
             <Button
               variant="contained"
               color="primary"
