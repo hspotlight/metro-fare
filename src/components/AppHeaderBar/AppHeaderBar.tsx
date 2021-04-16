@@ -12,6 +12,7 @@ import { canShowSideMenuDrawer } from "../../config/featureToggle";
 
 export const AppHeaderBar = () => {
   const { setSideMenu } = useDrawerContext();
+  console.log("rerender");
 
   return (
     <AppBar position="static">

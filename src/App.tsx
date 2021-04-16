@@ -8,7 +8,7 @@ import MapProvider from "./contexts/MapProvider";
 import { BrowserRouter } from "react-router-dom";
 import "./config/firebaseConfig";
 import { AppHeaderBar } from "./components/AppHeaderBar/AppHeaderBar";
-import DrawerProvider from "./contexts/DrawerProvider";
+import DrawerProvider, { useDrawerContext } from "./contexts/DrawerProvider";
 import { SideMenuDrawer } from "./components/SideMenu/SideMenuDrawer";
 import { canShowSideMenuDrawer } from "./config/featureToggle";
 import { BottomPanel } from "./components/BottomPanel/BottomPanel";
@@ -21,17 +21,25 @@ const App = () => {
           <TripProvider>
             <MapProvider>
               <DrawerProvider>
-                <AppHeaderBar />
-                <div style={{ height: "calc(100% - 56px)" }}>
-                  <MetroMap />
-                  {canShowSideMenuDrawer() && <SideMenuDrawer />}
-                  <BottomPanel />
-                </div>
+                <RealApp />
               </DrawerProvider>
             </MapProvider>
           </TripProvider>
         </BrowserRouter>
       </I18nextProvider>
+    </>
+  );
+};
+
+const RealApp = () => {
+  return (
+    <>
+      <AppHeaderBar />
+      <div style={{ height: "calc(100% - 56px)" }}>
+        <MetroMap />
+        {canShowSideMenuDrawer() && <SideMenuDrawer />}
+        <BottomPanel />
+      </div>
     </>
   );
 };

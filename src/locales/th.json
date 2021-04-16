@@ -70,5 +70,9 @@
     "language": "ภาษา",
     "contact": "ติดต่อเรา",
     "feedback": "แสดงความเห็น"
+  },
+  "language": {
+    "th": "ไทย",
+    "en": "English"
   }
 }
