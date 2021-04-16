@@ -64,5 +64,11 @@
     "startText": "โปรดกรอกชื่อสถานี",
     "notFound": "ไม่พบข้อมูล",
     "tooShort": "คำสั้นไป"
+  },
+  "sidemenuDrawer": {
+    "settings": "การตั้งค่า",
+    "language": "ภาษา",
+    "contact": "ติดต่อเรา",
+    "feedback": "แสดงความเห็น"
   }
 }
