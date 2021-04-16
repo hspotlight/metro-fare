@@ -13,6 +13,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import { RouteDetailDrawer } from "../RouteDetailDrawer/RouteDetailDrawer";
+import { EMPTY_STATION_ID } from "../../common/constants";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -115,7 +116,7 @@ export const FromToSelectPanel = () => {
               </Typography>
               <IconButton
                 className={classes.black}
-                onClick={() => setTrip(trip.source, "" as METRO_STATION_ID)}
+                onClick={() => setTrip(trip.source, EMPTY_STATION_ID)}
               >
                 <CloseIcon />
               </IconButton>

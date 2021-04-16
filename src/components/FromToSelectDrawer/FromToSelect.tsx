@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Grid, IconButton } from "@material-ui/core";
 import SyncAltIcon from "@material-ui/icons/SyncAlt";
 import { useTripContext } from "../../contexts/TripProvider";
-import { METRO_STATION_ID } from "../../types";
 import { useDrawerContext } from "../../contexts/DrawerProvider";
 import { FromToButton } from "./FromToButton";
 import { useTranslation } from "react-i18next";
 import { DrawerType } from "./FromToSelectPanel";
+import { EMPTY_STATION_ID } from "../../common/constants";
 
 const useStyles = makeStyles(() => ({
   drawer: {
@@ -43,10 +43,10 @@ export const FromToSelect = ({ setDrawerType }: FromToSelectProps) => {
   const { setRouteSearchDrawer } = useDrawerContext();
 
   const handleUnselectFrom = () => {
-    setTrip("" as METRO_STATION_ID, trip.destination);
+    setTrip(EMPTY_STATION_ID, trip.destination);
   };
   const handleUnselectTo = () => {
-    setTrip(trip.source, "" as METRO_STATION_ID);
+    setTrip(trip.source, EMPTY_STATION_ID);
   };
   const handleSwapLocation = () => {
     setTrip(trip.destination, trip.source);

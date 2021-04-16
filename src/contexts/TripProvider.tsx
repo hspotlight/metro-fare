@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState } from "react";
 import { METRO_STATION_ID } from "../types/MetroStationId";
 import { Journey } from "../types";
+import { EMPTY_STATION_ID } from "../common/constants";
 
 export type Trip = {
   source: METRO_STATION_ID;
@@ -8,15 +9,15 @@ export type Trip = {
 };
 
 export const unfilledTrip: Trip = {
-  source: "" as METRO_STATION_ID,
-  destination: "" as METRO_STATION_ID,
+  source: EMPTY_STATION_ID,
+  destination: EMPTY_STATION_ID,
 };
 
 export const unfilledJourney: Journey = {
   route: [],
   fare: 0,
-  from: "" as METRO_STATION_ID,
-  to: "" as METRO_STATION_ID,
+  from: EMPTY_STATION_ID,
+  to: EMPTY_STATION_ID,
 };
 
 const initialTripContext = {
