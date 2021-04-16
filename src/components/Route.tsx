@@ -17,13 +17,13 @@ type RouteProps = {
 
 const Route = ({ journey, onClick, isActive }: RouteProps) => {
   const { t: translate } = useTranslation();
-  const sourceStation = getStation(journey.from);
-  const destinationStation = getStation(journey.to);
+  const fromStation = getStation(journey.from);
+  const toStation = getStation(journey.to);
 
   const stationIds = getStationIdsFromJourney(journey);
 
   const intermediateStationCount =
-    sourceStation?.id === destinationStation?.id ? 0 : stationIds.length - 2;
+    fromStation?.id === toStation?.id ? 0 : stationIds.length - 2;
 
   return (
     <div
@@ -31,7 +31,7 @@ const Route = ({ journey, onClick, isActive }: RouteProps) => {
       onClick={onClick}
     >
       <div className="route-container">
-        <StationBlock station={sourceStation as Station} />
+        <StationBlock station={fromStation as Station} />
         <section className="intermediate-station section">
           <div className="interchange-dotted-line"></div>
           {intermediateStationCount > 0 && (
@@ -42,7 +42,7 @@ const Route = ({ journey, onClick, isActive }: RouteProps) => {
             </div>
           )}
         </section>
-        <StationBlock station={destinationStation as Station} />
+        <StationBlock station={toStation as Station} />
       </div>
       <div className="fare-container">
         {`${journey.fare} ${translate("priceSymbol.baht")}`}
