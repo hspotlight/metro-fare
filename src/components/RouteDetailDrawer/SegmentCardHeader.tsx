@@ -9,7 +9,7 @@ export const SegmentCardHeader = ({
   fareLabel: string;
 }) => {
   return (
-    <Grid container item justify="space-between">
+    <Grid container item justifyContent="space-between">
       <Typography variant="h6">{label}</Typography>
       <Typography variant="h6">{fareLabel}</Typography>
     </Grid>

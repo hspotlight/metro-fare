@@ -6,7 +6,9 @@ import {
   getStationName,
 } from "../services/util.service";
 import { METRO_STATION_ID } from "../types";
-import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+import { Grid, Paper, Typography } from "@material-ui/core";
+
+import makeStyles from '@material-ui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
   paper: {

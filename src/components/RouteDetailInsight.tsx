@@ -1,5 +1,5 @@
 import { Grid, Paper, Typography } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from '@material-ui/styles/makeStyles';
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -24,7 +24,7 @@ export const RouteDetailInsight = ({
   return (
     <Paper className={classes.paper}>
       <Grid container>
-        <Grid container justify="space-between">
+        <Grid container justifyContent="space-between">
           <Grid xs={6}>
             <Typography variant="h6">
               {translate("station.totalStation")}
@@ -36,7 +36,7 @@ export const RouteDetailInsight = ({
             </Typography>
           </Grid>
         </Grid>
-        <Grid container justify="space-between">
+        <Grid container justifyContent="space-between">
           <Grid xs={6}>
             <Typography variant="body1">
               {nStations} {translate("station.station")}

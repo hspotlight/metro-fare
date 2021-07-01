@@ -1,4 +1,4 @@
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from '@material-ui/styles/makeStyles';
 import { divIcon, LatLngTuple } from "leaflet";
 import React from "react";
 import { Marker } from "react-leaflet";

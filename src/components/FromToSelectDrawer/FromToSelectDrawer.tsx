@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from "react";
-import {
-  Drawer,
-  Grid,
-  IconButton,
-  makeStyles,
-  Paper,
-  TextField,
-} from "@material-ui/core";
+import { Drawer, Grid, IconButton, Paper, TextField } from "@material-ui/core";
+
+import makeStyles from '@material-ui/styles/makeStyles';
 
 import { getStation, getStationName } from "../../services/util.service";
 import { METRO_STATION_ID, Station } from "../../types";
@@ -85,7 +80,7 @@ export const FromToSelectDrawer = ({
       <Paper className={classes.drawerHeader}>
         <Grid
           container
-          justify="space-between"
+          justifyContent="space-between"
           alignItems="center"
           className={classes.drawerHeaderPadding}
         >
@@ -95,7 +90,7 @@ export const FromToSelectDrawer = ({
               placeholder={placeHolder}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-            />
+              variant="standard" />
           </Grid>
           <Grid item>
             <IconButton onClick={() => onClose(false)}>

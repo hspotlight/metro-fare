@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import {
-  Drawer,
-  Grid,
-  IconButton,
-  makeStyles,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Drawer, Grid, IconButton, Paper, Typography } from "@material-ui/core";
+import makeStyles from '@material-ui/styles/makeStyles';
 import { useDrawerContext } from "../../contexts/DrawerProvider";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -69,7 +63,7 @@ export const SideMenuDrawer = () => {
       }}
     >
       <Paper className={classes.sideMenuHeader}>
-        <Grid container justify="space-between" alignItems="center">
+        <Grid container justifyContent="space-between" alignItems="center">
           <Grid item container alignItems="center" xs={10}>
             {currentMenu !== "settings" && (
               <IconButton onClick={() => setCurrentMenu("settings")}>

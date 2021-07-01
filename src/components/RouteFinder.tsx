@@ -68,11 +68,9 @@ const RouteFinder = () => {
           </Button>
           <Button
             variant="contained"
-            color="primary"
             onClick={calculateRoute}
             style={{ marginLeft: "20px" }}
-            disabled={isFormInvalid}
-          >
+            disabled={isFormInvalid}>
             {translate("common.search")}
           </Button>
         </section>

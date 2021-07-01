@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  Drawer,
-  Grid,
-  IconButton,
-  makeStyles,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Drawer, Grid, IconButton, Paper, Typography } from "@material-ui/core";
+import makeStyles from '@material-ui/styles/makeStyles';
 import CloseIcon from "@material-ui/icons/Close";
 import { Journey } from "../../types";
 import { useTranslation } from "react-i18next";
@@ -66,7 +60,7 @@ export const RouteDetailDrawer = ({
       <Paper className={classes.drawerHeader}>
         <Grid
           container
-          justify="space-between"
+          justifyContent="space-between"
           alignItems="center"
           className={classes.paddingVertical16px}
         >

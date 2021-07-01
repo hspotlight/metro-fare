@@ -2,15 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getLineTypeLabel, getStationName } from "../services/util.service";
 import { METRO_STATION_ID, Station } from "../types";
-import {
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  makeStyles,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Button, List, ListItem, ListItemText, Paper, Typography } from "@material-ui/core";
+
+import makeStyles from '@material-ui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
   listItem: {

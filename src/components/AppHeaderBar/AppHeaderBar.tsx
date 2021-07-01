@@ -16,7 +16,7 @@ export const AppHeaderBar = () => {
   return (
     <AppBar position="static">
       <Toolbar className={"toolbar"}>
-        <Grid container justify="space-between" alignItems="center">
+        <Grid container justifyContent="space-between" alignItems="center">
           <img
             height="32"
             width="32"

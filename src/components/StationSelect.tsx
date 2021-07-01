@@ -44,7 +44,7 @@ const StationSelect = ({
 
   return (
     <section>
-      <FormControl className="line-type-select" required>
+      <FormControl className="line-type-select" required variant="standard">
         <InputLabel htmlFor={lineElementId}>
           {translate("lineType.line")}
         </InputLabel>
@@ -56,7 +56,7 @@ const StationSelect = ({
           inputProps={{
             id: lineElementId,
           }}
-        >
+          variant="standard">
           <option value={"MRT_BLUE"}>{translate("lineType.mrtBlue")}</option>
           <option value={"BTS_SILOM"}>{translate("lineType.btsSilom")}</option>
           <option value={"BTS_SUKHUMVIT"}>{translate("lineType.btsSukhumvit")}</option>
@@ -65,7 +65,7 @@ const StationSelect = ({
         </Select>
         <FormHelperText>{translate("common.required")}</FormHelperText>
       </FormControl>
-      <FormControl className="station-select" required>
+      <FormControl className="station-select" required variant="standard">
         <InputLabel htmlFor={selectElementId}>{title}</InputLabel>
         <Select
           native
@@ -75,7 +75,7 @@ const StationSelect = ({
           inputProps={{
             id: selectElementId,
           }}
-        >
+          variant="standard">
           <option value="" disabled></option>
           {stationsName.map((station: Station) => {
             const label = `(${station.id}) ${getStationName(station, i18n.language)}`;

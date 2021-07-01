@@ -1,10 +1,5 @@
-import {
-  List,
-  ListItem,
-  ListItemText,
-  ListItemSecondaryAction,
-  makeStyles,
-} from "@material-ui/core";
+import { List, ListItem, ListItemText, ListItemSecondaryAction } from "@material-ui/core";
+import makeStyles from '@material-ui/styles/makeStyles';
 import React from "react";
 import { useTranslation } from "react-i18next";
 import CheckIcon from "@material-ui/icons/Check";
