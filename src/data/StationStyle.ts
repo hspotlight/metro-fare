@@ -1,15 +1,15 @@
-import { colors } from "../common/colors";
+import { colors, Colors } from "../common/colors";
 import { LineType } from "../types";
 import { DottedLineStyle } from "../types/styles/DottedLineStyle";
 import { StationIconStyle } from "../types/styles/StationIconStyle";
 
 type Style = {
-    [key in keyof typeof LineType]?: {
-        color: colors;
-        dottedLine: DottedLineStyle;
-        icon: StationIconStyle;
-    }
-}
+  [key in keyof typeof LineType]?: {
+    color: Colors;
+    dottedLine: DottedLineStyle;
+    icon: StationIconStyle;
+  };
+};
 
 const StationStyles: Style = {
     'MRT_BLUE': { color: colors.mrtBlue, dottedLine: "mrt-blue-dotted-line", icon: "mrt-blue-icon" },

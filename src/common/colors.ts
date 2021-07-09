@@ -11,4 +11,4 @@ export const colors = {
     interchangeStation: '#AAAAAA',
 } as const;
 
-export type colors = (typeof colors)[keyof typeof colors]
+export type Colors = typeof colors[keyof typeof colors];

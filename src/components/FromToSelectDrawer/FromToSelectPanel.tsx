@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from '@material-ui/styles/makeStyles';
 import { Grid, IconButton, Paper, Typography } from "@material-ui/core";
 import { useTripContext } from "../../contexts/TripProvider";
 import { Journey, METRO_STATION_ID } from "../../types";
@@ -105,7 +105,7 @@ export const FromToSelectPanel = () => {
           <>
             <Grid
               container
-              justify="space-between"
+              justifyContent="space-between"
               alignItems="center"
               className={classes.journeyHeader}
             >
@@ -122,7 +122,7 @@ export const FromToSelectPanel = () => {
               </IconButton>
             </Grid>
             <Grid container alignItems="center">
-              <Grid xs={1} container justify="center" alignItems="center">
+              <Grid xs={1} container justifyContent="center" alignItems="center">
                 {journeyIndex !== 0 && (
                   <IconButton
                     className={`${classes.black} ${classes.paddingRight0}`}
@@ -132,13 +132,13 @@ export const FromToSelectPanel = () => {
                   </IconButton>
                 )}
               </Grid>
-              <Grid xs={10} container justify="center" alignItems="center">
+              <Grid xs={10} container justifyContent="center" alignItems="center">
                 <RouteInfoCard
                   journey={journey}
                   onClick={handleShowRouteDetail}
                 />
               </Grid>
-              <Grid xs={1} container justify="center" alignItems="center">
+              <Grid xs={1} container justifyContent="center" alignItems="center">
                 {journeyIndex < journeys.length - 1 && (
                   <IconButton
                     className={`${classes.black} ${classes.paddingLeft0}`}

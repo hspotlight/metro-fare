@@ -67,24 +67,20 @@ const StationPopup = ({
         <h3>{stationName}</h3>
         <Button
           variant="contained"
-          color="primary"
           size="small"
           onClick={() => {
             handleSetFromTo("from", stationId);
             closePopupOnClick();
-          }}
-        >
+          }}>
           {translate("map.popup.setFrom")}
         </Button>
         <Button
           variant="contained"
-          color="primary"
           size="small"
           onClick={() => {
             handleSetFromTo("to", stationId);
             closePopupOnClick();
-          }}
-        >
+          }}>
           {translate("map.popup.setTo")}
         </Button>
       </section>

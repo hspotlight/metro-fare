@@ -4,14 +4,9 @@ import TranslateIcon from "@material-ui/icons/Translate";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 // import FeedbackOutlinedIcon from "@material-ui/icons/FeedbackOutlined";
 import { SideMenu as SideMenuType } from "./SideMenuDrawer";
-import {
-  makeStyles,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Typography,
-} from "@material-ui/core";
+import { List, ListItem, ListItemIcon, ListItemText, Typography } from "@material-ui/core";
+
+import makeStyles from '@material-ui/styles/makeStyles';
 
 const useStyles = makeStyles(() => ({
   menuRightIcon: {

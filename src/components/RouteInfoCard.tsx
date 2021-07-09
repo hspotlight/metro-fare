@@ -2,7 +2,9 @@ import React from "react";
 import { Journey } from "../types";
 import { getStationIdsFromJourney } from "../services/util.service";
 import { useTranslation } from "react-i18next";
-import { Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+import { Grid, Paper, Typography } from "@material-ui/core";
+
+import makeStyles from '@material-ui/styles/makeStyles';
 
 const useStyle = makeStyles(() => ({
   container: {
