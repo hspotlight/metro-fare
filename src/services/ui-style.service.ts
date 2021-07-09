@@ -1,10 +1,10 @@
 import { LineType } from "../types";
-import { colors } from "../common/colors";
+import { colors, Colors } from "../common/colors";
 import { DottedLineStyle } from "../types/styles/DottedLineStyle";
 import { StationIconStyle } from "../types/styles/StationIconStyle";
 import StationStyles from "../data/StationStyle";
 
-export const getColorFromLineType = (lineType: LineType): colors => {
+export const getColorFromLineType = (lineType: LineType): Colors => {
   return StationStyles[lineType]?.color || colors.btsSilom;
 }
 
@@ -43,7 +43,7 @@ export const getInterChangeLine = (
 export const getInterChangeLineColor = (
   currentLineType: LineType,
   prevLineType: LineType
-): colors => {
+): Colors => {
   if (currentLineType === prevLineType) {
     return getColorFromLineType(currentLineType);
   } else {

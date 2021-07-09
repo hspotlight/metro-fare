@@ -6,7 +6,7 @@ import { getStation, getStationName } from "../../services/util.service";
 import { METRO_STATION_ID } from "../../types";
 import "./FromToButton.scss";
 
-type FromToButton = {
+type FromToButtonProps = {
   stationId: METRO_STATION_ID;
   handleUnselect: () => void;
   placeHolder: string;
@@ -18,7 +18,7 @@ export const FromToButton = ({
   handleUnselect,
   placeHolder,
   onClick,
-}: FromToButton) => {
+}: FromToButtonProps) => {
   const { i18n } = useTranslation();
   const station = getStation(stationId);
   return (
