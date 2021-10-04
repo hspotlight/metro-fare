@@ -3,23 +3,38 @@ import Control from "react-leaflet-control";
 import MapLegend from "./MapLegend";
 import "../../styles/MapControl.scss";
 import { useTranslation } from "react-i18next";
+import LayersIcon from "@material-ui/icons/Layers";
+import TranslateIcon from "@material-ui/icons/Translate";
+import { IconButton, Paper } from "@material-ui/core";
+
+const butonStyle = { color: "black", padding: "8px", borderRadius: "0px" };
 
 const MapControl = (props: any) => {
   const { i18n } = useTranslation();
   const [legendToggleStatus, setLegendToggleStatus] = useState(false);
-  const { onResetViewClick } = props;
+  // TODO: check if we need reset view feature
+  // const { onResetViewClick } = props;
 
   const toggleLanguage = i18n.language === "th" ? "en" : "th";
 
   return (
     <>
       <Control {...props}>
-        <div className="map-control">
-          <i className="fas fa-home control-icon control-icon-top" aria-hidden="true" onClick={onResetViewClick}/>
-          <i className="fas fa-layer-group control-icon control-icon-middle" aria-hidden="true" onClick={() => setLegendToggleStatus(!legendToggleStatus)}/>
-          <i className="fa fa-language control-icon control-icon-bottom" aria-hidden="true" onClick={() => i18n.changeLanguage(toggleLanguage)}/>
-          {legendToggleStatus && <MapLegend/>}
-        </div>
+        <Paper className="map-control">
+          <IconButton
+            onClick={() => setLegendToggleStatus(!legendToggleStatus)}
+            style={butonStyle}
+          >
+            <LayersIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => i18n.changeLanguage(toggleLanguage)}
+            style={butonStyle}
+          >
+            <TranslateIcon />
+          </IconButton>
+          {legendToggleStatus && <MapLegend />}
+        </Paper>
       </Control>
     </>
   );

@@ -1,61 +1,57 @@
 import React, { useState, useEffect, useContext, ReactNode } from "react";
 import { Button } from "@material-ui/core";
 import { useTranslation } from "react-i18next";
-import { TripContext, emptyTravelRoute } from "../contexts/TripProvider";
-import FareService from "../services/fare.service";
-import StationSelect from "./StationSelect";
+import { TripContext } from "../contexts/TripProvider";
+import NavigationService from "../services/navigation.service";
 import SelectedRoute from "./SelectedRoute";
 import "../styles/RouteFinder.scss";
-import { TravelRoute } from "../types";
+import { Journey } from "../types";
 import Route from "./Route";
+import { EMPTY_STATION_ID, UNFILLED_JOURNEY } from "../common/constants";
 
 const RouteFinder = () => {
   const { t: translate } = useTranslation();
-  const {
-    trip,
-    travelRoute,
-    setSource,
-    setDestination,
-    setTravelRoute,
-    resetTrip,
-    resetTravelRoute,
-  } = useContext(TripContext);
+  const { trip, journey, setJourney, resetTrip, resetJourney } = useContext(
+    TripContext
+  );
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [isFormInvalid, setFormInValid] = useState<boolean>(false);
 
   const [showTripSelector, setShowTripSelector] = useState<boolean>(true);
-  const [showAllTravelRoutes, setShowAllTravelRoutes] = useState<boolean>(false);
+  const [showAllJourneys, setShowAllJourneys] = useState<boolean>(false);
   const [showSelectedRoute, setShowSelectedRoute] = useState<boolean>(false);
 
-  const [allTravelRoutes, setAllTravelRoutes] = useState<TravelRoute[]>([]);
+  const [allJourneys, setAllJourneys] = useState<Journey[]>([]);
 
-  const showTravelRoute =
-    travelRoute.route.length > 0 && trip.source && trip.destination;
+  const showJourney = journey.route.length > 0 && trip.fromId && trip.toId;
 
   const calculateRoute = () => {
-    let travelRoutes = FareService.findAllRoutes(trip.source, trip.destination);
+    let journeys = NavigationService.findAllRoutesWithFare(
+      trip.fromId,
+      trip.toId
+    );
     // sorted and get top 3
-    travelRoutes = travelRoutes.sort((a, b) => a.fare - b.fare);
-    travelRoutes = travelRoutes.slice(0, 3);
+    journeys = journeys.sort((a, b) => a.fare - b.fare);
+    journeys = journeys.slice(0, 3);
 
-    setAllTravelRoutes(travelRoutes);
-    setShowAllTravelRoutes(true);
+    setAllJourneys(journeys);
+    setShowAllJourneys(true);
     setShowSelectedRoute(false);
-    setTravelRoute(emptyTravelRoute);
+    setJourney(UNFILLED_JOURNEY); // why reset?
   };
 
   const resetForm = () => {
-    resetTravelRoute();
+    resetJourney();
     resetTrip();
     setErrorMessage("");
-    setAllTravelRoutes([]);
-    setShowAllTravelRoutes(false);
+    setAllJourneys([]);
+    setShowAllJourneys(false);
     setShowSelectedRoute(false);
   };
 
   useEffect(() => {
     const isFormValid =
-      trip.source.length === 0 || trip.destination.length === 0;
+      trip.fromId === EMPTY_STATION_ID || trip.toId === EMPTY_STATION_ID;
     setFormInValid(isFormValid);
   }, [trip]);
 
@@ -66,28 +62,15 @@ const RouteFinder = () => {
         showDetail={showTripSelector}
         setShowDetail={() => setShowTripSelector(!showTripSelector)}
       >
-        <StationSelect
-          title={translate("route.source")}
-          value={trip.source}
-          onChange={setSource}
-        />
-        <StationSelect
-          title={translate("route.destination")}
-          value={trip.destination}
-          onChange={setDestination}
-        />
-
         <section className="form-button-group">
           <Button variant="contained" color="secondary" onClick={resetForm}>
             {translate("common.reset")}
           </Button>
           <Button
             variant="contained"
-            color="primary"
             onClick={calculateRoute}
             style={{ marginLeft: "20px" }}
-            disabled={isFormInvalid}
-          >
+            disabled={isFormInvalid}>
             {translate("common.search")}
           </Button>
         </section>
@@ -95,39 +78,38 @@ const RouteFinder = () => {
           <ErrorMessage errorMessage={errorMessage} />
         )}
       </Section>
-      {allTravelRoutes.length > 0 && (
+      {allJourneys.length > 0 && (
         <Section
-          title={translate("tab.allRoutes", {count: allTravelRoutes.length})}
-          showDetail={showAllTravelRoutes}
-          setShowDetail={() => setShowAllTravelRoutes(!showAllTravelRoutes)}
+          title={translate("tab.allRoutes", { count: allJourneys.length })}
+          showDetail={showAllJourneys}
+          setShowDetail={() => setShowAllJourneys(!showAllJourneys)}
         >
-          {allTravelRoutes.map((route, index) => {
-            const onTravelRouteClick = () => {
-              setTravelRoute(route);
+          {allJourneys.map((route, index) => {
+            const onJourneyClick = () => {
+              setJourney(route);
               setShowSelectedRoute(true);
               setShowTripSelector(false);
-            }
+            };
             return (
               <React.Fragment key={`travel-route-${index}`}>
                 {index > 0 && <div className="divider"></div>}
                 <Route
-                  travelRoute={route}
-                  isActive={travelRoute === route}
-                  onClick={onTravelRouteClick}
+                  journey={route}
+                  isActive={journey === route}
+                  onClick={onJourneyClick}
                 />
               </React.Fragment>
             );
           })}
-          
         </Section>
       )}
-      {showTravelRoute && (
+      {showJourney && (
         <Section
           title={translate("tab.selectedRoute")}
           showDetail={showSelectedRoute}
           setShowDetail={() => setShowSelectedRoute(!showSelectedRoute)}
         >
-          <SelectedRoute travelRoute={travelRoute} />
+          <SelectedRoute journey={journey} />
         </Section>
       )}
     </section>

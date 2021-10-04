@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { FormControl, InputLabel, Select, FormHelperText } from "@material-ui/core";
 import { STATIONS } from "../data/Stations";
-import { LineType, Station, BTS_SILOM_STATION, BTS_SUKHUMVIT_STATION, ARL_STATION, BRT_STATION } from "../types";
+import { LineType, Station, BTS_SILOM_STATION_ID, BTS_SUKHUMVIT_STATION_ID, ARL_STATION_ID, BRT_STATION_ID } from "../types";
 import { getStationName } from "../services/util.service";
 import "../styles/StationSelect.scss";
 
+// TODO: Remove Legacy code
 const StationSelect = ({
   title,
   value,
@@ -28,13 +29,13 @@ const StationSelect = ({
   };
 
   useEffect(() => {
-    if (Object.values(BTS_SILOM_STATION).find((btsKey) => btsKey === value)) {
+    if (Object.values(BTS_SILOM_STATION_ID).find((btsId) => btsId === value)) {
       setLineType(LineType.BTS_SILOM);
-    } else if (Object.values(BTS_SUKHUMVIT_STATION).find((btsKey) => btsKey === value)) {
+    } else if (Object.values(BTS_SUKHUMVIT_STATION_ID).find((btsId) => btsId === value)) {
       setLineType(LineType.BTS_SUKHUMVIT);
-    } else if (Object.values(ARL_STATION).find((arlKey) => arlKey === value)) {
+    } else if (Object.values(ARL_STATION_ID).find((arlId) => arlId === value)) {
       setLineType(LineType.ARL);
-    } else if (Object.values(BRT_STATION).find((brtKey) => brtKey === value)) {
+    } else if (Object.values(BRT_STATION_ID).find((brtId) => brtId === value)) {
       setLineType(LineType.BRT);
     } else if (value.length !== 0) {
       setLineType(LineType.MRT_BLUE);
@@ -43,7 +44,7 @@ const StationSelect = ({
 
   return (
     <section>
-      <FormControl className="line-type-select" required>
+      <FormControl className="line-type-select" required variant="standard">
         <InputLabel htmlFor={lineElementId}>
           {translate("lineType.line")}
         </InputLabel>
@@ -55,7 +56,7 @@ const StationSelect = ({
           inputProps={{
             id: lineElementId,
           }}
-        >
+          variant="standard">
           <option value={"MRT_BLUE"}>{translate("lineType.mrtBlue")}</option>
           <option value={"BTS_SILOM"}>{translate("lineType.btsSilom")}</option>
           <option value={"BTS_SUKHUMVIT"}>{translate("lineType.btsSukhumvit")}</option>
@@ -64,7 +65,7 @@ const StationSelect = ({
         </Select>
         <FormHelperText>{translate("common.required")}</FormHelperText>
       </FormControl>
-      <FormControl className="station-select" required>
+      <FormControl className="station-select" required variant="standard">
         <InputLabel htmlFor={selectElementId}>{title}</InputLabel>
         <Select
           native
@@ -74,12 +75,12 @@ const StationSelect = ({
           inputProps={{
             id: selectElementId,
           }}
-        >
+          variant="standard">
           <option value="" disabled></option>
           {stationsName.map((station: Station) => {
-            const label = `(${station.key}) ${getStationName(station, i18n.language)}`;
+            const label = `(${station.id}) ${getStationName(station, i18n.language)}`;
             return (
-              <option key={station.key} value={station.key}>
+              <option key={station.id} value={station.id}>
                 {label}
               </option>
             );

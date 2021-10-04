@@ -5,13 +5,26 @@
     "selectedRoute": "เส้นทางที่เลือก"
   },
   "route": {
-    "source": "สถานีต้นทาง",
-    "destination": "สถานีปลายทาง",
+    "routeDetails": "ดูรายละเอียด",
+    "route": "เส้นทางที่",
+    "of": "จาก",
+    "from": "สถานีต้นทาง",
+    "to": "สถานีปลายทาง",
     "fare": "ค่าโดยสาร",
     "intermediateStationText": "{{count}} สถานี"
   },
+  "station": {
+    "station": "สถานี",
+    "totalStation": "สถานี",
+    "totalFare": "ค่าโดยสาร",
+    "from": "จาก",
+    "to": "ถึง"
+  },
   "priceSymbol": {
     "baht": "฿"
+  },
+  "currency": {
+    "baht": "บาท"
   },
   "findRouteMethod": {
     "method": "วิธีเดินทาง",
@@ -24,25 +37,45 @@
     "btsSukhumvit": "BTS สายสุขุมวิท",
     "mrtBlue": "MRT สายสีน้ำเงิน",
     "arl": "ARL แอร์พอร์ต เรล ลิงก์",
-    "brt": "BRT รถโดยสารด่านพิเศษบีอาร์ที"
+    "brt": "BRT รถโดยสารด่วนพิเศษบีอาร์ที"
   },
   "common": {
     "required": "จำเป็น",
     "search": "ค้นหา",
-    "reset": "ล้างค่า"
+    "reset": "ล้างค่า",
+    "showMore": "ดูเพิ่มเติม"
   },
   "map": {
     "popup": {
-      "setSource": "เลือกสถานีต้นทาง",
-      "setDestination": "เลือกสถานีปลายทาง"
+      "setFrom": "เลือกสถานีต้นทาง",
+      "setTo": "เลือกสถานีปลายทาง"
     },
     "legend": {
       "legend": "สัญลักษณ์",
-      "btsSilomLine": "เส้นทางรถไฟฟ้าบีทีเอส สายสีลม",
-      "btsSukhumvitLine": "เส้นทางรถไฟฟ้าบีทีเอส สายสีสุขุมวิท",
-      "mrtBlueLine": "เส้นทางรถไฟฟ้ามหานคร (สายสีน้ำเงิน)",
-      "arlLine": "เส้นทางรถไฟฟ้าแอร์พอร์ต เรล ลิงก์",
-      "brtLine": "เส้นทางรถโดยสารด่านพิเศษบีอาร์ที"
+      "btsSilomLine": "รถไฟฟ้าบีทีเอส สายสีลม",
+      "btsSukhumvitLine": "รถไฟฟ้าบีทีเอส สายสุขุมวิท",
+      "btsGoldLine": "รถไฟฟ้าบีทีเอส สายสีทอง",
+      "mrtBlueLine": "รถไฟฟ้ามหานคร สายสีน้ำเงิน",
+      "arlLine": "รถไฟฟ้าแอร์พอร์ต เรล ลิงก์",
+      "brtLine": "รถโดยสารด่วนพิเศษบีอาร์ที"
     }
+  },
+  "selectStation": {
+    "startText": "โปรดกรอกชื่อสถานี",
+    "notFound": "ไม่พบข้อมูล",
+    "tooShort": "คำสั้นไป"
+  },
+  "sidemenuDrawer": {
+    "settings": "การตั้งค่า",
+    "language": "ภาษา",
+    "contact": "ติดต่อเรา",
+    "feedback": "แสดงความเห็น"
+  },
+  "language": {
+    "th": "ไทย",
+    "en": "English"
+  },
+  "contact": {
+    "developedBy": "พัฒนาโดย"
   }
 }

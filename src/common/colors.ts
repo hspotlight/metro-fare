@@ -3,11 +3,12 @@ export const colors = {
     mrtPurple: '#85348F',
     btsSukhumvit: '#79B828',
     btsSilom: '#00817D',
+    btsGold: '#A58701',
     arl: '#E30713',
     brt: '#DCDC00',
-    sourceStation: '#3AAACF',
-    destinationStation: '#F80012',
+    fromStation: '#3AAACF',
+    toStation: '#F80012',
     interchangeStation: '#AAAAAA',
 } as const;
 
-export type colors = (typeof colors)[keyof typeof colors]
+export type Colors = typeof colors[keyof typeof colors];

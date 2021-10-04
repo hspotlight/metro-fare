@@ -1,9 +1,9 @@
-import { LineType, METRO_STATION } from ".";
+import { LineType, METRO_STATION_ID } from ".";
 import { LatLngTuple } from "leaflet";
 
 export type Station = {
     lineType: LineType,
-    key: METRO_STATION,
+    id: METRO_STATION_ID,
     nameEN: string,
     nameTH: string,
     position: LatLngTuple

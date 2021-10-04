@@ -17,9 +17,10 @@ You can view a live demo over at https://metrofare.netlify.app/
 To get the application running locally:
 
 - Clone this repo
-- `npm install` to install all req'd dependencies
-- `npm start` to start the local server (this project uses create-react-app)
-- `npm run test` to run the tests
+- `yarn install` to install all req'd dependencies
+- `yarn start` to start the local server (this project uses create-react-app)
+- `yarn test` to run the tests
+- `yarn test:coverage` to run the tests with test coverage result
 
 ## Functionality overview
 

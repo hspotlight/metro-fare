@@ -1,103 +1,70 @@
-.travel-route-container {
-  overflow-y: auto;
-  max-height: 470px;
-}
-
-@media only screen and (max-width: 768px) {
-  .travel-route-container {
-    overflow-y: auto;
-    max-height: 280px;
-  }
-}
-
 .station-container {
   display: flex;
   padding: 5px;
 }
 
-.mrt-blue-icon {
+.station-icon {
   width: 16px;
   height: 16px;
-  background-color: #1E3A8D;
   margin-right: 5px;
   border-radius: 9px;
   border: 1px solid black;
+}
+
+.dotted-line {
+  width: 0px;
+  height: 20px;
+  margin-left: 11px;
+}
+
+.mrt-blue-icon {
+  background-color: #1e3a8d;
 }
 
 .mrt-blue-dotted-line {
-  width: 0px;
-  height: 20px;
-  margin-left: 11px;
-  border-left: 5px dotted #1E3A8D;
+  border-left: 5px dotted #1e3a8d;
 }
 
 .bts-silom-icon {
-  width: 16px;
-  height: 16px;
-  background-color: #00817D;
-  margin-right: 5px;
-  border-radius: 9px;
-  border: 1px solid black;
-}
-
-.bts-sukhumvit-icon {
-  width: 16px;
-  height: 16px;
-  background-color: #79B828;
-  margin-right: 5px;
-  border-radius: 9px;
-  border: 1px solid black;
-}
-
-.arl-icon {
-  width: 16px;
-  height: 16px;
-  background-color: #E30713;
-  margin-right: 5px;
-  border-radius: 9px;
-  border: 1px solid black;
-}
-
-.brt-icon {
-  width: 16px;
-  height: 16px;
-  background-color: #DCDC00;
-  margin-right: 5px;
-  border-radius: 9px;
-  border: 1px solid black;
+  background-color: #00817d;
 }
 
 .bts-silom-dotted-line {
-  width: 0px;
-  height: 20px;
-  margin-left: 11px;
-  border-left: 5px dotted #00817D;
+  border-left: 5px dotted #00817d;
+}
+
+.bts-sukhumvit-icon {
+  background-color: #79b828;
 }
 
 .bts-sukhumvit-dotted-line {
-  width: 0px;
-  height: 20px;
-  margin-left: 11px;
-  border-left: 5px dotted #79B828;
+  border-left: 5px dotted #79b828;
+}
+
+.bts-gold-icon {
+  background-color: #a58701;
+}
+
+.bts-gold-dotted-line {
+  border-left: 5px dotted #a58701;
+}
+
+.arl-icon {
+  background-color: #e30713;
 }
 
 .arl-dotted-line {
-  width: 0px;
-  height: 20px;
-  margin-left: 11px;
-  border-left: 5px dotted #E30713;
+  border-left: 5px dotted #e30713;
+}
+
+.brt-icon {
+  background-color: #dcdc00;
 }
 
 .brt-dotted-line {
-  width: 0px;
-  height: 20px;
-  margin-left: 11px;
-  border-left: 5px dotted #DCDC00;
+  border-left: 5px dotted #dcdc00;
 }
 
 .interchange-dotted-line {
-  width: 0px;
-  height: 20px;
-  margin-left: 11px;
-  border-left: 5px dotted #AAAAAA;
+  border-left: 5px dotted #aaaaaa;
 }

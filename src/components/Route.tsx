@@ -1,36 +1,37 @@
 import React from "react";
-import { TravelRoute, Station, LineType } from "../types";
+import { Journey, Station, LineType } from "../types";
 import { useTranslation } from "react-i18next";
 import {
   getStation,
-  getStationKeysFromTravelRoute,
+  getStationIdsFromJourney,
   getStationName,
 } from "../services/util.service";
 import "../styles/Route.scss";
 import { getStationIconStyle } from "../services/ui-style.service";
 
-const Route = ({
-  travelRoute,
-  onClick,
-  isActive,
-}: {
-  travelRoute: TravelRoute;
+type RouteProps = {
+  journey: Journey;
   onClick: any;
-  isActive: boolean
-}) => {
-  const { t: translate } = useTranslation();
-  const sourceStation = getStation(travelRoute.source);
-  const destinationStation = getStation(travelRoute.destination);
+  isActive: boolean;
+};
 
-  const stationKeys = getStationKeysFromTravelRoute(travelRoute);
-  
+const Route = ({ journey, onClick, isActive }: RouteProps) => {
+  const { t: translate } = useTranslation();
+  const fromStation = getStation(journey.from);
+  const toStation = getStation(journey.to);
+
+  const stationIds = getStationIdsFromJourney(journey);
+
   const intermediateStationCount =
-  sourceStation?.key === destinationStation?.key ? 0 : stationKeys.length - 2;
+    fromStation?.id === toStation?.id ? 0 : stationIds.length - 2;
 
   return (
-    <div className={`route-block-container ${isActive ? "active": ""}`} onClick={onClick}>
+    <div
+      className={`route-block-container ${isActive ? "active" : ""}`}
+      onClick={onClick}
+    >
       <div className="route-container">
-        <StationBlock station={sourceStation as Station} />
+        <StationBlock station={fromStation as Station} />
         <section className="intermediate-station section">
           <div className="interchange-dotted-line"></div>
           {intermediateStationCount > 0 && (
@@ -41,10 +42,10 @@ const Route = ({
             </div>
           )}
         </section>
-        <StationBlock station={destinationStation as Station} />
+        <StationBlock station={toStation as Station} />
       </div>
       <div className="fare-container">
-        {`${travelRoute.fare} ${translate("priceSymbol.baht")}`}
+        {`${journey.fare} ${translate("priceSymbol.baht")}`}
       </div>
     </div>
   );
@@ -57,7 +58,7 @@ const StationBlock = ({ station }: { station: Station }) => {
   return (
     <section className="station-container">
       {<div className={stationIconStyle}></div>}
-      <div>{`(${station.key}) ${stationName}`}</div>
+      <div>{`(${station.id}) ${stationName}`}</div>
     </section>
   );
 };

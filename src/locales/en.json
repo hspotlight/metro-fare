@@ -5,13 +5,26 @@
     "selectedRoute": "Selected Route"
   },
   "route": {
-    "source": "Source",
-    "destination": "Destination",
+    "routeDetails": "Route Details",
+    "route": "Route",
+    "of": "of",
+    "from": "From",
+    "to": "To",
     "fare": "Fare",
     "intermediateStationText": "{{count}} stations"
   },
+  "station": {
+    "station": "station(s)",
+    "totalStation": "Total stations",
+    "totalFare": "Total fare",
+    "from": "From",
+    "to": "To"
+  },
   "priceSymbol": {
     "baht": "฿"
+  },
+  "currency": {
+    "baht": "Baht"
   },
   "findRouteMethod": {
     "method": "Method",
@@ -29,20 +42,40 @@
   "common": {
     "required": "Required",
     "search": "Search",
-    "reset": "Reset"
+    "reset": "Reset",
+    "showMore": "Show More"
   },
   "map": {
     "popup": {
-      "setSource": "Set Source",
-      "setDestination": "Set Destination"
+      "setFrom": "From",
+      "setTo": "To"
     },
     "legend": {
       "legend": "Legend",
       "btsSilomLine": "BTS SkyTrain Silom Line",
       "btsSukhumvitLine": "BTS SkyTrain Sukhumvit Line",
+      "btsGoldLine": "Gold Line",
       "mrtBlueLine": "MRT Blue Line",
       "arlLine": "ARL Airport Rail Link Line",
       "brtLine": "BRT Bus Rapid Transit"
     }
+  },
+  "selectStation": {
+    "startText": "Please enter station name",
+    "notFound": "Results not found",
+    "tooShort": "Keyword too short!"
+  },
+  "sidemenuDrawer": {
+    "settings": "Settings",
+    "language": "Language",
+    "contact": "Contact us",
+    "feedback": "Feedback"
+  },
+  "language": {
+    "th": "ไทย",
+    "en": "English"
+  },
+  "contact": {
+    "developedBy": "Developed by"
   }
 }

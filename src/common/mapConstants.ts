@@ -13,6 +13,7 @@ export const DEFAULT_METRO_LINE_LAYERS: MetroLineLayerVisibility = {
     mrtBlue: true,
     btsSilom: true,
     btsSukhumvit: true,
+    btsGold: true,
     arl: true,
     brt: true
 }

@@ -1,0 +1,23 @@
+.route-detail-insight {
+    width: 100%;
+    align-items: center;
+    width: calc(100% - 40px);
+    margin: 20px 10px 0 10px;
+    padding: 10px 10px 5px 10px;
+    height: 50px;
+    line-height: 20px;
+    font-size: 16px;
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 8px;
+
+    .row {
+        width: 100%;
+        display: flex;
+    }
+    .row + .row {
+        margin-top: 5px;
+    }
+    .col-2 {
+        width: 100%;
+    }
+}

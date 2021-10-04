@@ -4,12 +4,12 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
 import { TripContext } from "../../contexts/TripProvider";
 import { getStationName } from "../../services/util.service";
-import { METRO_STATION } from "../../types";
+import { METRO_STATION_ID } from "../../types";
 
 const StationMarker = (props: any) => {
   const { station, showPopup = true } = props;
   const { i18n } = useTranslation();
-  const stationName = `(${station.key}) ${getStationName(
+  const stationName = `(${station.id}) ${getStationName(
     station,
     i18n.language
   )}`;
@@ -23,7 +23,9 @@ const StationMarker = (props: any) => {
       fillOpacity={1}
       {...props}
     >
-      {showPopup && <StationPopup stationName={stationName} stationKey={station.key} />}
+      {showPopup && (
+        <StationPopup stationName={stationName} stationId={station.id} />
+      )}
       <Tooltip>{stationName}</Tooltip>
     </CircleMarker>
   );
@@ -31,13 +33,13 @@ const StationMarker = (props: any) => {
 
 const StationPopup = ({
   stationName,
-  stationKey,
+  stationId,
 }: {
   stationName: string;
-  stationKey: METRO_STATION;
+  stationId: METRO_STATION_ID;
 }) => {
   const { t: translate } = useTranslation();
-  const { setSource, setDestination } = useContext(TripContext);
+  const { trip, setTrip } = useContext(TripContext);
 
   const popupRef = React.useRef(null);
 
@@ -46,31 +48,40 @@ const StationPopup = ({
     popupRef.current.leafletElement.options.leaflet.map.closePopup();
   };
 
+  const handleSetFromTo = (
+    type: "from" | "to",
+    stationId: METRO_STATION_ID
+  ) => {
+    if (type === "from") {
+      setTrip(stationId, trip.toId);
+    } else {
+      setTrip(trip.fromId, stationId);
+    }
+  };
+
   return (
-    <Popup ref={popupRef}>
+    <Popup ref={popupRef} closeButton={false}>
       <section
         style={{ display: "flex", flexDirection: "column", width: "170px" }}
       >
         <h3>{stationName}</h3>
         <Button
           variant="contained"
-          color="primary"
+          size="small"
           onClick={() => {
-            setSource(stationKey);
+            handleSetFromTo("from", stationId);
             closePopupOnClick();
-          }}
-        >
-          {translate("map.popup.setSource")}
+          }}>
+          {translate("map.popup.setFrom")}
         </Button>
         <Button
           variant="contained"
-          color="primary"
+          size="small"
           onClick={() => {
-            setDestination(stationKey);
+            handleSetFromTo("to", stationId);
             closePopupOnClick();
-          }}
-        >
-          {translate("map.popup.setDestination")}
+          }}>
+          {translate("map.popup.setTo")}
         </Button>
       </section>
     </Popup>

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Polyline, FeatureGroup, LayersControl } from "react-leaflet";
 import { MapContext } from "../../contexts/MapProvider";
-import { MRT_BLUE, BTS_SILOM, BTS_SUKHUMVIT, ARL, BRT } from "../../data";
+import { MRT_BLUE, BTS_SILOM, BTS_SUKHUMVIT, ARL, BRT, BTS_GOLD } from "../../data";
 import { getPolyLineFromStations } from "../../services/util.service";
 import StationMarker from "./StationMarker";
 import { colors } from "../../common/colors";
@@ -26,6 +26,12 @@ export const MetroLineLayers = () => {
       layername: "BTS-sukhumvit-line",
       color: colors.btsSukhumvit,
       polyline: getPolyLineFromStations(BTS_SUKHUMVIT),
+      isVisible: true,
+    },
+    {
+      layername: "BTS-gold-line",
+      color: colors.btsGold,
+      polyline: getPolyLineFromStations(BTS_GOLD),
       isVisible: true,
     },
     {
@@ -59,6 +65,12 @@ export const MetroLineLayers = () => {
       isVisible: showMetroLineLayers.btsSukhumvit,
       color: colors.btsSukhumvit,
       stations: BTS_SUKHUMVIT,
+    },
+    {
+      layername: "BTS-gold-station",
+      isVisible: showMetroLineLayers.btsGold,
+      color: colors.btsGold,
+      stations: BTS_GOLD,
     },
     {
       layername: "ARL-station",
@@ -101,7 +113,7 @@ export const MetroLineLayers = () => {
         <FeatureGroup name="mrt-blue-station">
           {stationLayer.stations.map((station) => (
             <StationMarker
-              key={station.key}
+              key={station.id}
               station={station}
               fillColor={stationLayer.color}
             />

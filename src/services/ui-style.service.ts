@@ -1,39 +1,19 @@
 import { LineType } from "../types";
-import { colors } from "../common/colors";
+import { colors, Colors } from "../common/colors";
 import { DottedLineStyle } from "../types/styles/DottedLineStyle";
 import { StationIconStyle } from "../types/styles/StationIconStyle";
+import StationStyles from "../data/StationStyle";
 
-export const getColorFromLineType = (lineType: LineType): colors => {
-  switch(lineType) {
-    case LineType.MRT_BLUE: return colors.mrtBlue;
-    case LineType.BTS_SILOM: return colors.btsSilom;
-    case LineType.BTS_SUKHUMVIT: return colors.btsSukhumvit;
-    case LineType.ARL: return colors.arl;
-    case LineType.BRT: return colors.brt;
-    default: return colors.btsSilom;
-  }
+export const getColorFromLineType = (lineType: LineType): Colors => {
+  return StationStyles[lineType]?.color || colors.btsSilom;
 }
 
 export const getDottedLineStyle = (lineType: LineType): DottedLineStyle => {
-  switch (lineType) {
-    case LineType.MRT_BLUE: return "mrt-blue-dotted-line";
-    case LineType.BTS_SILOM: return "bts-silom-dotted-line";
-    case LineType.BTS_SUKHUMVIT: return "bts-sukhumvit-dotted-line";
-    case LineType.ARL: return "arl-dotted-line";
-    case LineType.BRT: return "brt-dotted-line";
-    default: return "bts-silom-dotted-line";
-  }
+  return StationStyles[lineType]?.dottedLine || "bts-silom-dotted-line";
 };
 
 export const getStationIconStyle = (lineType: LineType): StationIconStyle => {
-  switch (lineType) {
-    case LineType.MRT_BLUE: return "mrt-blue-icon";
-    case LineType.BTS_SILOM: return "bts-silom-icon";
-    case LineType.BTS_SUKHUMVIT: return "bts-sukhumvit-icon";
-    case LineType.ARL: return "arl-icon";
-    case LineType.BRT: return "brt-icon";
-    default: return "bts-silom-icon";
-  }
+  return StationStyles[lineType]?.icon || "bts-silom-icon";
 };
 
 // TODO: rename and refactor
@@ -63,7 +43,7 @@ export const getInterChangeLine = (
 export const getInterChangeLineColor = (
   currentLineType: LineType,
   prevLineType: LineType
-): colors => {
+): Colors => {
   if (currentLineType === prevLineType) {
     return getColorFromLineType(currentLineType);
   } else {

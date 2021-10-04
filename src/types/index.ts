@@ -4,7 +4,7 @@ export * from './Graph';
 export * from './Line';
 export * from './Intersection';
 export * from './RouteSegment';
-export * from './MetroStation';
+export * from './MetroStationId';
 export * from './TravelRoute';
 export * from './Station';
 export * from './MetroLineVisibility';

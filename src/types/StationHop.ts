@@ -1,10 +1,10 @@
-import { METRO_STATION, RouteSegment } from ".";
+import { METRO_STATION_ID, RouteSegment } from ".";
 
 export class StationHop {
-    station: METRO_STATION;
+    station: METRO_STATION_ID;
     routeSegments: RouteSegment[];
 
-    constructor(station: METRO_STATION, paths: RouteSegment[]) {
+    constructor(station: METRO_STATION_ID, paths: RouteSegment[]) {
         this.station = station;
         this.routeSegments = paths;
     }
@@ -17,7 +17,7 @@ export class StationHop {
         return totalHops;
     }
 
-    public isStationInPath(searchStation: METRO_STATION): boolean {
+    public isStationInPath(searchStation: METRO_STATION_ID): boolean {
         let isInPath = false;
         this.routeSegments.forEach(routeSegment => {
             isInPath = isInPath || routeSegment.route.includes(searchStation);
