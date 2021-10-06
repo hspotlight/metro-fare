@@ -27,3 +27,6 @@ To get the application running locally:
 The application is a Thailand, specifically Bangkok, mass transit system map called "Metro Fare". It uses openstreetmap to show the map and uses graph theory to find the paths from 2 different stations
 
 This project is also focus on testing which contains fare amount of tests that you can follow this test practices for learning purposes
+
+## Development
+see more in [contributing/development.md](contributing/development.md)
