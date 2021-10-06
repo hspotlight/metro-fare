@@ -57,7 +57,7 @@ Click **Make a contribution** at the bottom of any docs page to make small chang
 - GitHub Codespaces:
   - [Fork, edit, and preview](https://docs.github.com/en/free-pro-team@latest/github/developing-online-with-codespaces/creating-a-codespace) using [GitHub Codespaces](https://github.com/features/codespaces) without having to install and run the project locally.
 
-3. Install or update to **Node.js v13**. For more information, see [the development guide](contributing/development.md).
+3. Install or update to **Node.js v14**. For more information, see [the development guide](contributing/development.md).
 
 4. Create a working branch and start with your changes!
 
