@@ -22,12 +22,14 @@ const MapControl = (props: any) => {
       <Control {...props}>
         <Paper className="map-control">
           <IconButton
+            aria-label="Toggle Status"
             onClick={() => setLegendToggleStatus(!legendToggleStatus)}
             style={butonStyle}
           >
             <LayersIcon />
           </IconButton>
           <IconButton
+            aria-label="Change Language"
             onClick={() => i18n.changeLanguage(toggleLanguage)}
             style={butonStyle}
           >
