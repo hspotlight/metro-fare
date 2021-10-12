@@ -10,7 +10,7 @@ import { IconButton, Paper } from "@material-ui/core";
 const butonStyle = { color: "black", padding: "8px", borderRadius: "0px" };
 
 const MapControl = (props: any) => {
-  const { i18n } = useTranslation();
+  const { i18n, t: translation } = useTranslation();
   const [legendToggleStatus, setLegendToggleStatus] = useState(false);
   // TODO: check if we need reset view feature
   // const { onResetViewClick } = props;
@@ -22,14 +22,14 @@ const MapControl = (props: any) => {
       <Control {...props}>
         <Paper className="map-control">
           <IconButton
-            aria-label="Toggle Status"
+            aria-label={translation("common.toggleStatus")}
             onClick={() => setLegendToggleStatus(!legendToggleStatus)}
             style={butonStyle}
           >
             <LayersIcon />
           </IconButton>
           <IconButton
-            aria-label="Change Language"
+            aria-label={translation("common.changeLanguage")}
             onClick={() => i18n.changeLanguage(toggleLanguage)}
             style={butonStyle}
           >

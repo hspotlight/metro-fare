@@ -44,7 +44,9 @@
     "required": "Required",
     "search": "Search",
     "reset": "Reset",
-    "showMore": "Show More"
+    "showMore": "Show More",
+    "changeLanguage":"Change Language",
+    "toggleStatus":"Toggle Status"
   },
   "map": {
     "popup": {

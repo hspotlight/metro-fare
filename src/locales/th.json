@@ -44,7 +44,9 @@
     "required": "จำเป็น",
     "search": "ค้นหา",
     "reset": "ล้างค่า",
-    "showMore": "ดูเพิ่มเติม"
+    "showMore": "ดูเพิ่มเติม",
+    "changeLanguage":"เปลี่ยนภาษา",
+    "toggleStatus":"เปลี่ยนการแสดงสถานะ"
   },
   "map": {
     "popup": {
