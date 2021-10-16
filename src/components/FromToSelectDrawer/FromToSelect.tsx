@@ -88,7 +88,7 @@ export const FromToSelect = ({ setDrawerType }: FromToSelectProps) => {
         </Grid>
       </Grid>
       <Grid container item xs={1}>
-        <IconButton onClick={handleSwapLocation} size="small">
+        <IconButton onClick={handleSwapLocation} size="small" aria-label={translation("route.swap")}>
           <SyncAltIcon />
         </IconButton>
       </Grid>

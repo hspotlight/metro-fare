@@ -11,7 +11,8 @@
     "from": "From",
     "to": "To",
     "fare": "Fare",
-    "intermediateStationText": "{{count}} stations"
+    "intermediateStationText": "{{count}} stations",
+    "swap":"swap station"
   },
   "station": {
     "station": "station(s)",
@@ -43,7 +44,9 @@
     "required": "Required",
     "search": "Search",
     "reset": "Reset",
-    "showMore": "Show More"
+    "showMore": "Show More",
+    "changeLanguage":"Change Language",
+    "toggleStatus":"Toggle Status"
   },
   "map": {
     "popup": {

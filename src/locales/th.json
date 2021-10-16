@@ -11,7 +11,8 @@
     "from": "สถานีต้นทาง",
     "to": "สถานีปลายทาง",
     "fare": "ค่าโดยสาร",
-    "intermediateStationText": "{{count}} สถานี"
+    "intermediateStationText": "{{count}} สถานี",
+    "swap":"สลับสถานี"
   },
   "station": {
     "station": "สถานี",
@@ -43,7 +44,9 @@
     "required": "จำเป็น",
     "search": "ค้นหา",
     "reset": "ล้างค่า",
-    "showMore": "ดูเพิ่มเติม"
+    "showMore": "ดูเพิ่มเติม",
+    "changeLanguage":"เปลี่ยนภาษา",
+    "toggleStatus":"เปลี่ยนการแสดงสถานะ"
   },
   "map": {
     "popup": {
