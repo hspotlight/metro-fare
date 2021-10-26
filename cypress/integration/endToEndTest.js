@@ -36,7 +36,7 @@ describe('Verify end to end test scenarios', function(){
         })
     })
 
-    it('display price of the jouney', function(){
+    it('display price of the journey', function(){
         //fix price can be improve
         cy.get('.MuiGrid-grid-xs-10 > .MuiPaper-root > .MuiGrid-direction-xs-column > .MuiGrid-container > :nth-child(2)')
         .should('contain.text', '26 Baht')
