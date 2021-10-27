@@ -1,0 +1,6 @@
+# improved-yarn-audit ignore file
+
+# https://github.com/advisories/GHSA-33f9-j839-rf8h
+# ignored because there is no fix available (last checked 28th Oct 2021)
+# wait react-scripts newer version than v4.0.3 to upgrade it dep immer to v9.0.6+
+GHSA-33f9-j839-rf8h
