@@ -57,4 +57,4 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
       - name: Run Audit
-        run: yarn sec-audit --fail-on 'critical'
+        run: yarn sec-audit --min-severity critical

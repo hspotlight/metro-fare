@@ -46,7 +46,7 @@
     "test": "react-scripts test",
     "test:coverage": "yarn test --coverage --watchAll=false",
     "eject": "react-scripts eject",
-    "sec-audit": "hawkeye scan"
+    "sec-audit": "improved-yarn-audit"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -64,7 +64,7 @@
     ]
   },
   "devDependencies": {
-    "@hawkeyesec/scanner-cli": "^1.8.0",
+    "improved-yarn-audit": "^3.0.0",
     "lodash": "^4.17.20"
   }
 }
