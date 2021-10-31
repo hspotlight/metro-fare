@@ -1,0 +1,7 @@
+{
+    "video":false,
+    "env": {
+        "prodUrl": "https://metrofare.netlify.app/",
+        "devUrl": "http://localhost:3000/"
+      }
+}
