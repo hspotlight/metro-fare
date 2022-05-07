@@ -3,7 +3,7 @@ name: Manual-deploy-to-s3
 on: workflow_dispatch
 
 jobs:
-  build:
+  deploy:
     name: Build
     runs-on: ubuntu-latest
     strategy:
@@ -24,10 +24,6 @@ jobs:
       - name: Run build
         run: yarn build
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
