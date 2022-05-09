@@ -31,7 +31,7 @@ jobs:
 
   deploy:
     name: Deploying to test env
-    needs: test
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: download artifact
