@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 jobs:
   build:
-    name: build
+    name: build and test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -20,35 +20,26 @@ jobs:
       - name: Run build
         run: yarn build
 
-      - uses: actions/upload-artifact@v3
-        with:
-          name: metrofare-build
-          path: ./build/
-
-  test:
-    name: test
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Use Node.js 12
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-
-      - name: download artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: metrofare-build
-          path: ./build/
-
       - name: run test coverage
         run: yarn test:coverage
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: metrofare-build
+          path: ./build/
 
   deploy:
     name: Deploying to test env
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: metrofare-build
+          path: ./build/
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
