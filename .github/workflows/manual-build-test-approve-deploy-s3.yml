@@ -24,3 +24,21 @@ jobs:
         with:
           name: metrofare-build
           path: ./build/
+
+  test:
+    name: test
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: download artifact
+      - uses: actions/download-artifact@v3
+        with:
+          name: metrofare-build
+          path: ./build/
+
+      - name: run test coverage
+        run: yarn test:coverage
