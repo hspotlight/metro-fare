@@ -1,28 +1,44 @@
-name: Manual-deploy-to-s3
+name: Manual-build-test-deploy-s3
 
 on: workflow_dispatch
 
 jobs:
-  deploy:
-    name: Deploy
+  build:
+    name: build and test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
     steps:
       - uses: actions/checkout@v2
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 12
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12
 
       - name: Install dependencies
         run: yarn
 
       - name: Run build
         run: yarn build
+
+      - name: run test coverage
+        run: yarn test:coverage
+
+      - name: upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: metrofare-build
+          path: ./build/
+
+  deploy:
+    name: Deploying to test env
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: metrofare-build
+          path: ./build/
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
