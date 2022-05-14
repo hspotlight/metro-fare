@@ -1,23 +1,43 @@
 name: Pre-deploy
 
-on: push
+on: 
+  push:
+    branches:
+      - master
 
 jobs:
+  build-node-module:
+    name: Build Node Module
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 14
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+      - name: Install dependencies
+        run: yarn
+      - name: upload node_modules artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: node_modules
+          path: ./node_modules/
+
   test:
     name: Test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
+    needs: build-node-module
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: yarn
+          node-version: 14
+      - name: download node_modules artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: node_modules
+          path: ./node_modules/
       - name: Run test
         run: yarn test:coverage
         env:
@@ -26,35 +46,35 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
+    needs: build-node-module
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: yarn
+          node-version: 14
+      - name: download node_modules artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: node_modules
+          path: ./node_modules/
       - name: Run build
         run: yarn build
 
   audit:
     name: Security Audit
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [12.x]
-
+    needs: build-node-module
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js 14
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: Install dependencies
-        run: yarn
+          node-version: 14
+      - name: download node_modules artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: node_modules
+          path: ./node_modules/
       - name: Run Audit
         run: yarn sec-audit --fail-on 'critical'
