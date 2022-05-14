@@ -6,7 +6,7 @@ import { MetroMap } from "./components/map/MetroMap";
 import "./styles/App.scss";
 import MapProvider from "./contexts/MapProvider";
 import { BrowserRouter } from "react-router-dom";
-import "./config/firebaseConfig";
+// import "./config/firebaseConfig";
 import { AppHeaderBar } from "./components/AppHeaderBar/AppHeaderBar";
 import DrawerProvider from "./contexts/DrawerProvider";
 import { SideMenuDrawer } from "./components/SideMenu/SideMenuDrawer";
