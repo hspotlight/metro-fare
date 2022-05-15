@@ -68,6 +68,6 @@
   },
   "devDependencies": {
     "@hawkeyesec/scanner-cli": "^1.8.0",
-    "lodash": "^4.17.20"
+    "lodash": "^4.17.21"
   }
 }
