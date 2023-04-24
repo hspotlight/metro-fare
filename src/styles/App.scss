@@ -1,10 +1,3 @@
-.App {
-  height: calc(100% - 20px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .width-100 {
   width: 100%;
 }
@@ -19,7 +12,7 @@ select.MuiSelect-select {
 }
 
 footer {
-  background-color: #3B9BB5;
+  background-color: #3b9bb5;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -32,7 +25,7 @@ footer {
 }
 
 .divider {
-  border: 1px solid #807B7B;
+  border: 1px solid #807b7b;
   margin: 5px 0px 5px 0px;
 }
 
@@ -41,9 +34,6 @@ footer {
 }
 
 @media only screen and (max-width: 768px) {
-  .App {
-    height: 100%;
-  }
   footer {
     display: none;
   }
