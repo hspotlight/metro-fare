@@ -48,8 +48,8 @@
     "test:coverage": "yarn test --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "sec-audit": "hawkeye scan",
-    "test:e2e": "node_modules/.bin/cypress run",
-    "test:open": "node_modules/.bin/cypress open"
+    "test:e2e": "cypress run",
+    "test:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
