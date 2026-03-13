@@ -1,0 +1,42 @@
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# Build and output
+dist/
+build/
+out/
+.next/
+.nuxt/
+target/
+
+# Logs and databases
+*.log
+*.sqlite
+.pnpm-debug.log*
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Version Control
+.git/
+.svn/
+.hg/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Large Assets (Optional: if not needed for logic)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.mp4
+*.pdf
