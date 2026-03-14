@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SVG Flow Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <svg id="flow-svg"
+       viewBox="0 0 800 400"
+       width="100%"
+       height="100%"
+       style="max-width: 800px;">
+
+    <!-- Background grid -->
+    <defs>
+      <pattern id="grid-dots" width="12" height="12" patternUnits="userSpaceOnUse">
+        <circle cx="2" cy="2" r="1" fill="rgba(255,255,255,0.05)"></circle>
+      </pattern>
+
+      <!-- Icons -->
+      <symbol id="icon-coin" viewBox="0 0 20 20">
+        <circle cx="10" cy="10" r="8" fill="none" stroke="white" stroke-width="1.5" stroke-dasharray="2 2"></circle>
+        <rect x="9" y="6" width="2" height="8" fill="white"></rect>
+      </symbol>
+
+      <symbol id="icon-cash" viewBox="0 0 30 18">
+        <rect x="1" y="1" width="28" height="16" fill="none" stroke="white" stroke-width="1" stroke-dasharray="2 1"></rect>
+        <circle cx="15" cy="9" r="3" fill="white"></circle>
+      </symbol>
+    </defs>
+
+    <rect width="800" height="400" fill="url(#grid-dots)"></rect>
+
+    <!-- DATABASE block -->
+    <g transform="translate(150, 200)">
+      <path d="M-45,-35 L-15,-35 L-5,-25 L45,-25 L45,35 L-45,35 Z"
+            fill="#facc15"
+            style="filter: drop-shadow(rgba(250, 204, 21, 0.6) 0px 0px 8px);"></path>
+      <text x="0" y="65" text-anchor="middle"
+            style="font-family: 'JetBrains Mono', monospace;
+                   font-size: 14px;
+                   fill: rgb(250, 204, 21);
+                   text-transform: uppercase;
+                   letter-spacing: 3px;
+                   font-weight: 800;">
+        DATABASE
+      </text>
+    </g>
+
+    <!-- REVENUE label and guide line -->
+    <g transform="translate(650, 200)">
+      <text x="0" y="-80" text-anchor="middle"
+            style="font-family: 'JetBrains Mono', monospace;
+                   font-size: 14px;
+                   fill: rgb(102, 102, 102);
+                   text-transform: uppercase;
+                   letter-spacing: 3px;
+                   font-weight: 800;">
+        REVENUE STREAM
+      </text>
+      <line x1="-100" y1="0" x2="100" y2="0"
+            stroke="rgba(255,255,255,0.05)" stroke-width="1"></line>
+    </g>
+
+    <!-- Invisible path coins/bills will follow -->
+    <path id="flow-path"
+          d="M 150 200 C 280 120, 520 120, 650 200"
+          fill="none"
+          stroke="transparent" />
+
+    <!-- Container where JS adds moving items -->
+    <g id="particles-layer"></g>
+  </svg>
+
+  <script>
+    const svg = document.getElementById("flow-svg");
+    const path = document.getElementById("flow-path");
+    const particlesLayer = document.getElementById("particles-layer");
+
+    const TOTAL_LENGTH = path.getTotalLength();
+    const NUM_PARTICLES = 7;
+
+    function createParticle(i) {
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+
+      const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+      const isCash = i % 2 === 0;
+      use.setAttributeNS("http://www.w3.org/1999/xlink", "xlink:href",
+                         isCash ? "#icon-cash" : "#icon-coin");
+      use.setAttribute("width", isCash ? 30 : 20);
+      use.setAttribute("height", isCash ? 18 : 20);
+      use.style.filter = "drop-shadow(0 0 3px #fff)";
+
+      g.appendChild(use);
+      particlesLayer.appendChild(g);
+
+      return {
+        g,
+        isCash,
+        // start at random place on path
+        t: Math.random(),
+        // small variation in speed (5x faster)
+        speed: 0.00125 + Math.random() * 0.00125,
+        // small variation in scale
+        baseScale: 0.8 + Math.random() * 0.5,
+      };
+    }
+
+    const particles = Array.from({ length: NUM_PARTICLES }, (_, i) =>
+      createParticle(i)
+    );
+
+    function animate() {
+      particles.forEach(p => {
+        p.t = (p.t + p.speed) % 1; // loop 0..1
+        const len = p.t * TOTAL_LENGTH;
+        const pt = path.getPointAtLength(len);
+
+        const wobble = Math.sin(p.t * Math.PI * 2 + (p.isCash ? 0 : 1)) * 10;
+        const x = pt.x;
+        const y = pt.y + wobble;
+
+        const scale = p.baseScale;
+        const rotation = p.t * 720; // spin
+
+        const opacity = 0.2 + p.t * 0.8; // fade in
+
+        p.g.setAttribute(
+          "transform",
+          `translate(${x}, ${y}) scale(${scale}) rotate(${rotation})`
+        );
+        p.g.setAttribute("opacity", opacity.toFixed(2));
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+  </script>
+</body>
+</html>
