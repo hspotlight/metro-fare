@@ -33,14 +33,14 @@ const App = () => {
 
 const RealApp = () => {
   return (
-    <>
+    <div style={{ height: "100vh", display: "flex", flexDirection: "column" }}>
       <AppHeaderBar />
-      <div style={{ height: "calc(100% - 56px)" }}>
+      <div style={{ flex: 1 }}>
         <MetroMap />
         {canShowSideMenuDrawer() && <SideMenuDrawer />}
         <BottomPanel />
       </div>
-    </>
+    </div>
   );
 };
 
