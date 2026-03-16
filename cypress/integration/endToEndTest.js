@@ -3,7 +3,7 @@
 describe('Verify end to end test scenarios', function(){
 
     beforeEach(function(){
-        cy.fixture('example').then(function(data)
+        cy.fixture('test-data').then(function(data)
         {
             this.data = data
         })
@@ -37,9 +37,8 @@ describe('Verify end to end test scenarios', function(){
     })
 
     it('display price of the jouney', function(){
-        //fix price can be improve
         cy.get('.MuiGrid-grid-xs-10 > .MuiPaper-root > .MuiGrid-direction-xs-column > .MuiGrid-container > :nth-child(2)')
-        .should('contain.text', '26 Baht')
+        .should('contain.text', this.data.routePrice)
     })
 
 })
