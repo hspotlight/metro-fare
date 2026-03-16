@@ -27,8 +27,13 @@ export const AppHeaderBar = () => {
             MetroFare
           </Typography>
           {canShowSideMenuDrawer() && (
-            <IconButton edge="start" color="inherit" aria-label="menu">
-              <MenuIcon onClick={() => setSideMenu(true)} />
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={() => setSideMenu(true)}
+            >
+              <MenuIcon />
             </IconButton>
           )}
         </Grid>
