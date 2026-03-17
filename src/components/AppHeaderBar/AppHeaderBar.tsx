@@ -28,7 +28,7 @@ export const AppHeaderBar = () => {
           </Typography>
           {canShowSideMenuDrawer() && (
             <IconButton edge="start" color="inherit" aria-label="menu">
-              <MenuIcon onClick={() => setSideMenu(true)} />
+              <MenuIcon data-testid="drawer-btn" onClick={() => setSideMenu(true)} />
             </IconButton>
           )}
         </Grid>
